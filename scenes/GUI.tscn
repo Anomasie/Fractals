@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://0lk7ldvxg1uw"]
+[gd_scene load_steps=5 format=3 uid="uid://0lk7ldvxg1uw"]
 
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="1_8jsp6"]
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
+[ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="3_qdx7r"]
+[ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="3_w16mh"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -12,9 +14,47 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fcrs7")
 
+[node name="Center" type="MarginContainer" parent="."]
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Frame" type="NinePatchRect" parent="Center"]
+visibility_layer = 2
+layout_mode = 2
+texture = ExtResource("3_w16mh")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+
+[node name="Center" type="MarginContainer" parent="Center"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="BlueTexture" type="TextureRect" parent="Center/Center"]
+layout_mode = 2
+texture = ExtResource("3_qdx7r")
+
 [node name="Playground" parent="." instance=ExtResource("1_8jsp6")]
 
-[node name="LeftBar" type="MarginContainer" parent="."]
+[node name="Left" type="MarginContainer" parent="."]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -28,20 +68,46 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Lines" type="VBoxContainer" parent="LeftBar"]
+[node name="Lines" type="VBoxContainer" parent="Left"]
+visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
-[node name="Add" type="Button" parent="LeftBar/Lines"]
+[node name="Add" type="Button" parent="Left/Lines"]
+visibility_layer = 2
 layout_mode = 2
 text = "Hinzufügen"
 alignment = 0
 
-[node name="CloseAll" type="Button" parent="LeftBar/Lines"]
+[node name="CloseAll" type="Button" parent="Left/Lines"]
+visibility_layer = 2
 layout_mode = 2
 text = "Alles löschen"
 alignment = 0
 
-[connection signal="pressed" from="LeftBar/Lines/Add" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="LeftBar/Lines/CloseAll" to="." method="_on_close_all_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Screenshot" type="Button" parent="MarginContainer"]
+visibility_layer = 2
+layout_mode = 2
+text = "Screenshot"
+alignment = 2
+
+[connection signal="pressed" from="Left/Lines/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Left/Lines/CloseAll" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="MarginContainer/Screenshot" to="." method="_on_screenshot_pressed"]

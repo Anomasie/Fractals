@@ -14,3 +14,20 @@ func close_all():
 
 func close(MyRect):
 	MyRect.queue_free()
+
+func screenshot(pos, size):
+	var scr = self.get_viewport().get_texture().get_image()
+	var final = scr.get_region(Rect2i(
+		pos.x,
+		pos.y,
+		size.x,
+		size.y
+	))
+	for x in final.get_width():
+		for y in final.get_height():
+			if final.get_pixel(x,y).get_luminance() > 0.5:
+				final.set_pixel(x,y, Color.TRANSPARENT)
+	# draw children
+	for child in self.get_children():
+		if child is MarginContainer:
+			child.paint(final)
