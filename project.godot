@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fractals"
-run/main_scene="res://scenes/TextureRect.tscn"
+run/main_scene="res://scenes/GUI.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom="res://assets/MainTheme.tres"
 
 [rendering]
 

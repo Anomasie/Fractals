@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c42j2c4nk8yk"]
+
+[ext_resource type="FontFile" uid="uid://r82u48vbfwts" path="res://assets/fonts/fractal_font.otf" id="1_mc5vt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afnlq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4yvbc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ut4m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bliwb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kkuj4"]
+
+[resource]
+default_font = ExtResource("1_mc5vt")
+default_font_size = 32
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0.533333, 0.94902, 0.94902, 1)
+Button/colors/font_pressed_color = Color(0, 0.72549, 0.72549, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_afnlq")
+Button/styles/focus = SubResource("StyleBoxEmpty_4yvbc")
+Button/styles/hover = SubResource("StyleBoxEmpty_5ut4m")
+Button/styles/normal = SubResource("StyleBoxEmpty_bliwb")
+Button/styles/pressed = SubResource("StyleBoxEmpty_kkuj4")

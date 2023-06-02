@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://0lk7ldvxg1uw"]
+
+[ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="1_8jsp6"]
+[ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fcrs7")
+
+[node name="Playground" parent="." instance=ExtResource("1_8jsp6")]
+
+[node name="LeftBar" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -31.5
+offset_right = 128.0
+offset_bottom = 31.5
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Lines" type="VBoxContainer" parent="LeftBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Add" type="Button" parent="LeftBar/Lines"]
+layout_mode = 2
+text = "Hinzufügen"
+alignment = 0
+
+[node name="CloseAll" type="Button" parent="LeftBar/Lines"]
+layout_mode = 2
+text = "Alles löschen"
+alignment = 0
+
+[connection signal="pressed" from="LeftBar/Lines/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="LeftBar/Lines/CloseAll" to="." method="_on_close_all_pressed"]

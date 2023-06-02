@@ -1,6 +1,8 @@
 extends MarginContainer
 
-@onready var Rect = $TextureContainer/TextureRect
+signal close_me
+
+@onready var Rect = $TextureContainer/Rect
 
 
 var editing_position = false
@@ -59,3 +61,7 @@ func turn_rect(turn):
 	self.rotation = turn
 	var current_rect_origin = (size/2).rotated(self.rotation)
 	self.position = rect_origin - current_rect_origin
+
+
+func _on_close_button_pressed():
+	close_me.emit()
