@@ -1,10 +1,8 @@
 extends MarginContainer
 
 signal close_me
-signal hidden_ui
 
 @onready var Rect = $TextureContainer/Rect
-@onready var rect_image = Rect.get_texture().get_image()
 
 var editing_position = false
 var editing_width = false
@@ -51,7 +49,6 @@ func _on_turn_button_pressed():
 	rect_origin = position + (size/2).rotated(self.rotation)
 
 func resize_rect(width, height):
-	paint(rect_image, width, height)
 	if width >= 0:
 		Rect.custom_minimum_size.x = width
 		self.size.x = width
@@ -66,9 +63,3 @@ func turn_rect(turn):
 
 func _on_close_button_pressed():
 	close_me.emit()
-
-func paint(image, width=Rect.size.x, height=Rect.size.y):
-	rect_image = image.duplicate()
-	image.resize(max(1, width), max(1, height))
-	var texture = ImageTexture.create_from_image(image)
-	Rect.texture= texture

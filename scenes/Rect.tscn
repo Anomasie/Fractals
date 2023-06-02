@@ -65,8 +65,9 @@ atlas = ExtResource("3_bnldn")
 region = Rect2(16, 32, 16, 16)
 
 [node name="Container" type="MarginContainer"]
-offset_right = 507.0
-offset_bottom = 358.0
+custom_minimum_size = Vector2(64, 64)
+offset_right = 48.0
+offset_bottom = 48.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_xqf1l")
