@@ -62,4 +62,19 @@ offset_bottom = 2.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="Lines" type="VBoxContainer" parent="Right"]
+layout_mode = 2
+
+[node name="MoreButton" type="Button" parent="Right/Lines"]
+layout_mode = 2
+text = "Mehr Punkte"
+alignment = 2
+
+[node name="SaveButton" type="Button" parent="Right/Lines"]
+layout_mode = 2
+text = "Speichern"
+alignment = 2
+
 [connection signal="pressed" from="Left/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Right/Lines/MoreButton" to="." method="_on_more_button_pressed"]
+[connection signal="pressed" from="Right/Lines/SaveButton" to="." method="_on_save_button_pressed"]

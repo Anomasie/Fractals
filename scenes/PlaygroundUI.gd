@@ -19,5 +19,4 @@ func _on_close_all_pressed():
 
 func _on_results_pressed():
 	var ifs = Playground.get_ifs(BlueTexture.get_global_position())
-	var results = ifs.calculate_fractal()
-	self.get_parent().show_results(results)
+	self.get_parent().show_results(ifs)
