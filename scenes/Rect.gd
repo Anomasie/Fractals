@@ -3,6 +3,7 @@ class_name ResizableRect
 
 signal close_me
 signal color_me
+signal focus_me
 
 @onready var Rect = $TextureContainer/Rect
 
@@ -36,14 +37,17 @@ func _input(event):
 func _on_move_button_pressed():
 	editing_position = true
 	rect_origin = get_viewport().get_mouse_position() - self.position
+	focus_me.emit()
 
 func _on_width_button_pressed():
 	editing_width = true
 	rect_origin = Rect.get_global_position()
+	focus_me.emit()
 
 func _on_height_button_pressed():
 	editing_height = true
 	rect_origin = Rect.get_global_position()
+	focus_me.emit()
 
 func _on_diag_button_pressed():
 	_on_width_button_pressed()
@@ -52,6 +56,7 @@ func _on_diag_button_pressed():
 func _on_turn_button_pressed():
 	editing_turn = true
 	rect_origin = position + (size/2).rotated(self.rotation)
+	focus_me.emit()
 
 func resize_rect(width, height):
 	# prevent rect from being negative sized
@@ -76,6 +81,7 @@ func _on_close_button_pressed():
 
 func _on_color_button_pressed():
 	color_me.emit()
+	focus_me.emit()
 
 func color_rect(color):
 	Rect.self_modulate = color

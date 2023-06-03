@@ -2,11 +2,16 @@ extends Node2D
 
 var Rect = load("res://scenes/Rect.tscn")
 
+var counter = 0
+
 func add(pos):
 	var Instance = Rect.instantiate()
+	Instance.name = "Rect"+str(counter)
+	counter += 1
 	Instance.position = pos - Vector2(64,64)/2
 	Instance.close_me.connect(close.bind(Instance))
 	Instance.color_me.connect(color.bind(Instance))
+	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
 
 func close_all():
@@ -18,6 +23,9 @@ func close(MyRect):
 
 func color(MyRect):
 	get_parent().color(MyRect)
+
+func focus(MyRect):
+	self.move_child(MyRect, -1)
 
 func get_ifs(origin):
 	var ifs = IFS.new()
