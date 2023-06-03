@@ -71,17 +71,41 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Add" type="Button" parent="Left/Lines"]
+[node name="AddButton" type="Button" parent="Left/Lines"]
 visibility_layer = 2
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Hinzufügen"
 alignment = 0
 
-[node name="CloseAll" type="Button" parent="Left/Lines"]
+[node name="CloseAllButton" type="Button" parent="Left/Lines"]
 visibility_layer = 2
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Alles löschen"
 alignment = 0
+
+[node name="ColorBar" type="VBoxContainer" parent="Left/Lines"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="ColorPicker" type="ColorPicker" parent="Left/Lines/ColorBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+color = Color(0, 0, 0, 1)
+edit_alpha = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="ReadyButton" type="Button" parent="Left/Lines/ColorBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Farbe festlegen"
 
 [node name="Right" type="MarginContainer" parent="."]
 visibility_layer = 2
@@ -94,12 +118,13 @@ anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Results" type="Button" parent="Right"]
+[node name="ResultsButton" type="Button" parent="Right"]
 visibility_layer = 2
 layout_mode = 2
 text = "Ergebnis"
 alignment = 2
 
-[connection signal="pressed" from="Left/Lines/Add" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="Left/Lines/CloseAll" to="." method="_on_close_all_pressed"]
-[connection signal="pressed" from="Right/Results" to="." method="_on_results_pressed"]
+[connection signal="pressed" from="Left/Lines/AddButton" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Left/Lines/CloseAllButton" to="." method="_on_close_all_pressed"]
+[connection signal="color_changed" from="Left/Lines/ColorBar/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="Right/ResultsButton" to="." method="_on_results_pressed"]

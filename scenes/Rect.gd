@@ -1,6 +1,8 @@
 extends MarginContainer
+class_name ResizableRect
 
 signal close_me
+signal color_me
 
 @onready var Rect = $TextureContainer/Rect
 
@@ -10,6 +12,9 @@ var editing_height = false
 var editing_turn = false
 
 var rect_origin
+
+func _ready():
+	color_rect(Color.BLACK)
 
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
@@ -66,3 +71,11 @@ func turn_rect(turn):
 
 func _on_close_button_pressed():
 	close_me.emit()
+
+# colors
+
+func _on_color_button_pressed():
+	color_me.emit()
+
+func color_rect(color):
+	Rect.self_modulate = color
