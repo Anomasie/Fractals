@@ -20,6 +20,9 @@ func _on_add_pressed():
 
 func _on_close_all_pressed():
 	Playground.close_all()
+	editing_color = false
+	rect_editing_color = null
+	ColorBar.hide()
 
 func _on_results_pressed():
 	var ifs = Playground.get_ifs(BlueTexture.get_global_position())
@@ -41,6 +44,7 @@ func color(MyRect):
 	ColorBar.show()
 	await ColorBarReadyButton.pressed
 	editing_color = false
+	rect_editing_color = null
 	ColorBar.hide()
 
 func _on_color_picker_color_changed(color):
