@@ -12,10 +12,13 @@ func open(results):
 			entry.x * Global.LOUPE.x,
 			entry.y * Global.LOUPE.y
 		)
-		if entry.x >= 0 and entry.x <= Global.LOUPE.x:
-			if entry.y >= 0 and entry.y <= Global.LOUPE.y:
+		if entry.x >= 0 and entry.x < Global.LOUPE.x:
+			if entry.y >= 0 and entry.y < Global.LOUPE.y:
 				image.set_pixel(entry.x, entry.y, Color.BLACK)
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
 	Result.custom_minimum_size = Global.LOUPE
 	show()
+
+func _on_back_button_pressed():
+	self.get_parent().show_playground()

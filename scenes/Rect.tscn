@@ -70,6 +70,10 @@ offset_right = 48.0
 offset_bottom = 48.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 script = ExtResource("1_xqf1l")
 metadata/_edit_group_ = true
 

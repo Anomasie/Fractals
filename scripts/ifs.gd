@@ -13,7 +13,7 @@ func random_walk(pos, length=1, distribution=[]):
 	else:
 		return pos
 
-func calculate_fractal(start=Vector2i(0.5,0.5), delay=0, points=100):
+func calculate_fractal(start=Vector2(0.5,0.5), delay=10, points=10000):
 	var result = []
 	# check if system is empty
 	if len(systems) > 0:

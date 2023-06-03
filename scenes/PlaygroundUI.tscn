@@ -28,6 +28,10 @@ offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="Frame" type="NinePatchRect" parent="Center"]
 visibility_layer = 2
@@ -61,17 +65,12 @@ offset_top = -31.5
 offset_right = 128.0
 offset_bottom = 31.5
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
 
 [node name="Lines" type="VBoxContainer" parent="Left"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/separation = 16
 
 [node name="Add" type="Button" parent="Left/Lines"]
 visibility_layer = 2
@@ -95,10 +94,6 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
 
 [node name="Results" type="Button" parent="Right"]
 visibility_layer = 2

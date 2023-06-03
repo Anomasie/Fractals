@@ -4,6 +4,9 @@ extends Control
 @onready var ResultUI = $ResultUI
 
 func _ready():
+	show_playground()
+
+func show_playground():
 	PlaygroundUI.show()
 	ResultUI.hide()
 
