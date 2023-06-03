@@ -6,7 +6,7 @@ extends Control
 var rot = randi_range(0,360-1)
 
 func _ready():
-	BlueTexture.custom_minimum_size = Global.LOUPE
+	resize()
 
 func _on_add_pressed():
 	Playground.add(self.get_global_position() + self.size / 2 + Vector2(128,0).rotated(rot))
@@ -20,3 +20,6 @@ func _on_close_all_pressed():
 func _on_results_pressed():
 	var ifs = Playground.get_ifs(BlueTexture.get_global_position())
 	self.get_parent().show_results(ifs)
+
+func resize():
+	BlueTexture.custom_minimum_size = Global.LOUPE

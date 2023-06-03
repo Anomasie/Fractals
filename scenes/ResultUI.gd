@@ -42,9 +42,11 @@ func _on_more_button_pressed():
 
 func _on_save_button_pressed():
 	get_counter()
-	var text = "fractal" + str(counter) + ".png"
+	var filename = "fractal" + str(counter) + ".png"
 	var image = Result.get_texture().get_image()
-	image.save_png(Global.SAVE_PATH + text)
+	var buf = image.save_png_to_buffer()
+	JavaScriptBridge.download_buffer(buf, filename)
+	image.save_png(Global.SAVE_PATH + filename)
 
 func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(counter) + ".png"):
