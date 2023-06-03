@@ -49,12 +49,15 @@ func _on_turn_button_pressed():
 	rect_origin = position + (size/2).rotated(self.rotation)
 
 func resize_rect(width, height):
-	if width >= 0:
-		Rect.custom_minimum_size.x = width
-		self.size.x = width
-	if height >= 0:
-		Rect.custom_minimum_size.y = height
-		self.size.y = height
+	# prevent rect from being negative sized
+	# or too big (i.e. not a contraction)
+	width = max(min(width, Global.LOUPE.x-1), 0)
+	height = max(min(height, Global.LOUPE.y-1), 0)
+	# change size
+	Rect.custom_minimum_size.x = width
+	self.size.x = width
+	Rect.custom_minimum_size.y = height
+	self.size.y = height
 
 func turn_rect(turn):
 	self.rotation = turn

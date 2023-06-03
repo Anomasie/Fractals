@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://uat15tg6ijgh"]
+
+[ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
+[ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/PlaygroundUI.tscn" id="1_kg3c1"]
+[ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/ResultUI.tscn" id="2_wgaj6"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fcrs7")
+
+[node name="PlaygroundUI" parent="." instance=ExtResource("1_kg3c1")]
+layout_mode = 1
+
+[node name="ResultUI" parent="." instance=ExtResource("2_wgaj6")]
+visible = false
+layout_mode = 1

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Fractals"
-run/main_scene="res://scenes/PlaygroundUI.tscn"
+run/main_scene="res://scenes/GUI.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://scenes/GLOBAL.gd"
 
 [display]
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=4 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
-[ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="3_x6prp"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
 
 [node name="PlaygroundUI" type="Control"]
@@ -40,7 +39,6 @@ patch_margin_right = 14
 patch_margin_bottom = 14
 
 [node name="Center" type="MarginContainer" parent="Center"]
-custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
@@ -48,8 +46,8 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="BlueTexture" type="TextureRect" parent="Center/Center"]
+custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
-texture = ExtResource("3_x6prp")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
@@ -110,3 +108,4 @@ alignment = 2
 
 [connection signal="pressed" from="Left/Lines/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Left/Lines/CloseAll" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="Right/Results" to="." method="_on_results_pressed"]
