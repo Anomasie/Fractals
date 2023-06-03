@@ -6,6 +6,7 @@ func add(pos):
 	var Instance = Rect.instantiate()
 	Instance.position = pos - Vector2(64,64)/2
 	Instance.close_me.connect(close.bind(Instance))
+	Instance.color_me.connect(color.bind(Instance))
 	self.add_child(Instance)
 
 func close_all():
@@ -14,6 +15,9 @@ func close_all():
 
 func close(MyRect):
 	MyRect.queue_free()
+
+func color(MyRect):
+	get_parent().color(MyRect)
 
 func get_ifs(origin):
 	var ifs = IFS.new()
@@ -29,5 +33,6 @@ func get_ifs(origin):
 			child.Rect.size.y / Global.LOUPE.y
 		)
 		contraction.rotation = child.rotation
+		contraction.color = child.Rect.self_modulate
 		ifs.systems.append(contraction)
 	return ifs

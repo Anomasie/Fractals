@@ -3,6 +3,7 @@ extends Control
 @onready var Playground = $Playground
 @onready var BlueTexture = $Center/Center/BlueTexture
 @onready var ColorBar = $Left/Lines/ColorBar
+@onready var ColorBarPicker = $Left/Lines/ColorBar/ColorPicker
 @onready var ColorBarReadyButton = $Left/Lines/ColorBar/ReadyButton
 
 var rot = randi_range(0,360-1)
@@ -35,6 +36,7 @@ var rect_editing_color = null
 func color(MyRect):
 	editing_color = true
 	rect_editing_color = MyRect
+	MyRect.Rect.self_modulate = ColorBarPicker.color
 	ColorBar.show()
 	await ColorBarReadyButton.pressed
 	editing_color = false

@@ -5,8 +5,12 @@ var systems = [] # array of contractions
 func random_walk(pos, length=1, distribution=[]):
 	if length > 0:
 		if len(distribution) == 0:
+			var fs = systems[ randi_range(0, len(systems)-1) ]
+			var result = point.new()
+			result.position = fs.apply(pos.position)
+			result.color = fs.mix(pos.color)
 			return random_walk(
-				systems[ randi_range(0, len(systems)-1) ].apply(pos),
+				result,
 				length - 1,
 				distribution
 			)
@@ -14,15 +18,18 @@ func random_walk(pos, length=1, distribution=[]):
 			var random = randf_range(0, distribution[-1])
 			for i in len(distribution):
 				if random <= distribution[i]:
+					var result = point.new()
+					result.position = systems[ i ].apply(pos.position)
+					result.color = systems[ i ].mix(pos.color)
 					return random_walk(
-						systems[ i ].apply(pos),
+						result,
 						length - 1,
 						distribution
 					)
 	else:
 		return pos
 
-func calculate_fractal(start=Vector2(0.5,0.5), delay=10, points=10000):
+func calculate_fractal(start=point.new(), delay=10, points=10000):
 	var result = []
 	# check if system is empty
 	if len(systems) > 0:

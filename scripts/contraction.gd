@@ -3,9 +3,19 @@ class_name Contraction
 var translation = Vector2i.ZERO
 var contract = Vector2i(0.5,0.5)
 var rotation = 0
+var color = Color.BLACK
 
 func apply(p):
-	p = Vector2(p.x * contract.x, p.y * contract.y)
-	p = p.rotated(rotation)
-	p += translation
+	p = Vector2(p.x * contract.x, p.y * contract.y) # scale
+	p = p.rotated(rotation) # rotate
+	p += translation # translate
 	return p
+
+func mix(c):
+	c.r = linear(c.r, color.r)
+	c.g = linear(c.g, color.g)
+	c.b = linear(c.b, color.b)
+	return c
+
+func linear(a, b, lambda=0.5):
+	return lambda * a + (1 - lambda) * b

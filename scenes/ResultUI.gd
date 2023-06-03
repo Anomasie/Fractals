@@ -22,13 +22,13 @@ func paint(results):
 	var image = Result.get_texture().get_image()
 	# paint image
 	for entry in results:
-		entry = Vector2i(
-			entry.x * Global.LOUPE.x,
-			entry.y * Global.LOUPE.y
+		var real_position = Vector2i(
+			entry.position.x * Global.LOUPE.x,
+			entry.position.y * Global.LOUPE.y
 		)
-		if entry.x >= 0 and entry.x < Global.LOUPE.x:
-			if entry.y >= 0 and entry.y < Global.LOUPE.y:
-				image.set_pixel(entry.x, entry.y, Color.BLACK)
+		if real_position.x >= 0 and real_position.x < Global.LOUPE.x:
+			if real_position.y >= 0 and real_position.y < Global.LOUPE.y:
+				image.set_pixel(real_position.x, real_position.y, entry.color)
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
 
@@ -36,9 +36,7 @@ func _on_back_button_pressed():
 	self.get_parent().show_playground()
 
 func _on_more_button_pressed():
-	paint(current_ifs.calculate_fractal(
-		Vector2( randf_range(0,1), randf_range(0,1) )# random start position
-	))
+	paint(current_ifs.calculate_fractal( point.new() ))
 
 func _on_save_button_pressed():
 	get_counter()
