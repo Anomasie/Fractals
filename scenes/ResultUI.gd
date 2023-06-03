@@ -3,6 +3,7 @@ extends Control
 @onready var Result = $Center/Result
 
 var current_ifs = IFS.new()
+var counter = 0
 
 func open(ifs):
 	current_ifs = ifs
@@ -40,6 +41,11 @@ func _on_more_button_pressed():
 	))
 
 func _on_save_button_pressed():
-	var text = "Bersley_Farn.png"
+	get_counter()
+	var text = "fractal" + str(counter) + ".png"
 	var image = Result.get_texture().get_image()
 	image.save_png(Global.SAVE_PATH + text)
+
+func get_counter():
+	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(counter) + ".png"):
+		counter += 1
