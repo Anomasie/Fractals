@@ -36,6 +36,7 @@ var rect_editing_color = null
 func color(MyRect):
 	editing_color = true
 	rect_editing_color = MyRect
+	print(MyRect, " wants a color")
 	MyRect.Rect.self_modulate = ColorBarPicker.color
 	ColorBar.show()
 	await ColorBarReadyButton.pressed
