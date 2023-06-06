@@ -1,6 +1,10 @@
 extends MarginContainer
 class_name ResizableRect
 
+var mouse_in = false
+
+# editing
+
 signal close_me
 signal color_me
 signal focus_me
@@ -19,6 +23,8 @@ func _ready():
 
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
+		if editing_position or editing_turn or editing_width or editing_height:
+			focus_me.emit()
 		if editing_position:
 			self.position = event.position - rect_origin
 		elif editing_turn:
@@ -29,10 +35,10 @@ func _input(event):
 			if editing_height:
 				resize_rect(Rect.custom_minimum_size.x, (event.position - rect_origin).dot(Vector2(0, 1).rotated(self.rotation)))
 	if self.visible and event is InputEventMouseButton and not event.pressed:
-		editing_position = false
-		editing_width = false
-		editing_height = false
-		editing_turn = false
+			editing_position = false
+			editing_width = false
+			editing_height = false
+			editing_turn = false
 
 func _on_move_button_pressed():
 	editing_position = true
@@ -77,11 +83,44 @@ func turn_rect(turn):
 func _on_close_button_pressed():
 	close_me.emit()
 
-# colors
+## colors
 
 func _on_color_button_pressed():
 	color_me.emit()
-	focus_me.emit()
 
 func color_rect(color):
 	Rect.self_modulate = color
+
+# load contraction
+
+func get_contraction(origin):
+	var contraction = Contraction.new()
+	contraction.translation = Vector2(
+		(self.Rect.get_global_position().x - origin.x) / Global.LOUPE.x,
+		(self.Rect.get_global_position().y - origin.y) / Global.LOUPE.y
+	)
+	contraction.contract = Vector2(
+		self.Rect.size.x / Global.LOUPE.x,
+		self.Rect.size.y / Global.LOUPE.y
+	)
+	contraction.rotation = self.rotation
+	contraction.color = self.Rect.self_modulate
+	return contraction
+
+# advanced options
+
+func update_to(contr, origin):
+	# translation
+	var real_position = Vector2(
+		contr.translation.x * Global.LOUPE.x,
+		contr.translation.y * Global.LOUPE.y
+	)
+	self.position = (real_position - Rect.position) + origin
+	# contraction
+	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
+	# rotation
+	self.rotation = contr.rotation
+	# mirror
+	
+	# color
+	Rect.self_modulate = contr.color

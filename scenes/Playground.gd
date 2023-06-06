@@ -13,34 +13,32 @@ func add(pos):
 	Instance.color_me.connect(color.bind(Instance))
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
+	get_parent().focus(Instance)
 
 func close_all():
 	for child in self.get_children():
 		close(child)
+	get_parent().focus(null)
 
 func close(MyRect):
 	MyRect.queue_free()
+	if self.get_child_count() <= 1:
+		get_parent().focus(null)
+	else:
+		get_parent().focus(self.get_child(0))
 
 func color(MyRect):
 	get_parent().color(MyRect)
+	get_parent().focus(MyRect)
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)
+	get_parent().focus(MyRect)
 
 func get_ifs(origin):
 	var ifs = IFS.new()
 	# get contractions of ifs
 	for child in self.get_children():
-		var contraction = Contraction.new()
-		contraction.translation = Vector2(
-			(child.Rect.get_global_position().x - origin.x) / Global.LOUPE.x,
-			(child.Rect.get_global_position().y - origin.y) / Global.LOUPE.y
-		)
-		contraction.contract = Vector2(
-			child.Rect.size.x / Global.LOUPE.x,
-			child.Rect.size.y / Global.LOUPE.y
-		)
-		contraction.rotation = child.rotation
-		contraction.color = child.Rect.self_modulate
+		var contraction = child.get_contraction(origin)
 		ifs.systems.append(contraction)
 	return ifs

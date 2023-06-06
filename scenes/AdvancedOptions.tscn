@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci4h23rvdej3t"]
+
+[ext_resource type="Script" path="res://scenes/AdvancedOptions.gd" id="1_jbv3n"]
+
+[node name="AdvancedOptions" type="VBoxContainer"]
+script = ExtResource("1_jbv3n")
+
+[node name="TranslationLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Verschiebung"
+horizontal_alignment = 2
+
+[node name="TranslationBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TranslationX" type="SpinBox" parent="TranslationBox"]
+layout_mode = 2
+min_value = -1.0
+max_value = 2.0
+step = 0.01
+
+[node name="TranslationY" type="SpinBox" parent="TranslationBox"]
+layout_mode = 2
+min_value = -1.0
+max_value = 2.0
+step = 0.01
+
+[node name="ContractionLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Kontraktion"
+horizontal_alignment = 2
+
+[node name="ContractionBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ContractionX" type="SpinBox" parent="ContractionBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="ContractionY" type="SpinBox" parent="ContractionBox"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="RotationBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Rotation" type="SpinBox" parent="RotationBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 359.9
+step = 0.1
+suffix = "°"
+
+[node name="RotationLabel" type="Label" parent="RotationBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rotation"
+horizontal_alignment = 2
+
+[node name="MirrorBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Mirror" type="CheckButton" parent="MirrorBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MirrorLabel" type="Label" parent="MirrorBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "gespiegelt"
+horizontal_alignment = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Schließen"
+alignment = 2
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

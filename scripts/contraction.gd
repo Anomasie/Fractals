@@ -1,8 +1,9 @@
 class_name Contraction
 
-var translation = Vector2i.ZERO
-var contract = Vector2i(0.5,0.5)
+var translation = Vector2.ZERO
+var contract = Vector2(0.5,0.5)
 var rotation = 0
+var mirrored = false
 var color = Color.BLACK
 
 func apply(p):
