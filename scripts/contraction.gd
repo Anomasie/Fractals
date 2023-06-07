@@ -26,7 +26,10 @@ func linear(a, b, lambda=0.5):
 static func from_dict(dict):
 	var contr = Contraction.new()
 	if dict.has("translation"):
-		contr.translation = dict["translation"]
+		contr.translation = Vector2(
+			dict["translation"].x,
+			1 - dict["translation"].y
+		)
 	if dict.has("contract"):
 		contr.contract = dict["contract"]
 	if dict.has("rotation"):

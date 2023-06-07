@@ -118,7 +118,6 @@ func update_to(contr, origin):
 		contr.translation.y * Global.LOUPE.y
 	)
 	self.set_global_position( (real_position - Vector2(8,8)) + origin )
-	print(contr.translation, ", ", origin, " -> ", self.position)
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation

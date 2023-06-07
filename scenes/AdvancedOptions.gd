@@ -29,10 +29,14 @@ func load_ui(contraction):
 	# see below
 	if contraction.rotation == 0: # otherwise, weird rounding errors occur
 		Rotation.value = 0
-	elif contraction.rotation / (2 * PI) * 360 < 0:
-		Rotation.value = - contraction.rotation / (2 * PI) * 360
 	else:
-		Rotation.value = 360 - contraction.rotation / (2 * PI) * 360
+		var rot_value = 360 - contraction.rotation / (2 * PI) * 360
+		while rot_value < 0 or rot_value >= 360:
+			if rot_value < 0:
+				rot_value += 360
+			else:
+				rot_value -= 360
+		Rotation.value = rot_value
 	Mirror.button_pressed = contraction.mirrored
 
 func read_ui():

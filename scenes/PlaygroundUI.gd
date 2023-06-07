@@ -28,7 +28,9 @@ func _on_close_all_pressed():
 	Playground.close_all()
 	editing_color = false
 	rect_editing_color = null
+	CurrentRect = null
 	ColorBar.hide()
+	_on_advanced_options_close_me()
 	_on_presets_close_me()
 
 func _on_results_pressed():
