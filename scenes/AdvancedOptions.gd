@@ -27,7 +27,9 @@ func load_ui(contraction):
 	ContractX.value = contraction.contract.x
 	ContractY.value = contraction.contract.y
 	# see below
-	if contraction.rotation / (2 * PI) * 360 < 0:
+	if contraction.rotation == 0: # otherwise, weird rounding errors occur
+		Rotation.value = 0
+	elif contraction.rotation / (2 * PI) * 360 < 0:
 		Rotation.value = - contraction.rotation / (2 * PI) * 360
 	else:
 		Rotation.value = 360 - contraction.rotation / (2 * PI) * 360

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=4 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
+[ext_resource type="PackedScene" uid="uid://coy1fxvo8tcdq" path="res://scenes/SizeOptions.tscn" id="3_lnfao"]
 
 [node name="ResultUI" type="Control"]
 layout_mode = 3
@@ -64,6 +65,16 @@ grow_vertical = 2
 [node name="Lines" type="VBoxContainer" parent="Right"]
 layout_mode = 2
 
+[node name="SizeButton" type="Button" parent="Right/Lines"]
+layout_mode = 2
+text = "Auflösung
+ändern"
+alignment = 2
+
+[node name="SizeOptions" parent="Right/Lines" instance=ExtResource("3_lnfao")]
+visible = false
+layout_mode = 2
+
 [node name="MoreButton" type="Button" parent="Right/Lines"]
 layout_mode = 2
 text = "Mehr Punkte"
@@ -75,5 +86,8 @@ text = "Speichern"
 alignment = 2
 
 [connection signal="pressed" from="Left/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Right/Lines/SizeButton" to="." method="_on_size_button_pressed"]
+[connection signal="close_me" from="Right/Lines/SizeOptions" to="." method="_on_size_options_close_me"]
+[connection signal="value_changed" from="Right/Lines/SizeOptions" to="." method="_on_size_options_value_changed"]
 [connection signal="pressed" from="Right/Lines/MoreButton" to="." method="_on_more_button_pressed"]
 [connection signal="pressed" from="Right/Lines/SaveButton" to="." method="_on_save_button_pressed"]

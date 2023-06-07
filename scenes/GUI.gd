@@ -19,4 +19,4 @@ func show_playground():
 
 func show_results(results):
 	PlaygroundUI.hide()
-	ResultUI.open(results)
+	ResultUI.open(results, true)

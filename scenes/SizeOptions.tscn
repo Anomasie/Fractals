@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://coy1fxvo8tcdq"]
+
+[ext_resource type="Script" path="res://scenes/SizeOptions.gd" id="1_7an8l"]
+
+[node name="SizeOptions" type="VBoxContainer"]
+script = ExtResource("1_7an8l")
+
+[node name="SizeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Aktuelle
+Bildauflösung"
+horizontal_alignment = 2
+
+[node name="Columns" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SizeX" type="SpinBox" parent="Columns"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1024.0
+page = 1.0
+value = 512.0
+suffix = "px"
+
+[node name="SizeY" type="SpinBox" parent="Columns"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1024.0
+page = 1.0
+value = 512.0
+suffix = "px"
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 2
+text = "Zurücksetzen"
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Schließen"
+alignment = 2
+
+[connection signal="value_changed" from="Columns/SizeX" to="." method="_on_size_x_value_changed"]
+[connection signal="value_changed" from="Columns/SizeY" to="." method="_on_size_y_value_changed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

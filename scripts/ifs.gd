@@ -53,5 +53,4 @@ func get_distribution():
 	for function in systems:
 		sum += function.contract.x * function.contract.y
 		distribution.append(sum)
-	print(distribution)
 	return distribution

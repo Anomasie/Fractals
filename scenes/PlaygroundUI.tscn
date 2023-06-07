@@ -129,6 +129,7 @@ Einstellungen"
 alignment = 2
 
 [node name="AdvancedOptions" parent="Right/Lines" instance=ExtResource("4_yd3uv")]
+visible = false
 layout_mode = 2
 
 [node name="PresetButton" type="Button" parent="Right/Lines"]
