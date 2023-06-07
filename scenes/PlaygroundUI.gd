@@ -22,12 +22,14 @@ func _on_add_pressed():
 	rot += 4
 	if rot >= 360:
 		rot -= 360
+	_on_presets_close_me()
 
 func _on_close_all_pressed():
 	Playground.close_all()
 	editing_color = false
 	rect_editing_color = null
 	ColorBar.hide()
+	_on_presets_close_me()
 
 func _on_results_pressed():
 	var ifs = Playground.get_ifs( BlueTexture.get_global_position() )

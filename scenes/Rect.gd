@@ -98,8 +98,8 @@ func color_rect(color):
 func get_contraction(origin):
 	var contraction = Contraction.new()
 	contraction.translation = Vector2(
-		(self.Rect.get_global_position().x - origin.x + 8) / Global.LOUPE.x,
-		(self.Rect.get_global_position().y - origin.y + 8) / Global.LOUPE.y
+		(self.get_global_position().x - origin.x + 8) / Global.LOUPE.x,
+		(self.get_global_position().y - origin.y + 8) / Global.LOUPE.y
 	)
 	contraction.contract = Vector2(
 		self.Rect.size.x / Global.LOUPE.x,
@@ -117,7 +117,8 @@ func update_to(contr, origin):
 		contr.translation.x * Global.LOUPE.x,
 		contr.translation.y * Global.LOUPE.y
 	)
-	self.position = (real_position - Rect.position - Vector2(8,8)) + origin
+	self.set_global_position( (real_position - Vector2(8,8)) + origin )
+	print(contr.translation, ", ", origin, " -> ", self.position)
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation

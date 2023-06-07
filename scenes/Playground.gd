@@ -24,10 +24,7 @@ func close_all():
 
 func close(MyRect):
 	MyRect.queue_free()
-	if self.get_child_count() <= 1:
-		get_parent().focus(null)
-	else:
-		get_parent().focus(self.get_child(0))
+	get_parent().focus(null)
 
 func color(MyRect):
 	get_parent().color(MyRect)
