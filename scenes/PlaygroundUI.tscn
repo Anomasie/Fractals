@@ -72,6 +72,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
+[node name="DuplicateButton" type="Button" parent="Left/Lines"]
+layout_mode = 2
+text = "Duplizieren"
+alignment = 0
+
 [node name="AddButton" type="Button" parent="Left/Lines"]
 visibility_layer = 2
 layout_mode = 2
@@ -87,6 +92,7 @@ text = "Alles löschen"
 alignment = 0
 
 [node name="ColorBar" type="VBoxContainer" parent="Left/Lines"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 0
@@ -144,6 +150,7 @@ layout_mode = 2
 text = "Ergebnis"
 alignment = 2
 
+[connection signal="pressed" from="Left/Lines/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Left/Lines/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Left/Lines/CloseAllButton" to="." method="_on_close_all_pressed"]
 [connection signal="color_changed" from="Left/Lines/ColorBar/ColorPicker" to="." method="_on_color_picker_color_changed"]

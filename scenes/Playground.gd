@@ -4,7 +4,7 @@ var Rect = load("res://scenes/Rect.tscn")
 
 var counter = 0
 
-func add(pos):
+func add(pos, duplicating=false):
 	var Instance = Rect.instantiate()
 	Instance.name = "Rect"+str(counter)
 	counter += 1
@@ -14,6 +14,8 @@ func add(pos):
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
 	get_parent().focus(Instance)
+	if duplicating:
+		return Instance
 
 func close_all():
 	for child in self.get_children():
@@ -30,6 +32,12 @@ func close(MyRect):
 func color(MyRect):
 	get_parent().color(MyRect)
 	get_parent().focus(MyRect)
+
+func duplicate_rect(MyRect, origin):
+	# add some child
+	var Instance = await add(MyRect.position, true)
+	# update child's values to wanted ones
+	Instance.update_to( MyRect.get_contraction(origin), origin )
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)

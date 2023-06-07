@@ -59,8 +59,11 @@ func _on_color_picker_color_changed(new_color):
 
 # advanced options
 
+signal focus_ready
+
 @onready var AdvancedButton = $Right/Lines/AdvancedButton
 @onready var AdvancedOptions = $Right/Lines/AdvancedOptions
+@onready var DuplicateButton = $Left/Lines/DuplicateButton
 
 var CurrentRect = null
 
@@ -72,6 +75,7 @@ func focus(Rect = CurrentRect):
 		_on_advanced_options_close_me()
 		# and hide advanced option-button
 		AdvancedButton.hide()
+		DuplicateButton.hide()
 	# if you are focusing something:
 	## update AdvancedOptions
 	elif AdvancedOptions.visible:
@@ -79,6 +83,8 @@ func focus(Rect = CurrentRect):
 	## open advanced option-button
 	else:
 		AdvancedButton.show()
+		DuplicateButton.show()
+	focus_ready.emit()
 
 func _on_advanced_button_pressed():
 	AdvancedButton.hide()
@@ -99,3 +105,6 @@ func _on_advanced_options_value_changed():
 		var new_contraction = AdvancedOptions.read_ui()
 		new_contraction.color = CurrentRect.Rect.self_modulate
 		CurrentRect.update_to(new_contraction, BlueTexture.get_global_position())
+
+func _on_duplicate_button_pressed():
+	Playground.duplicate_rect(CurrentRect, BlueTexture.get_global_position())
