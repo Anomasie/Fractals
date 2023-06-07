@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwce7pw2ji0m4"]
+
+[ext_resource type="Texture2D" uid="uid://coi5u3kqbwaoh" path="res://assets/presets/SierpinskiCarpet.png" id="1_agbdg"]
+[ext_resource type="Script" path="res://scenes/Preset.gd" id="1_qu6lb"]
+
+[node name="Sierpinski" type="MarginContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_qu6lb")
+
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_agbdg")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

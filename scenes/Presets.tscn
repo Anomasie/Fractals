@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://co7ekdte8fr1f"]
+
+[ext_resource type="Script" path="res://scenes/Presets.gd" id="1_k08fq"]
+
+[node name="Presets" type="VBoxContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+script = ExtResource("1_k08fq")
+
+[node name="PresetsLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Vorlagen"
+horizontal_alignment = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Schließen"
+alignment = 2
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

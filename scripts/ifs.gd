@@ -54,3 +54,11 @@ func get_distribution():
 		sum += function.contract.x * function.contract.y
 		distribution.append(sum)
 	return distribution
+
+# dictionaries
+
+static func from_dict(array):
+	var ifs = []
+	for entry in array:
+		ifs.append(Contraction.from_dict(entry))
+	return ifs

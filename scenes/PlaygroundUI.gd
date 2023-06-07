@@ -56,7 +56,6 @@ func _on_color_picker_color_changed(new_color):
 	if editing_color and rect_editing_color:
 		rect_editing_color.color_rect(new_color)
 
-
 # advanced options
 
 signal focus_ready
@@ -83,6 +82,7 @@ func focus(Rect = CurrentRect):
 	## open advanced option-button
 	else:
 		AdvancedButton.show()
+		PresetsButton.show()
 		DuplicateButton.show()
 	focus_ready.emit()
 
@@ -91,11 +91,13 @@ func _on_advanced_button_pressed():
 	AdvancedOptions.show()
 	AdvancedOptions.load_ui(CurrentRect.get_contraction( BlueTexture.get_global_position() ))
 	ResultButton.hide()
+	PresetsButton.hide()
 
 func _on_advanced_options_close_me():
 	AdvancedOptions.hide()
 	AdvancedButton.show()
 	ResultButton.show()
+	PresetsButton.show()
 
 func _on_advanced_options_value_changed():
 	# editing the rect using the rect-ui will update advanced-uptions-ui
@@ -108,3 +110,20 @@ func _on_advanced_options_value_changed():
 
 func _on_duplicate_button_pressed():
 	Playground.duplicate_rect(CurrentRect, BlueTexture.get_global_position())
+
+# presets
+
+@onready var PresetsButton = $Right/Lines/PresetsButton
+@onready var Presets = $Right/Lines/Presets
+
+func _on_presets_button_pressed():
+	Presets.show()
+	AdvancedButton.hide()
+	PresetsButton.hide()
+	ResultButton.hide()
+
+func _on_presets_close_me():
+	Presets.hide()
+	AdvancedButton.show()
+	PresetsButton.show()
+	ResultButton.show()

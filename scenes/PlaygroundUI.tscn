@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=6 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/AdvancedOptions.tscn" id="4_yd3uv"]
+[ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/Presets.tscn" id="5_jja2r"]
 
 [node name="PlaygroundUI" type="Control"]
 layout_mode = 3
@@ -138,11 +139,15 @@ alignment = 2
 visible = false
 layout_mode = 2
 
-[node name="PresetButton" type="Button" parent="Right/Lines"]
-visible = false
+[node name="PresetsButton" type="Button" parent="Right/Lines"]
 layout_mode = 2
 text = "Vorlagen"
 alignment = 2
+
+[node name="Presets" parent="Right/Lines" instance=ExtResource("5_jja2r")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="ResultButton" type="Button" parent="Right/Lines"]
 visibility_layer = 2
@@ -157,4 +162,6 @@ alignment = 2
 [connection signal="pressed" from="Right/Lines/AdvancedButton" to="." method="_on_advanced_button_pressed"]
 [connection signal="close_me" from="Right/Lines/AdvancedOptions" to="." method="_on_advanced_options_close_me"]
 [connection signal="value_changed" from="Right/Lines/AdvancedOptions" to="." method="_on_advanced_options_value_changed"]
+[connection signal="pressed" from="Right/Lines/PresetsButton" to="." method="_on_presets_button_pressed"]
+[connection signal="close_me" from="Right/Lines/Presets" to="." method="_on_presets_close_me"]
 [connection signal="pressed" from="Right/Lines/ResultButton" to="." method="_on_results_pressed"]
