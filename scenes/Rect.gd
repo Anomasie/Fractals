@@ -85,6 +85,13 @@ func turn_rect(turn):
 func _on_close_button_pressed():
 	close_me.emit()
 
+## focus
+
+@onready var Outline = $OutlineContainer
+
+func set_focus(enabled):
+	Outline.visible = enabled
+
 ## colors
 
 func _on_color_button_pressed():

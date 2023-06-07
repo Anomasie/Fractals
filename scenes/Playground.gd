@@ -13,6 +13,7 @@ func add(pos, duplicating=false):
 	Instance.color_me.connect(color.bind(Instance))
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
+	self.focus(Instance)
 	get_parent().focus(Instance)
 	if duplicating:
 		return Instance
@@ -38,6 +39,9 @@ func duplicate_rect(MyRect, origin):
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)
+	for child in self.get_children():
+		child.set_focus(false)
+	MyRect.set_focus(true)
 	get_parent().focus(MyRect)
 
 func get_ifs(origin):
