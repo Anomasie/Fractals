@@ -50,3 +50,11 @@ func get_ifs(origin):
 		var contraction = child.get_contraction(origin)
 		ifs.systems.append(contraction)
 	return ifs
+
+func set_ifs(ifs, origin):
+	# remove all buttons
+	close_all()
+	# add new buttons
+	for contraction in ifs:
+		var Instance = await add(origin, true)
+		Instance.update_to( contraction, origin )

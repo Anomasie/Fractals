@@ -127,3 +127,7 @@ func _on_presets_close_me():
 	AdvancedButton.show()
 	PresetsButton.show()
 	ResultButton.show()
+
+func _on_presets_load_preset(ifs):
+	Playground.set_ifs(ifs, BlueTexture.get_global_position())
+	_on_presets_close_me()

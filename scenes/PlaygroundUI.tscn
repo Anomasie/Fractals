@@ -164,4 +164,5 @@ alignment = 2
 [connection signal="value_changed" from="Right/Lines/AdvancedOptions" to="." method="_on_advanced_options_value_changed"]
 [connection signal="pressed" from="Right/Lines/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Right/Lines/Presets" to="." method="_on_presets_close_me"]
+[connection signal="load_preset" from="Right/Lines/Presets" to="." method="_on_presets_load_preset"]
 [connection signal="pressed" from="Right/Lines/ResultButton" to="." method="_on_results_pressed"]
