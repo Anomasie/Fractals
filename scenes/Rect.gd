@@ -91,7 +91,7 @@ func _on_diag_button_ld_pressed():
 	editing_height = true
 	anchor.x = -1
 	anchor.y = 1
-	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0)
+	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
 	focus_me.emit()
 
 func _on_diag_button_ru_pressed():
@@ -119,7 +119,7 @@ func _on_turn_button_pressed():
 
 # real functions
 
-func resize_rect(width, height, anchor=Vector2i(-1,1)):
+func resize_rect(width, height, current_anchor=Vector2i(-1,1)):
 	var old_size = self.size
 	# prevent rect from being negative sized
 	# or too big (i.e. not a contraction)
@@ -131,10 +131,10 @@ func resize_rect(width, height, anchor=Vector2i(-1,1)):
 	Rect.custom_minimum_size.y = height
 	self.size.y = height
 	# change position
-	if anchor.x < 0:
-		self.set_global_position(self.get_global_position() - Vector2((self.size - old_size).x, 0))
-	if anchor.y < 0:
-		self.set_global_position(self.get_global_position() - Vector2(0, (self.size - old_size).y))
+	if current_anchor.x < 0:
+		self.set_global_position(self.get_global_position() - Vector2((self.size - old_size).x, 0).rotated(self.rotation))
+	if current_anchor.y < 0:
+		self.set_global_position(self.get_global_position() - Vector2(0, (self.size - old_size).y).rotated(self.rotation))
 
 func turn_rect(turn):
 	self.rotation = turn
