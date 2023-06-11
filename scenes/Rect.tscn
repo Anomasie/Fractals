@@ -162,6 +162,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture_normal = SubResource("AtlasTexture_bycuk")
+texture_pressed = SubResource("AtlasTexture_hrfjs")
 texture_hover = SubResource("AtlasTexture_hrfjs")
 texture_focused = SubResource("AtlasTexture_hrfjs")
 

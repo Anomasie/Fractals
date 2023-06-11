@@ -34,7 +34,7 @@ func _input(event):
 		if editing_position:
 			self.position = event.position - rect_origin
 		elif editing_turn:
-			turn_rect((event.position - rect_origin).angle() + size.angle()*2)
+			turn_rect((event.position - rect_origin).angle() + PI / 2)
 		else:
 			if editing_width:
 				resize_rect((event.position - rect_origin).dot( (anchor.x * Vector2(1, 0)).rotated(self.rotation) ), Rect.custom_minimum_size.y, anchor)
@@ -132,14 +132,14 @@ func resize_rect(width, height, current_anchor=Vector2i(-1,1)):
 	self.size.y = height
 	# change position
 	if current_anchor.x < 0:
-		self.set_global_position(self.get_global_position() - Vector2((self.size - old_size).x, 0).rotated(self.rotation))
+		self.position -= Vector2((self.size - old_size).x, 0).rotated(self.rotation)
 	if current_anchor.y < 0:
-		self.set_global_position(self.get_global_position() - Vector2(0, (self.size - old_size).y).rotated(self.rotation))
+		self.position -= Vector2(0, (self.size - old_size).y).rotated(self.rotation)
 
 func turn_rect(turn):
 	self.rotation = turn
 	var current_rect_origin = (size/2).rotated(self.rotation)
-	self.set_global_position(rect_origin - current_rect_origin)
+	self.position = rect_origin - current_rect_origin
 
 ## focus
 
