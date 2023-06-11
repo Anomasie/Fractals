@@ -1,33 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://cchxu2rc1oy1g"]
+[gd_scene load_steps=16 format=3 uid="uid://cchxu2rc1oy1g"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
 [ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="2_gir0y"]
 [ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/buttons.png" id="3_bnldn"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ynbdy"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hrfjs"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lw3ss"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(0, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fy47q"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(16, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_spham"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(16, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
 atlas = ExtResource("3_bnldn")
@@ -65,17 +41,13 @@ region = Rect2(16, 32, 16, 16)
 atlas = ExtResource("3_bnldn")
 region = Rect2(16, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sf1cm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
 atlas = ExtResource("3_bnldn")
-region = Rect2(32, 48, 16, 16)
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxgps"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrfjs"]
 atlas = ExtResource("3_bnldn")
-region = Rect2(64, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_62824"]
-atlas = ExtResource("3_bnldn")
-region = Rect2(48, 48, 16, 16)
+region = Rect2(32, 0, 32, 32)
 
 [node name="Container" type="MarginContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -90,18 +62,25 @@ theme_override_constants/margin_bottom = 0
 script = ExtResource("1_xqf1l")
 metadata/_edit_group_ = true
 
-[node name="OutlineContainer" type="MarginContainer" parent="."]
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="OutlineContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="Outline" type="TextureRect" parent="OutlineContainer"]
+[node name="Outline" type="TextureRect" parent="Content/OutlineContainer"]
 layout_mode = 2
 texture = ExtResource("2_gir0y")
 
-[node name="TextureContainer" type="MarginContainer" parent="."]
+[node name="TextureContainer" type="MarginContainer" parent="Content"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_constants/margin_left = 8
@@ -109,31 +88,15 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Rect" type="TextureRect" parent="TextureContainer"]
+[node name="Rect" type="TextureRect" parent="Content/TextureContainer"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("2_72flb")
 
-[node name="MoveButton" type="Button" parent="TextureContainer"]
+[node name="MoveButton" type="Button" parent="Content/TextureContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="TextureButton" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_bycuk")
-texture_pressed = SubResource("AtlasTexture_ynbdy")
-texture_hover = SubResource("AtlasTexture_hrfjs")
-
-[node name="TurnButton" type="TextureButton" parent="."]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_lw3ss")
-texture_pressed = SubResource("AtlasTexture_fy47q")
-texture_hover = SubResource("AtlasTexture_spham")
-
-[node name="WidthButton" type="TextureButton" parent="."]
+[node name="WidthButtonRight" type="TextureButton" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -141,7 +104,16 @@ texture_normal = SubResource("AtlasTexture_iy0ws")
 texture_pressed = SubResource("AtlasTexture_bcgre")
 texture_hover = SubResource("AtlasTexture_likl4")
 
-[node name="HeightButton" type="TextureButton" parent="."]
+[node name="WidthButtonLeft" type="TextureButton" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture_normal = SubResource("AtlasTexture_iy0ws")
+texture_pressed = SubResource("AtlasTexture_bcgre")
+texture_hover = SubResource("AtlasTexture_likl4")
+flip_h = true
+
+[node name="HeightButtonDown" type="TextureButton" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -149,7 +121,7 @@ texture_normal = SubResource("AtlasTexture_5j0nk")
 texture_pressed = SubResource("AtlasTexture_050ry")
 texture_hover = SubResource("AtlasTexture_bifrm")
 
-[node name="DiagButton" type="TextureButton" parent="."]
+[node name="DiagButtonRD" type="TextureButton" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -157,18 +129,48 @@ texture_normal = SubResource("AtlasTexture_lq3gv")
 texture_pressed = SubResource("AtlasTexture_1ctkp")
 texture_hover = SubResource("AtlasTexture_s83sm")
 
-[node name="ColorButton" type="TextureButton" parent="."]
+[node name="DiagButtonLD" type="TextureButton" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-texture_normal = SubResource("AtlasTexture_sf1cm")
-texture_pressed = SubResource("AtlasTexture_oxgps")
-texture_hover = SubResource("AtlasTexture_62824")
+texture_normal = SubResource("AtlasTexture_lq3gv")
+texture_pressed = SubResource("AtlasTexture_1ctkp")
+texture_hover = SubResource("AtlasTexture_s83sm")
+flip_h = true
 
-[connection signal="button_down" from="TextureContainer/MoveButton" to="." method="_on_move_button_pressed"]
-[connection signal="button_up" from="CloseButton" to="." method="_on_close_button_pressed"]
+[node name="DiagButtonRU" type="TextureButton" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_lq3gv")
+texture_pressed = SubResource("AtlasTexture_1ctkp")
+texture_hover = SubResource("AtlasTexture_s83sm")
+flip_v = true
+
+[node name="DiagButtonLU" type="TextureButton" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_lq3gv")
+texture_pressed = SubResource("AtlasTexture_1ctkp")
+texture_hover = SubResource("AtlasTexture_s83sm")
+flip_h = true
+flip_v = true
+
+[node name="TurnButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_bycuk")
+texture_hover = SubResource("AtlasTexture_hrfjs")
+texture_focused = SubResource("AtlasTexture_hrfjs")
+
+[connection signal="button_down" from="Content/TextureContainer/MoveButton" to="." method="_on_move_button_pressed"]
+[connection signal="button_down" from="Content/WidthButtonRight" to="." method="_on_width_button_right_pressed"]
+[connection signal="button_down" from="Content/WidthButtonLeft" to="." method="_on_width_button_left_pressed"]
+[connection signal="button_down" from="Content/HeightButtonDown" to="." method="_on_height_button_down_pressed"]
+[connection signal="button_down" from="Content/DiagButtonRD" to="." method="_on_diag_button_rd_pressed"]
+[connection signal="button_down" from="Content/DiagButtonLD" to="." method="_on_diag_button_ld_pressed"]
+[connection signal="button_down" from="Content/DiagButtonRU" to="." method="_on_diag_button_ru_pressed"]
+[connection signal="button_down" from="Content/DiagButtonLU" to="." method="_on_diag_button_lu_pressed"]
 [connection signal="button_down" from="TurnButton" to="." method="_on_turn_button_pressed"]
-[connection signal="button_down" from="WidthButton" to="." method="_on_width_button_pressed"]
-[connection signal="button_down" from="HeightButton" to="." method="_on_height_button_pressed"]
-[connection signal="button_down" from="DiagButton" to="." method="_on_diag_button_pressed"]
-[connection signal="button_down" from="ColorButton" to="." method="_on_color_button_pressed"]

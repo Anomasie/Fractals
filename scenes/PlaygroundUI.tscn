@@ -73,7 +73,43 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="DuplicateButton" type="Button" parent="Left/Lines"]
+[node name="ButtonOptions" type="VBoxContainer" parent="Left/Lines"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="RemoveButton" type="Button" parent="Left/Lines/ButtonOptions"]
+layout_mode = 2
+text = "Entfernen"
+alignment = 0
+
+[node name="ColorButton" type="Button" parent="Left/Lines/ButtonOptions"]
+layout_mode = 2
+text = "Farbe ändern"
+alignment = 0
+
+[node name="ColorBar" type="VBoxContainer" parent="Left/Lines/ButtonOptions"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="ColorPicker" type="ColorPicker" parent="Left/Lines/ButtonOptions/ColorBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+color = Color(0, 0, 0, 1)
+edit_alpha = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="ReadyButton" type="Button" parent="Left/Lines/ButtonOptions/ColorBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Farbe festlegen"
+
+[node name="DuplicateButton" type="Button" parent="Left/Lines/ButtonOptions"]
 layout_mode = 2
 text = "Duplizieren"
 alignment = 0
@@ -91,29 +127,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Alles löschen"
 alignment = 0
-
-[node name="ColorBar" type="VBoxContainer" parent="Left/Lines"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 0
-
-[node name="ColorPicker" type="ColorPicker" parent="Left/Lines/ColorBar"]
-layout_mode = 2
-size_flags_horizontal = 0
-alignment = 1
-color = Color(0, 0, 0, 1)
-edit_alpha = false
-sampler_visible = false
-color_modes_visible = false
-sliders_visible = false
-hex_visible = false
-presets_visible = false
-
-[node name="ReadyButton" type="Button" parent="Left/Lines/ColorBar"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Farbe festlegen"
 
 [node name="Right" type="MarginContainer" parent="."]
 visibility_layer = 2
@@ -155,10 +168,11 @@ layout_mode = 2
 text = "Ergebnis"
 alignment = 2
 
-[connection signal="pressed" from="Left/Lines/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="Left/Lines/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="color_changed" from="Left/Lines/ButtonOptions/ColorBar/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="Left/Lines/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Left/Lines/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Left/Lines/CloseAllButton" to="." method="_on_close_all_pressed"]
-[connection signal="color_changed" from="Left/Lines/ColorBar/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="Right/Lines/AdvancedButton" to="." method="_on_advanced_button_pressed"]
 [connection signal="close_me" from="Right/Lines/AdvancedOptions" to="." method="_on_advanced_options_close_me"]
 [connection signal="value_changed" from="Right/Lines/AdvancedOptions" to="." method="_on_advanced_options_value_changed"]

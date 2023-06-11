@@ -10,7 +10,6 @@ func add(pos, duplicating=false):
 	counter += 1
 	Instance.position = pos - Vector2(64,64)/2
 	Instance.close_me.connect(close.bind(Instance))
-	Instance.color_me.connect(color.bind(Instance))
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
 	self.focus(Instance)
@@ -26,10 +25,6 @@ func close_all():
 func close(MyRect):
 	MyRect.queue_free()
 	get_parent().focus(null)
-
-func color(MyRect):
-	get_parent().color(MyRect)
-	get_parent().focus(MyRect)
 
 func duplicate_rect(MyRect, origin):
 	# add some child
