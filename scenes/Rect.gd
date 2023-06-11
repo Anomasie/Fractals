@@ -99,7 +99,7 @@ func _on_diag_button_ru_pressed():
 	editing_height = true
 	anchor.x = 1
 	anchor.y = -1
-	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y)
+	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y).rotated(self.rotation)
 	focus_me.emit()
 
 func _on_diag_button_lu_pressed():
@@ -107,7 +107,7 @@ func _on_diag_button_lu_pressed():
 	editing_height = true
 	anchor.x = -1
 	anchor.y = -1
-	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, Rect.size.y)
+	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, Rect.size.y).rotated(self.rotation)
 	focus_me.emit()
 
 # turning
