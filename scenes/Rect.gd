@@ -114,7 +114,7 @@ func _on_diag_button_lu_pressed():
 
 func _on_turn_button_pressed():
 	editing_turn = true
-	rect_origin = self.position + (size/2).rotated(self.rotation)
+	rect_origin = self.position + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	focus_me.emit()
 
 # real functions
@@ -138,7 +138,7 @@ func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 
 func turn_rect(turn):
 	self.rotation = turn
-	var current_rect_origin = (size/2).rotated(self.rotation)
+	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	self.position = rect_origin - current_rect_origin
 
 ## focus
@@ -178,11 +178,13 @@ func update_to(contr, origin):
 		contr.translation.x * Global.LOUPE.x,
 		contr.translation.y * Global.LOUPE.y
 	)
-	self.set_global_position( (real_position - Vector2(8,8 + 32)) + origin )
+	self.position = (real_position - Vector2(8,8 + 32)) + origin
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation
+	var old_position = Rect.get_global_position()
 	self.rotation = contr.rotation
+	self.position += Rect.get_global_position() - old_position
 	# mirror
 	
 	# color
