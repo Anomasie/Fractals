@@ -7,13 +7,13 @@ var mouse_in = false
 
 # editing
 
-signal close_me
 signal focus_me
 
-@onready var Outline = $Content/OutlineContainer
-@onready var Rect = $Content/TextureContainer/Rect
 # buttons
 @onready var Content = $Content
+@onready var TextureContainer = $Content/TextureContainer
+@onready var Outline = $Content/OutlineContainer
+@onready var Rect = $Content/TextureContainer/Rect
 @onready var TurnButton = $TurnButton
 
 var editing_position = false
@@ -141,13 +141,13 @@ func turn_rect(turn):
 	var current_rect_origin = (size/2).rotated(self.rotation)
 	self.set_global_position(rect_origin - current_rect_origin)
 
-func _on_close_button_pressed():
-	close_me.emit()
-
 ## focus
 
 func set_focus(enabled):
-	Outline.visible = enabled
+	for child in Content.get_children():
+		if child != TextureContainer:
+			child.visible = enabled
+	TurnButton.visible = enabled
 
 ## colors
 

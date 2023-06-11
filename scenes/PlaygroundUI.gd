@@ -72,6 +72,10 @@ func _on_close_all_pressed():
 
 ## remove button
 
+
+func _on_remove_button_pressed():
+	Playground.close(CurrentRect)
+
 ## colors
 
 @onready var ColorButton = $Left/Lines/ButtonOptions/ColorButton

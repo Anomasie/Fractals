@@ -9,7 +9,6 @@ func add(pos, duplicating=false):
 	Instance.name = "Rect"+str(counter)
 	counter += 1
 	Instance.position = pos - Vector2(64,64)/2
-	Instance.close_me.connect(close.bind(Instance))
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
 	self.focus(Instance)
