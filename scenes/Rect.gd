@@ -21,7 +21,7 @@ var editing_width = false
 var editing_height = false
 var editing_turn = false
 
-var anchor = Vector2i.ZERO
+var anchor = Vector2i(1,1)
 var rect_origin
 
 func _ready():
@@ -114,12 +114,12 @@ func _on_diag_button_lu_pressed():
 
 func _on_turn_button_pressed():
 	editing_turn = true
-	rect_origin = position + (size/2).rotated(self.rotation)
+	rect_origin = self.position + (size/2).rotated(self.rotation)
 	focus_me.emit()
 
 # real functions
 
-func resize_rect(width, height, current_anchor=Vector2i(-1,1)):
+func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 	var old_size = self.size
 	# prevent rect from being negative sized
 	# or too big (i.e. not a contraction)
@@ -160,7 +160,7 @@ func get_contraction(origin):
 	var contraction = Contraction.new()
 	contraction.translation = Vector2(
 		(self.get_global_position().x - origin.x + 8) / Global.LOUPE.x,
-		(self.get_global_position().y - origin.y + 8) / Global.LOUPE.y
+		(self.get_global_position().y - origin.y + 8 + 32) / Global.LOUPE.y
 	)
 	contraction.contract = Vector2(
 		self.Rect.size.x / Global.LOUPE.x,
@@ -178,7 +178,7 @@ func update_to(contr, origin):
 		contr.translation.x * Global.LOUPE.x,
 		contr.translation.y * Global.LOUPE.y
 	)
-	self.set_global_position( (real_position - Vector2(8,8)) + origin )
+	self.set_global_position( (real_position - Vector2(8,8 + 32)) + origin )
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation
