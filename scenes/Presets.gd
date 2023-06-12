@@ -85,7 +85,10 @@ var PRESETS = {
 				"mirrored": false
 			}
 		]
-	},
+	}
+}
+
+const presets_i_havent_finished_yet = {
 	"Barnsley": {
 		"texture": "res://assets/presets/KochSnowflake.png",
 		"ifs": [
