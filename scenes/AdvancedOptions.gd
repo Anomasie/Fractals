@@ -29,7 +29,6 @@ func _on_mirror_pressed():
 		disabled = true
 		# change translation
 		var vec_to_right = Vector2(ContractX.value, 0).rotated(2 * PI - Rotation.value / 360 * 2 * PI)
-		print(vec_to_right)
 		if Mirror.button_pressed:
 			TranslationX.value += vec_to_right.x
 			TranslationY.value -= vec_to_right.y

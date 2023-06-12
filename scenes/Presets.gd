@@ -85,6 +85,35 @@ var PRESETS = {
 				"mirrored": false
 			}
 		]
+	},
+	"Barnsley": {
+		"texture": "res://assets/presets/KochSnowflake.png",
+		"ifs": [
+			{
+				"translation": Vector2(0.5, 0.16),
+				"contract": Vector2(0, 0.16),
+				"rotation": 0,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(0.15, 0.85),
+				"contract": Vector2(0.85, 0.85),
+				"rotation": 0,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(0.15, 0.85),
+				"contract": Vector2(0.85, 0.85),
+				"rotation": PI / 6,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(0.15, 0.85),
+				"contract": Vector2(0.85, 0.85),
+				"rotation": -PI / 6,
+				"mirrored": false
+			}
+		]
 	}
 }
 

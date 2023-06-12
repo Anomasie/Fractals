@@ -1,10 +1,53 @@
-[gd_scene load_steps=6 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=17 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/AdvancedOptions.tscn" id="4_yd3uv"]
 [ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/Presets.tscn" id="5_jja2r"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ptcdk"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_5hmfe"]
+events = [SubResource("InputEventKey_ptcdk")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_jhmuf"]
+events = [SubResource("InputEventKey_1kcjd")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_440vp"]
+device = -1
+keycode = 68
+unicode = 100
+
+[sub_resource type="Shortcut" id="Shortcut_cmo8y"]
+events = [SubResource("InputEventKey_440vp")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_06eut"]
+device = -1
+keycode = 43
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_pboob"]
+events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_fymk2"]
+device = -1
+keycode = 4194312
+
+[sub_resource type="Shortcut" id="Shortcut_28636"]
+events = [SubResource("InputEventKey_fymk2")]
 
 [node name="PlaygroundUI" type="Control"]
 layout_mode = 3
@@ -79,11 +122,13 @@ theme_override_constants/separation = 2
 
 [node name="RemoveButton" type="Button" parent="Left/Lines/ButtonOptions"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_5hmfe")
 text = "Entfernen"
 alignment = 0
 
 [node name="ColorButton" type="Button" parent="Left/Lines/ButtonOptions"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_jhmuf")
 text = "Farbe ändern"
 alignment = 0
 
@@ -107,10 +152,12 @@ presets_visible = false
 [node name="ReadyButton" type="Button" parent="Left/Lines/ButtonOptions/ColorBar"]
 layout_mode = 2
 size_flags_horizontal = 0
+shortcut = SubResource("Shortcut_jhmuf")
 text = "Farbe festlegen"
 
 [node name="DuplicateButton" type="Button" parent="Left/Lines/ButtonOptions"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_cmo8y")
 text = "Duplizieren"
 alignment = 0
 
@@ -118,6 +165,7 @@ alignment = 0
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
+shortcut = SubResource("Shortcut_pboob")
 text = "Hinzufügen"
 alignment = 0
 
@@ -125,6 +173,7 @@ alignment = 0
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
+shortcut = SubResource("Shortcut_28636")
 text = "Alles löschen"
 alignment = 0
 
