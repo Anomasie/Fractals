@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cchxu2rc1oy1g"]
+[gd_scene load_steps=17 format=3 uid="uid://cchxu2rc1oy1g"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
 [ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="2_gir0y"]
 [ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/buttons.png" id="3_bnldn"]
+[ext_resource type="Texture2D" uid="uid://dmlv7l6lwogmw" path="res://assets/maske.png" id="4_u4mid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
 atlas = ExtResource("3_bnldn")
@@ -92,6 +93,10 @@ theme_override_constants/margin_bottom = 8
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("2_72flb")
+
+[node name="Maske" type="TextureRect" parent="Content/TextureContainer"]
+layout_mode = 2
+texture = ExtResource("4_u4mid")
 
 [node name="MoveButton" type="Button" parent="Content/TextureContainer"]
 layout_mode = 2

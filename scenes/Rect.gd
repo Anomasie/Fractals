@@ -14,6 +14,7 @@ signal focus_me
 @onready var TextureContainer = $Content/TextureContainer
 @onready var Outline = $Content/OutlineContainer
 @onready var Rect = $Content/TextureContainer/Rect
+@onready var Maske = $Content/TextureContainer/Maske
 @onready var TurnButton = $TurnButton
 
 var editing_position = false
@@ -153,6 +154,10 @@ func set_focus(enabled):
 
 func color_rect(color):
 	Rect.self_modulate = color
+	if color.get_luminance() < 0.5:
+		Maske.self_modulate = Color.WHITE
+	else:
+		Maske.self_modulate = Color.BLACK
 
 # load contraction
 
@@ -193,9 +198,7 @@ func update_to(contr, origin):
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation
-	var old_position = Rect.get_global_position()
 	self.rotation = contr.rotation
-	self.position += Rect.get_global_position() - old_position
 	# mirror
 	
 	# color

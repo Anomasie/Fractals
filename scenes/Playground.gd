@@ -30,6 +30,7 @@ func duplicate_rect(MyRect, origin):
 	var Instance = await add(MyRect.position, true)
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
+	print(Instance.get_contraction(origin).translation)
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)
