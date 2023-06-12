@@ -57,7 +57,7 @@ func _on_move_button_pressed():
 func _on_width_button_left_pressed():
 	editing_width = true
 	anchor.x = -1
-	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0)
+	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
 	focus_me.emit()
 
 func _on_width_button_right_pressed():
