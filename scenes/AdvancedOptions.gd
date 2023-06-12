@@ -11,7 +11,7 @@ func _ready():
 			if ankle is SpinBox:
 				ankle.value_changed.connect(_value_changed)
 			elif ankle is CheckButton:
-				ankle.pressed.connect(_value_changed)
+				ankle.pressed.connect(_on_mirror_pressed)
 
 @onready var TranslationX = $TranslationBox/TranslationX
 @onready var TranslationY = $TranslationBox/TranslationY
@@ -24,6 +24,22 @@ func _value_changed(_new_value=0):
 	if not disabled:
 		value_changed.emit()
 
+func _on_mirror_pressed():
+	if not disabled:
+		disabled = true
+		# change translation
+		var vec_to_right = Vector2(ContractX.value, 0).rotated(2 * PI - Rotation.value / 360 * 2 * PI)
+		print(vec_to_right)
+		if Mirror.button_pressed:
+			TranslationX.value += vec_to_right.x
+			TranslationY.value -= vec_to_right.y
+		else:
+			TranslationX.value -= vec_to_right.x
+			TranslationY.value += vec_to_right.y
+		# commit changes
+		disabled = false
+		value_changed.emit()
+
 func load_ui(contraction):
 	# do not emit value_changed
 	disabled = true
@@ -33,12 +49,6 @@ func load_ui(contraction):
 	# translation
 	TranslationX.value = contraction.translation.x
 	TranslationY.value = 1 - contraction.translation.y
-	## if mirrored: anchor is top-right, not top-left
-	if Mirror.button_pressed:
-		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
-		print(vec_to_right)
-		TranslationX.value += vec_to_right.x
-		TranslationY.value += 1 - vec_to_right.y
 	# rotation
 	## godot rotation: 2pi-scaled
 	### and clock-wise!?!
@@ -56,6 +66,10 @@ func load_ui(contraction):
 		Rotation.value = rot_value
 	# mirroring
 	Mirror.button_pressed = contraction.mirrored
+	if contraction.mirrored:
+		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
+		TranslationX.value += vec_to_right.x
+		TranslationY.value -= vec_to_right.y
 	# enable value_changed
 	disabled = false
 
@@ -69,13 +83,11 @@ func read_ui():
 	## godot translation: anchor top-left
 	## user-friendly translation: anchor bottom-left
 	contraction.translation = Vector2(TranslationX.value, 1 - TranslationY.value)
-	## if mirrored: anchor is top-right, not top-left
-	if Mirror.button_pressed:
-		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
-		print(vec_to_right)
-		contraction.translation -= vec_to_right
 	# mirroring
 	contraction.mirrored = Mirror.button_pressed
+	if contraction.mirrored:
+		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
+		contraction.translation -= vec_to_right
 	# color will be added by PlaygroundUI
 	return contraction
 
