@@ -118,7 +118,10 @@ func _on_turn_button_pressed():
 	rect_origin = self.position + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	focus_me.emit()
 
-# real functions
+# "important" functions
+
+func mirror():
+	Maske.flip_h = not Maske.flip_h
 
 func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 	var old_size = self.size
@@ -178,6 +181,7 @@ func get_contraction(origin):
 		self.Rect.size.y / Global.LOUPE.y
 	)
 	contraction.rotation = self.rotation
+	contraction.mirrored = Maske.flip_h
 	contraction.color = self.Rect.self_modulate
 	return contraction
 
@@ -200,6 +204,6 @@ func update_to(contr, origin):
 	# rotation
 	self.rotation = contr.rotation
 	# mirror
-	
+	Maske.flip_h = contr.mirrored
 	# color
 	Rect.self_modulate = contr.color

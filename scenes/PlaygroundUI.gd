@@ -67,8 +67,11 @@ func _on_close_all_pressed():
 	ColorButton.hide()
 	ColorBar.hide()
 	# right
-	_on_advanced_options_close_me()
-	_on_presets_close_me()
+	AdvancedOptions.hide()
+	AdvancedButton.hide()
+	Presets.hide()
+	PresetsButton.show()
+	ResultButton.show()
 
 ## remove button
 

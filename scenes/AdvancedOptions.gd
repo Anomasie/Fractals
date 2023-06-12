@@ -25,12 +25,25 @@ func _value_changed(_new_value=0):
 		value_changed.emit()
 
 func load_ui(contraction):
+	# do not emit value_changed
 	disabled = true
-	TranslationX.value = contraction.translation.x
-	TranslationY.value = 1 - contraction.translation.y
+	# contraction
 	ContractX.value = contraction.contract.x
 	ContractY.value = contraction.contract.y
-	# see below
+	# translation
+	TranslationX.value = contraction.translation.x
+	TranslationY.value = 1 - contraction.translation.y
+	## if mirrored: anchor is top-right, not top-left
+	if Mirror.button_pressed:
+		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
+		print(vec_to_right)
+		TranslationX.value += vec_to_right.x
+		TranslationY.value += 1 - vec_to_right.y
+	# rotation
+	## godot rotation: 2pi-scaled
+	### and clock-wise!?!
+	## user-friendly rotation: 360°-scaled
+	### and counter-clock-wise
 	if contraction.rotation == 0: # otherwise, weird rounding errors occur
 		Rotation.value = 0
 	else:
@@ -41,22 +54,29 @@ func load_ui(contraction):
 			else:
 				rot_value -= 360
 		Rotation.value = rot_value
+	# mirroring
 	Mirror.button_pressed = contraction.mirrored
+	# enable value_changed
 	disabled = false
 
 func read_ui():
 	var contraction = Contraction.new()
-	# godot translation: anchor top-left
-	# user-friendly translation: anchor bottom-left
-	contraction.translation = Vector2(TranslationX.value, 1 - TranslationY.value)
+	# contraction
 	contraction.contract = Vector2(ContractX.value, ContractY.value)
-	# godot rotation: 2pi-scaled
-	## and clock-wise!?!
-	# user-friendly rotation: 360°-scaled
-	## and counter-clock-wise
+	# rotation
 	contraction.rotation = 2 * PI - Rotation.value / 360 * 2 * PI
+	# translation
+	## godot translation: anchor top-left
+	## user-friendly translation: anchor bottom-left
+	contraction.translation = Vector2(TranslationX.value, 1 - TranslationY.value)
+	## if mirrored: anchor is top-right, not top-left
+	if Mirror.button_pressed:
+		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
+		print(vec_to_right)
+		contraction.translation -= vec_to_right
+	# mirroring
 	contraction.mirrored = Mirror.button_pressed
-	# the color will be added by PlaygroundUI
+	# color will be added by PlaygroundUI
 	return contraction
 
 func _on_close_button_pressed():
