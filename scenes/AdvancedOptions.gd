@@ -3,6 +3,8 @@ extends VBoxContainer
 signal value_changed
 signal close_me
 
+var disabled = false
+
 func _ready():
 	for child in self.get_children():
 		for ankle in child.get_children():
@@ -19,9 +21,11 @@ func _ready():
 @onready var Mirror = $MirrorBox/Mirror
 
 func _value_changed(_new_value=0):
-	value_changed.emit()
+	if not disabled:
+		value_changed.emit()
 
 func load_ui(contraction):
+	disabled = true
 	TranslationX.value = contraction.translation.x
 	TranslationY.value = 1 - contraction.translation.y
 	ContractX.value = contraction.contract.x
@@ -38,6 +42,7 @@ func load_ui(contraction):
 				rot_value -= 360
 		Rotation.value = rot_value
 	Mirror.button_pressed = contraction.mirrored
+	disabled = false
 
 func read_ui():
 	var contraction = Contraction.new()

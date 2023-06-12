@@ -158,10 +158,16 @@ func color_rect(color):
 
 func get_contraction(origin):
 	var contraction = Contraction.new()
-	contraction.translation = Vector2(
-		(self.get_global_position().x - origin.x + 8) / Global.LOUPE.x,
-		(self.get_global_position().y - origin.y + 8 + 32) / Global.LOUPE.y
-	)
+	if (TextureContainer.position + Rect.position).length() == 0:
+		contraction.translation = Vector2(
+			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / Global.LOUPE.x,
+			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / Global.LOUPE.y
+		)
+	else:
+		contraction.translation = Vector2(
+			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / Global.LOUPE.x,
+			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / Global.LOUPE.y
+		)
 	contraction.contract = Vector2(
 		self.Rect.size.x / Global.LOUPE.x,
 		self.Rect.size.y / Global.LOUPE.y
@@ -178,7 +184,12 @@ func update_to(contr, origin):
 		contr.translation.x * Global.LOUPE.x,
 		contr.translation.y * Global.LOUPE.y
 	)
-	self.position = (real_position - Vector2(8,8 + 32)) + origin
+	# not loaded
+	if (TextureContainer.position + Rect.position).length() == 0:
+		self.position = real_position + origin - (Vector2(8,8) + Vector2(0,32)).rotated(contr.rotation)
+	# positions loaded
+	else:
+		self.position = real_position + origin - (TextureContainer.position + Rect.position).rotated(contr.rotation)
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation

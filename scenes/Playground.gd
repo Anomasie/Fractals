@@ -8,7 +8,7 @@ func add(pos, duplicating=false):
 	var Instance = Rect.instantiate()
 	Instance.name = "Rect"+str(counter)
 	counter += 1
-	Instance.position = pos - Vector2(64,64)/2
+	Instance.position = pos - Vector2(8,8) - Vector2(0,32)
 	Instance.focus_me.connect(focus.bind(Instance))
 	self.add_child(Instance)
 	self.focus(Instance)

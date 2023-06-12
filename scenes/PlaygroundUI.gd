@@ -53,9 +53,9 @@ func focus(Rect = CurrentRect):
 
 func _on_add_pressed():
 	Playground.add(self.get_global_position() + self.size / 2 + Vector2(128,0).rotated(rot))
-	rot += 4
-	if rot >= 360:
-		rot -= 360
+	rot += PI / 4
+	if rot >= 2 * PI:
+		rot -= 2 * PI
 	_on_presets_close_me()
 
 func _on_close_all_pressed():
@@ -93,7 +93,6 @@ func _on_color_button_pressed():
 func color(MyRect):
 	editing_color = true
 	rect_editing_color = MyRect
-	print(MyRect, " wants a color")
 	MyRect.Rect.self_modulate = ColorBarPicker.color
 	ColorBar.show()
 	await ColorBarReadyButton.pressed
