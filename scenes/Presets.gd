@@ -85,40 +85,38 @@ var PRESETS = {
 				"mirrored": false
 			}
 		]
-	}
-}
-
-const presets_i_havent_finished_yet = {
+	},
 	"Barnsley": {
-		"texture": "res://assets/presets/KochSnowflake.png",
+		"texture": "res://assets/presets/BarnsleyFern.png",
 		"ifs": [
-			{
-				"translation": Vector2(0.5, 0.16),
-				"contract": Vector2(0, 0.16),
-				"rotation": 0,
+			{ # main leafs
+				"translation": Vector2(0.27, 1.089),
+				"contract": Vector2(0.872, 0.804),
+				"rotation": 2 * PI - 345.0 / 360 * 2 * PI,
 				"mirrored": false
 			},
-			{
-				"translation": Vector2(0.15, 0.85),
-				"contract": Vector2(0.85, 0.85),
-				"rotation": 0,
+			{ # first left leaf
+				"translation": Vector2(0.066, 0.3),
+				"contract": Vector2( 0.269, 0.49 ),
+				"rotation": 2 * PI - 48.0 / 360 * 2 * PI,
 				"mirrored": false
 			},
-			{
-				"translation": Vector2(0.15, 0.85),
-				"contract": Vector2(0.85, 0.85),
-				"rotation": PI / 6,
-				"mirrored": false
+			{ # first right leaf
+				"translation": Vector2(0.813, 0.391),#Vector2(0.937, 0.232),
+				"contract": Vector2(0.202, 0.465),
+				"rotation": 2 * PI - 308.0 / 360 * 2 * PI,
+				"mirrored": true
 			},
-			{
-				"translation": Vector2(0.15, 0.85),
-				"contract": Vector2(0.85, 0.85),
-				"rotation": -PI / 6,
+						{ # Stiel
+				"translation": Vector2(0.463, 0.266),
+				"contract": Vector2(0.085, 0.29),
+				"rotation": 2 * PI - 1.0 / 360 * 2 * PI,
 				"mirrored": false
 			}
 		]
 	}
 }
+
 
 @onready var Preset = load("res://scenes/Preset.tscn")
 @onready var CloseButton = $CloseButton
