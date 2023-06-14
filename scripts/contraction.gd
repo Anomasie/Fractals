@@ -7,7 +7,8 @@ var mirrored = false
 var color = Color.BLACK
 
 func apply(p):
-	p = Vector2(1.0 - p.x, p.y) # mirror
+	if mirrored:
+		p = Vector2(1.0 - p.x, p.y) # mirror
 	p = Vector2(p.x * contract.x, p.y * contract.y) # scale
 	p = p.rotated(rotation) # rotate
 	p += translation # translate
@@ -29,7 +30,7 @@ static func from_dict(dict):
 	if dict.has("translation"):
 		contr.translation = Vector2(
 			dict["translation"].x,
-			1 - dict["translation"].y
+			dict["translation"].y
 		)
 	if dict.has("contract"):
 		contr.contract = dict["contract"]

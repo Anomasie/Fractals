@@ -8,25 +8,13 @@ var PRESETS = {
 		"texture": "res://assets/presets/SierpinskiCarpet.png",
 		"ifs": [
 			{
-				"translation": Vector2(0, 1),
-				"contract": Vector2(1.0/3, 1.0/3),
-				"rotation": 0,
-				"mirrored": false
-			},
-			{
-				"translation": Vector2(1.0/3, 1),
-				"contract": Vector2(1.0/3, 1.0/3),
-				"rotation": 0,
-				"mirrored": false
-			},
-			{
-				"translation": Vector2(2.0/3, 1),
-				"contract": Vector2(1.0/3, 1.0/3),
-				"rotation": 0,
-				"mirrored": false
-			},
-			{
 				"translation": Vector2(0, 2.0/3),
+				"contract": Vector2(1.0/3, 1.0/3),
+				"rotation": 0,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(1.0/3, 2.0/3),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": 0,
 				"mirrored": false
@@ -44,13 +32,25 @@ var PRESETS = {
 				"mirrored": false
 			},
 			{
-				"translation": Vector2(1.0/3, 1.0/3),
+				"translation": Vector2(2.0/3, 1.0/3),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": 0,
 				"mirrored": false
 			},
 			{
-				"translation": Vector2(2.0/3, 1.0/3),
+				"translation": Vector2(0, 0),
+				"contract": Vector2(1.0/3, 1.0/3),
+				"rotation": 0,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(1.0/3, 0),
+				"contract": Vector2(1.0/3, 1.0/3),
+				"rotation": 0,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(2.0/3, 0),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": 0,
 				"mirrored": false
@@ -61,25 +61,25 @@ var PRESETS = {
 		"texture": "res://assets/presets/KochSnowflake.png",
 		"ifs": [
 			{
-				"translation": Vector2(0, 1.0/3),
+				"translation": Vector2(0, 0),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": 0,
 				"mirrored": false
 			},
 			{
-				"translation": Vector2(1.0/3, 0) + Vector2(1.0/3, 0).rotated((60*PI) / 180) + Vector2(1.0/3, 0).rotated((30*PI) / 180),
-				"contract": Vector2(1.0/3, 1.0/3),
-				"rotation": (60*PI) / 180,
-				"mirrored": false
-			},
-			{
-				"translation": Vector2(1.0/3, 0) + Vector2(0, 1.0/3).rotated((60*PI) / 180),
+				"translation": Vector2(1.0/3, 0),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": -(60*PI) / 180,
 				"mirrored": false
 			},
 			{
-				"translation": Vector2(2.0/3, 1.0/3),
+				"translation": Vector2(1.0/3, 0) + Vector2(1.0/3, 0).rotated((60*PI) / 180),
+				"contract": Vector2(1.0/3, 1.0/3),
+				"rotation": (60*PI) / 180,
+				"mirrored": false
+			},
+			{
+				"translation": Vector2(2.0/3, 0),
 				"contract": Vector2(1.0/3, 1.0/3),
 				"rotation": 0,
 				"mirrored": false

@@ -47,7 +47,7 @@ func load_ui(contraction):
 	ContractY.value = contraction.contract.y
 	# translation
 	TranslationX.value = contraction.translation.x
-	TranslationY.value = 1 - contraction.translation.y
+	TranslationY.value = contraction.translation.y
 	# rotation
 	## godot rotation: 2pi-scaled
 	### and clock-wise!?!
@@ -81,7 +81,7 @@ func read_ui():
 	# translation
 	## godot translation: anchor top-left
 	## user-friendly translation: anchor bottom-left
-	contraction.translation = Vector2(TranslationX.value, 1 - TranslationY.value)
+	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
 	# mirroring
 	contraction.mirrored = Mirror.button_pressed
 	if contraction.mirrored:

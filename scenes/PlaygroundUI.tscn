@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=16 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
@@ -10,8 +10,12 @@
 device = -1
 keycode = 4194305
 
+[sub_resource type="InputEventKey" id="InputEventKey_4mcv5"]
+device = -1
+keycode = 4194312
+
 [sub_resource type="Shortcut" id="Shortcut_5hmfe"]
-events = [SubResource("InputEventKey_ptcdk")]
+events = [SubResource("InputEventKey_ptcdk"), SubResource("InputEventKey_4mcv5")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
 device = -1
@@ -41,13 +45,6 @@ unicode = 43
 
 [sub_resource type="Shortcut" id="Shortcut_pboob"]
 events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_fymk2"]
-device = -1
-keycode = 4194312
-
-[sub_resource type="Shortcut" id="Shortcut_28636"]
-events = [SubResource("InputEventKey_fymk2")]
 
 [node name="PlaygroundUI" type="Control"]
 layout_mode = 3
@@ -173,7 +170,6 @@ alignment = 0
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
-shortcut = SubResource("Shortcut_28636")
 text = "Alles löschen"
 alignment = 0
 

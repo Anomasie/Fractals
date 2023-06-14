@@ -185,7 +185,10 @@ func get_contraction(origin):
 	# current translation: position of top-left-edge
 	## wanted translation: position of bottom-left-edge
 	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
+	contraction.translation.y *= -1
+	# mirror
 	contraction.mirrored = Maske.flip_h
+	# color
 	contraction.color = self.Rect.self_modulate
 	return contraction
 
@@ -195,7 +198,7 @@ func update_to(contr, origin):
 	# translation
 	var scaled_position = Vector2(
 		contr.translation.x * Global.LOUPE.x,
-		contr.translation.y * Global.LOUPE.y
+		- contr.translation.y * Global.LOUPE.y
 	)
 	var real_position
 	# not loaded

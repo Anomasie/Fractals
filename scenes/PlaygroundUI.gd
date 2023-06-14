@@ -17,6 +17,9 @@ func _ready():
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
 
+func get_origin():
+	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
+
 # focus
 
 signal focus_ready
@@ -35,7 +38,7 @@ func focus(Rect = CurrentRect):
 	## update AdvancedOptions
 	elif AdvancedOptions.visible:
 		ButtonOptions.show()
-		AdvancedOptions.load_ui(CurrentRect.get_contraction( BlueTexture.get_global_position() ))
+		AdvancedOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	## open advanced option-button
 	else:
 		ButtonOptions.show()
@@ -109,12 +112,12 @@ func _on_color_picker_color_changed(new_color):
 ## duplicate button
 
 func _on_duplicate_button_pressed():
-	Playground.duplicate_rect(CurrentRect, BlueTexture.get_global_position())
+	Playground.duplicate_rect(CurrentRect, get_origin())
 
 # right
 
 func _on_results_pressed():
-	var ifs = Playground.get_ifs( BlueTexture.get_global_position() )
+	var ifs = Playground.get_ifs( get_origin() )
 	self.get_parent().show_results(ifs)
 
 ## advanced options
@@ -126,7 +129,7 @@ func _on_results_pressed():
 func _on_advanced_button_pressed():
 	AdvancedButton.hide()
 	AdvancedOptions.show()
-	AdvancedOptions.load_ui(CurrentRect.get_contraction( BlueTexture.get_global_position() ))
+	AdvancedOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	ResultButton.hide()
 	PresetsButton.hide()
 
@@ -143,7 +146,7 @@ func _on_advanced_options_value_changed():
 	if not CurrentRect.editing_position and not CurrentRect.editing_width and not CurrentRect.editing_height and not CurrentRect.editing_turn:
 		var new_contraction = AdvancedOptions.read_ui()
 		new_contraction.color = CurrentRect.Rect.self_modulate
-		CurrentRect.update_to(new_contraction, BlueTexture.get_global_position())
+		CurrentRect.update_to(new_contraction, get_origin())
 
 ## presets
 
@@ -163,5 +166,5 @@ func _on_presets_close_me():
 	ResultButton.show()
 
 func _on_presets_load_preset(ifs):
-	Playground.set_ifs(ifs, BlueTexture.get_global_position())
+	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
