@@ -97,7 +97,6 @@ texture = ExtResource("2_72flb")
 [node name="Maske" type="TextureRect" parent="Content/TextureContainer"]
 layout_mode = 2
 texture = ExtResource("4_u4mid")
-flip_v = true
 
 [node name="MoveButton" type="Button" parent="Content/TextureContainer"]
 layout_mode = 2

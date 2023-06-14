@@ -34,6 +34,7 @@ theme_override_constants/margin_bottom = 0
 [node name="Result" type="TextureRect" parent="Center"]
 layout_mode = 2
 texture = ExtResource("2_ffygg")
+flip_v = true
 
 [node name="Left" type="MarginContainer" parent="."]
 layout_mode = 1

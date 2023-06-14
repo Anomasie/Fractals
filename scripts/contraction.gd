@@ -10,7 +10,7 @@ func apply(p):
 	if mirrored:
 		p = Vector2(1.0 - p.x, p.y) # mirror
 	p = Vector2(p.x * contract.x, p.y * contract.y) # scale
-	p = p.rotated(rotation) # rotate
+	p = p.rotated(-rotation) # rotate
 	p += translation # translate
 	return p
 
