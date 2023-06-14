@@ -31,7 +31,6 @@ func focus(Rect = CurrentRect):
 		# and hide advanced option-button
 		ButtonOptions.hide()
 		AdvancedButton.hide()
-		DuplicateButton.hide()
 	# if you are focusing something:
 	## update AdvancedOptions
 	elif AdvancedOptions.visible:
@@ -42,7 +41,6 @@ func focus(Rect = CurrentRect):
 		ButtonOptions.show()
 		AdvancedButton.show()
 		PresetsButton.show()
-		DuplicateButton.show()
 	focus_ready.emit()
 
 # left
