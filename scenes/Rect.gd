@@ -166,13 +166,14 @@ func color_rect(color):
 
 func get_contraction(origin):
 	var contraction = Contraction.new()
+	var translation = Vector2.ZERO
 	if (TextureContainer.position + Rect.position).length() == 0:
-		contraction.translation = Vector2(
+		translation = Vector2(
 			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / Global.LOUPE.x,
 			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / Global.LOUPE.y
 		)
 	else:
-		contraction.translation = Vector2(
+		translation = Vector2(
 			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / Global.LOUPE.x,
 			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / Global.LOUPE.y
 		)
@@ -181,6 +182,9 @@ func get_contraction(origin):
 		self.Rect.size.y / Global.LOUPE.y
 	)
 	contraction.rotation = self.rotation
+	# current translation: position of top-left-edge
+	## wanted translation: position of bottom-left-edge
+	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
 	contraction.mirrored = Maske.flip_h
 	contraction.color = self.Rect.self_modulate
 	return contraction
@@ -189,20 +193,25 @@ func get_contraction(origin):
 
 func update_to(contr, origin):
 	# translation
-	var real_position = Vector2(
+	var scaled_position = Vector2(
 		contr.translation.x * Global.LOUPE.x,
 		contr.translation.y * Global.LOUPE.y
 	)
+	var real_position
 	# not loaded
 	if (TextureContainer.position + Rect.position).length() == 0:
-		self.position = real_position + origin - (Vector2(8,8) + Vector2(0,32)).rotated(contr.rotation)
+		real_position = scaled_position + origin - (Vector2(8,8) + Vector2(0,32)).rotated(contr.rotation)
 	# positions loaded
 	else:
-		self.position = real_position + origin - (TextureContainer.position + Rect.position).rotated(contr.rotation)
+		real_position = scaled_position + origin - (TextureContainer.position + Rect.position).rotated(contr.rotation)
 	# contraction
 	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
 	# rotation
 	self.rotation = contr.rotation
+	# current position: just scaled
+	## origin: bottom-left-edge
+	## but we want the origin to be the top-left-edge
+	self.position = real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation)
 	# mirror
 	Maske.flip_h = contr.mirrored
 	# color
