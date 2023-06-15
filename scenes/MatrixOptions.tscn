@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdcy8qeketbv2"]
+
+[ext_resource type="Script" path="res://scenes/MatrixOptions.gd" id="1_55ogc"]
+
+[node name="MatrixOptions" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_55ogc")
+
+[node name="TranslationLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Verschiebung"
+horizontal_alignment = 2
+
+[node name="TranslationBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TranslationX" type="SpinBox" parent="TranslationBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="TranslationY" type="SpinBox" parent="TranslationBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="MatrixLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Matrix"
+horizontal_alignment = 2
+
+[node name="MatrixBox" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Matrix11" type="SpinBox" parent="MatrixBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix12" type="SpinBox" parent="MatrixBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix21" type="SpinBox" parent="MatrixBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix33" type="SpinBox" parent="MatrixBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="RotationButton" type="Button" parent="."]
+layout_mode = 2
+text = "Zur Rotationsansicht"
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Schließen"
+alignment = 2
+
+[connection signal="pressed" from="RotationButton" to="." method="_on_rotation_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

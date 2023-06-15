@@ -2,6 +2,7 @@ extends VBoxContainer
 
 signal value_changed
 signal close_me
+signal switch
 
 var disabled = false
 
@@ -92,3 +93,6 @@ func read_ui():
 
 func _on_close_button_pressed():
 	close_me.emit()
+
+func _on_matrix_button_pressed():
+	switch.emit()

@@ -36,9 +36,10 @@ func focus(Rect = CurrentRect):
 		AdvancedButton.hide()
 	# if you are focusing something:
 	## update AdvancedOptions
-	elif AdvancedOptions.visible:
+	elif RotatOptions.visible or MatrixOptions.visible:
 		ButtonOptions.show()
-		AdvancedOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	## open advanced option-button
 	else:
 		ButtonOptions.show()
@@ -68,7 +69,8 @@ func _on_close_all_pressed():
 	ColorButton.hide()
 	ColorBar.hide()
 	# right
-	AdvancedOptions.hide()
+	RotatOptions.hide()
+	MatrixOptions.hide()
 	AdvancedButton.hide()
 	Presets.hide()
 	PresetsButton.show()
@@ -123,18 +125,24 @@ func _on_results_pressed():
 ## advanced options
 
 @onready var AdvancedButton = $Right/Lines/AdvancedButton
-@onready var AdvancedOptions = $Right/Lines/AdvancedOptions
+@onready var RotatOptions = $Right/Lines/RotatOptions
+@onready var MatrixOptions = $Right/Lines/MatrixOptions
 @onready var DuplicateButton = $Left/Lines/ButtonOptions/DuplicateButton
+
+var matrix_options = false
 
 func _on_advanced_button_pressed():
 	AdvancedButton.hide()
-	AdvancedOptions.show()
-	AdvancedOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+	RotatOptions.visible = not matrix_options
+	MatrixOptions.visible = matrix_options
+	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	ResultButton.hide()
 	PresetsButton.hide()
 
 func _on_advanced_options_close_me():
-	AdvancedOptions.hide()
+	RotatOptions.hide()
+	MatrixOptions.hide()
 	AdvancedButton.show()
 	ResultButton.show()
 	PresetsButton.show()
@@ -144,9 +152,24 @@ func _on_advanced_options_value_changed():
 	# however, this change should not be driven back to rect-ui
 	# which would provide no further information but make the animation chunky
 	if not CurrentRect.editing_position and not CurrentRect.editing_width and not CurrentRect.editing_height and not CurrentRect.editing_turn:
-		var new_contraction = AdvancedOptions.read_ui()
+		var new_contraction
+		if matrix_options:
+			new_contraction = MatrixOptions.read_ui()
+		else:
+			new_contraction = RotatOptions.read_ui()
 		new_contraction.color = CurrentRect.Rect.self_modulate
 		CurrentRect.update_to(new_contraction, get_origin())
+
+func _on_advanced_options_switch():
+	matrix_options = true
+	RotatOptions.hide()
+	MatrixOptions.show()
+
+func _on_matrix_options_switch():
+	matrix_options = false
+	RotatOptions.show()
+	MatrixOptions.hide()
+
 
 ## presets
 

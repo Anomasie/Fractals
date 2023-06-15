@@ -16,6 +16,7 @@ layout_mode = 2
 
 [node name="TranslationX" type="SpinBox" parent="TranslationBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -23,6 +24,7 @@ page = 0.1
 
 [node name="TranslationY" type="SpinBox" parent="TranslationBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -39,12 +41,14 @@ layout_mode = 2
 
 [node name="ContractionX" type="SpinBox" parent="ContractionBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 page = 0.1
 
 [node name="ContractionY" type="SpinBox" parent="ContractionBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 page = 0.1
@@ -78,9 +82,15 @@ size_flags_horizontal = 3
 text = "gespiegelt"
 horizontal_alignment = 2
 
+[node name="MatrixButton" type="Button" parent="."]
+layout_mode = 2
+text = "Zur Matrixansicht"
+alignment = 2
+
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 2
 text = "Schließen"
 alignment = 2
 
+[connection signal="pressed" from="MatrixButton" to="." method="_on_matrix_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
