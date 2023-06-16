@@ -86,8 +86,8 @@ var PRESETS = {
 			}
 		]
 	},
-	"Barnsley": {
-		"texture": "res://assets/presets/BarnsleyFern.png",
+	"Whirl": {
+		"texture": "res://assets/presets/Whirl.png",
 		"ifs": [
 			{ # main leafs
 				"translation": Vector2(0.27, 1.089),

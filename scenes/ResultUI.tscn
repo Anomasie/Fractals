@@ -86,9 +86,31 @@ layout_mode = 2
 text = "Speichern"
 alignment = 2
 
+[node name="Bottom" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -251.0
+offset_top = -41.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Sep" type="HBoxContainer" parent="Bottom"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 64
+
+[node name="CenterButton" type="CheckButton" parent="Bottom/Sep"]
+layout_mode = 2
+text = "Bild zentriert"
+
 [connection signal="pressed" from="Left/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Right/Lines/SizeButton" to="." method="_on_size_button_pressed"]
 [connection signal="close_me" from="Right/Lines/SizeOptions" to="." method="_on_size_options_close_me"]
 [connection signal="value_changed" from="Right/Lines/SizeOptions" to="." method="_on_size_options_value_changed"]
 [connection signal="pressed" from="Right/Lines/MoreButton" to="." method="_on_more_button_pressed"]
 [connection signal="pressed" from="Right/Lines/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Bottom/Sep/CenterButton" to="." method="_on_center_button_pressed"]

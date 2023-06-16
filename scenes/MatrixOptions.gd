@@ -28,8 +28,8 @@ func load_ui(contraction):
 	# matrix
 	var vec_x = Vector2(1,0)
 	var vec_y = Vector2(0,1)
-	vec_x = (vec_x * contraction.contract.x).rotated(-contraction.rotation)
-	vec_y = (vec_y * contraction.contract.y).rotated(-contraction.rotation)
+	vec_x = (vec_x * contraction.contract.x).rotated(contraction.rotation)
+	vec_y = (vec_y * contraction.contract.y).rotated(contraction.rotation)
 	MatrixEntries[0].value = vec_x.x
 	MatrixEntries[1].value = vec_x.y
 	MatrixEntries[2].value = vec_y.x
@@ -53,10 +53,10 @@ func read_ui():
 		(matrix * Vector2(0,1)).length()
 	)
 	# rotation
-	contraction.rotation = -(matrix * Vector2(1,0)).angle()
+	contraction.rotation = (matrix * Vector2(1,0)).angle()
 	# mirroring?
 	## calculate determinant
-	contraction.mirrored = matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x
+	contraction.mirrored = (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0
 	# color will be added by PlaygroundUI
 	return contraction
 
