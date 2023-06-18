@@ -7,19 +7,19 @@ signal switch
 var disabled = false
 
 func _ready():
-	for child in self.get_children():
+	for child in $Main.get_children():
 		for ankle in child.get_children():
 			if ankle is SpinBox:
 				ankle.value_changed.connect(_value_changed)
 			elif ankle is CheckButton:
 				ankle.pressed.connect(_on_mirror_pressed)
 
-@onready var TranslationX = $TranslationBox/TranslationX
-@onready var TranslationY = $TranslationBox/TranslationY
-@onready var ContractX = $ContractionBox/ContractionX
-@onready var ContractY = $ContractionBox/ContractionY
-@onready var Rotation = $RotationBox/Rotation
-@onready var Mirror = $MirrorBox/Mirror
+@onready var TranslationX = $Main/TranslationBox/TranslationX
+@onready var TranslationY = $Main/TranslationBox/TranslationY
+@onready var ContractX = $Main/ContractionBox/ContractionX
+@onready var ContractY = $Main/ContractionBox/ContractionY
+@onready var Rotation = $Main/RotationBox/Rotation
+@onready var Mirror = $Main/RotationBox/Mirror
 
 func _value_changed(_new_value=0):
 	if not disabled:

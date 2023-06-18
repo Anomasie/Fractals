@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=39 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
@@ -119,6 +119,18 @@ region = Rect2(64, 128, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mc7g"]
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 192, 32, 32)
 
 [node name="PlaygroundUI" type="VBoxContainer"]
 anchors_preset = 15
@@ -243,13 +255,15 @@ layout_mode = 2
 
 [node name="Bottom" type="HBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 
-[node name="AdvancedButton" type="Button" parent="Bottom"]
+[node name="AdvancedButton" type="TextureButton" parent="Bottom"]
+visible = false
 layout_mode = 2
-text = "Erweiterte
-Einstellungen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_rqsg6")
+texture_pressed = SubResource("AtlasTexture_u0188")
+texture_hover = SubResource("AtlasTexture_tf6n6")
 
 [node name="RotatOptions" parent="Bottom" instance=ExtResource("4_yd3uv")]
 visible = false

@@ -1,19 +1,20 @@
-extends VBoxContainer
+extends HBoxContainer
 
 signal value_changed
 signal close_me
 signal switch
 
+@onready var TranslationX = $Main/TranslationBox/TranslationX
+@onready var TranslationY = $Main/TranslationBox/TranslationY
+@onready var MatrixEntries = $Main/MatrixBox/Matrix.get_children()
+
 var disabled = false
 
 func _ready():
-	for child in self.get_children():
-		for ankle in child.get_children():
-			if ankle is SpinBox:
-				ankle.value_changed.connect(_value_changed)
-
-@onready var TranslationEntries = $TranslationBox.get_children()
-@onready var MatrixEntries = $MatrixBox.get_children()
+	for ankle in MatrixEntries:
+		ankle.value_changed.connect(_value_changed)
+	TranslationX.value_changed.connect(_value_changed)
+	TranslationY.value_changed.connect(_value_changed)
 
 func _value_changed(_new_value=0):
 	if not disabled:
@@ -23,8 +24,8 @@ func load_ui(contraction):
 	# do not emit value_changed
 	disabled = true
 	# translation
-	TranslationEntries[0].value = contraction.translation.x
-	TranslationEntries[1].value = contraction.translation.y
+	TranslationX.value = contraction.translation.x
+	TranslationY.value = contraction.translation.y
 	# matrix
 	var vec_x = Vector2(1,0)
 	var vec_y = Vector2(0,1)
@@ -40,7 +41,7 @@ func load_ui(contraction):
 func read_ui():
 	var contraction = Contraction.new()
 	# translation
-	contraction.translation = Vector2(TranslationEntries[0].value, TranslationEntries[1].value)
+	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
 	# get matrix
 	var matrix = Transform2D(
 		Vector2(MatrixEntries[0].value, MatrixEntries[1].value),

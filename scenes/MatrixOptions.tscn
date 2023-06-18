@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdcy8qeketbv2"]
+[gd_scene load_steps=12 format=3 uid="uid://bdcy8qeketbv2"]
 
 [ext_resource type="Script" path="res://scenes/MatrixOptions.gd" id="1_55ogc"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_n2e17"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nqjoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm2rf"]
+atlas = ExtResource("2_n2e17")
+region = Rect2(0, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuoyu"]
+atlas = ExtResource("2_n2e17")
+region = Rect2(32, 288, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvdh1"]
 atlas = ExtResource("2_nqjoq")
@@ -15,28 +24,34 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("2_nqjoq")
 region = Rect2(32, 0, 32, 32)
 
-[node name="MatrixOptions" type="VBoxContainer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcpij"]
+atlas = ExtResource("2_n2e17")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6pvj"]
+atlas = ExtResource("2_n2e17")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3ss7"]
+atlas = ExtResource("2_n2e17")
+region = Rect2(32, 224, 32, 32)
+
+[node name="MatrixOptions" type="HBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_55ogc")
 
-[node name="TranslationLabel" type="Label" parent="."]
-layout_mode = 2
-text = "Verschiebung"
-horizontal_alignment = 2
-
-[node name="TranslationBox" type="HBoxContainer" parent="."]
+[node name="Main" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="TranslationX" type="SpinBox" parent="TranslationBox"]
+[node name="TranslationBox" type="HBoxContainer" parent="Main"]
 layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
 
-[node name="TranslationY" type="SpinBox" parent="TranslationBox"]
+[node name="TranslationLabel" type="TextureRect" parent="Main/TranslationBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mm2rf")
+
+[node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -44,16 +59,26 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="MatrixLabel" type="Label" parent="."]
+[node name="TranslationY" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
-text = "Matrix"
-horizontal_alignment = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
 
-[node name="MatrixBox" type="GridContainer" parent="."]
+[node name="MatrixBox" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+
+[node name="MatrixLabel" type="TextureRect" parent="Main/MatrixBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vuoyu")
+
+[node name="Matrix" type="GridContainer" parent="Main/MatrixBox"]
 layout_mode = 2
 columns = 2
 
-[node name="Matrix11" type="SpinBox" parent="MatrixBox"]
+[node name="Matrix11" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -61,7 +86,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix12" type="SpinBox" parent="MatrixBox"]
+[node name="Matrix12" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -69,7 +94,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix21" type="SpinBox" parent="MatrixBox"]
+[node name="Matrix21" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -77,7 +102,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix33" type="SpinBox" parent="MatrixBox"]
+[node name="Matrix33" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -85,16 +110,20 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="RotationButton" type="Button" parent="."]
+[node name="ElseBox" type="VBoxContainer" parent="."]
 layout_mode = 2
-text = "Zur Rotationsansicht"
-alignment = 2
 
-[node name="CloseButton" type="TextureButton" parent="."]
+[node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_gvdh1")
 texture_pressed = SubResource("AtlasTexture_p8v2a")
 texture_hover = SubResource("AtlasTexture_x6n0h")
 
-[connection signal="pressed" from="RotationButton" to="." method="_on_rotation_button_pressed"]
-[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+[node name="RotationButton" type="TextureButton" parent="ElseBox"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qcpij")
+texture_pressed = SubResource("AtlasTexture_y6pvj")
+texture_hover = SubResource("AtlasTexture_r3ss7")
+
+[connection signal="pressed" from="ElseBox/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ElseBox/RotationButton" to="." method="_on_rotation_button_pressed"]

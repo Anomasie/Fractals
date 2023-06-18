@@ -82,12 +82,15 @@ func _on_close_all_pressed():
 	AdvancedButton.hide()
 	Presets.hide()
 	PresetsButton.show()
+	# reload fractal
+	_fractal_changed()
 
 ## remove button
 
 
 func _on_remove_button_pressed():
 	Playground.close(CurrentRect)
+	_fractal_changed()
 
 ## colors
 
@@ -102,6 +105,7 @@ var rect_editing_color = null
 func _on_color_button_pressed():
 	color(CurrentRect)
 	ColorButton.hide()
+	_fractal_changed()
 
 func color(MyRect):
 	editing_color = true
@@ -161,13 +165,11 @@ func _on_advanced_options_value_changed():
 
 func _on_advanced_options_switch():
 	matrix_options = true
-	RotatOptions.hide()
-	MatrixOptions.show()
+	_on_advanced_button_pressed()
 
 func _on_matrix_options_switch():
 	matrix_options = false
-	RotatOptions.show()
-	MatrixOptions.hide()
+	_on_advanced_button_pressed()
 
 
 ## presets
@@ -189,6 +191,7 @@ func _on_presets_close_me():
 func _on_presets_load_preset(ifs):
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
+	_fractal_changed()
 
 
 # RESULTS
