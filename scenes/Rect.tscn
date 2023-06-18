@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=18 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
@@ -45,6 +45,10 @@ region = Rect2(16, 32, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01f6q"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrfjs"]
 atlas = ExtResource("5_hmmwh")
@@ -167,7 +171,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture_normal = SubResource("AtlasTexture_bycuk")
-texture_pressed = SubResource("AtlasTexture_hrfjs")
+texture_pressed = SubResource("AtlasTexture_01f6q")
 texture_hover = SubResource("AtlasTexture_hrfjs")
 texture_focused = SubResource("AtlasTexture_hrfjs")
 

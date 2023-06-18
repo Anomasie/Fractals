@@ -10,9 +10,7 @@ var current_size = 1
 var file_counter = 0
 
 func _ready():
-	var viewport_size = get_viewport().get_size()
-	current_loupe = min(viewport_size.x - 2 * 16 - 2 * 16, viewport_size.y - 2 * 16) * Vector2i(1,1)
-	#SizeOptions.load_ui(current_loupe)
+	resize()
 
 var limit = 100000
 var frame_limit = 100 # to manage frame performance
@@ -30,12 +28,12 @@ func _process(delta):
 		# add points
 		paint(current_ifs.calculate_fractal( point.new(), 10, amount), CenterButton.button_pressed)
 
-func open(ifs, reload_size=false, centered=CenterButton.button_pressed):
+func resize():
+	current_loupe = Global.LOUPE
+
+func open(ifs, centered=CenterButton.button_pressed):
 	current_ifs = ifs
 	var results = ifs.calculate_fractal()
-	# load size
-	if reload_size:
-		SizeOptions.load_ui(Global.LOUPE)
 	# create empty, white image
 	var image = Image.create(current_loupe.x, current_loupe.y, false, Image.FORMAT_RGB8)
 	image.fill(Color.WHITE) # white
@@ -108,28 +106,6 @@ func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
 		file_counter += 1
 
-# Right
-
-## changing result size
-
-@onready var SizeButton = $Right/SizeButton
-@onready var SizeOptions = $Right/SizeOptions
-
-func _on_size_button_pressed():
-	SizeButton.hide()
-	SaveButton.hide()
-	SizeOptions.show()
-
-func _on_size_options_close_me():
-	SizeOptions.hide()
-	SizeButton.show()
-	SaveButton.show()
-
-func _on_size_options_value_changed():
-	current_loupe = SizeOptions.read_ui()
-	if self.visible:
-		open(current_ifs, false)
-
 # Bottom
 
 ## change centering picture
@@ -137,4 +113,4 @@ func _on_size_options_value_changed():
 @onready var CenterButton = $Right/CenterButton
 
 func _on_center_button_pressed():
-	open(current_ifs, false, CenterButton.button_pressed)
+	open(current_ifs, CenterButton.button_pressed)

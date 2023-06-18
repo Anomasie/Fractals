@@ -39,6 +39,7 @@ region = Rect2(32, 224, 32, 32)
 [node name="MatrixOptions" type="HBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = 16
 script = ExtResource("1_55ogc")
 
 [node name="Main" type="VBoxContainer" parent="."]

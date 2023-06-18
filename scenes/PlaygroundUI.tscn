@@ -257,6 +257,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_constants/separation = 16
 
 [node name="AdvancedButton" type="TextureButton" parent="Bottom"]
 visible = false

@@ -1,21 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=9 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
-[ext_resource type="PackedScene" uid="uid://coy1fxvo8tcdq" path="res://scenes/SizeOptions.tscn" id="3_lnfao"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7hwt"]
-atlas = ExtResource("3_limvo")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cpfbh"]
-atlas = ExtResource("3_limvo")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_egmsk"]
-atlas = ExtResource("3_limvo")
-region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhyhh"]
 atlas = ExtResource("3_limvo")
@@ -50,18 +37,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="SizeButton" type="TextureButton" parent="Right"]
-layout_mode = 2
-size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_d7hwt")
-texture_pressed = SubResource("AtlasTexture_cpfbh")
-texture_hover = SubResource("AtlasTexture_egmsk")
-
-[node name="SizeOptions" parent="Right" instance=ExtResource("3_lnfao")]
-visible = false
-layout_mode = 2
-size_flags_vertical = 0
-
 [node name="SaveButton" type="TextureButton" parent="Right"]
 layout_mode = 2
 size_flags_vertical = 0
@@ -91,11 +66,12 @@ flip_v = true
 
 [node name="Bottom" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_vertical = 10
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
 
-[connection signal="pressed" from="Right/SizeButton" to="." method="_on_size_button_pressed"]
-[connection signal="close_me" from="Right/SizeOptions" to="." method="_on_size_options_close_me"]
-[connection signal="value_changed" from="Right/SizeOptions" to="." method="_on_size_options_value_changed"]
+[node name="Slider" type="HSlider" parent="Bottom"]
+layout_mode = 2
+
 [connection signal="pressed" from="Right/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Right/CenterButton" to="." method="_on_center_button_pressed"]
