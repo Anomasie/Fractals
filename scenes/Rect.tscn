@@ -1,53 +1,53 @@
-[gd_scene load_steps=17 format=3 uid="uid://cchxu2rc1oy1g"]
+[gd_scene load_steps=17 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
 [ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="2_gir0y"]
-[ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/buttons.png" id="3_bnldn"]
 [ext_resource type="Texture2D" uid="uid://dmlv7l6lwogmw" path="res://assets/maske.png" id="4_u4mid"]
+[ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/rect_buttons.png" id="5_hmmwh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(32, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcgre"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_likl4"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5j0nk"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(64, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_050ry"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(80, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bifrm"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(80, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lq3gv"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ctkp"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s83sm"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrfjs"]
-atlas = ExtResource("3_bnldn")
+atlas = ExtResource("5_hmmwh")
 region = Rect2(32, 0, 32, 32)
 
 [node name="Container" type="MarginContainer"]

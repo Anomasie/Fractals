@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends HBoxContainer
 
 signal close_me
 signal load_preset

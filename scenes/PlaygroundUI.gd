@@ -1,10 +1,10 @@
-extends Control
+extends VBoxContainer
 
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
 # However, it was in a previous version, and I diffuse to change the name.
 @onready var BlueTexture = $Center/Center/BlueTexture
-@onready var ResultButton = $Right/Lines/ResultButton
+@onready var ResultButton = $Bottom/Lines/ResultButton
 
 var rot = randi_range(0,360-1)
 
@@ -49,7 +49,7 @@ func focus(Rect = CurrentRect):
 
 # left
 
-@onready var ButtonOptions = $Left/Lines/ButtonOptions
+@onready var ButtonOptions = $Top/Lines/ButtonOptions
 
 ## general options
 
@@ -84,10 +84,10 @@ func _on_remove_button_pressed():
 
 ## colors
 
-@onready var ColorButton = $Left/Lines/ButtonOptions/ColorButton
-@onready var ColorBar = $Left/Lines/ButtonOptions/ColorBar
-@onready var ColorBarPicker = $Left/Lines/ButtonOptions/ColorBar/ColorPicker
-@onready var ColorBarReadyButton = $Left/Lines/ButtonOptions/ColorBar/ReadyButton
+@onready var ColorButton = $Top/Lines/ButtonOptions/ColorButton
+@onready var ColorBar = $Top/Lines/ButtonOptions/ColorBar
+@onready var ColorBarPicker = $Top/Lines/ButtonOptions/ColorBar/ColorContainer/Node/ColorPicker
+@onready var ColorBarReadyButton = $Top/Lines/ButtonOptions/ColorBar/ReadyButton
 
 var editing_color = false
 var rect_editing_color = null
@@ -124,10 +124,10 @@ func _on_results_pressed():
 
 ## advanced options
 
-@onready var AdvancedButton = $Right/Lines/AdvancedButton
-@onready var RotatOptions = $Right/Lines/RotatOptions
-@onready var MatrixOptions = $Right/Lines/MatrixOptions
-@onready var DuplicateButton = $Left/Lines/ButtonOptions/DuplicateButton
+@onready var AdvancedButton = $Bottom/Lines/AdvancedButton
+@onready var RotatOptions = $Bottom/Lines/RotatOptions
+@onready var MatrixOptions = $Bottom/Lines/MatrixOptions
+@onready var DuplicateButton = $Top/Lines/ButtonOptions/DuplicateButton
 
 var matrix_options = false
 
@@ -173,8 +173,8 @@ func _on_matrix_options_switch():
 
 ## presets
 
-@onready var PresetsButton = $Right/Lines/PresetsButton
-@onready var Presets = $Right/Lines/Presets
+@onready var PresetsButton = $Bottom/Lines/PresetsButton
+@onready var Presets = $Bottom/Lines/Presets
 
 func _on_presets_button_pressed():
 	Presets.show()

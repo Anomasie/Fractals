@@ -1,4 +1,4 @@
-extends Control
+extends MarginContainer
 
 @onready var Result = $Center/Result
 @onready var SaveButton = $Right/Lines/SaveButton
@@ -13,7 +13,7 @@ var counter = 0
 func _ready():
 	var viewport_size = get_viewport().get_size()
 	current_loupe = min(viewport_size.x - 2 * 16 - 2 * 16, viewport_size.y - 2 * 16) * Vector2i(1,1)
-	SizeOptions.load_ui(current_loupe)
+	#SizeOptions.load_ui(current_loupe)
 
 func open(ifs, reload_size=false, centered=CenterButton.button_pressed):
 	current_ifs = ifs
@@ -76,10 +76,6 @@ func paint(results, centered):
 					image.set_pixel(real_position.x, real_position.y, entry.color)
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
-
-func _on_back_button_pressed():
-	self.get_parent().show_playground()
-	_on_size_options_close_me()
 
 func _on_more_button_pressed():
 	paint(current_ifs.calculate_fractal( point.new() ), CenterButton.button_pressed)

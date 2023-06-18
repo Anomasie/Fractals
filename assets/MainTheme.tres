@@ -26,5 +26,5 @@ Button/styles/pressed = SubResource("StyleBoxEmpty_kkuj4")
 MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
-MarginContainer/constants/margin_top = -12
+MarginContainer/constants/margin_top = 16
 VBoxContainer/constants/separation = 16

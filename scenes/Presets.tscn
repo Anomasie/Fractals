@@ -1,21 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://co7ekdte8fr1f"]
+[gd_scene load_steps=6 format=3 uid="uid://co7ekdte8fr1f"]
 
 [ext_resource type="Script" path="res://scenes/Presets.gd" id="1_k08fq"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_ehsui"]
 
-[node name="Presets" type="VBoxContainer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1seyx"]
+atlas = ExtResource("2_ehsui")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jous6"]
+atlas = ExtResource("2_ehsui")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuxho"]
+atlas = ExtResource("2_ehsui")
+region = Rect2(32, 0, 32, 32)
+
+[node name="Presets" type="HBoxContainer"]
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 script = ExtResource("1_k08fq")
 
-[node name="PresetsLabel" type="Label" parent="."]
+[node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
-text = "Vorlagen"
-horizontal_alignment = 2
-
-[node name="CloseButton" type="Button" parent="."]
-layout_mode = 2
-text = "Schließen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_1seyx")
+texture_pressed = SubResource("AtlasTexture_jous6")
+texture_hover = SubResource("AtlasTexture_uuxho")
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
