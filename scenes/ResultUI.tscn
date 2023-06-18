@@ -35,7 +35,7 @@ script = ExtResource("1_p14af")
 [node name="Right" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 6
 
 [node name="SaveButton" type="TextureButton" parent="Right"]
 layout_mode = 2
@@ -70,8 +70,13 @@ size_flags_vertical = 10
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_right = 64
 
-[node name="Slider" type="HSlider" parent="Bottom"]
+[node name="PointSlider" type="HSlider" parent="Bottom"]
 layout_mode = 2
+max_value = 1e+06
+step = 10.0
 
 [connection signal="pressed" from="Right/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Right/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="drag_ended" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_ended"]
+[connection signal="drag_started" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_started"]
+[connection signal="value_changed" from="Bottom/PointSlider" to="." method="_on_point_slider_value_changed"]

@@ -83,7 +83,7 @@ func _on_close_all_pressed():
 	Presets.hide()
 	PresetsButton.show()
 	# reload fractal
-	_fractal_changed()
+	PresetTimer.start()
 
 ## remove button
 
@@ -176,6 +176,7 @@ func _on_matrix_options_switch():
 
 @onready var PresetsButton = $Bottom/PresetsButton
 @onready var Presets = $Bottom/Presets
+@onready var PresetTimer = $Bottom/PresetTimer
 
 func _on_presets_button_pressed():
 	Presets.show()
@@ -191,7 +192,7 @@ func _on_presets_close_me():
 func _on_presets_load_preset(ifs):
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
-	_fractal_changed()
+	PresetTimer.start()
 
 
 # RESULTS
@@ -199,3 +200,6 @@ func _on_presets_load_preset(ifs):
 func _fractal_changed():
 	var ifs = Playground.get_ifs( get_origin() )
 	self.get_parent().show_results(ifs)
+
+func _on_preset_timer_timeout():
+	_fractal_changed()

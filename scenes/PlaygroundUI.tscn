@@ -284,6 +284,10 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
+[node name="PresetTimer" type="Timer" parent="Bottom"]
+wait_time = 0.1
+one_shot = true
+
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
 [connection signal="pressed" from="Top/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
@@ -302,3 +306,4 @@ size_flags_horizontal = 8
 [connection signal="pressed" from="Bottom/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Bottom/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Presets" to="." method="_on_presets_load_preset"]
+[connection signal="timeout" from="Bottom/PresetTimer" to="." method="_on_preset_timer_timeout"]

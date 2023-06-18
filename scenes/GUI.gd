@@ -7,6 +7,7 @@ extends Control
 func _ready():
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_on_viewport_resize()
+	show_results(IFS.new())
 
 func _on_viewport_resize():
 	var viewport_size = get_viewport().get_size()

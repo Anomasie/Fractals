@@ -2,6 +2,8 @@ extends VBoxContainer
 
 @onready var Result = $Center/Result
 @onready var SaveButton = $Right/SaveButton
+@onready var CenterButton = $Right/CenterButton
+@onready var PointSlider = $Bottom/PointSlider
 
 var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
@@ -10,11 +12,12 @@ var current_size = 1
 var file_counter = 0
 
 func _ready():
+	PointSlider.value = limit
 	resize()
 
 var limit = 100000
 var frame_limit = 100 # to manage frame performance
-var max_frame_limit = 1000
+var max_frame_limit = 3000
 var counter = 0
 
 func _process(delta):
@@ -57,8 +60,8 @@ func open(ifs, centered=CenterButton.button_pressed):
 		# set current_origin and current_size
 		current_origin = min_bounds
 		current_size = max( (max_bounds-min_bounds).x, (max_bounds-min_bounds).y)
-	# paint results
-	paint(results, CenterButton.button_pressed)
+	# set counter and stuff
+	counter = 0
 	# show
 	show()
 
@@ -106,11 +109,26 @@ func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
 		file_counter += 1
 
-# Bottom
-
-## change centering picture
-
-@onready var CenterButton = $Right/CenterButton
+# change centering picture
 
 func _on_center_button_pressed():
 	open(current_ifs, CenterButton.button_pressed)
+
+# more points!
+
+var dragging = false
+
+func _on_point_slider_value_changed(value):
+	# set new point limit
+	limit = value
+	# if too many points:
+	## restart
+	if counter > limit and not dragging:
+		open(current_ifs)
+
+func _on_point_slider_drag_started():
+	dragging = true
+
+func _on_point_slider_drag_ended(_value_changed):
+	dragging = false
+	_on_point_slider_value_changed(PointSlider.value)
