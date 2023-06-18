@@ -8,12 +8,27 @@ var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
 var current_origin = Vector2.ZERO
 var current_size = 1
-var counter = 0
+var file_counter = 0
 
 func _ready():
 	var viewport_size = get_viewport().get_size()
 	current_loupe = min(viewport_size.x - 2 * 16 - 2 * 16, viewport_size.y - 2 * 16) * Vector2i(1,1)
 	#SizeOptions.load_ui(current_loupe)
+
+var limit = 100000
+var frame_limit = 100 # to manage frame performance
+var counter = 0
+
+func _process(delta):
+	if delta > 1.0/60: # too slow
+		frame_limit -= 10
+	if delta < 1.0/30: # fast enough
+		frame_limit += 10
+	if counter < limit:
+		var amount = min(frame_limit, limit-counter)
+		counter += amount
+		# add points
+		paint(current_ifs.calculate_fractal( point.new(), 10, amount), CenterButton.button_pressed)
 
 func open(ifs, reload_size=false, centered=CenterButton.button_pressed):
 	current_ifs = ifs
@@ -91,7 +106,7 @@ func _on_save_button_pressed():
 
 func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(counter) + ".png"):
-		counter += 1
+		file_counter += 1
 
 # Right
 

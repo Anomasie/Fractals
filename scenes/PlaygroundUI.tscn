@@ -165,6 +165,7 @@ texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
 [node name="ColorBar" type="VBoxContainer" parent="Top/Lines/ButtonOptions"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 0
@@ -283,12 +284,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ResultButton" type="Button" parent="Bottom/Lines"]
-visibility_layer = 2
-layout_mode = 2
-text = "Ergebnis"
-alignment = 2
-
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
 [connection signal="pressed" from="Top/Lines/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
@@ -307,4 +302,3 @@ alignment = 2
 [connection signal="pressed" from="Bottom/Lines/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Bottom/Lines/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Lines/Presets" to="." method="_on_presets_load_preset"]
-[connection signal="pressed" from="Bottom/Lines/ResultButton" to="." method="_on_results_pressed"]

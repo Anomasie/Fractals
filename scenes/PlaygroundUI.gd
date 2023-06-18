@@ -4,7 +4,6 @@ extends VBoxContainer
 # There is no reason to call this a blue texture, as it isn't blue anymore.
 # However, it was in a previous version, and I diffuse to change the name.
 @onready var BlueTexture = $Center/Center/BlueTexture
-@onready var ResultButton = $Bottom/Lines/ResultButton
 
 var rot = randi_range(0,360-1)
 
@@ -13,6 +12,7 @@ func _ready():
 	# hide and show
 	ColorBar.hide()
 	focus()
+	Playground.fractal_changed.connect(_fractal_changed)
 
 var old_loupe = Global.LOUPE
 var old_origin
@@ -82,7 +82,6 @@ func _on_close_all_pressed():
 	AdvancedButton.hide()
 	Presets.hide()
 	PresetsButton.show()
-	ResultButton.show()
 
 ## remove button
 
@@ -124,12 +123,6 @@ func _on_color_picker_color_changed(new_color):
 func _on_duplicate_button_pressed():
 	Playground.duplicate_rect(CurrentRect, get_origin())
 
-# right
-
-func _on_results_pressed():
-	var ifs = Playground.get_ifs( get_origin() )
-	self.get_parent().show_results(ifs)
-
 ## advanced options
 
 @onready var AdvancedButton = $Bottom/Lines/AdvancedButton
@@ -145,14 +138,12 @@ func _on_advanced_button_pressed():
 	MatrixOptions.visible = matrix_options
 	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-	ResultButton.hide()
 	PresetsButton.hide()
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()
 	MatrixOptions.hide()
 	AdvancedButton.show()
-	ResultButton.show()
 	PresetsButton.show()
 
 func _on_advanced_options_value_changed():
@@ -188,14 +179,19 @@ func _on_presets_button_pressed():
 	Presets.show()
 	AdvancedButton.hide()
 	PresetsButton.hide()
-	ResultButton.hide()
 
 func _on_presets_close_me():
 	Presets.hide()
 	AdvancedButton.show()
 	PresetsButton.show()
-	ResultButton.show()
 
 func _on_presets_load_preset(ifs):
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
+
+
+# RESULTS
+
+func _fractal_changed():
+	var ifs = Playground.get_ifs( get_origin() )
+	self.get_parent().show_results(ifs)

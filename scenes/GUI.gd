@@ -17,7 +17,5 @@ func _on_viewport_resize():
 func show_results(results):
 	ResultUI.open(results, true)
 
-
-
 func _on_resize_timer_timeout():
 	PlaygroundUI.resize_playground()

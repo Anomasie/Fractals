@@ -1,11 +1,15 @@
 extends Node
 
+signal fractal_changed
+
 var Rect = load("res://scenes/Rect.tscn")
 
 var counter = 0
 
+func _fractal_changed():
+	fractal_changed.emit()
+
 func resize(old_origin, old_loupe, new_origin, new_loupe):
-	print(old_origin, " -> ", new_origin)
 	for child in self.get_children():
 		if child is ResizableRect:
 			child.update_to(
@@ -19,6 +23,7 @@ func add(pos, duplicating=false):
 	counter += 1
 	Instance.position = pos - Vector2(8,8) - Vector2(0,32)
 	Instance.focus_me.connect(focus.bind(Instance))
+	Instance.changed.connect(_fractal_changed)
 	self.add_child(Instance)
 	self.focus(Instance)
 	get_parent().focus(Instance)

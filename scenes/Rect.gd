@@ -8,6 +8,7 @@ var mouse_in = false
 # editing
 
 signal focus_me
+signal changed
 
 # buttons
 @onready var Content = $Content
@@ -32,6 +33,7 @@ func _input(event):
 	if self.visible and event is InputEventMouseMotion:
 		if editing_position or editing_turn or editing_width or editing_height:
 			focus_me.emit()
+			changed.emit()
 		if editing_position:
 			self.position = event.position - rect_origin
 		elif editing_turn:
@@ -219,3 +221,5 @@ func update_to(contr, origin):
 	Maske.flip_h = contr.mirrored
 	# color
 	Rect.self_modulate = contr.color
+	
+	changed.emit()
