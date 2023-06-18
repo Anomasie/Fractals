@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends HBoxContainer
 
 signal value_changed
 signal close_me

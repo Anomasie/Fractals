@@ -1,8 +1,7 @@
-extends MarginContainer
+extends VBoxContainer
 
 @onready var Result = $Center/Result
-@onready var SaveButton = $Right/Lines/SaveButton
-@onready var MoreButton = $Right/Lines/MoreButton
+@onready var SaveButton = $Right/SaveButton
 
 var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
@@ -17,13 +16,14 @@ func _ready():
 
 var limit = 100000
 var frame_limit = 100 # to manage frame performance
+var max_frame_limit = 1000
 var counter = 0
 
 func _process(delta):
 	if delta > 1.0/60: # too slow
-		frame_limit -= 10
+		frame_limit = max(0, frame_limit-10)
 	if delta < 1.0/30: # fast enough
-		frame_limit += 10
+		frame_limit = min(frame_limit+10, max_frame_limit)
 	if counter < limit:
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
@@ -105,26 +105,24 @@ func _on_save_button_pressed():
 	image.save_png(Global.SAVE_PATH + filename)
 
 func get_counter():
-	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(counter) + ".png"):
+	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
 		file_counter += 1
 
 # Right
 
 ## changing result size
 
-@onready var SizeButton = $Right/Lines/SizeButton
-@onready var SizeOptions = $Right/Lines/SizeOptions
+@onready var SizeButton = $Right/SizeButton
+@onready var SizeOptions = $Right/SizeOptions
 
 func _on_size_button_pressed():
 	SizeButton.hide()
-	MoreButton.hide()
 	SaveButton.hide()
 	SizeOptions.show()
 
 func _on_size_options_close_me():
 	SizeOptions.hide()
 	SizeButton.show()
-	MoreButton.show()
 	SaveButton.show()
 
 func _on_size_options_value_changed():
@@ -136,7 +134,7 @@ func _on_size_options_value_changed():
 
 ## change centering picture
 
-@onready var CenterButton = $Bottom/Sep/CenterButton
+@onready var CenterButton = $Right/CenterButton
 
 func _on_center_button_pressed():
 	open(current_ifs, false, CenterButton.button_pressed)

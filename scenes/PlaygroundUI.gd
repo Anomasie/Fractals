@@ -57,7 +57,7 @@ func focus(Rect = CurrentRect):
 
 # left
 
-@onready var ButtonOptions = $Top/Lines/ButtonOptions
+@onready var ButtonOptions = $Top/ButtonOptions
 
 ## general options
 
@@ -91,10 +91,10 @@ func _on_remove_button_pressed():
 
 ## colors
 
-@onready var ColorButton = $Top/Lines/ButtonOptions/ColorButton
-@onready var ColorBar = $Top/Lines/ButtonOptions/ColorBar
-@onready var ColorBarPicker = $Top/Lines/ButtonOptions/ColorBar/ColorContainer/ColorPicker
-@onready var ColorBarReadyButton = $Top/Lines/ButtonOptions/ColorBar/ReadyButton
+@onready var ColorButton = $Top/ButtonOptions/ColorButton
+@onready var ColorBar = $Top/ButtonOptions/ColorBar
+@onready var ColorBarPicker = $Top/ButtonOptions/ColorBar/ColorContainer/ColorPicker
+@onready var ColorBarReadyButton = $Top/ButtonOptions/ColorBar/ReadyButton
 
 var editing_color = false
 var rect_editing_color = null
@@ -125,10 +125,10 @@ func _on_duplicate_button_pressed():
 
 ## advanced options
 
-@onready var AdvancedButton = $Bottom/Lines/AdvancedButton
-@onready var RotatOptions = $Bottom/Lines/RotatOptions
-@onready var MatrixOptions = $Bottom/Lines/MatrixOptions
-@onready var DuplicateButton = $Top/Lines/ButtonOptions/DuplicateButton
+@onready var AdvancedButton = $Bottom/AdvancedButton
+@onready var RotatOptions = $Bottom/RotatOptions
+@onready var MatrixOptions = $Bottom/MatrixOptions
+@onready var DuplicateButton = $Top/ButtonOptions/DuplicateButton
 
 var matrix_options = false
 
@@ -172,8 +172,8 @@ func _on_matrix_options_switch():
 
 ## presets
 
-@onready var PresetsButton = $Bottom/Lines/PresetsButton
-@onready var Presets = $Bottom/Lines/Presets
+@onready var PresetsButton = $Bottom/PresetsButton
+@onready var Presets = $Bottom/Presets
 
 func _on_presets_button_pressed():
 	Presets.show()
@@ -182,7 +182,8 @@ func _on_presets_button_pressed():
 
 func _on_presets_close_me():
 	Presets.hide()
-	AdvancedButton.show()
+	if typeof(CurrentRect) != TYPE_NIL:
+		AdvancedButton.show()
 	PresetsButton.show()
 
 func _on_presets_load_preset(ifs):

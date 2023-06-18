@@ -1,15 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://coy1fxvo8tcdq"]
+[gd_scene load_steps=10 format=3 uid="uid://coy1fxvo8tcdq"]
 
 [ext_resource type="Script" path="res://scenes/SizeOptions.gd" id="1_7an8l"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_2y6dp"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_ryq2e"]
 
-[node name="SizeOptions" type="VBoxContainer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_px203"]
+atlas = ExtResource("2_2y6dp")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l22e0"]
+atlas = ExtResource("2_2y6dp")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tu7l"]
+atlas = ExtResource("2_2y6dp")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npnyi"]
+atlas = ExtResource("2_ryq2e")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j52ws"]
+atlas = ExtResource("2_ryq2e")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dehkf"]
+atlas = ExtResource("2_ryq2e")
+region = Rect2(32, 0, 32, 32)
+
+[node name="SizeOptions" type="HBoxContainer"]
 script = ExtResource("1_7an8l")
-
-[node name="SizeLabel" type="Label" parent="."]
-layout_mode = 2
-text = "Aktuelle
-Bildauflösung"
-horizontal_alignment = 2
 
 [node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -30,15 +50,17 @@ page = 1.0
 value = 512.0
 suffix = "px"
 
-[node name="ResetButton" type="Button" parent="."]
+[node name="ResetButton" type="TextureButton" parent="."]
 layout_mode = 2
-text = "Zurücksetzen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_px203")
+texture_pressed = SubResource("AtlasTexture_l22e0")
+texture_hover = SubResource("AtlasTexture_5tu7l")
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
-text = "Schließen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_npnyi")
+texture_pressed = SubResource("AtlasTexture_j52ws")
+texture_hover = SubResource("AtlasTexture_dehkf")
 
 [connection signal="value_changed" from="Columns/SizeX" to="." method="_on_size_x_value_changed"]
 [connection signal="value_changed" from="Columns/SizeY" to="." method="_on_size_y_value_changed"]

@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci4h23rvdej3t"]
+[gd_scene load_steps=6 format=3 uid="uid://ci4h23rvdej3t"]
 
 [ext_resource type="Script" path="res://scenes/AdvancedOptions.gd" id="1_jbv3n"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_5yjsg"]
 
-[node name="AdvancedOptions" type="VBoxContainer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_skh3p"]
+atlas = ExtResource("2_5yjsg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrwi1"]
+atlas = ExtResource("2_5yjsg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v0vr"]
+atlas = ExtResource("2_5yjsg")
+region = Rect2(32, 0, 32, 32)
+
+[node name="AdvancedOptions" type="HBoxContainer"]
 script = ExtResource("1_jbv3n")
 
 [node name="TranslationLabel" type="Label" parent="."]
@@ -87,10 +100,11 @@ layout_mode = 2
 text = "Zur Matrixansicht"
 alignment = 2
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
-text = "Schließen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_skh3p")
+texture_pressed = SubResource("AtlasTexture_yrwi1")
+texture_hover = SubResource("AtlasTexture_0v0vr")
 
 [connection signal="pressed" from="MatrixButton" to="." method="_on_matrix_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -29,6 +29,7 @@ func add(pos, duplicating=false):
 	get_parent().focus(Instance)
 	if duplicating:
 		return Instance
+	fractal_changed.emit()
 
 func close_all():
 	for child in self.get_children():
@@ -38,12 +39,14 @@ func close_all():
 func close(MyRect):
 	MyRect.queue_free()
 	get_parent().focus(null)
+	fractal_changed.emit()
 
 func duplicate_rect(MyRect, origin):
 	# add some child
 	var Instance = await add(MyRect.position, true)
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
+	fractal_changed.emit()
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)

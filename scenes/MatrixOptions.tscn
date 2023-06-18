@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdcy8qeketbv2"]
+[gd_scene load_steps=6 format=3 uid="uid://bdcy8qeketbv2"]
 
 [ext_resource type="Script" path="res://scenes/MatrixOptions.gd" id="1_55ogc"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nqjoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvdh1"]
+atlas = ExtResource("2_nqjoq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8v2a"]
+atlas = ExtResource("2_nqjoq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6n0h"]
+atlas = ExtResource("2_nqjoq")
+region = Rect2(32, 0, 32, 32)
 
 [node name="MatrixOptions" type="VBoxContainer"]
 offset_right = 40.0
@@ -77,10 +90,11 @@ layout_mode = 2
 text = "Zur Rotationsansicht"
 alignment = 2
 
-[node name="CloseButton" type="Button" parent="."]
+[node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
-text = "Schließen"
-alignment = 2
+texture_normal = SubResource("AtlasTexture_gvdh1")
+texture_pressed = SubResource("AtlasTexture_p8v2a")
+texture_hover = SubResource("AtlasTexture_x6n0h")
 
 [connection signal="pressed" from="RotationButton" to="." method="_on_rotation_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
