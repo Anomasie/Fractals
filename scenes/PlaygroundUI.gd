@@ -14,8 +14,16 @@ func _ready():
 	ColorBar.hide()
 	focus()
 
+var old_loupe = Global.LOUPE
+var old_origin
+
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
+
+func resize_playground():
+	Playground.resize(old_origin, old_loupe, get_origin(), Global.LOUPE)
+	old_loupe = Global.LOUPE
+	old_origin = get_origin()
 
 func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
@@ -86,7 +94,7 @@ func _on_remove_button_pressed():
 
 @onready var ColorButton = $Top/Lines/ButtonOptions/ColorButton
 @onready var ColorBar = $Top/Lines/ButtonOptions/ColorBar
-@onready var ColorBarPicker = $Top/Lines/ButtonOptions/ColorBar/ColorContainer/Node/ColorPicker
+@onready var ColorBarPicker = $Top/Lines/ButtonOptions/ColorBar/ColorContainer/ColorPicker
 @onready var ColorBarReadyButton = $Top/Lines/ButtonOptions/ColorBar/ReadyButton
 
 var editing_color = false

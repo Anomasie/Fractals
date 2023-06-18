@@ -1,8 +1,17 @@
-extends Node2D
+extends Node
 
 var Rect = load("res://scenes/Rect.tscn")
 
 var counter = 0
+
+func resize(old_origin, old_loupe, new_origin, new_loupe):
+	print(old_origin, " -> ", new_origin)
+	for child in self.get_children():
+		if child is ResizableRect:
+			child.update_to(
+				child.get_contraction(old_origin, old_loupe),
+				new_origin
+			)
 
 func add(pos, duplicating=false):
 	var Instance = Rect.instantiate()

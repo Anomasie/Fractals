@@ -164,22 +164,22 @@ func color_rect(color):
 
 # load contraction
 
-func get_contraction(origin):
+func get_contraction(origin, loupe = Global.LOUPE):
 	var contraction = Contraction.new()
 	var translation = Vector2.ZERO
 	if (TextureContainer.position + Rect.position).length() == 0:
 		translation = Vector2(
-			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / Global.LOUPE.x,
-			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / Global.LOUPE.y
+			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / loupe.x,
+			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / loupe.y
 		)
 	else:
 		translation = Vector2(
-			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / Global.LOUPE.x,
-			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / Global.LOUPE.y
+			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / loupe.x,
+			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / loupe.y
 		)
 	contraction.contract = Vector2(
-		self.Rect.size.x / Global.LOUPE.x,
-		self.Rect.size.y / Global.LOUPE.y
+		self.Rect.size.x / loupe.x,
+		self.Rect.size.y / loupe.y
 	)
 	contraction.rotation = self.rotation
 	# current translation: position of top-left-edge

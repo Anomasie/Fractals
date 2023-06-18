@@ -177,12 +177,8 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Node" type="Node2D" parent="Top/Lines/ButtonOptions/ColorBar/ColorContainer"]
-
-[node name="ColorPicker" type="ColorPicker" parent="Top/Lines/ButtonOptions/ColorBar/ColorContainer/Node"]
-offset_right = 290.0
-offset_bottom = 288.0
-scale = Vector2(0.5, 0.5)
+[node name="ColorPicker" type="ColorPicker" parent="Top/Lines/ButtonOptions/ColorBar/ColorContainer"]
+layout_mode = 2
 alignment = 1
 color = Color(0, 0, 0, 1)
 edit_alpha = false
@@ -297,7 +293,7 @@ alignment = 2
 
 [connection signal="pressed" from="Top/Lines/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="pressed" from="Top/Lines/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="color_changed" from="Top/Lines/ButtonOptions/ColorBar/ColorContainer/Node/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="color_changed" from="Top/Lines/ButtonOptions/ColorBar/ColorContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="Top/Lines/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Top/Lines/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Top/Lines/CloseAllButton" to="." method="_on_close_all_pressed"]
