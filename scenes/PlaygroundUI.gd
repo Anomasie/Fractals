@@ -108,6 +108,7 @@ func _on_color_button_pressed():
 
 func _on_color_picker_color_changed(new_color):
 	CurrentRect.color_rect(new_color)
+	_fractal_changed()
 
 func _on_color_bar_finished():
 	ColorBar.hide()
