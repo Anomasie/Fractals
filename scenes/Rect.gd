@@ -157,6 +157,9 @@ func set_focus(enabled):
 
 ## colors
 
+func get_color():
+	return Rect.self_modulate
+
 func color_rect(color):
 	Rect.self_modulate = color
 	if color.get_luminance() < 0.5:

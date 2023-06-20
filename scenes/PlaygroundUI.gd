@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends MarginContainer
 
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
@@ -43,21 +43,26 @@ func focus(Rect = CurrentRect):
 		ButtonOptions.hide()
 		AdvancedButton.hide()
 	# if you are focusing something:
-	## update AdvancedOptions
-	elif RotatOptions.visible or MatrixOptions.visible:
-		ButtonOptions.show()
-		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-	## open advanced option-button
 	else:
-		ButtonOptions.show()
-		AdvancedButton.show()
-		PresetsButton.show()
+		## update AdvancedOptions
+		if RotatOptions.visible or MatrixOptions.visible:
+			ButtonOptions.show()
+			RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+			MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		## open advanced option-button
+		else:
+			ButtonOptions.show()
+			AdvancedButton.show()
+			PresetsButton.show()
+		# coloring
+		if ColorBar.visible:
+			# load new color
+			_on_color_picker_color_changed( ColorBar.ColorBarPicker.color )
 	focus_ready.emit()
 
 # left
 
-@onready var ButtonOptions = $Top/ButtonOptions
+@onready var ButtonOptions = $Top/Main/ButtonOptions
 
 ## general options
 
@@ -70,8 +75,6 @@ func _on_add_pressed():
 
 func _on_close_all_pressed():
 	Playground.close_all()
-	editing_color = false
-	rect_editing_color = null
 	CurrentRect = null
 	# left
 	ColorButton.hide()
@@ -94,33 +97,21 @@ func _on_remove_button_pressed():
 
 ## colors
 
-@onready var ColorButton = $Top/ButtonOptions/ColorButton
-@onready var ColorBar = $Top/ButtonOptions/ColorBar
-@onready var ColorBarPicker = $Top/ButtonOptions/ColorBar/ColorContainer/ColorPicker
-@onready var ColorBarReadyButton = $Top/ButtonOptions/ColorBar/ReadyButton
-
-var editing_color = false
-var rect_editing_color = null
+@onready var ColorButton = $Top/Main/ButtonOptions/ColorButton
+@onready var ColorBar = $Top/Main/ButtonOptions/ColorBar
 
 func _on_color_button_pressed():
-	color(CurrentRect)
+	ColorBar.load_color(CurrentRect.get_color())
 	ColorButton.hide()
+	ColorBar.show()
 	_fractal_changed()
 
-func color(MyRect):
-	editing_color = true
-	rect_editing_color = MyRect
-	MyRect.Rect.self_modulate = ColorBarPicker.color
-	ColorBar.show()
-	await ColorBarReadyButton.pressed
-	editing_color = false
-	rect_editing_color = null
+func _on_color_picker_color_changed(new_color):
+	CurrentRect.color_rect(new_color)
+
+func _on_color_bar_finished():
 	ColorBar.hide()
 	ColorButton.show()
-
-func _on_color_picker_color_changed(new_color):
-	if editing_color and rect_editing_color:
-		rect_editing_color.color_rect(new_color)
 
 ## duplicate button
 
@@ -129,10 +120,10 @@ func _on_duplicate_button_pressed():
 
 ## advanced options
 
-@onready var AdvancedButton = $Bottom/AdvancedButton
-@onready var RotatOptions = $Bottom/RotatOptions
-@onready var MatrixOptions = $Bottom/MatrixOptions
-@onready var DuplicateButton = $Top/ButtonOptions/DuplicateButton
+@onready var AdvancedButton = $Bottom/Main/AdvancedButton
+@onready var RotatOptions = $Bottom/Main/RotatOptions
+@onready var MatrixOptions = $Bottom/Main/MatrixOptions
+@onready var DuplicateButton = $Top/Main/ButtonOptions/DuplicateButton
 
 var matrix_options = false
 
@@ -174,9 +165,9 @@ func _on_matrix_options_switch():
 
 ## presets
 
-@onready var PresetsButton = $Bottom/PresetsButton
-@onready var Presets = $Bottom/Presets
-@onready var PresetTimer = $Bottom/PresetTimer
+@onready var PresetsButton = $Bottom/Main/PresetsButton
+@onready var Presets = $Bottom/Main/Presets
+@onready var PresetTimer = $Bottom/Main/PresetTimer
 
 func _on_presets_button_pressed():
 	Presets.show()

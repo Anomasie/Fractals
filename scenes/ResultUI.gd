@@ -16,8 +16,9 @@ func _ready():
 	resize()
 
 var limit = 100000
-var frame_limit = 100 # to manage frame performance
+var frame_limit = 1000 # to manage frame performance
 var max_frame_limit = 3000
+var min_frame_limit = 100
 var counter = 0
 
 func _process(delta):
