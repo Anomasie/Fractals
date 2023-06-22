@@ -55,11 +55,9 @@ atlas = ExtResource("5_hmmwh")
 region = Rect2(32, 0, 32, 32)
 
 [node name="Container" type="MarginContainer"]
-custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 96.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+offset_right = 48.0
+offset_bottom = 80.0
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -69,6 +67,7 @@ metadata/_edit_group_ = true
 
 [node name="Content" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 0
@@ -76,6 +75,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="OutlineContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
@@ -86,8 +86,8 @@ layout_mode = 2
 texture = ExtResource("2_gir0y")
 
 [node name="TextureContainer" type="MarginContainer" parent="Content"]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -95,6 +95,7 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Rect" type="TextureRect" parent="Content/TextureContainer"]
 self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(7, 7)
 layout_mode = 2
 texture = ExtResource("2_72flb")
 
