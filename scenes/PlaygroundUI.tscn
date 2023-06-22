@@ -122,6 +122,7 @@ atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 192, 32, 32)
 
 [node name="PlaygroundUI" type="MarginContainer"]
+layout_direction = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -135,6 +136,7 @@ script = ExtResource("1_ioibl")
 
 [node name="Top" type="MarginContainer" parent="."]
 visibility_layer = 2
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
@@ -189,6 +191,7 @@ texture_hover = SubResource("AtlasTexture_6mc7g")
 
 [node name="Center" type="MarginContainer" parent="."]
 visibility_layer = 2
+z_index = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -220,6 +223,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Bottom" type="MarginContainer" parent="."]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10

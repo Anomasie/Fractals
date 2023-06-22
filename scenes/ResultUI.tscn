@@ -26,11 +26,13 @@ atlas = ExtResource("3_limvo")
 region = Rect2(0, 160, 32, 32)
 
 [node name="ResultUI" type="MarginContainer"]
+layout_direction = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_p14af")
 
 [node name="Top" type="MarginContainer" parent="."]
@@ -59,7 +61,6 @@ theme_override_icons/unchecked = SubResource("AtlasTexture_lum8u")
 [node name="FileDialog" type="FileDialog" parent="Top"]
 position = Vector2i(128, 128)
 size = Vector2i(911, 273)
-visible = true
 exclusive = false
 content_scale_mode = 2
 dialog_close_on_escape = false

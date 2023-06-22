@@ -59,5 +59,10 @@ texture_normal = SubResource("AtlasTexture_e6hl8")
 texture_pressed = SubResource("AtlasTexture_n3t01")
 texture_hover = SubResource("AtlasTexture_hi2mq")
 
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="color_changed" from="Lines/ColorContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="Lines/ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

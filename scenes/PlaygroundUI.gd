@@ -58,6 +58,8 @@ func focus(Rect = CurrentRect):
 		if ColorBar.visible:
 			# load new color
 			_on_color_picker_color_changed( ColorBar.ColorBarPicker.color )
+			# reposition color bar picker
+			ColorBar.load_new_position( CurrentRect.position + Vector2(CurrentRect.size.x, 0).rotated(CurrentRect.rotation) ) 
 	focus_ready.emit()
 
 # left
@@ -90,7 +92,6 @@ func _on_close_all_pressed():
 
 ## remove button
 
-
 func _on_remove_button_pressed():
 	Playground.close(CurrentRect)
 	_fractal_changed()
@@ -105,6 +106,7 @@ func _on_color_button_pressed():
 	ColorButton.hide()
 	ColorBar.show()
 	_fractal_changed()
+	focus()
 
 func _on_color_picker_color_changed(new_color):
 	CurrentRect.color_rect(new_color)
