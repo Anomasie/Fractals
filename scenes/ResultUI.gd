@@ -4,7 +4,7 @@ extends MarginContainer
 @onready var SaveButton = $Top/Main/SaveButton
 @onready var SaveFileDialog = $Top/FileDialog
 @onready var CenterButton = $Top/Main/CenterButton
-@onready var PointSlider = $Bottom/PointSlider
+@onready var PointSlider = $Bottom/Lines/PointSlider
 
 var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
@@ -16,6 +16,8 @@ func _ready():
 	PointSlider.value = limit
 	SaveFileDialog.hide()
 	resize()
+
+var delay = 10
 
 var limit = 100000
 var frame_limit = 1000 # to manage frame performance
@@ -32,7 +34,7 @@ func _process(delta):
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
 		# add points
-		paint(current_ifs.calculate_fractal( point.new(), 10, amount), CenterButton.button_pressed)
+		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.button_pressed)
 
 func resize():
 	current_loupe = Global.LOUPE
@@ -96,9 +98,6 @@ func paint(results, centered):
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
 
-func _on_more_button_pressed():
-	paint(current_ifs.calculate_fractal( point.new() ), CenterButton.button_pressed)
-
 func _on_save_button_pressed():
 	if OS.has_feature("web"):
 		get_counter()
@@ -126,19 +125,25 @@ func _on_center_button_pressed():
 
 # more points!
 
-var dragging = false
+var dragging_point_slider = false
 
 func _on_point_slider_value_changed(value):
 	# set new point limit
 	limit = value
 	# if too many points:
 	## restart
-	if counter > limit and not dragging:
+	if counter > limit and not dragging_point_slider:
 		open(current_ifs)
 
 func _on_point_slider_drag_started():
-	dragging = true
+	dragging_point_slider = true
 
 func _on_point_slider_drag_ended(_value_changed):
-	dragging = false
+	dragging_point_slider = false
 	_on_point_slider_value_changed(PointSlider.value)
+
+# more clarity!
+
+func _on_delay_slider_value_changed(value):
+	delay = value
+	open(current_ifs)

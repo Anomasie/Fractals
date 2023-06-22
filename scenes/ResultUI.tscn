@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=14 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
@@ -24,6 +24,22 @@ region = Rect2(0, 192, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lum8u"]
 atlas = ExtResource("3_limvo")
 region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75thn"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlc14"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxxko"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 352, 32, 32)
 
 [node name="ResultUI" type="MarginContainer"]
 layout_direction = 2
@@ -87,14 +103,44 @@ size_flags_vertical = 10
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_right = 64
 
-[node name="PointSlider" type="HSlider" parent="Bottom"]
+[node name="Lines" type="GridContainer" parent="Bottom"]
 layout_mode = 2
+columns = 3
+
+[node name="PointTexture1" type="TextureRect" parent="Bottom/Lines"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fmh57")
+
+[node name="PointSlider" type="HSlider" parent="Bottom/Lines"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1e+06
 step = 10.0
+
+[node name="PointTexture2" type="TextureRect" parent="Bottom/Lines"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_75thn")
+
+[node name="DelayTexture1" type="TextureRect" parent="Bottom/Lines"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vlc14")
+
+[node name="DelaySlider" type="HSlider" parent="Bottom/Lines"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 10.0
+
+[node name="DelayTexture2" type="TextureRect" parent="Bottom/Lines"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xxxko")
 
 [connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="file_selected" from="Top/FileDialog" to="Top/FileDialog" method="_on_file_selected"]
-[connection signal="drag_ended" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_ended"]
-[connection signal="drag_started" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_started"]
-[connection signal="value_changed" from="Bottom/PointSlider" to="." method="_on_point_slider_value_changed"]
+[connection signal="drag_ended" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
+[connection signal="drag_started" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
+[connection signal="value_changed" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
+[connection signal="drag_ended" from="Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_drag_ended"]
+[connection signal="value_changed" from="Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]

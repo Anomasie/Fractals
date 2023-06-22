@@ -30,7 +30,7 @@ metadata/_edit_group_ = true
 [node name="Lines" type="VBoxContainer" parent="."]
 offset_right = 290.0
 offset_bottom = 304.0
-theme_override_constants/separation = -16
+theme_override_constants/separation = -32
 
 [node name="ColorContainer" type="MarginContainer" parent="Lines"]
 custom_minimum_size = Vector2(144, 128)
