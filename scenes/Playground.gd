@@ -9,7 +9,7 @@ var counter = 0
 func _fractal_changed():
 	fractal_changed.emit()
 
-func resize(old_origin, old_loupe, new_origin, new_loupe):
+func resize(old_origin, old_loupe, new_origin, _new_loupe):
 	for child in self.get_children():
 		if child is ResizableRect:
 			child.update_to(

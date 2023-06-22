@@ -1,8 +1,9 @@
-extends VBoxContainer
+extends MarginContainer
 
 @onready var Result = $Center/Result
-@onready var SaveButton = $Right/SaveButton
-@onready var CenterButton = $Right/CenterButton
+@onready var SaveButton = $Top/Main/SaveButton
+@onready var SaveFileDialog = $Top/FileDialog
+@onready var CenterButton = $Top/Main/CenterButton
 @onready var PointSlider = $Bottom/PointSlider
 
 var current_ifs = IFS.new()
@@ -13,6 +14,7 @@ var file_counter = 0
 
 func _ready():
 	PointSlider.value = limit
+	SaveFileDialog.hide()
 	resize()
 
 var limit = 100000
@@ -98,13 +100,20 @@ func _on_more_button_pressed():
 	paint(current_ifs.calculate_fractal( point.new() ), CenterButton.button_pressed)
 
 func _on_save_button_pressed():
-	get_counter()
-	var filename = "fractal" + str(counter) + ".png"
+	if OS.has_feature("web"):
+		get_counter()
+		var filename = "fractal" + str(counter) + ".png"
+		var image = Result.get_texture().get_image()
+		image.flip_y()
+		var buf = image.save_png_to_buffer()
+		JavaScriptBridge.download_buffer(buf, filename)
+	else:
+		SaveFileDialog.open()
+
+func save(path):
 	var image = Result.get_texture().get_image()
 	image.flip_y()
-	var buf = image.save_png_to_buffer()
-	JavaScriptBridge.download_buffer(buf, filename)
-	image.save_png(Global.SAVE_PATH + filename)
+	image.save_png(path)
 
 func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):

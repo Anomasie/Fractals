@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=10 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
+[ext_resource type="Script" path="res://scenes/SaveFileDialog.gd" id="3_1twtw"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhyhh"]
@@ -24,7 +25,7 @@ region = Rect2(0, 192, 32, 32)
 atlas = ExtResource("3_limvo")
 region = Rect2(0, 160, 32, 32)
 
-[node name="ResultUI" type="VBoxContainer"]
+[node name="ResultUI" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -32,23 +33,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p14af")
 
-[node name="Right" type="HBoxContainer" parent="."]
+[node name="Top" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Main" type="HBoxContainer" parent="Top"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="SaveButton" type="TextureButton" parent="Right"]
+[node name="SaveButton" type="TextureButton" parent="Top/Main"]
 layout_mode = 2
 size_flags_vertical = 0
 texture_normal = SubResource("AtlasTexture_bhyhh")
 texture_pressed = SubResource("AtlasTexture_vxkup")
 texture_hover = SubResource("AtlasTexture_3ur5h")
 
-[node name="CenterButton" type="CheckButton" parent="Right"]
+[node name="CenterButton" type="CheckButton" parent="Top/Main"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_icons/checked = SubResource("AtlasTexture_bitd4")
 theme_override_icons/unchecked = SubResource("AtlasTexture_lum8u")
+
+[node name="FileDialog" type="FileDialog" parent="Top"]
+position = Vector2i(128, 128)
+size = Vector2i(911, 273)
+visible = true
+exclusive = false
+content_scale_mode = 2
+dialog_close_on_escape = false
+access = 2
+script = ExtResource("3_1twtw")
 
 [node name="Center" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -75,8 +91,9 @@ layout_mode = 2
 max_value = 1e+06
 step = 10.0
 
-[connection signal="pressed" from="Right/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="Right/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="file_selected" from="Top/FileDialog" to="Top/FileDialog" method="_on_file_selected"]
 [connection signal="drag_ended" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_ended"]
 [connection signal="drag_started" from="Bottom/PointSlider" to="." method="_on_point_slider_drag_started"]
 [connection signal="value_changed" from="Bottom/PointSlider" to="." method="_on_point_slider_value_changed"]

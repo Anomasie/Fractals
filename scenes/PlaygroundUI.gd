@@ -186,12 +186,11 @@ func _on_presets_load_preset(ifs):
 	_on_presets_close_me()
 	PresetTimer.start()
 
+func _on_preset_timer_timeout():
+	_fractal_changed()
 
 # RESULTS
 
 func _fractal_changed():
 	var ifs = Playground.get_ifs( get_origin() )
 	self.get_parent().show_results(ifs)
-
-func _on_preset_timer_timeout():
-	_fractal_changed()
