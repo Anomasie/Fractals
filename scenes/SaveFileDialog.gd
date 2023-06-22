@@ -1,12 +1,9 @@
 extends FileDialog
 
-func _ready():
-	print(self.current_dir, ": ", self.current_file, " ! ", self.current_path, " - ", self.current_screen)
-
 func open():
 	popup()
-	invalidate()
-	print(self.current_dir, ": ", self.current_file, " ! ", self.current_path, " - ", self.current_screen)
+	invalidate() # it was supposed to help fixing a bug, but I am not sure what it does
+	# but everyone seems to recommend it, so I guess I'll leave it in
 
 func close():
 	hide()

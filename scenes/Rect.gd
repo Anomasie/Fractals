@@ -222,6 +222,8 @@ func update_to(contr, origin):
 	self.position = real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation)
 	# mirror
 	Maske.flip_h = contr.mirrored
+	#if contr.mirrored:
+		#self.position -= Vector2(size.x, 0).rotated(self.rotation)
 	# color
 	Rect.self_modulate = contr.color
 	
