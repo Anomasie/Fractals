@@ -58,6 +58,8 @@ func read_ui():
 	# mirroring?
 	## calculate determinant
 	contraction.mirrored = (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0
+	if contraction.mirrored:
+		contraction.rotation = PI - contraction.rotation
 	# color will be added by PlaygroundUI
 	return contraction
 
