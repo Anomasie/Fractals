@@ -182,8 +182,7 @@ func save(path):
 		background.save_png(path)
 
 func get_counter():
-	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
-		file_counter += 1
+	file_counter += 1
 
 # change centering picture
 
