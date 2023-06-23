@@ -131,19 +131,18 @@ func _on_save_button_pressed():
 		get_counter()
 		var filename = "fractal" + str(counter) + ".png"
 		# extract images
-		var image = Result.get_texture().get_image()
-		var background = Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RGBA8)
+		var background = Image.create(RealImage.get_width(), RealImage.get_height(), false, Image.FORMAT_RGBA8)
 		background.fill(ResultBackground.self_modulate)
 		background.convert(Image.FORMAT_RGBA8)
 		# add result (image) onto background
 		background.blit_rect_mask(
-			image,
-			image,
+			RealImage,
+			RealImage,
 			Rect2i(
 				0,
 				0,
-				image.get_width(),
-				image.get_height()),
+				RealImage.get_width(),
+				RealImage.get_height()),
 			Vector2i(
 				0,
 				0

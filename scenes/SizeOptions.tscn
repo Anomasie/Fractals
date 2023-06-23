@@ -1,8 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://d02voib3j3r1l"]
+[gd_scene load_steps=7 format=3 uid="uid://d02voib3j3r1l"]
 
 [ext_resource type="Script" path="res://scenes/SizeOptions.gd" id="1_ftoxo"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_kqhrg"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_trms6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m00e8"]
+atlas = ExtResource("2_kqhrg")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwla2"]
+atlas = ExtResource("2_kqhrg")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm38w"]
+atlas = ExtResource("2_kqhrg")
+region = Rect2(32, 64, 32, 32)
 
 [node name="SizeOptions" type="MarginContainer"]
 size_flags_horizontal = 8
@@ -12,7 +25,7 @@ script = ExtResource("1_ftoxo")
 [node name="Main" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2
 
 [node name="SizeX" type="SpinBox" parent="Main"]
 layout_mode = 2
@@ -38,5 +51,14 @@ value = 1024.0
 rounded = true
 suffix = "px"
 
+[node name="ReloadButton" type="TextureButton" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture_normal = SubResource("AtlasTexture_m00e8")
+texture_pressed = SubResource("AtlasTexture_jwla2")
+texture_hover = SubResource("AtlasTexture_rm38w")
+
 [connection signal="value_changed" from="Main/SizeX" to="." method="_on_size_x_value_changed"]
 [connection signal="value_changed" from="Main/SizeY" to="." method="_on_size_y_value_changed"]
+[connection signal="pressed" from="Main/ReloadButton" to="." method="_on_reload_button_pressed"]
