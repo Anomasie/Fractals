@@ -86,31 +86,60 @@ var PRESETS = {
 			}
 		]
 	},
-	"Whirl": {
-		"texture": "res://assets/presets/Whirl.png",
+#	"Whirl": {
+#		"texture": "res://assets/presets/Whirl.png",
+#		"ifs": [
+#			{ # main leafs
+#				"translation": Vector2(0.27, 1.089),
+#				"contract": Vector2(0.872, 0.804),
+#				"rotation": 2 * PI - 345.0 / 360 * 2 * PI,
+#				"mirrored": false
+#			},
+#			{ # first left leaf
+#				"translation": Vector2(0.066, 0.3),
+#				"contract": Vector2( 0.269, 0.49 ),
+#				"rotation": 2 * PI - 48.0 / 360 * 2 * PI,
+#				"mirrored": false
+#			},
+#			{ # first right leaf
+#				"translation": Vector2(0.813, 0.391),#Vector2(0.937, 0.232),
+#				"contract": Vector2(0.202, 0.465),
+#				"rotation": 2 * PI - 308.0 / 360 * 2 * PI,
+#				"mirrored": true
+#			},
+#						{ # Stiel
+#				"translation": Vector2(0.463, 0.266),
+#				"contract": Vector2(0.085, 0.29),
+#				"rotation": 2 * PI - 1.0 / 360 * 2 * PI,
+#				"mirrored": false
+#			}
+#		]
+#	},
+	"Bernsley": {
+		"texture": "res://assets/presets/BernsleyFern.png",
 		"ifs": [
-			{ # main leafs
-				"translation": Vector2(0.27, 1.089),
-				"contract": Vector2(0.872, 0.804),
-				"rotation": 2 * PI - 345.0 / 360 * 2 * PI,
+			{ # stem
+				"translation": Vector2(0, 0),
+				"contract": Vector2(0.05, 0.16),
+				"rotation": 0,
 				"mirrored": false
 			},
-			{ # first left leaf
-				"translation": Vector2(0.066, 0.3),
-				"contract": Vector2( 0.269, 0.49 ),
-				"rotation": 2 * PI - 48.0 / 360 * 2 * PI,
+			{ # main leaf
+				"translation": Vector2(0, 0.8),
+				"contract": Vector2(0.851, 0.851),
+				"rotation": 2 * PI - 357.0 / 360 * 2 * PI,
 				"mirrored": false
 			},
 			{ # first right leaf
-				"translation": Vector2(0.813, 0.391),#Vector2(0.937, 0.232),
-				"contract": Vector2(0.202, 0.465),
-				"rotation": 2 * PI - 308.0 / 360 * 2 * PI,
+				"translation": Vector2(0, 0.22),
+				"contract": Vector2(0.318, 0.354),
+				"rotation": 2 * PI - 298.0 / 360 * 2 * PI,
 				"mirrored": true
 			},
-						{ # Stiel
-				"translation": Vector2(0.463, 0.266),
-				"contract": Vector2(0.085, 0.29),
-				"rotation": 2 * PI - 1.0 / 360 * 2 * PI,
+			{ # first left leaf
+				"translation": Vector2(0, 0.8),
+				"contract": Vector2(0.328, 0.318),
+				"rotation": 2 * PI - 52.0 / 360 * 2 * PI,
 				"mirrored": false
 			}
 		]

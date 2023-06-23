@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baw52bvw1spa2"
-path="res://.godot/imported/BarnsleyFern.png-2d63cd73c02edd0d2ed46d0bea529f87.ctex"
+uid="uid://dwt4pax6u02ds"
+path="res://.godot/imported/BernsleyFern.png-c3f718f990bdd33d1b3f4698c99a682e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/presets/BarnsleyFern.png"
-dest_files=["res://.godot/imported/BarnsleyFern.png-2d63cd73c02edd0d2ed46d0bea529f87.ctex"]
+source_file="res://assets/presets/BernsleyFern.png"
+dest_files=["res://.godot/imported/BernsleyFern.png-c3f718f990bdd33d1b3f4698c99a682e.ctex"]
 
 [params]
 
