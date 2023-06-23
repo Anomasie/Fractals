@@ -108,18 +108,39 @@ func _on_save_button_pressed():
 	if OS.has_feature("web"):
 		get_counter()
 		var filename = "fractal" + str(counter) + ".png"
+		# extract images
 		var image = Result.get_texture().get_image()
-		image.flip_y()
-		var buf = image.save_png_to_buffer()
+		var background = Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RGBA8)
+		background.fill(ResultBackground.self_modulate)
+		background.convert(Image.FORMAT_RGBA8)
+		# add result (image) onto background
+		background.blit_rect_mask(
+			image,
+			image,
+			Rect2i(
+				0,
+				0,
+				image.get_width(),
+				image.get_height()),
+			Vector2i(
+				0,
+				0
+			)
+		)
+		background.flip_y()
+		# save image
+		var buf = background.save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
 	else:
 		SaveFileDialog.open()
 
 func save(path):
+	# extract images
 	var image = Result.get_texture().get_image()
 	var background = Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RGBA8)
 	background.fill(ResultBackground.self_modulate)
 	background.convert(Image.FORMAT_RGBA8)
+	# add result (image) onto background
 	background.blit_rect_mask(
 		image,
 		image,
@@ -134,7 +155,11 @@ func save(path):
 		)
 	)
 	background.flip_y()
-	background.save_png(path)
+	# save image
+	if not path.ends_with(".png") and not path.ends_with(".PNG"):
+		background.save_png(path + ".png")
+	else:
+		background.save_png(path)
 
 func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
