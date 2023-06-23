@@ -164,6 +164,7 @@ texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
 [node name="ColorBar" parent="Top/Main/ButtonOptions" instance=ExtResource("3_cnn6e")]
+visible = false
 
 [node name="DuplicateButton" type="TextureButton" parent="Top/Main/ButtonOptions"]
 layout_mode = 2

@@ -1,9 +1,31 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=21 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
 [ext_resource type="Script" path="res://scenes/SaveFileDialog.gd" id="3_1twtw"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
+[ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="6_gvug8"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_jbswu"]
+events = [SubResource("InputEventKey_1kcjd")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl1cn"]
+atlas = ExtResource("2_bc0yl")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_407ms"]
+atlas = ExtResource("2_bc0yl")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cncu8"]
+atlas = ExtResource("2_bc0yl")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhyhh"]
 atlas = ExtResource("3_limvo")
@@ -61,6 +83,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
+[node name="ColorButton" type="TextureButton" parent="Top/Main"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_jbswu")
+texture_normal = SubResource("AtlasTexture_yl1cn")
+texture_pressed = SubResource("AtlasTexture_407ms")
+texture_hover = SubResource("AtlasTexture_cncu8")
+
 [node name="SaveButton" type="TextureButton" parent="Top/Main"]
 layout_mode = 2
 size_flags_vertical = 0
@@ -91,6 +120,10 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
+
+[node name="ResultBackground" type="TextureRect" parent="Center"]
+layout_mode = 2
+texture = ExtResource("2_ffygg")
 
 [node name="Result" type="TextureRect" parent="Center"]
 layout_mode = 2
@@ -136,6 +169,9 @@ value = 10.0
 layout_mode = 2
 texture = SubResource("AtlasTexture_xxxko")
 
+[node name="ColorBar" parent="." instance=ExtResource("6_gvug8")]
+
+[connection signal="pressed" from="Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="file_selected" from="Top/FileDialog" to="Top/FileDialog" method="_on_file_selected"]
@@ -143,3 +179,4 @@ texture = SubResource("AtlasTexture_xxxko")
 [connection signal="drag_started" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
 [connection signal="value_changed" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
 [connection signal="value_changed" from="Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
+[connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]

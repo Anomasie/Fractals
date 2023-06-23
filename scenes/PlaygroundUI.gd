@@ -102,11 +102,14 @@ func _on_remove_button_pressed():
 @onready var ColorBar = $Top/Main/ButtonOptions/ColorBar
 
 func _on_color_button_pressed():
-	ColorBar.load_color(CurrentRect.get_color())
-	ColorButton.hide()
-	ColorBar.show()
-	_fractal_changed()
-	focus()
+	if not ColorBar.visible:
+		ColorBar.load_color(CurrentRect.get_color())
+		#ColorButton.hide()
+		ColorBar.show()
+		_fractal_changed()
+		focus()
+	else:
+		ColorBar.hide()
 
 func _on_color_picker_color_changed(new_color):
 	CurrentRect.color_rect(new_color)
@@ -114,7 +117,7 @@ func _on_color_picker_color_changed(new_color):
 
 func _on_color_bar_finished():
 	ColorBar.hide()
-	ColorButton.show()
+	#ColorButton.show()
 
 ## duplicate button
 

@@ -15,6 +15,8 @@ func _on_color_picker_color_changed(new_color):
 func load_color(new_color):
 	ColorBarPicker.color = new_color
 
+# for colorbar in PlaygroundUI:
+
 @onready var load_position = self.get_global_position()
 
 func load_new_position(new_position):

@@ -1,9 +1,14 @@
 extends MarginContainer
 
 @onready var Result = $Center/Result
+@onready var ResultBackground = $Center/ResultBackground
+
 @onready var SaveButton = $Top/Main/SaveButton
 @onready var SaveFileDialog = $Top/FileDialog
 @onready var CenterButton = $Top/Main/CenterButton
+@onready var ColorButton = $Top/Main/ColorButton
+@onready var ColorBar = $ColorBar
+
 @onready var PointSlider = $Bottom/Lines/PointSlider
 
 var current_ifs = IFS.new()
@@ -15,6 +20,7 @@ var file_counter = 0
 func _ready():
 	PointSlider.value = limit
 	SaveFileDialog.hide()
+	ColorBar.hide()
 	resize()
 
 var delay = 10
@@ -43,8 +49,8 @@ func open(ifs, centered=CenterButton.button_pressed):
 	current_ifs = ifs
 	var results = ifs.calculate_fractal()
 	# create empty, white image
-	var image = Image.create(current_loupe.x, current_loupe.y, false, Image.FORMAT_RGB8)
-	image.fill(Color.WHITE) # white
+	var image = Image.create(current_loupe.x, current_loupe.y, false, Image.FORMAT_RGBA8)
+	image.fill(Color.TRANSPARENT) # white
 	Result.custom_minimum_size = current_loupe
 	Result.set_texture(ImageTexture.create_from_image(image))
 	# calculate min and max bounds in results
@@ -111,8 +117,24 @@ func _on_save_button_pressed():
 
 func save(path):
 	var image = Result.get_texture().get_image()
-	image.flip_y()
-	image.save_png(path)
+	var background = Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RGBA8)
+	background.fill(ResultBackground.self_modulate)
+	background.convert(Image.FORMAT_RGBA8)
+	background.blit_rect_mask(
+		image,
+		image,
+		Rect2i(
+			0,
+			0,
+			image.get_width(),
+			image.get_height()),
+		Vector2i(
+			0,
+			0
+		)
+	)
+	background.flip_y()
+	background.save_png(path)
 
 func get_counter():
 	while FileAccess.file_exists(Global.SAVE_PATH + "fractal" + str(file_counter) + ".png"):
@@ -147,3 +169,18 @@ func _on_point_slider_drag_ended(_value_changed):
 func _on_delay_slider_value_changed(value):
 	delay = value
 	open(current_ifs)
+
+# background color
+
+func _on_color_button_pressed():
+	if ColorBar.visible:
+		ColorBar.hide()
+	else:
+		ColorBar.load_color(ResultBackground.self_modulate)
+		ColorBar.show()
+
+func _on_color_picker_color_changed(new_color):
+	ResultBackground.self_modulate = new_color
+
+func _on_color_bar_finished():
+	ColorBar.hide()
