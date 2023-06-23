@@ -114,6 +114,7 @@ texture = SubResource("AtlasTexture_v75dv")
 layout_mode = 2
 max_value = 360.0
 page = 1.0
+rounded = true
 suffix = "°"
 
 [node name="Mirror" type="CheckButton" parent="Main/RotationBox"]
