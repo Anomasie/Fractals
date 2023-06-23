@@ -99,7 +99,7 @@ func _on_remove_button_pressed():
 ## colors
 
 @onready var ColorButton = $Top/Main/ButtonOptions/ColorButton
-@onready var ColorBar = $Top/Main/ButtonOptions/ColorBar
+@onready var ColorBar = $ColorBar
 
 func _on_color_button_pressed():
 	if not ColorBar.visible:

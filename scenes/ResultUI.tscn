@@ -170,6 +170,7 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_xxxko")
 
 [node name="ColorBar" parent="." instance=ExtResource("6_gvug8")]
+position = Vector2(8, 8)
 
 [connection signal="pressed" from="Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]

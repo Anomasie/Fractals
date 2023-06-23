@@ -163,9 +163,6 @@ texture_normal = SubResource("AtlasTexture_l4f0q")
 texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
-[node name="ColorBar" parent="Top/Main/ButtonOptions" instance=ExtResource("3_cnn6e")]
-visible = false
-
 [node name="DuplicateButton" type="TextureButton" parent="Top/Main/ButtonOptions"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_cmo8y")
@@ -263,9 +260,12 @@ one_shot = true
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
+[node name="ColorBar" parent="." instance=ExtResource("3_cnn6e")]
+visible = false
+position = Vector2(540, 16)
+
 [connection signal="pressed" from="Top/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="pressed" from="Top/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="finished" from="Top/Main/ButtonOptions/ColorBar" to="." method="_on_color_bar_finished"]
 [connection signal="pressed" from="Top/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Top/Main/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Top/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
@@ -280,3 +280,4 @@ one_shot = true
 [connection signal="close_me" from="Bottom/Main/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Main/Presets" to="." method="_on_presets_load_preset"]
 [connection signal="timeout" from="Bottom/Main/PresetTimer" to="." method="_on_preset_timer_timeout"]
+[connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]

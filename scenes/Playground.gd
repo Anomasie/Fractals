@@ -6,6 +6,12 @@ var Rect = load("res://scenes/Rect.tscn")
 
 var counter = 0
 
+func _input(event):
+	if event.is_action_pressed("scroll_up"):
+		focus( self.get_child(0) )
+	elif event.is_action_pressed("scroll_down"):
+		focus( self.get_child(0) )
+
 func _fractal_changed():
 	fractal_changed.emit()
 
