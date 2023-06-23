@@ -9,7 +9,12 @@ extends MarginContainer
 @onready var ColorButton = $Top/Main/ColorButton
 @onready var ColorBar = $ColorBar
 
+@onready var SizeOptions = $SizeOptions
+
 @onready var PointSlider = $Bottom/Lines/PointSlider
+
+var RealImage
+var image_size = current_loupe
 
 var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
@@ -21,6 +26,7 @@ func _ready():
 	PointSlider.value = limit
 	SaveFileDialog.hide()
 	ColorBar.hide()
+	SizeOptions.hide()
 	resize()
 
 var delay = 10
@@ -44,13 +50,22 @@ func _process(delta):
 
 func resize():
 	current_loupe = Global.LOUPE
+	image_size = current_loupe
+	open(current_ifs)
+
+func resize_image(new_size):
+	image_size = new_size
+	open(current_ifs)
 
 func open(ifs, centered=CenterButton.button_pressed):
 	current_ifs = ifs
 	var results = ifs.calculate_fractal()
 	# create empty, white image
-	var image = Image.create(current_loupe.x, current_loupe.y, false, Image.FORMAT_RGBA8)
+	var image = Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color.TRANSPARENT) # white
+	# "save" image
+	RealImage = image
+	# scale image for Results:
 	Result.custom_minimum_size = current_loupe
 	Result.set_texture(ImageTexture.create_from_image(image))
 	# calculate min and max bounds in results
@@ -77,7 +92,6 @@ func open(ifs, centered=CenterButton.button_pressed):
 	show()
 
 func paint(results, centered):
-	var image = Result.get_texture().get_image()
 	# paint image
 	## centered view
 	if centered:
@@ -85,22 +99,30 @@ func paint(results, centered):
 		# paint
 		for entry in results:
 			var real_position = Vector2i(
-				(entry.position.x - current_origin.x) / current_size * current_loupe.x,
-				(entry.position.y - current_origin.y) / current_size * current_loupe.y
+				(entry.position.x - current_origin.x) / current_size * image_size.x,
+				(entry.position.y - current_origin.y) / current_size * image_size.y
 			)
-			if real_position.x >= 0 and real_position.x < image.get_width():
-				if real_position.y >= 0 and real_position.y < image.get_height():
-					image.set_pixel(real_position.x, real_position.y, entry.color)
+			if real_position.x >= 0 and real_position.x < RealImage.get_width():
+				if real_position.y >= 0 and real_position.y < RealImage.get_height():
+					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
 	## normal view: not centered
 	else:
 		for entry in results:
 			var real_position = Vector2i(
-				entry.position.x * current_loupe.x,
-				entry.position.y * current_loupe.y
+				entry.position.x * image_size.x,
+				entry.position.y * image_size.y
 			)
-			if real_position.x >= 0 and real_position.x < current_loupe.x:
-				if real_position.y >= 0 and real_position.y < current_loupe.y:
-					image.set_pixel(real_position.x, real_position.y, entry.color)
+			if real_position.x >= 0 and real_position.x < image_size.x:
+				if real_position.y >= 0 and real_position.y < image_size.y:
+					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
+	var image = RealImage.duplicate()
+	Result.custom_minimum_size = current_loupe
+	if image_size.x > current_loupe.x and image_size.y > current_loupe.y:
+		image.resize(current_loupe.x, current_loupe.y)
+	elif image_size.x > current_loupe.x:
+		image.resize(current_loupe.x, image_size.y)
+	elif image_size.y > current_loupe.y:
+		image.resize(image_size.x, current_loupe.y)
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
 
@@ -136,19 +158,18 @@ func _on_save_button_pressed():
 
 func save(path):
 	# extract images
-	var image = Result.get_texture().get_image()
-	var background = Image.create(image.get_width(), image.get_height(), false, Image.FORMAT_RGBA8)
+	var background = Image.create(RealImage.get_width(), RealImage.get_height(), false, Image.FORMAT_RGBA8)
 	background.fill(ResultBackground.self_modulate)
 	background.convert(Image.FORMAT_RGBA8)
 	# add result (image) onto background
 	background.blit_rect_mask(
-		image,
-		image,
+		RealImage,
+		RealImage,
 		Rect2i(
 			0,
 			0,
-			image.get_width(),
-			image.get_height()),
+			RealImage.get_width(),
+			RealImage.get_height()),
 		Vector2i(
 			0,
 			0
@@ -209,3 +230,18 @@ func _on_color_picker_color_changed(new_color):
 
 func _on_color_bar_finished():
 	ColorBar.hide()
+
+# size options
+
+func _on_size_button_pressed():
+	if not SizeOptions.visible:
+		var image = Result.get_texture().get_image()
+		SizeOptions.load_ui(
+			Vector2i(image.get_width(), image.get_height())
+		)
+		SizeOptions.show()
+	else:
+		SizeOptions.hide()
+
+func _on_size_options_value_changed():
+	resize_image(SizeOptions.read_ui())

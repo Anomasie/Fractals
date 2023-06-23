@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=25 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
 [ext_resource type="Script" path="res://scenes/SaveFileDialog.gd" id="3_1twtw"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
+[ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/SizeOptions.tscn" id="5_ok3dt"]
 [ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="6_gvug8"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
@@ -46,6 +47,18 @@ region = Rect2(0, 192, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lum8u"]
 atlas = ExtResource("3_limvo")
 region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jvvs"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nraaw"]
+atlas = ExtResource("3_limvo")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06psx"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
 atlas = ExtResource("3_limvo")
@@ -103,6 +116,12 @@ size_flags_vertical = 0
 theme_override_icons/checked = SubResource("AtlasTexture_bitd4")
 theme_override_icons/unchecked = SubResource("AtlasTexture_lum8u")
 
+[node name="SizeButton" type="TextureButton" parent="Top/Main"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_6jvvs")
+texture_pressed = SubResource("AtlasTexture_nraaw")
+texture_hover = SubResource("AtlasTexture_06psx")
+
 [node name="FileDialog" type="FileDialog" parent="Top"]
 position = Vector2i(128, 128)
 size = Vector2i(911, 273)
@@ -111,6 +130,9 @@ content_scale_mode = 2
 dialog_close_on_escape = false
 access = 2
 script = ExtResource("3_1twtw")
+
+[node name="SizeOptions" parent="." instance=ExtResource("5_ok3dt")]
+layout_mode = 2
 
 [node name="Center" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -175,7 +197,9 @@ position = Vector2(8, 8)
 [connection signal="pressed" from="Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="pressed" from="Top/Main/SizeButton" to="." method="_on_size_button_pressed"]
 [connection signal="file_selected" from="Top/FileDialog" to="Top/FileDialog" method="_on_file_selected"]
+[connection signal="value_changed" from="SizeOptions" to="." method="_on_size_options_value_changed"]
 [connection signal="drag_ended" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
 [connection signal="drag_started" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
 [connection signal="value_changed" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://d02voib3j3r1l"]
+
+[ext_resource type="Script" path="res://scenes/SizeOptions.gd" id="1_ftoxo"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_trms6"]
+
+[node name="SizeOptions" type="MarginContainer"]
+size_flags_horizontal = 8
+size_flags_vertical = 0
+script = ExtResource("1_ftoxo")
+
+[node name="Main" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SizeX" type="SpinBox" parent="Main"]
+layout_mode = 2
+theme_override_icons/updown = SubResource("ImageTexture_trms6")
+min_value = 1.0
+max_value = 2028.0
+value = 1024.0
+rounded = true
+suffix = "px"
+
+[node name="Label" type="Label" parent="Main"]
+layout_mode = 2
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SizeY" type="SpinBox" parent="Main"]
+layout_mode = 2
+theme_override_icons/updown = SubResource("ImageTexture_trms6")
+min_value = 1.0
+max_value = 2028.0
+value = 1024.0
+rounded = true
+suffix = "px"
+
+[connection signal="value_changed" from="Main/SizeX" to="." method="_on_size_x_value_changed"]
+[connection signal="value_changed" from="Main/SizeY" to="." method="_on_size_y_value_changed"]
