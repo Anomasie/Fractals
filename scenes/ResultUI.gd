@@ -46,7 +46,7 @@ func _process(delta):
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
 		# add points
-		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.button_pressed)
+		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
 
 func resize():
 	current_loupe = Global.LOUPE
@@ -57,7 +57,7 @@ func resize_image(new_size):
 	image_size = new_size
 	open(current_ifs)
 
-func open(ifs, centered=CenterButton.button_pressed):
+func open(ifs, centered=CenterButton.centered):
 	current_ifs = ifs
 	var results = ifs.calculate_fractal()
 	# create empty, white image
@@ -187,7 +187,7 @@ func get_counter():
 # change centering picture
 
 func _on_center_button_pressed():
-	open(current_ifs, CenterButton.button_pressed)
+	open(current_ifs, CenterButton.centered)
 
 # more points!
 

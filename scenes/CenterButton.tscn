@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://dpi78ruafalrj"]
+
+[ext_resource type="Script" path="res://scenes/CenterButton.gd" id="1_th8sh"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="1_uytef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jaac"]
+atlas = ExtResource("1_uytef")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gre0r"]
+atlas = ExtResource("1_uytef")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2abf"]
+atlas = ExtResource("1_uytef")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xac18"]
+atlas = ExtResource("1_uytef")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ru6c"]
+atlas = ExtResource("1_uytef")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t04px"]
+atlas = ExtResource("1_uytef")
+region = Rect2(32, 192, 32, 32)
+
+[node name="CenterButton" type="MarginContainer"]
+size_flags_vertical = 0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_th8sh")
+
+[node name="Center" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_0jaac")
+texture_pressed = SubResource("AtlasTexture_gre0r")
+texture_hover = SubResource("AtlasTexture_c2abf")
+
+[node name="Normal" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_xac18")
+texture_pressed = SubResource("AtlasTexture_5ru6c")
+texture_hover = SubResource("AtlasTexture_t04px")
+
+[connection signal="pressed" from="Center" to="." method="_on_center_pressed"]
+[connection signal="pressed" from="Normal" to="." method="_on_normal_pressed"]
