@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=28 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
@@ -56,6 +56,14 @@ region = Rect2(32, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
 atlas = ExtResource("3_limvo")
 region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wf1g5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dieuj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0s43s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sw2vj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75thn"]
 atlas = ExtResource("3_limvo")
@@ -162,6 +170,23 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1e+06
 step = 10.0
+value = 100000.0
+
+[node name="ActualValueSlider" type="HSlider" parent="Bottom/Lines/PointSlider"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_icons/tick = SubResource("PlaceholderTexture2D_wf1g5")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_dieuj")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_0s43s")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_sw2vj")
+value = 20.0
+editable = false
+scrollable = false
 
 [node name="PointTexture2" type="TextureRect" parent="Bottom/Lines"]
 layout_mode = 2

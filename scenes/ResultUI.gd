@@ -12,6 +12,7 @@ extends MarginContainer
 @onready var SizeOptions = $SizeOptions
 
 @onready var PointSlider = $Bottom/Lines/PointSlider
+@onready var PointTeller = $Bottom/Lines/PointSlider/ActualValueSlider
 
 var RealImage
 var image_size = current_loupe
@@ -24,6 +25,9 @@ var file_counter = 0
 
 func _ready():
 	PointSlider.value = limit
+	PointTeller.min_value = PointSlider.min_value
+	PointTeller.max_value = PointSlider.max_value
+	PointTeller.value = 0
 	SaveFileDialog.hide()
 	ColorBar.hide()
 	SizeOptions.hide()
@@ -45,6 +49,7 @@ func _process(delta):
 	if counter < limit:
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
+		PointTeller.value = counter
 		# add points
 		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
 
