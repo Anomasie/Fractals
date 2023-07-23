@@ -17,11 +17,3 @@ var type = 0
 # type 2:
 ## 0 - 0
 ## all vertices are independent of each other
-
-
-func get_current_graph():
-	var type = RandomButton.type
-	var graph = Graph.new()
-	match type:
-		0:
-			

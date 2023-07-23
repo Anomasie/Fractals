@@ -8,5 +8,5 @@ func open():
 func close():
 	hide()
 
-func _on_file_selected(path):
+func _on_file_selected(_path):
 	get_owner().save(current_path)

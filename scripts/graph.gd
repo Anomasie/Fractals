@@ -30,3 +30,21 @@ func get_depth():
 		return Children[0].get_depth() + 1
 	else:
 		return 1
+
+func get_graph_from_fiber(fiber):
+	if len(fiber) > 1:
+		var vertex = Graph.new()
+		vertex.ifs = fiber[0]
+		var amount = len(fiber[0].systems)
+		fiber.pop_front()
+		for _i in amount:
+			vertex.Children.append(
+				vertex.get_graph_from_fiber(
+					fiber
+				)
+			)
+		return vertex
+	else:
+		var last_vertex = Graph.new()
+		last_vertex.ifs = fiber[0]
+		return last_vertex

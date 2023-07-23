@@ -6,7 +6,7 @@ signal close_me
 @onready var StoredIFS = $IFSMenu/Cols/StoredIFS
 
 @onready var AddButton = $IFSMenu/Cols/Buttons/AddButton
-@onready var RandomButton = $IFSMenu/Cols/Buttons/RandomButton
+@onready var RandomButton = $IFSMenu/Cols/Buttons/IFSGraphTypeButton
 
 var current_ifs = 0
 
@@ -36,6 +36,14 @@ func get_systems():
 		systems.append(stored_ifs.ifs)
 	return systems
 
+func get_current_graph(depth=9):
+	var type = RandomButton.type
+	match type:
+		0:
+			var fiber = repeat(get_systems(), depth)
+			print(fiber)
+			return Graph.new().get_graph_from_fiber(fiber)
+
 func load_systems(systems):
 	# delete old systems
 	for OldChild in StoredIFS.get_children():
@@ -43,6 +51,18 @@ func load_systems(systems):
 	# add new ones
 	for ifs in systems:
 		add_system(ifs)
+
+func repeat(array, length):
+	# repeat until over it
+	## i.e. x * length(array) > length
+	var long_enough = []
+	for _i in (length / len(array)):
+		long_enough = long_enough + array
+	# delete entries over length
+	var short_enough = long_enough
+	for _i in len(long_enough) - length:
+		short_enough.pop_back()
+	return short_enough
 
 func update_ifs(updated_ifs):
 	if visible:

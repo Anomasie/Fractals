@@ -12,8 +12,8 @@ signal remove_me
 func _ready():
 	paint_ifs()
 
-func paint_ifs(points=256):
-	var results = ifs.calculate_fractal(point.new(), 10, 1024*2)
+func paint_ifs(points=1024*2):
+	var results = ifs.calculate_fractal(point.new(), 10, points)
 	# create empty, white image
 	var image = Image.create(IMAGE_SIZE.x, IMAGE_SIZE.y, false, Image.FORMAT_RGBA8)
 	image.fill(ifs.background_color) # background color
