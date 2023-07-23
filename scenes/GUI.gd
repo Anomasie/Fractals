@@ -8,6 +8,8 @@ func _ready():
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_on_viewport_resize()
 	show_results(IFS.new())
+	
+	PlaygroundUI.ResultUI = ResultUI
 
 func _on_viewport_resize():
 	var viewport_size = get_viewport().get_size()
@@ -21,3 +23,6 @@ func show_results(results):
 
 func _on_resize_timer_timeout():
 	PlaygroundUI.resize_playground()
+
+func _on_result_ui_color_changed():
+	PlaygroundUI._fractal_changed()

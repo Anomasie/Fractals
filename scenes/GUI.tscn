@@ -30,4 +30,5 @@ size_flags_vertical = 3
 wait_time = 0.1
 one_shot = true
 
+[connection signal="color_changed" from="ResultUI" to="." method="_on_result_ui_color_changed"]
 [connection signal="timeout" from="ResizeTimer" to="." method="_on_resize_timer_timeout"]

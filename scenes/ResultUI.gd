@@ -1,5 +1,7 @@
 extends MarginContainer
 
+signal color_changed
+
 @onready var Result = $Center/Result
 @onready var ResultBackground = $Center/ResultBackground
 
@@ -230,6 +232,7 @@ func _on_color_button_pressed():
 
 func _on_color_picker_color_changed(new_color):
 	ResultBackground.self_modulate = new_color
+	color_changed.emit()
 
 func _on_color_bar_finished():
 	ColorBar.hide()

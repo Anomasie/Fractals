@@ -9,10 +9,13 @@ var rot = randi_range(0,360-1)
 
 func _ready():
 	resize()
+	Playground.fractal_changed.connect(_fractal_changed)
 	# hide and show
 	ColorBar.hide()
 	focus()
-	Playground.fractal_changed.connect(_fractal_changed)
+	IFSMenuButton.show()
+	IFSMenu.hide()
+	IFSMenu.add_system()
 
 var old_loupe = Global.LOUPE
 var old_origin
@@ -64,7 +67,7 @@ func focus(Rect = CurrentRect):
 
 # left
 
-@onready var ButtonOptions = $Top/Main/ButtonOptions
+@onready var ButtonOptions = $Left/Main/ButtonOptions
 
 ## general options
 
@@ -98,7 +101,7 @@ func _on_remove_button_pressed():
 
 ## colors
 
-@onready var ColorButton = $Top/Main/ButtonOptions/ColorButton
+@onready var ColorButton = $Left/Main/ButtonOptions/ColorButton
 @onready var ColorBar = $ColorBar
 
 func _on_color_button_pressed():
@@ -129,7 +132,7 @@ func _on_duplicate_button_pressed():
 @onready var AdvancedButton = $Bottom/Main/AdvancedButton
 @onready var RotatOptions = $Bottom/Main/RotatOptions
 @onready var MatrixOptions = $Bottom/Main/MatrixOptions
-@onready var DuplicateButton = $Top/Main/ButtonOptions/DuplicateButton
+@onready var DuplicateButton = $Left/Main/ButtonOptions/DuplicateButton
 
 var matrix_options = false
 
@@ -194,8 +197,38 @@ func _on_presets_load_preset(ifs):
 func _on_preset_timer_timeout():
 	_fractal_changed()
 
+# superfractals
+
+@onready var IFSMenu = $Top/IFSMenu
+@onready var IFSMenuButton = $Top/IFSMenuButton
+@onready var LoadIFSTimer = $Top/LoadIFSTimer
+
+func _on_ifs_menu_change_ifs():
+	var ifs = IFSMenu.get_current_ifs()
+	Playground.set_ifs(ifs.systems, get_origin())
+	if typeof(ResultUI) != TYPE_NIL:
+		ResultUI.ResultBackground.self_modulate = ifs.background_color
+	LoadIFSTimer.start()
+
+func _on_ifs_menu_close_me():
+	IFSMenu.hide()
+	IFSMenuButton.show()
+
+func _on_ifs_menu_button_pressed():
+	IFSMenu.show()
+	IFSMenuButton.hide()
+
+func _on_load_ifs_timer_timeout():
+	_fractal_changed()
+
 # RESULTS
+
+@onready var ResultUI
 
 func _fractal_changed():
 	var ifs = Playground.get_ifs( get_origin() )
+	# update ifs_menu
+	ifs.background_color = ResultUI.ResultBackground.self_modulate
+	IFSMenu.update_ifs(ifs)
+	# show results
 	self.get_parent().show_results(ifs)

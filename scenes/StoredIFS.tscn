@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://crjfxt2jkbtqf"]
+
+[ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="1_1c8i7"]
+[ext_resource type="Texture2D" uid="uid://dt0altdjedf2b" path="res://assets/presets/KochSnowflake.png" id="1_nsimt"]
+[ext_resource type="Script" path="res://scenes/StoredIFS.gd" id="1_qmwkg"]
+[ext_resource type="Texture2D" uid="uid://b7nocy7en10f7" path="res://assets/black.png" id="2_2n5f0"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_rtcl5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqt6e"]
+atlas = ExtResource("2_rtcl5")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejh43"]
+atlas = ExtResource("2_rtcl5")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6utc"]
+atlas = ExtResource("2_rtcl5")
+region = Rect2(32, 96, 32, 32)
+
+[node name="StoredIFS" type="MarginContainer"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_qmwkg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Button" type="TextureButton" parent="MarginContainer"]
+layout_mode = 2
+texture_pressed = ExtResource("1_1c8i7")
+texture_hover = ExtResource("2_2n5f0")
+stretch_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Preview" type="TextureRect" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_nsimt")
+flip_v = true
+
+[node name="RemoveButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_mqt6e")
+texture_pressed = SubResource("AtlasTexture_ejh43")
+texture_hover = SubResource("AtlasTexture_e6utc")
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="RemoveButton" to="." method="_on_remove_button_pressed"]
