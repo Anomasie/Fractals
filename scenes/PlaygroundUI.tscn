@@ -1,9 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=37 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="3_cnn6e"]
-[ext_resource type="PackedScene" uid="uid://b461ic7wcaucj" path="res://scenes/IFSMenu.tscn" id="4_bt6nk"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/AdvancedOptions.tscn" id="4_yd3uv"]
@@ -122,18 +121,6 @@ region = Rect2(64, 192, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 192, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ggf0"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 320, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ow37h"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 320, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eflp8"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 320, 32, 32)
-
 [node name="PlaygroundUI" type="MarginContainer"]
 layout_direction = 2
 anchors_preset = 15
@@ -189,7 +176,6 @@ size_flags_vertical = 4
 
 [node name="Main" type="VBoxContainer" parent="Left"]
 layout_mode = 2
-theme_override_constants/separation = 0
 
 [node name="AddButton" type="TextureButton" parent="Left/Main"]
 visibility_layer = 2
@@ -211,7 +197,6 @@ texture_hover = SubResource("AtlasTexture_6mc7g")
 [node name="ButtonOptions" type="VBoxContainer" parent="Left/Main"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 0
 
 [node name="RemoveButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
@@ -241,6 +226,7 @@ size_flags_vertical = 10
 
 [node name="Main" type="HBoxContainer" parent="Bottom"]
 layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="AdvancedButton" type="TextureButton" parent="Bottom/Main"]
 visible = false
@@ -271,25 +257,6 @@ size_flags_horizontal = 8
 wait_time = 0.1
 one_shot = true
 
-[node name="Top" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-
-[node name="LoadIFSTimer" type="Timer" parent="Top"]
-wait_time = 0.1
-one_shot = true
-
-[node name="IFSMenu" parent="Top" instance=ExtResource("4_bt6nk")]
-visible = false
-layout_mode = 2
-
-[node name="IFSMenuButton" type="TextureButton" parent="Top"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_2ggf0")
-texture_pressed = SubResource("AtlasTexture_ow37h")
-texture_hover = SubResource("AtlasTexture_eflp8")
-
 [node name="ColorBar" parent="." instance=ExtResource("3_cnn6e")]
 visible = false
 position = Vector2(540, 16)
@@ -310,8 +277,4 @@ position = Vector2(540, 16)
 [connection signal="close_me" from="Bottom/Main/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Main/Presets" to="." method="_on_presets_load_preset"]
 [connection signal="timeout" from="Bottom/Main/PresetTimer" to="." method="_on_preset_timer_timeout"]
-[connection signal="timeout" from="Top/LoadIFSTimer" to="." method="_on_load_ifs_timer_timeout"]
-[connection signal="change_ifs" from="Top/IFSMenu" to="." method="_on_ifs_menu_change_ifs"]
-[connection signal="close_me" from="Top/IFSMenu" to="." method="_on_ifs_menu_close_me"]
-[connection signal="pressed" from="Top/IFSMenuButton" to="." method="_on_ifs_menu_button_pressed"]
 [connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]

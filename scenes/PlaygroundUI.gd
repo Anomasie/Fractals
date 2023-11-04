@@ -5,6 +5,7 @@ extends MarginContainer
 # However, it was in a previous version, and I diffuse to change the name.
 @onready var BlueTexture = $Center/Center/BlueTexture
 
+var disabled = 0
 var rot = randi_range(0,360-1)
 
 func _ready():
@@ -13,9 +14,6 @@ func _ready():
 	# hide and show
 	ColorBar.hide()
 	focus()
-	IFSMenuButton.show()
-	IFSMenu.hide()
-	IFSMenu.add_system()
 
 var old_loupe = Global.LOUPE
 var old_origin
@@ -24,9 +22,13 @@ func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
 
 func resize_playground():
+	disabled += 1
+	
 	Playground.resize(old_origin, old_loupe, get_origin(), Global.LOUPE)
 	old_loupe = Global.LOUPE
 	old_origin = get_origin()
+	
+	disabled -= 1
 
 func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
@@ -72,13 +74,19 @@ func focus(Rect = CurrentRect):
 ## general options
 
 func _on_add_pressed():
+	disabled += 1
+	
 	Playground.add(self.get_global_position() + self.size / 2 + Vector2(128,0).rotated(rot))
 	rot += PI / 4
 	if rot >= 2 * PI:
 		rot -= 2 * PI
 	_on_presets_close_me()
+	
+	disabled -= 1
 
 func _on_close_all_pressed():
+	disabled += 1
+	
 	Playground.close_all()
 	CurrentRect = null
 	# left
@@ -92,11 +100,15 @@ func _on_close_all_pressed():
 	PresetsButton.show()
 	# reload fractal
 	PresetTimer.start()
+	
+	disabled -= 1
 
 ## remove button
 
 func _on_remove_button_pressed():
-	Playground.close(CurrentRect)
+	disabled += 1
+	await Playground.close(CurrentRect)
+	disabled -= 1
 	_fractal_changed()
 
 ## colors
@@ -137,12 +149,16 @@ func _on_duplicate_button_pressed():
 var matrix_options = false
 
 func _on_advanced_button_pressed():
+	disabled += 1
+	
 	AdvancedButton.hide()
 	RotatOptions.visible = not matrix_options
 	MatrixOptions.visible = matrix_options
 	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 	PresetsButton.hide()
+	
+	disabled -= 1
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()
@@ -190,35 +206,15 @@ func _on_presets_close_me():
 	PresetsButton.show()
 
 func _on_presets_load_preset(ifs):
+	disabled += 1
+	
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
 	PresetTimer.start()
+	
+	disabled -= 1
 
 func _on_preset_timer_timeout():
-	_fractal_changed()
-
-# superfractals
-
-@onready var IFSMenu = $Top/IFSMenu
-@onready var IFSMenuButton = $Top/IFSMenuButton
-@onready var LoadIFSTimer = $Top/LoadIFSTimer
-
-func _on_ifs_menu_change_ifs():
-	var ifs = IFSMenu.get_current_ifs()
-	Playground.set_ifs(ifs.systems, get_origin())
-	if typeof(ResultUI) != TYPE_NIL:
-		ResultUI.ResultBackground.self_modulate = ifs.background_color
-	LoadIFSTimer.start()
-
-func _on_ifs_menu_close_me():
-	IFSMenu.hide()
-	IFSMenuButton.show()
-
-func _on_ifs_menu_button_pressed():
-	IFSMenu.show()
-	IFSMenuButton.hide()
-
-func _on_load_ifs_timer_timeout():
 	_fractal_changed()
 
 # RESULTS
@@ -226,9 +222,9 @@ func _on_load_ifs_timer_timeout():
 @onready var ResultUI
 
 func _fractal_changed():
-	var ifs = Playground.get_ifs( get_origin() )
-	# update ifs_menu
-	ifs.background_color = ResultUI.ResultBackground.self_modulate
-	IFSMenu.update_ifs(ifs)
-	# show results
-	self.get_parent().show_results(ifs)
+	if not disabled:
+		var ifs = Playground.get_ifs( get_origin() )
+		# update ifs_menu
+		ifs.background_color = ResultUI.ResultBackground.self_modulate
+		# show results
+		self.get_parent().show_results(ifs)

@@ -4,14 +4,17 @@ var systems = [] # array of contractions
 var background_color = Color.WHITE
 
 func apply_contraction(pos):
-	var distribution = get_distribution()
-	var random = randf_range(0, distribution[-1])
-	for i in len(distribution):
-		if random <= distribution[i]:
-			var result = point.new()
-			result.position = systems[ i ].apply(pos.position)
-			result.color = systems[ i ].mix(pos.color)
-			return [result, i]
+	if len(systems) > 0:
+		var distribution = get_distribution()
+		var random = randf_range(0, distribution[-1])
+		for i in len(distribution):
+			if random <= distribution[i]:
+				var result = point.new()
+				result.position = systems[ i ].apply(pos.position)
+				result.color = systems[ i ].mix(pos.color)
+				return [result, i]
+	else:
+		return
 
 func random_walk(pos, length=1, distribution=[]):
 	if length > 0:

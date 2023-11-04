@@ -43,7 +43,14 @@ var max_frame_limit = 3000
 var min_frame_limit = 100
 var counter = 0
 
+var new_ifs
+var new_ifs_centered
+
 func _process(delta):
+	if new_ifs:
+		open_new_ifs(new_ifs_centered)
+		new_ifs = null
+	
 	if delta > 1.0/60: # too slow
 		frame_limit = max(0, frame_limit-10)
 	if delta < 1.0/30: # fast enough
@@ -65,6 +72,11 @@ func resize_image(new_size):
 	open(current_ifs)
 
 func open(ifs, centered=CenterButton.centered):
+	new_ifs = ifs
+	new_ifs_centered = centered
+
+func open_new_ifs(centered=CenterButton.centered):
+	var ifs = new_ifs
 	current_ifs = ifs
 	var results = ifs.calculate_fractal()
 	# create empty, white image
@@ -86,6 +98,7 @@ func open(ifs, centered=CenterButton.centered):
 			max_bounds.y = max(max_bounds.y, entry.position.y)
 			min_bounds.x = min(min_bounds.x, entry.position.x)
 			min_bounds.y = min(min_bounds.y, entry.position.y)
+		# add boundaries
 		max_bounds.x += (max_bounds.x - min_bounds.x)/ 20
 		min_bounds.x -= (max_bounds.x - min_bounds.x)/ 20
 		max_bounds.y += (max_bounds.y - min_bounds.y)/ 20
@@ -105,9 +118,10 @@ func paint(results, centered):
 		# loupe
 		# paint
 		for entry in results:
+			@warning_ignore("narrowing_conversion")
 			var real_position = Vector2i(
-				(entry.position.x - current_origin.x) / current_size * image_size.x,
-				(entry.position.y - current_origin.y) / current_size * image_size.y
+				remap(entry.position.x, current_origin.x, current_size, 0, image_size.x),#(entry.position.x - current_origin.x) / current_size * image_size.x,
+				remap(entry.position.y, current_origin.y, current_size, 0, image_size.y)#(entry.position.y - current_origin.y) / current_size * image_size.y
 			)
 			if real_position.x >= 0 and real_position.x < RealImage.get_width():
 				if real_position.y >= 0 and real_position.y < RealImage.get_height():

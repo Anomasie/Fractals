@@ -89,10 +89,10 @@ script = ExtResource("1_p14af")
 
 [node name="Top" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
-[node name="Main" type="HBoxContainer" parent="Top"]
+[node name="Main" type="VBoxContainer" parent="Top"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
