@@ -133,6 +133,27 @@ script = ExtResource("1_ioibl")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
+[node name="Bottom" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Presets" parent="Bottom" instance=ExtResource("5_jja2r")]
+layout_mode = 2
+
+[node name="MatrixOptions" parent="Bottom" instance=ExtResource("5_nxfo1")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RotatOptions" parent="Bottom" instance=ExtResource("4_yd3uv")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PresetTimer" type="Timer" parent="Bottom"]
+wait_time = 0.1
+one_shot = true
+
 [node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
@@ -236,7 +257,6 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="AdvancedButton" type="TextureButton" parent="Columns/Right/Bottom/Main"]
-visible = false
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_rqsg6")
 texture_pressed = SubResource("AtlasTexture_u0188")
@@ -247,38 +267,10 @@ layout_mode = 2
 text = "Vorlagen"
 alignment = 2
 
-[node name="Bottom" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="Presets" parent="Bottom" instance=ExtResource("5_jja2r")]
-layout_mode = 2
-
-[node name="MatrixOptions" parent="Bottom" instance=ExtResource("5_nxfo1")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="RotatOptions" parent="Bottom" instance=ExtResource("4_yd3uv")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="PresetTimer" type="Timer" parent="Bottom"]
-wait_time = 0.1
-one_shot = true
-
 [node name="ColorBar" parent="." instance=ExtResource("3_cnn6e")]
 visible = false
 position = Vector2(540, 16)
 
-[connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
-[connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Bottom/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Presets" to="." method="_on_presets_load_preset"]
 [connection signal="close_me" from="Bottom/MatrixOptions" to="." method="_on_advanced_options_close_me"]
@@ -288,4 +280,11 @@ position = Vector2(540, 16)
 [connection signal="switch" from="Bottom/RotatOptions" to="." method="_on_advanced_options_switch"]
 [connection signal="value_changed" from="Bottom/RotatOptions" to="." method="_on_advanced_options_value_changed"]
 [connection signal="timeout" from="Bottom/PresetTimer" to="." method="_on_preset_timer_timeout"]
+[connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]
