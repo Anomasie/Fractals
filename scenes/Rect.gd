@@ -219,7 +219,7 @@ func update_to(contr, origin):
 	# current position: just scaled
 	## origin: bottom-left-edge
 	## but we want the origin to be the top-left-edge
-	self.position = real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation)
+	self.set_global_position(real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation))
 	# mirror
 	Maske.flip_h = contr.mirrored
 	#if contr.mirrored:

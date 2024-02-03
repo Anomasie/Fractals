@@ -11,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_fcrs7")
@@ -20,7 +19,6 @@ script = ExtResource("1_fcrs7")
 layout_mode = 2
 
 [node name="Title" type="Label" parent="Lines"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Fractals"
