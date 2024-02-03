@@ -62,7 +62,7 @@ func close(MyRect):
 
 func duplicate_rect(MyRect, origin):
 	# add some child
-	var Instance = await add(MyRect.position, true)
+	var Instance = await add(Vector2.ZERO, origin, true)
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
 	fractal_changed.emit()
