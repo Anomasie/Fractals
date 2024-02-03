@@ -78,7 +78,6 @@ func open(ifs, centered=CenterButton.centered):
 func open_new_ifs(centered=CenterButton.centered):
 	var ifs = new_ifs
 	current_ifs = ifs
-	var results = ifs.calculate_fractal()
 	# create empty, white image
 	var image = Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color.TRANSPARENT) # white
@@ -89,6 +88,7 @@ func open_new_ifs(centered=CenterButton.centered):
 	Result.set_texture(ImageTexture.create_from_image(image))
 	# calculate min and max bounds in results
 	if centered:
+		var results = ifs.calculate_fractal()
 		# get minimum and maximum in current results
 		## really small/big start numbers, just to cover the case of results = []
 		var max_bounds = Vector2(-100, -100)# = Vector2(results[0].position.x, results[0].position.y)
@@ -109,7 +109,7 @@ func open_new_ifs(centered=CenterButton.centered):
 	# set counter and stuff
 	counter = 0
 	# show
-	show()
+	#show()
 
 func paint(results, centered):
 	# paint image

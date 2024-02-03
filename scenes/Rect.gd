@@ -35,7 +35,7 @@ func _input(event):
 			focus_me.emit()
 			changed.emit()
 		if editing_position:
-			self.position = event.position - rect_origin
+			self.set_global_position(event.position - rect_origin)
 		elif editing_turn:
 			turn_rect((event.position - rect_origin).angle() + PI / 2)
 		else:
@@ -51,7 +51,7 @@ func _input(event):
 
 func _on_move_button_pressed():
 	editing_position = true
-	rect_origin = get_viewport().get_mouse_position() - self.position
+	rect_origin = get_viewport().get_mouse_position() - self.get_global_position()
 	focus_me.emit()
 
 # stupid width buttons
@@ -117,7 +117,7 @@ func _on_diag_button_lu_pressed():
 
 func _on_turn_button_pressed():
 	editing_turn = true
-	rect_origin = self.position + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
+	rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	focus_me.emit()
 
 # "important" functions
@@ -145,7 +145,7 @@ func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 func turn_rect(turn):
 	self.rotation = turn
 	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
-	self.position = rect_origin - current_rect_origin
+	self.set_global_position(rect_origin - current_rect_origin)
 
 ## focus
 
