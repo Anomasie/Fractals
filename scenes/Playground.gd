@@ -6,6 +6,13 @@ var Rect = load("res://scenes/Rect.tscn")
 
 var counter = 0
 
+var emit_fractal_changed_next_frame = false
+
+func _process(_delta):
+	if emit_fractal_changed_next_frame:
+		fractal_changed.emit()
+		emit_fractal_changed_next_frame = false
+
 func _input(event):
 	if event.is_action_pressed("scroll_up"):
 		focus( self.get_child(0) )
@@ -13,7 +20,8 @@ func _input(event):
 		focus( self.get_child(0) )
 
 func _fractal_changed():
-	fractal_changed.emit()
+	if not emit_fractal_changed_next_frame:
+		fractal_changed.emit()
 
 func resize(old_origin, old_loupe, new_origin, _new_loupe):
 	for child in self.get_children():
@@ -45,7 +53,7 @@ func close_all():
 func close(MyRect):
 	MyRect.queue_free()
 	get_parent().focus(null)
-	fractal_changed.emit()
+	emit_fractal_changed_next_frame = true
 
 func duplicate_rect(MyRect, origin):
 	# add some child
