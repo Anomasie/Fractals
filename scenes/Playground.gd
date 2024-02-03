@@ -31,19 +31,24 @@ func resize(old_origin, old_loupe, new_origin, _new_loupe):
 				new_origin
 			)
 
-func add(pos, duplicating=false):
+func add(pos, origin, duplicating=false):
 	var Instance = Rect.instantiate()
 	Instance.name = "Rect"+str(counter)
 	counter += 1
-	Instance.position = pos - Vector2(8,8) - Vector2(0,32)
+	# set ifs information for child
+	var contr = Contraction.new()
+	contr.translation = pos
+	contr.contract = Vector2(0.25,0.25)
+	
 	Instance.focus_me.connect(focus.bind(Instance))
 	Instance.changed.connect(_fractal_changed)
 	self.add_child(Instance)
+	Instance.update_to(contr, origin)
 	self.focus(Instance)
 	get_parent().focus(Instance)
 	if duplicating:
 		return Instance
-	fractal_changed.emit()
+	emit_fractal_changed_next_frame = true
 
 func close_all():
 	for child in self.get_children():

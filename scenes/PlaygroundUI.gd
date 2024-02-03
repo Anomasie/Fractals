@@ -76,7 +76,7 @@ func focus(Rect = CurrentRect):
 func _on_add_pressed():
 	disabled += 1
 	
-	Playground.add(self.get_global_position() + self.size / 2 + Vector2(128,0).rotated(rot))
+	Playground.add(Vector2(0.4,0.35) + Vector2(0.25,0).rotated(rot), get_origin())
 	rot += PI / 4
 	if rot >= 2 * PI:
 		rot -= 2 * PI
