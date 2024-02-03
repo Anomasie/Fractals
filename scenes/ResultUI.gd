@@ -39,7 +39,7 @@ var delay = 10
 
 var limit = 100000
 var frame_limit = 1000 # to manage frame performance
-var max_frame_limit = 3000
+var max_frame_limit = 10000
 var min_frame_limit = 100
 var counter = 0
 
@@ -51,13 +51,18 @@ func _process(delta):
 		open_new_ifs(new_ifs_centered)
 		new_ifs = null
 	
-	if delta > 1.0/60: # too slow
-		frame_limit = max(0, frame_limit-10)
-	if delta < 1.0/30: # fast enough
-		frame_limit = min(frame_limit+10, max_frame_limit)
 	if counter < limit:
+		# decide how many points to be calculated in one frame
+		if delta > 1.0/15: # too slow
+			frame_limit = max(0, frame_limit-10)
+		if delta < 1.0/30: # fast enough
+			frame_limit = min(frame_limit+10, max_frame_limit)
+		
+		# calculate more points
+		## how many?
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
+		## update slider
 		PointTeller.value = counter
 		# add points
 		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
