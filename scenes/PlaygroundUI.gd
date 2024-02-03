@@ -3,13 +3,12 @@ extends MarginContainer
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
 # However, it was in a previous version, and I diffuse to change the name.
-@onready var BlueTexture = $Center/Center/BlueTexture
+@onready var BlueTexture = $Columns/Right/Center/Center/BlueTexture
 
 var disabled = 0
 var rot = randi_range(0,360-1)
 
 func _ready():
-	resize()
 	Playground.fractal_changed.connect(_fractal_changed)
 	# hide and show
 	ColorBar.hide()
@@ -20,6 +19,7 @@ var old_origin
 
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
+	#resize_playground()
 
 func resize_playground():
 	disabled += 1
@@ -69,7 +69,7 @@ func focus(Rect = CurrentRect):
 
 # left
 
-@onready var ButtonOptions = $Left/Main/ButtonOptions
+@onready var ButtonOptions = $Columns/Left/Main/ButtonOptions
 
 ## general options
 
@@ -113,7 +113,7 @@ func _on_remove_button_pressed():
 
 ## colors
 
-@onready var ColorButton = $Left/Main/ButtonOptions/ColorButton
+@onready var ColorButton = $Columns/Left/Main/ButtonOptions/ColorButton
 @onready var ColorBar = $ColorBar
 
 func _on_color_button_pressed():
@@ -141,10 +141,10 @@ func _on_duplicate_button_pressed():
 
 ## advanced options
 
-@onready var AdvancedButton = $Bottom/Main/AdvancedButton
-@onready var RotatOptions = $Bottom/Main/RotatOptions
-@onready var MatrixOptions = $Bottom/Main/MatrixOptions
-@onready var DuplicateButton = $Left/Main/ButtonOptions/DuplicateButton
+@onready var AdvancedButton = $Columns/Right/Bottom/Main/AdvancedButton
+@onready var RotatOptions = $Bottom/RotatOptions
+@onready var MatrixOptions = $Bottom/MatrixOptions
+@onready var DuplicateButton = $Columns/Left/Main/ButtonOptions/DuplicateButton
 
 var matrix_options = false
 
@@ -190,9 +190,9 @@ func _on_matrix_options_switch():
 
 ## presets
 
-@onready var PresetsButton = $Bottom/Main/PresetsButton
-@onready var Presets = $Bottom/Main/Presets
-@onready var PresetTimer = $Bottom/Main/PresetTimer
+@onready var PresetsButton = $Columns/Right/Bottom/Main/PresetsButton
+@onready var Presets = $Bottom/Presets
+@onready var PresetTimer = $Bottom/PresetTimer
 
 func _on_presets_button_pressed():
 	Presets.show()
@@ -227,4 +227,4 @@ func _fractal_changed():
 		# update ifs_menu
 		ifs.background_color = ResultUI.ResultBackground.self_modulate
 		# show results
-		self.get_parent().show_results(ifs)
+		self.get_parent().get_owner().show_results(ifs)

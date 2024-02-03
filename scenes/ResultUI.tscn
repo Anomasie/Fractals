@@ -9,6 +9,30 @@
 [ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/SizeOptions.tscn" id="5_ok3dt"]
 [ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="6_gvug8"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wf1g5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dieuj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0s43s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sw2vj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75thn"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlc14"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxxko"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 352, 32, 32)
+
 [sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
 device = -1
 keycode = 67
@@ -53,30 +77,6 @@ region = Rect2(64, 32, 32, 32)
 atlas = ExtResource("3_limvo")
 region = Rect2(32, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
-atlas = ExtResource("3_limvo")
-region = Rect2(0, 320, 32, 32)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wf1g5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dieuj"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0s43s"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sw2vj"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_75thn"]
-atlas = ExtResource("3_limvo")
-region = Rect2(32, 320, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vlc14"]
-atlas = ExtResource("3_limvo")
-region = Rect2(0, 352, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxxko"]
-atlas = ExtResource("3_limvo")
-region = Rect2(32, 352, 32, 32)
-
 [node name="ResultUI" type="MarginContainer"]
 layout_direction = 2
 anchors_preset = 15
@@ -84,87 +84,49 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_p14af")
 
-[node name="Top" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-
-[node name="Main" type="VBoxContainer" parent="Top"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ColorButton" type="TextureButton" parent="Top/Main"]
-layout_mode = 2
-shortcut = SubResource("Shortcut_jbswu")
-texture_normal = SubResource("AtlasTexture_yl1cn")
-texture_pressed = SubResource("AtlasTexture_407ms")
-texture_hover = SubResource("AtlasTexture_cncu8")
-
-[node name="SaveButton" type="TextureButton" parent="Top/Main"]
-layout_mode = 2
-size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_bhyhh")
-texture_pressed = SubResource("AtlasTexture_vxkup")
-texture_hover = SubResource("AtlasTexture_3ur5h")
-
-[node name="CenterButton" parent="Top/Main" instance=ExtResource("4_3q2yo")]
+[node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="SizeButton" type="TextureButton" parent="Top/Main"]
+[node name="Left" type="VBoxContainer" parent="Columns"]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_6jvvs")
-texture_pressed = SubResource("AtlasTexture_nraaw")
-texture_hover = SubResource("AtlasTexture_06psx")
+size_flags_horizontal = 3
 
-[node name="FileDialog" type="FileDialog" parent="Top"]
-position = Vector2i(128, 128)
-size = Vector2i(911, 273)
-exclusive = false
-content_scale_mode = 2
-dialog_close_on_escape = false
-access = 2
-script = ExtResource("3_1twtw")
-
-[node name="SizeOptions" parent="." instance=ExtResource("5_ok3dt")]
-layout_mode = 2
-
-[node name="Center" type="MarginContainer" parent="."]
+[node name="Center" type="MarginContainer" parent="Columns/Left"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="ResultBackground" type="TextureRect" parent="Center"]
+[node name="ResultBackground" type="TextureRect" parent="Columns/Left/Center"]
 layout_mode = 2
 texture = ExtResource("2_ffygg")
 
-[node name="Result" type="TextureRect" parent="Center"]
+[node name="Result" type="TextureRect" parent="Columns/Left/Center"]
 layout_mode = 2
 texture = ExtResource("2_ffygg")
 flip_v = true
 
-[node name="Bottom" type="MarginContainer" parent="."]
+[node name="Bottom" type="MarginContainer" parent="Columns/Left"]
 layout_mode = 2
-size_flags_vertical = 10
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_right = 64
+size_flags_vertical = 8
 
-[node name="Lines" type="GridContainer" parent="Bottom"]
+[node name="Lines" type="GridContainer" parent="Columns/Left/Bottom"]
 layout_mode = 2
 columns = 3
 
-[node name="PointTexture1" type="TextureRect" parent="Bottom/Lines"]
+[node name="PointTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_fmh57")
 
-[node name="PointSlider" type="HSlider" parent="Bottom/Lines"]
+[node name="PointSlider" type="HSlider" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -172,7 +134,7 @@ max_value = 1e+06
 step = 10.0
 value = 100000.0
 
-[node name="ActualValueSlider" type="HSlider" parent="Bottom/Lines/PointSlider"]
+[node name="ActualValueSlider" type="HSlider" parent="Columns/Left/Bottom/Lines/PointSlider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,36 +150,88 @@ value = 20.0
 editable = false
 scrollable = false
 
-[node name="PointTexture2" type="TextureRect" parent="Bottom/Lines"]
+[node name="PointTexture2" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_75thn")
 
-[node name="DelayTexture1" type="TextureRect" parent="Bottom/Lines"]
+[node name="DelayTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_vlc14")
 
-[node name="DelaySlider" type="HSlider" parent="Bottom/Lines"]
+[node name="DelaySlider" type="HSlider" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 10.0
 
-[node name="DelayTexture2" type="TextureRect" parent="Bottom/Lines"]
+[node name="DelayTexture2" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_xxxko")
+
+[node name="Right" type="MarginContainer" parent="Columns"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Top" type="MarginContainer" parent="Columns/Right"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Main" type="VBoxContainer" parent="Columns/Right/Top"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ColorButton" type="TextureButton" parent="Columns/Right/Top/Main"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_jbswu")
+texture_normal = SubResource("AtlasTexture_yl1cn")
+texture_pressed = SubResource("AtlasTexture_407ms")
+texture_hover = SubResource("AtlasTexture_cncu8")
+
+[node name="SaveButton" type="TextureButton" parent="Columns/Right/Top/Main"]
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_bhyhh")
+texture_pressed = SubResource("AtlasTexture_vxkup")
+texture_hover = SubResource("AtlasTexture_3ur5h")
+
+[node name="CenterButton" parent="Columns/Right/Top/Main" instance=ExtResource("4_3q2yo")]
+layout_mode = 2
+
+[node name="SizeButton" type="TextureButton" parent="Columns/Right/Top/Main"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_6jvvs")
+texture_pressed = SubResource("AtlasTexture_nraaw")
+texture_hover = SubResource("AtlasTexture_06psx")
+
+[node name="FileDialog" type="FileDialog" parent="Columns/Right/Top"]
+position = Vector2i(128, 128)
+size = Vector2i(911, 273)
+exclusive = false
+content_scale_mode = 2
+dialog_close_on_escape = false
+access = 2
+script = ExtResource("3_1twtw")
+
+[node name="SizeOptions" parent="." instance=ExtResource("5_ok3dt")]
+layout_mode = 2
 
 [node name="ColorBar" parent="." instance=ExtResource("6_gvug8")]
 visible = false
 position = Vector2(8, 8)
 
-[connection signal="pressed" from="Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="pressed" from="Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
-[connection signal="pressed" from="Top/Main/SizeButton" to="." method="_on_size_button_pressed"]
-[connection signal="file_selected" from="Top/FileDialog" to="Top/FileDialog" method="_on_file_selected"]
+[connection signal="drag_ended" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
+[connection signal="drag_started" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
+[connection signal="value_changed" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
+[connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
+[connection signal="pressed" from="Columns/Right/Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Top/Main/SizeButton" to="." method="_on_size_button_pressed"]
+[connection signal="file_selected" from="Columns/Right/Top/FileDialog" to="Columns/Right/Top/FileDialog" method="_on_file_selected"]
 [connection signal="value_changed" from="SizeOptions" to="." method="_on_size_options_value_changed"]
-[connection signal="drag_ended" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
-[connection signal="drag_started" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
-[connection signal="value_changed" from="Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
-[connection signal="value_changed" from="Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
 [connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]

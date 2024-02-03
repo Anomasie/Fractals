@@ -1,8 +1,9 @@
 extends Control
 
-@onready var PlaygroundUI = $PlaygroundUI
-@onready var ResultUI = $ResultUI
-@onready var ResizeTimer = $ResizeTimer
+@onready var Content = $Lines/Content
+@onready var PlaygroundUI = $Lines/Content/PlaygroundUI
+@onready var ResultUI = $Lines/Content/ResultUI
+@onready var ResizeTimer = $Lines/Content/ResizeTimer
 
 func _ready():
 	get_viewport().connect("size_changed", _on_viewport_resize)
@@ -12,10 +13,30 @@ func _ready():
 	PlaygroundUI.ResultUI = ResultUI
 
 func _on_viewport_resize():
+	# get new size of viewport
 	var viewport_size = get_viewport().get_size()
-	Global.LOUPE = min(viewport_size.x / 2 - 2 * 16 - 2 * 16, viewport_size.y / 2 - 2 * 16) * Vector2i(1,1)
+	# landscape format or portrait format?
+	if viewport_size.x >= viewport_size.y:
+		Content.columns = 2
+		# get maximal size of unitary sqare
+		## -2*16: for seperation
+		## in x-axis: -2*32 because of ui elements
+		Global.LOUPE = min(viewport_size.x / 2 - 2 * 16 - 2 * 64, viewport_size.y - 4 * 16 - 160) * Vector2i(1,1)
+	else:
+		Content.columns = 1
+		# get maximal size of unitary sqare
+		## -2*16: for seperation
+		## in x-axis: -2*64 because of buttons
+		## in y-axis: -2*64 because of sliders
+		Global.LOUPE = min(viewport_size.x - 4 * 16 - 2 * 64, viewport_size.y / 2 - 4 * 16 - 80) * Vector2i(1,1)
+	if Global.LOUPE.x < 1:
+		Global.LOUPE.x = 1
+	if Global.LOUPE.y < 1:
+		Global.LOUPE.y = 1
+	# resize everything
 	PlaygroundUI.resize()
 	ResultUI.resize()
+	# prevent resizing-bugs
 	ResizeTimer.start()
 
 func show_results(results):

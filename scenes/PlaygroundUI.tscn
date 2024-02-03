@@ -128,56 +128,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
+size_flags_horizontal = 3
 script = ExtResource("1_ioibl")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
-[node name="Center" type="MarginContainer" parent="."]
-visibility_layer = 2
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Frame" type="NinePatchRect" parent="Center"]
-layout_mode = 2
-texture = ExtResource("2_sdntq")
-patch_margin_left = 14
-patch_margin_top = 14
-patch_margin_right = 14
-patch_margin_bottom = 14
-
-[node name="Center" type="MarginContainer" parent="Center"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="BlueTexture" type="TextureRect" parent="Center/Center"]
-custom_minimum_size = Vector2(256, 256)
+[node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Left" type="MarginContainer" parent="."]
+[node name="Left" type="MarginContainer" parent="Columns"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Main" type="VBoxContainer" parent="Left"]
+[node name="Main" type="VBoxContainer" parent="Columns/Left"]
 layout_mode = 2
 
-[node name="AddButton" type="TextureButton" parent="Left/Main"]
+[node name="AddButton" type="TextureButton" parent="Columns/Left/Main"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
@@ -186,7 +155,7 @@ texture_normal = SubResource("AtlasTexture_y2edm")
 texture_pressed = SubResource("AtlasTexture_l22sp")
 texture_hover = SubResource("AtlasTexture_e5vrq")
 
-[node name="CloseAllButton" type="TextureButton" parent="Left/Main"]
+[node name="CloseAllButton" type="TextureButton" parent="Columns/Left/Main"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
@@ -194,66 +163,108 @@ texture_normal = SubResource("AtlasTexture_bytrw")
 texture_pressed = SubResource("AtlasTexture_1xys4")
 texture_hover = SubResource("AtlasTexture_6mc7g")
 
-[node name="ButtonOptions" type="VBoxContainer" parent="Left/Main"]
+[node name="ButtonOptions" type="VBoxContainer" parent="Columns/Left/Main"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RemoveButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
+[node name="RemoveButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_5hmfe")
 texture_normal = SubResource("AtlasTexture_n5pe3")
 texture_pressed = SubResource("AtlasTexture_jbxom")
 texture_hover = SubResource("AtlasTexture_vv145")
 
-[node name="ColorButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
+[node name="ColorButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_jhmuf")
 texture_normal = SubResource("AtlasTexture_l4f0q")
 texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
-[node name="DuplicateButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
+[node name="DuplicateButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_cmo8y")
 texture_normal = SubResource("AtlasTexture_pjd7y")
 texture_pressed = SubResource("AtlasTexture_rsctq")
 texture_hover = SubResource("AtlasTexture_3eyvm")
 
-[node name="Bottom" type="MarginContainer" parent="."]
+[node name="Right" type="VBoxContainer" parent="Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Center" type="MarginContainer" parent="Columns/Right"]
+visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 10
+size_flags_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="Main" type="HBoxContainer" parent="Bottom"]
+[node name="Frame" type="NinePatchRect" parent="Columns/Right/Center"]
+layout_mode = 2
+texture = ExtResource("2_sdntq")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+
+[node name="Center" type="MarginContainer" parent="Columns/Right/Center"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="BlueTexture" type="TextureRect" parent="Columns/Right/Center/Center"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Bottom" type="MarginContainer" parent="Columns/Right"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Main" type="HBoxContainer" parent="Columns/Right/Bottom"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="AdvancedButton" type="TextureButton" parent="Bottom/Main"]
+[node name="AdvancedButton" type="TextureButton" parent="Columns/Right/Bottom/Main"]
 visible = false
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_rqsg6")
 texture_pressed = SubResource("AtlasTexture_u0188")
 texture_hover = SubResource("AtlasTexture_tf6n6")
 
-[node name="RotatOptions" parent="Bottom/Main" instance=ExtResource("4_yd3uv")]
-visible = false
-layout_mode = 2
-
-[node name="MatrixOptions" parent="Bottom/Main" instance=ExtResource("5_nxfo1")]
-visible = false
-layout_mode = 2
-
-[node name="PresetsButton" type="Button" parent="Bottom/Main"]
+[node name="PresetsButton" type="Button" parent="Columns/Right/Bottom/Main"]
 layout_mode = 2
 text = "Vorlagen"
 alignment = 2
 
-[node name="Presets" parent="Bottom/Main" instance=ExtResource("5_jja2r")]
+[node name="Bottom" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Presets" parent="Bottom" instance=ExtResource("5_jja2r")]
+layout_mode = 2
+
+[node name="MatrixOptions" parent="Bottom" instance=ExtResource("5_nxfo1")]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 
-[node name="PresetTimer" type="Timer" parent="Bottom/Main"]
+[node name="RotatOptions" parent="Bottom" instance=ExtResource("4_yd3uv")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PresetTimer" type="Timer" parent="Bottom"]
 wait_time = 0.1
 one_shot = true
 
@@ -261,20 +272,20 @@ one_shot = true
 visible = false
 position = Vector2(540, 16)
 
-[connection signal="pressed" from="Left/Main/AddButton" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
-[connection signal="pressed" from="Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
-[connection signal="pressed" from="Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="pressed" from="Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
-[connection signal="close_me" from="Bottom/Main/RotatOptions" to="." method="_on_advanced_options_close_me"]
-[connection signal="switch" from="Bottom/Main/RotatOptions" to="." method="_on_advanced_options_switch"]
-[connection signal="value_changed" from="Bottom/Main/RotatOptions" to="." method="_on_advanced_options_value_changed"]
-[connection signal="close_me" from="Bottom/Main/MatrixOptions" to="." method="_on_advanced_options_close_me"]
-[connection signal="switch" from="Bottom/Main/MatrixOptions" to="." method="_on_matrix_options_switch"]
-[connection signal="value_changed" from="Bottom/Main/MatrixOptions" to="." method="_on_advanced_options_value_changed"]
-[connection signal="pressed" from="Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
-[connection signal="close_me" from="Bottom/Main/Presets" to="." method="_on_presets_close_me"]
-[connection signal="load_preset" from="Bottom/Main/Presets" to="." method="_on_presets_load_preset"]
-[connection signal="timeout" from="Bottom/Main/PresetTimer" to="." method="_on_preset_timer_timeout"]
+[connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
+[connection signal="close_me" from="Bottom/Presets" to="." method="_on_presets_close_me"]
+[connection signal="load_preset" from="Bottom/Presets" to="." method="_on_presets_load_preset"]
+[connection signal="close_me" from="Bottom/MatrixOptions" to="." method="_on_advanced_options_close_me"]
+[connection signal="switch" from="Bottom/MatrixOptions" to="." method="_on_matrix_options_switch"]
+[connection signal="value_changed" from="Bottom/MatrixOptions" to="." method="_on_advanced_options_value_changed"]
+[connection signal="close_me" from="Bottom/RotatOptions" to="." method="_on_advanced_options_close_me"]
+[connection signal="switch" from="Bottom/RotatOptions" to="." method="_on_advanced_options_switch"]
+[connection signal="value_changed" from="Bottom/RotatOptions" to="." method="_on_advanced_options_value_changed"]
+[connection signal="timeout" from="Bottom/PresetTimer" to="." method="_on_preset_timer_timeout"]
 [connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]

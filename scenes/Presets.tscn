@@ -15,10 +15,9 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("2_ehsui")
 region = Rect2(32, 0, 32, 32)
 
-[node name="Presets" type="HBoxContainer"]
-size_flags_horizontal = 4
+[node name="Presets" type="HFlowContainer"]
 size_flags_vertical = 4
-theme_override_constants/separation = 4
+alignment = 1
 script = ExtResource("1_k08fq")
 
 [node name="CloseButton" type="TextureButton" parent="."]

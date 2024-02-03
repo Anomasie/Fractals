@@ -2,19 +2,19 @@ extends MarginContainer
 
 signal color_changed
 
-@onready var Result = $Center/Result
-@onready var ResultBackground = $Center/ResultBackground
+@onready var Result = $Columns/Left/Center/Result
+@onready var ResultBackground = $Columns/Left/Center/ResultBackground
 
-@onready var SaveButton = $Top/Main/SaveButton
-@onready var SaveFileDialog = $Top/FileDialog
-@onready var CenterButton = $Top/Main/CenterButton
-@onready var ColorButton = $Top/Main/ColorButton
+@onready var SaveButton = $Columns/Right/Top/Main/SaveButton
+@onready var SaveFileDialog = $Columns/Right/Top/FileDialog
+@onready var CenterButton = $Columns/Right/Top/Main/CenterButton
+@onready var ColorButton = $Columns/Right/Top/Main/ColorButton
 @onready var ColorBar = $ColorBar
 
 @onready var SizeOptions = $SizeOptions
 
-@onready var PointSlider = $Bottom/Lines/PointSlider
-@onready var PointTeller = $Bottom/Lines/PointSlider/ActualValueSlider
+@onready var PointSlider = $Columns/Left/Bottom/Lines/PointSlider
+@onready var PointTeller = $Columns/Left/Bottom/Lines/PointSlider/ActualValueSlider
 
 var RealImage
 var image_size = current_loupe
