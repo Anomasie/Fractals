@@ -96,21 +96,22 @@ func open_new_ifs(centered=CenterButton.centered):
 		var results = ifs.calculate_fractal()
 		# get minimum and maximum in current results
 		## really small/big start numbers, just to cover the case of results = []
-		var max_bounds = Vector2(-100, -100)# = Vector2(results[0].position.x, results[0].position.y)
-		var min_bounds = Vector2(100, 100)# = Vector2(results[0].position.x, results[0].position.y)
+		var max_bounds = Vector2(-100, -100)
+		var min_bounds = Vector2(100, 100)
 		for entry in results:
 			max_bounds.x = max(max_bounds.x, entry.position.x)
 			max_bounds.y = max(max_bounds.y, entry.position.y)
+			
 			min_bounds.x = min(min_bounds.x, entry.position.x)
 			min_bounds.y = min(min_bounds.y, entry.position.y)
+		# distance
+		var distance = max_bounds - min_bounds
 		# add boundaries
-		max_bounds.x += (max_bounds.x - min_bounds.x)/ 20
-		min_bounds.x -= (max_bounds.x - min_bounds.x)/ 20
-		max_bounds.y += (max_bounds.y - min_bounds.y)/ 20
-		min_bounds.y -= (max_bounds.y - min_bounds.y)/ 20
+		max_bounds += distance / 20
+		min_bounds -= distance / 20
 		# set current_origin and current_size
 		current_origin = min_bounds
-		current_size = max( (max_bounds-min_bounds).x, (max_bounds-min_bounds).y)
+		current_size = max( distance.x, distance.y ) * (1.1)
 	# set counter and stuff
 	counter = 0
 	# show
@@ -125,8 +126,11 @@ func paint(results, centered):
 		for entry in results:
 			@warning_ignore("narrowing_conversion")
 			var real_position = Vector2i(
-				remap(entry.position.x, current_origin.x, current_size, 0, image_size.x),#(entry.position.x - current_origin.x) / current_size * image_size.x,
-				remap(entry.position.y, current_origin.y, current_size, 0, image_size.y)#(entry.position.y - current_origin.y) / current_size * image_size.y
+				# doesn't work anymore :(
+				#remap(entry.position.x, current_origin.x, current_size, 0, image_size.x),
+				#remap(entry.position.y, current_origin.y, current_size, 0, image_size.y)
+				(entry.position.x - current_origin.x) / current_size * image_size.x,
+				(entry.position.y - current_origin.y) / current_size * image_size.y
 			)
 			if real_position.x >= 0 and real_position.x < RealImage.get_width():
 				if real_position.y >= 0 and real_position.y < RealImage.get_height():

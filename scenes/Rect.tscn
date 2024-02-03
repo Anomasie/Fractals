@@ -58,6 +58,7 @@ region = Rect2(32, 0, 32, 32)
 [node name="Container" type="MarginContainer"]
 offset_right = 48.0
 offset_bottom = 80.0
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -67,6 +68,7 @@ metadata/_edit_group_ = true
 
 [node name="Content" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 0
@@ -74,6 +76,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="OutlineContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
@@ -85,6 +88,7 @@ texture = ExtResource("2_gir0y")
 
 [node name="TextureContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
