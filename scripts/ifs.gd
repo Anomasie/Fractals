@@ -61,6 +61,22 @@ func calculate_fractal(start=point.new(), delay=10, points=2000):
 			) )
 	return result
 
+func calculate_fractal_corners( corners = [Vector2(0,0), Vector2(1,0), Vector2(0,1), Vector2(1,1)], steps_left = 4 ):
+	var result = []
+	if steps_left > 0:
+		for system in systems:
+			for p in corners:
+				p = system.apply(p)
+			result += calculate_fractal_corners(
+				corners,
+				steps_left - 1
+			)
+	else:
+		for system in systems:
+			for p in corners:
+				result.append(system.apply(p))
+	return result
+
 func get_distribution():
 	var sum = 0.0
 	var distribution = []

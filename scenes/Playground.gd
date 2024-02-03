@@ -87,5 +87,5 @@ func set_ifs(ifs, origin):
 	close_all()
 	# add new buttons
 	for contraction in ifs:
-		var Instance = add(origin, true)
+		var Instance = add(origin, origin, true)
 		Instance.update_to( contraction, origin )

@@ -25,16 +25,17 @@ text = "Fractals"
 horizontal_alignment = 1
 
 [node name="Content" type="GridContainer" parent="Lines"]
+layout_direction = 3
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="PlaygroundUI" parent="Lines/Content" instance=ExtResource("1_kg3c1")]
+[node name="ResultUI" parent="Lines/Content" instance=ExtResource("2_wgaj6")]
 layout_mode = 2
 
-[node name="ResultUI" parent="Lines/Content" instance=ExtResource("2_wgaj6")]
+[node name="PlaygroundUI" parent="Lines/Content" instance=ExtResource("1_kg3c1")]
 layout_mode = 2
 
 [node name="ResizeTimer" type="Timer" parent="Lines/Content"]
