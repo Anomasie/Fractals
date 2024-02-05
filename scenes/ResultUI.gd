@@ -62,10 +62,10 @@ func _process(delta):
 		## how many?
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
+		## paint them
+		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
 		## update slider
 		PointTeller.value = counter
-		# add points
-		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
 
 func resize():
 	current_loupe = Global.LOUPE
@@ -113,8 +113,6 @@ func open_new_ifs(centered=CenterButton.centered):
 		current_size = length * 1.1
 	# set counter and stuff
 	counter = 0
-	# show
-	#show()
 
 func paint(results, centered):
 	# paint image
