@@ -61,6 +61,7 @@ func calculate_fractal(start=point.new(), delay=10, points=2000):
 			) )
 	return result
 
+# where will the corners of the unit square be after steps_left steps?
 func calculate_fractal_corners( corners = [Vector2(0,0), Vector2(1,0), Vector2(0,1), Vector2(1,1)], steps_left = 4 ):
 	var result = []
 	if steps_left > 0:

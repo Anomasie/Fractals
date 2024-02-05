@@ -95,23 +95,20 @@ func open_new_ifs(centered=CenterButton.centered):
 	if centered:
 		var results = ifs.calculate_fractal()
 		# get minimum and maximum in current results
-		## really small/big start numbers, just to cover the case of results = []
-		var max_bounds = Vector2(-100, -100)
-		var min_bounds = Vector2(100, 100)
+		var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
 		for entry in results:
-			max_bounds.x = max(max_bounds.x, entry.position.x)
-			max_bounds.y = max(max_bounds.y, entry.position.y)
-			
-			min_bounds.x = min(min_bounds.x, entry.position.x)
-			min_bounds.y = min(min_bounds.y, entry.position.y)
-		# distance
-		var distance = max_bounds - min_bounds
-		# add boundaries
-		max_bounds += distance / 20
-		min_bounds -= distance / 20
+			rect = rect.expand(entry.position)
 		# set current_origin and current_size
-		current_origin = min_bounds
-		current_size = max( distance.x, distance.y ) * (1.1)
+		## get length
+		var length = max(rect.size.x, rect.size.y)
+		# set origin
+		## shift origin such that boundaries are left and right
+		## shift origin such that fractal is centered
+		current_origin = rect.position - Vector2(1,1) * length / 10 / 2 - Vector2(
+			length - rect.size.x,
+			length - rect.size.y
+		) / 2
+		current_size = length * 1.1
 	# set counter and stuff
 	counter = 0
 	# show
