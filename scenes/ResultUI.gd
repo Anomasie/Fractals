@@ -96,6 +96,8 @@ func open_new_ifs(centered=CenterButton.centered):
 		var results = ifs.calculate_fractal()
 		# get minimum and maximum in current results
 		var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
+		if len(results) > 0:
+			rect = Rect2(results[0].position, Vector2i(0,0))
 		for entry in results:
 			rect = rect.expand(entry.position)
 		# set current_origin and current_size
