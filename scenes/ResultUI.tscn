@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
 [ext_resource type="PackedScene" uid="uid://dpi78ruafalrj" path="res://scenes/CenterButton.tscn" id="4_3q2yo"]
 [ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/SizeOptions.tscn" id="5_ok3dt"]
-[ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="6_gvug8"]
+[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/ColorSliders.tscn" id="8_bgnmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
 atlas = ExtResource("3_limvo")
@@ -91,10 +91,12 @@ script = ExtResource("1_p14af")
 
 [node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Left" type="VBoxContainer" parent="Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="Center" type="MarginContainer" parent="Columns/Left"]
 layout_mode = 2
@@ -117,6 +119,7 @@ flip_v = true
 [node name="Bottom" type="MarginContainer" parent="Columns/Left"]
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="Lines" type="GridContainer" parent="Columns/Left/Bottom"]
 layout_mode = 2
@@ -170,6 +173,7 @@ texture = SubResource("AtlasTexture_xxxko")
 
 [node name="Right" type="MarginContainer" parent="Columns"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -179,11 +183,13 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="Main" type="VBoxContainer" parent="Columns/Right/Top"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+mouse_filter = 2
 
 [node name="ColorButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
@@ -219,10 +225,12 @@ script = ExtResource("3_1twtw")
 
 [node name="SizeOptions" parent="." instance=ExtResource("5_ok3dt")]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="ColorBar" parent="." instance=ExtResource("6_gvug8")]
-visible = false
-position = Vector2(8, 8)
+[node name="ColorSliders" parent="." instance=ExtResource("8_bgnmw")]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
 
 [connection signal="drag_ended" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
 [connection signal="drag_started" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
@@ -234,4 +242,5 @@ position = Vector2(8, 8)
 [connection signal="pressed" from="Columns/Right/Top/Main/SizeButton" to="." method="_on_size_button_pressed"]
 [connection signal="file_selected" from="Columns/Right/Top/FileDialog" to="Columns/Right/Top/FileDialog" method="_on_file_selected"]
 [connection signal="value_changed" from="SizeOptions" to="." method="_on_size_options_value_changed"]
-[connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]
+[connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
+[connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]

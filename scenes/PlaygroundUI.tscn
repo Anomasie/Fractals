@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
-[ext_resource type="PackedScene" uid="uid://byf84h81elkst" path="res://scenes/ColorBar.tscn" id="3_cnn6e"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/AdvancedOptions.tscn" id="4_yd3uv"]
 [ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/Presets.tscn" id="5_jja2r"]
 [ext_resource type="PackedScene" uid="uid://bdcy8qeketbv2" path="res://scenes/MatrixOptions.tscn" id="5_nxfo1"]
+[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/ColorSliders.tscn" id="8_aj8ad"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
@@ -267,9 +267,9 @@ layout_mode = 2
 text = "Vorlagen"
 alignment = 2
 
-[node name="ColorBar" parent="." instance=ExtResource("3_cnn6e")]
-visible = false
-position = Vector2(540, 16)
+[node name="ColorSliders" parent="." instance=ExtResource("8_aj8ad")]
+layout_mode = 2
+size_flags_vertical = 8
 
 [connection signal="close_me" from="Bottom/Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Bottom/Presets" to="." method="_on_presets_load_preset"]
@@ -287,4 +287,5 @@ position = Vector2(540, 16)
 [connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
-[connection signal="finished" from="ColorBar" to="." method="_on_color_bar_finished"]
+[connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
+[connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]

@@ -1,22 +1,29 @@
 extends MarginContainer
 
-@onready var Preview = $Content/Columns/Preview
+signal color_changed
+signal finished
 
-@onready var HueTexture = $Content/Columns/Sliders/Hue/Texture
-@onready var HueSlider = $Content/Columns/Sliders/Hue/Slider
-@onready var SatTexture = $Content/Columns/Sliders/Saturation/Texture
-@onready var SatSlider = $Content/Columns/Sliders/Saturation/Slider
-@onready var ValueTexture = $Content/Columns/Sliders/Value/Texture
-@onready var ValueSlider = $Content/Columns/Sliders/Value/Slider
+@onready var Preview = $Dialogue/Content/Columns/Preview
 
-@onready var Presets = $Content/Columns/Sliders/Presets.get_children()
-@onready var UserPresetNode = $Content/Columns/Sliders/UserPresets
-@onready var UserPresets = $Content/Columns/Sliders/UserPresets.get_children()
+@onready var HueTexture = $Dialogue/Content/Columns/Sliders/Hue/Texture
+@onready var HueSlider = $Dialogue/Content/Columns/Sliders/Hue/Slider
+@onready var SatTexture = $Dialogue/Content/Columns/Sliders/Saturation/Texture
+@onready var SatSlider = $Dialogue/Content/Columns/Sliders/Saturation/Slider
+@onready var ValueTexture = $Dialogue/Content/Columns/Sliders/Value/Texture
+@onready var ValueSlider = $Dialogue/Content/Columns/Sliders/Value/Slider
 
-@onready var Hash = $Content/Columns/Sliders/Presets/Hash
+@onready var Presets = $Dialogue/Content/Columns/Sliders/Presets.get_children()
+@onready var UserPresetNode = $Dialogue/Content/Columns/Sliders/UserPresets
+@onready var UserPresets = $Dialogue/Content/Columns/Sliders/UserPresets.get_children()
+
+@onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
 
 var saved_colors = [Color.CRIMSON, Color.GOLD, Color.LIME_GREEN, Color.ROYAL_BLUE]
-var user_saved_colors = []
+
+var saved_color = Color.BLACK
+# the color before editing (to restore if closed by pressing X)
+
+var disabled = 0
 
 func _ready():
 	# connect preset-colors
@@ -25,10 +32,24 @@ func _ready():
 			Presets[i].pressed.connect(_on_preset_pressed.bind(i))
 	for i in len(UserPresets):
 		UserPresets[i].pressed.connect(_on_user_preset_pressed.bind(i))
+	# connect with global
+	Global.user_saved_colors_changed.connect(load_user_preset_colors)
+	open(Color.BLUE)
+
+# open and close
+
+func open(color):
+	saved_color = color
 	# load ui
-	set_color()
+	set_color(color)
 	load_preset_colors()
 	load_user_preset_colors()
+	show()
+
+func close():
+	hide()
+
+# content
 
 func load_preset_colors():
 	for i in len(Presets):
@@ -37,14 +58,16 @@ func load_preset_colors():
 
 func load_user_preset_colors():
 	for i in len(UserPresets):
-		if i < len(user_saved_colors):
-			UserPresets[i].modulate = user_saved_colors[i]
+		if i < len(Global.user_saved_colors):
+			UserPresets[i].modulate = Global.user_saved_colors[i]
 			UserPresets[i].show()
 		else:
 			UserPresets[i].hide()
-	UserPresetNode.visible = (len(user_saved_colors) > 0)
+	UserPresetNode.visible = (len(Global.user_saved_colors) > 0)
 
 func set_color(color = get_color()):
+	disabled += 1
+	
 	# preview picture
 	Preview.modulate = color
 	# update backgrounds
@@ -74,6 +97,8 @@ func set_color(color = get_color()):
 	ValueSlider.value = color.v * ValueSlider.max_value
 	# update hash
 	delete_hash_text()
+	
+	disabled -= 1
 
 func get_color():
 	return Color.from_hsv(
@@ -84,19 +109,25 @@ func get_color():
 
 func _on_slider_value_changed(_value):
 	set_color()
+	if disabled == 0:
+		color_changed.emit()
 
 func _on_preset_pressed(i):
 	set_color(Presets[i].modulate)
+	if disabled == 0:
+		color_changed.emit()
 
 func _on_user_preset_pressed(i):
 	if UserPresets[i].visible:
 		set_color(UserPresets[i].modulate)
+		if disabled == 0:
+			color_changed.emit()
 
 func _on_add_button_pressed():
-	user_saved_colors.push_front(get_color())
-	while len(user_saved_colors) > len(UserPresets):
-		user_saved_colors.pop_back()
-	load_user_preset_colors()
+	Global.user_saved_colors.push_front(get_color())
+	while len(Global.user_saved_colors) > len(UserPresets):
+		Global.user_saved_colors.pop_back()
+	Global.user_saved_colors_changed.emit()
 
 # html text
 
@@ -113,3 +144,14 @@ func _on_hash_text_submitted(new_text):
 
 func _on_hash_focus_exited():
 	_on_hash_text_submitted(Hash.text)
+
+# end dialogue
+
+func _on_ready_button_pressed():
+	saved_color = Preview.modulate
+	finished.emit()
+
+func _on_close_button_pressed():
+	set_color(saved_color)
+	color_changed.emit()
+	finished.emit()

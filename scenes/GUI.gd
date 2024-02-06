@@ -51,6 +51,3 @@ func show_results(results):
 
 func _on_resize_timer_timeout():
 	PlaygroundUI.resize_playground()
-
-func _on_result_ui_color_changed():
-	PlaygroundUI._fractal_changed()

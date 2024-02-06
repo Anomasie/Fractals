@@ -1,7 +1,5 @@
 extends MarginContainer
 
-signal color_changed
-
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
 
@@ -9,7 +7,7 @@ signal color_changed
 @onready var SaveFileDialog = $Columns/Right/Top/FileDialog
 @onready var CenterButton = $Columns/Right/Top/Main/CenterButton
 @onready var ColorButton = $Columns/Right/Top/Main/ColorButton
-@onready var ColorBar = $ColorBar
+@onready var ColorSliders = $ColorSliders
 
 @onready var SizeOptions = $SizeOptions
 
@@ -31,7 +29,7 @@ func _ready():
 	PointTeller.max_value = PointSlider.max_value
 	PointTeller.value = 0
 	SaveFileDialog.hide()
-	ColorBar.hide()
+	ColorSliders.hide()
 	SizeOptions.hide()
 	resize()
 
@@ -244,18 +242,16 @@ func _on_delay_slider_value_changed(value):
 # background color
 
 func _on_color_button_pressed():
-	if ColorBar.visible:
-		ColorBar.hide()
+	if ColorSliders.visible:
+		ColorSliders._on_close_button_pressed()
 	else:
-		ColorBar.load_color(ResultBackground.self_modulate)
-		ColorBar.show()
+		ColorSliders.open(ResultBackground.self_modulate)
 
-func _on_color_picker_color_changed(new_color):
-	ResultBackground.self_modulate = new_color
-	color_changed.emit()
+func _on_color_sliders_color_changed():
+	ResultBackground.self_modulate = ColorSliders.get_color()
 
-func _on_color_bar_finished():
-	ColorBar.hide()
+func _on_color_sliders_finished():
+	ColorSliders.close()
 
 # size options
 

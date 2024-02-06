@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://mtu0mxcjwc41"]
+[gd_scene load_steps=37 format=3 uid="uid://mtu0mxcjwc41"]
 
 [ext_resource type="Script" path="res://scenes/ColorSliders.gd" id="1_8ohfb"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_ppvln"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_12mbo"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="4_u2u55"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bj178"]
 atlas = ExtResource("1_ppvln")
@@ -30,8 +31,10 @@ gradient = SubResource("Gradient_15o5r")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
 [sub_resource type="Gradient" id="Gradient_qvcnl"]
+resource_local_to_scene = true
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_e2yrv"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_qvcnl")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kopvc"]
@@ -41,9 +44,11 @@ gradient = SubResource("Gradient_qvcnl")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atda5"]
 
 [sub_resource type="Gradient" id="Gradient_uk8i4"]
+resource_local_to_scene = true
 colors = PackedColorArray(1, 1, 1, 1, 0, 1, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1bh3c"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_uk8i4")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ro3f"]
@@ -101,6 +106,18 @@ region = Rect2(64, 160, 32, 32)
 atlas = ExtResource("3_12mbo")
 region = Rect2(32, 160, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_75bkv"]
+atlas = ExtResource("4_u2u55")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kltj"]
+atlas = ExtResource("4_u2u55")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrmm1"]
+atlas = ExtResource("4_u2u55")
+region = Rect2(32, 0, 32, 32)
+
 [node name="ColorSliders" type="MarginContainer"]
 offset_right = 422.0
 offset_bottom = 120.0
@@ -110,7 +127,10 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_8ohfb")
 
-[node name="Background" type="NinePatchRect" parent="."]
+[node name="Dialogue" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="Dialogue"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_bj178")
 patch_margin_left = 2
@@ -118,36 +138,36 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 
-[node name="Content" type="MarginContainer" parent="."]
+[node name="Content" type="MarginContainer" parent="Dialogue"]
 layout_mode = 2
 
-[node name="Columns" type="HBoxContainer" parent="Content"]
+[node name="Columns" type="HBoxContainer" parent="Dialogue/Content"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="Preview" type="TextureRect" parent="Content/Columns"]
+[node name="Preview" type="TextureRect" parent="Dialogue/Content/Columns"]
 modulate = Color(0, 1, 0, 1)
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_xe8bl")
 
-[node name="Sliders" type="VBoxContainer" parent="Content/Columns"]
+[node name="Sliders" type="VBoxContainer" parent="Dialogue/Content/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Hue" type="MarginContainer" parent="Content/Columns/Sliders"]
+[node name="Hue" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Content/Columns/Sliders/Hue"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Hue"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_koc1a")
 
-[node name="Slider" type="HSlider" parent="Content/Columns/Sliders/Hue"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Hue"]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxEmpty_namad")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_4t1bo")
@@ -155,47 +175,47 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_721e2"
 max_value = 256.0
 value = 50.0
 
-[node name="Value" type="MarginContainer" parent="Content/Columns/Sliders"]
+[node name="Value" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Content/Columns/Sliders/Value"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Value"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_e2yrv")
 
-[node name="Slider" type="HSlider" parent="Content/Columns/Sliders/Value"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Value"]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxEmpty_kopvc")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_mvmrp")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atda5")
 
-[node name="Saturation" type="MarginContainer" parent="Content/Columns/Sliders"]
+[node name="Saturation" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Content/Columns/Sliders/Saturation"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Saturation"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_1bh3c")
 
-[node name="Slider" type="HSlider" parent="Content/Columns/Sliders/Saturation"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Saturation"]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxTexture_2ro3f")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_kyfgn")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1wk3s")
 
-[node name="Presets" type="HBoxContainer" parent="Content/Columns/Sliders"]
+[node name="Presets" type="HBoxContainer" parent="Dialogue/Content/Columns/Sliders"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 
-[node name="Set1" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Set1" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -203,7 +223,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set2" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Set2" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -211,7 +231,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set3" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Set3" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -219,7 +239,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set4" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Set4" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -227,13 +247,13 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Hashtag" type="Label" parent="Content/Columns/Sliders/Presets"]
+[node name="Hashtag" type="Label" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "#"
 vertical_alignment = 1
 
-[node name="Hash" type="LineEdit" parent="Content/Columns/Sliders/Presets"]
+[node name="Hash" type="LineEdit" parent="Dialogue/Content/Columns/Sliders/Presets"]
 custom_minimum_size = Vector2(94, 28)
 layout_mode = 2
 size_flags_stretch_ratio = 4.0
@@ -241,14 +261,14 @@ placeholder_text = "000000"
 max_length = 6
 caret_blink = true
 
-[node name="UserPresets" type="HBoxContainer" parent="Content/Columns/Sliders"]
+[node name="UserPresets" type="HBoxContainer" parent="Dialogue/Content/Columns/Sliders"]
 visible = false
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 
-[node name="Set1" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set1" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -256,7 +276,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set2" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set2" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -264,7 +284,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set3" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set3" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -272,7 +292,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set4" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set4" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -280,7 +300,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set5" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set5" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -288,7 +308,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set6" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set6" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -296,7 +316,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set7" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set7" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -304,7 +324,7 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set8" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+[node name="Set8" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = SubResource("GradientTexture1D_xe8bl")
@@ -312,10 +332,10 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Buttons" type="VBoxContainer" parent="Content/Columns"]
+[node name="Buttons" type="VBoxContainer" parent="Dialogue/Content/Columns"]
 layout_mode = 2
 
-[node name="AddButton" type="TextureButton" parent="Content/Columns/Buttons"]
+[node name="AddButton" type="TextureButton" parent="Dialogue/Content/Columns/Buttons"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
@@ -325,7 +345,7 @@ texture_normal = SubResource("AtlasTexture_pcoqw")
 texture_pressed = SubResource("AtlasTexture_gcil7")
 texture_hover = SubResource("AtlasTexture_rkpn8")
 
-[node name="ReadyButton" type="TextureButton" parent="Content/Columns/Buttons"]
+[node name="ReadyButton" type="TextureButton" parent="Dialogue/Content/Columns/Buttons"]
 layout_mode = 2
 size_flags_vertical = 10
 shortcut = SubResource("Shortcut_cqiv3")
@@ -333,9 +353,19 @@ texture_normal = SubResource("AtlasTexture_sb07w")
 texture_pressed = SubResource("AtlasTexture_m8pl2")
 texture_hover = SubResource("AtlasTexture_i6q1w")
 
-[connection signal="value_changed" from="Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="value_changed" from="Content/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="value_changed" from="Content/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="focus_exited" from="Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
-[connection signal="text_submitted" from="Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
-[connection signal="pressed" from="Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_75bkv")
+texture_pressed = SubResource("AtlasTexture_8kltj")
+texture_hover = SubResource("AtlasTexture_lrmm1")
+
+[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="focus_exited" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
+[connection signal="text_submitted" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
+[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
