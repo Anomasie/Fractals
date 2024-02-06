@@ -18,7 +18,7 @@ signal finished
 
 @onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
 
-var saved_colors = [Color.CRIMSON, Color.GOLD, Color.LIME_GREEN, Color.ROYAL_BLUE]
+var saved_colors = [Color("#002350"), Color("#008198"), Color("#539f32"), Color("#d86614")]
 
 var saved_color = Color.BLACK
 # the color before editing (to restore if closed by pressing X)
