@@ -102,8 +102,8 @@ atlas = ExtResource("3_12mbo")
 region = Rect2(32, 160, 32, 32)
 
 [node name="ColorSliders" type="MarginContainer"]
-offset_right = 154.0
-offset_bottom = 112.0
+offset_right = 422.0
+offset_bottom = 120.0
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -127,7 +127,7 @@ layout_mode = 2
 
 [node name="Preview" type="TextureRect" parent="Content/Columns"]
 modulate = Color(0, 1, 0, 1)
-custom_minimum_size = Vector2(70, 80)
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_xe8bl")
 
@@ -227,31 +227,22 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set5" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Hashtag" type="Label" parent="Content/Columns/Sliders/Presets"]
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
+size_flags_vertical = 1
+text = "#"
+vertical_alignment = 1
 
-[node name="Set6" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
+[node name="Hash" type="LineEdit" parent="Content/Columns/Sliders/Presets"]
+custom_minimum_size = Vector2(94, 28)
 layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set7" type="TextureButton" parent="Content/Columns/Sliders/Presets"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
+size_flags_stretch_ratio = 4.0
+placeholder_text = "000000"
+max_length = 6
+caret_blink = true
 
 [node name="UserPresets" type="HBoxContainer" parent="Content/Columns/Sliders"]
+visible = false
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 3
@@ -313,6 +304,14 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
+[node name="Set8" type="TextureButton" parent="Content/Columns/Sliders/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
 [node name="Buttons" type="VBoxContainer" parent="Content/Columns"]
 layout_mode = 2
 
@@ -337,4 +336,6 @@ texture_hover = SubResource("AtlasTexture_i6q1w")
 [connection signal="value_changed" from="Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="value_changed" from="Content/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="value_changed" from="Content/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="focus_exited" from="Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
+[connection signal="text_submitted" from="Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
 [connection signal="pressed" from="Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
