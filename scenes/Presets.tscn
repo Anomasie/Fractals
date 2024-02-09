@@ -22,6 +22,7 @@ script = ExtResource("1_k08fq")
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
+tooltip_text = "close presets"
 texture_normal = SubResource("AtlasTexture_1seyx")
 texture_pressed = SubResource("AtlasTexture_jous6")
 texture_hover = SubResource("AtlasTexture_uuxho")

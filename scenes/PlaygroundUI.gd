@@ -25,6 +25,8 @@ func _ready():
 	Playground.fractal_changed.connect(_fractal_changed)
 	# hide and show
 	ColorSliders.close()
+	PresetsButton.hide()
+	Presets.show()
 	focus()
 
 var old_loupe = Global.LOUPE

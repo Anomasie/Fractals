@@ -84,6 +84,7 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Outline" type="TextureRect" parent="Content/OutlineContainer"]
 layout_mode = 2
+tooltip_text = "this rectangle is selected"
 texture = ExtResource("2_gir0y")
 
 [node name="TextureContainer" type="MarginContainer" parent="Content"]
@@ -106,11 +107,13 @@ texture = ExtResource("4_u4mid")
 
 [node name="MoveButton" type="Button" parent="Content/TextureContainer"]
 layout_mode = 2
+tooltip_text = "move by dragging and dropping"
 
 [node name="WidthButtonRight" type="TextureButton" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_iy0ws")
 texture_pressed = SubResource("AtlasTexture_bcgre")
 texture_hover = SubResource("AtlasTexture_likl4")
@@ -119,6 +122,7 @@ texture_hover = SubResource("AtlasTexture_likl4")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_iy0ws")
 texture_pressed = SubResource("AtlasTexture_bcgre")
 texture_hover = SubResource("AtlasTexture_likl4")
@@ -128,6 +132,7 @@ flip_h = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_5j0nk")
 texture_pressed = SubResource("AtlasTexture_050ry")
 texture_hover = SubResource("AtlasTexture_bifrm")
@@ -136,6 +141,7 @@ texture_hover = SubResource("AtlasTexture_bifrm")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
 texture_pressed = SubResource("AtlasTexture_1ctkp")
 texture_hover = SubResource("AtlasTexture_s83sm")
@@ -144,6 +150,7 @@ texture_hover = SubResource("AtlasTexture_s83sm")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
 texture_pressed = SubResource("AtlasTexture_1ctkp")
 texture_hover = SubResource("AtlasTexture_s83sm")
@@ -153,6 +160,7 @@ flip_h = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
 texture_pressed = SubResource("AtlasTexture_1ctkp")
 texture_hover = SubResource("AtlasTexture_s83sm")
@@ -162,6 +170,7 @@ flip_v = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
 texture_pressed = SubResource("AtlasTexture_1ctkp")
 texture_hover = SubResource("AtlasTexture_s83sm")
@@ -172,6 +181,7 @@ flip_v = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+tooltip_text = "rotate"
 texture_normal = SubResource("AtlasTexture_bycuk")
 texture_pressed = SubResource("AtlasTexture_01f6q")
 texture_hover = SubResource("AtlasTexture_hrfjs")

@@ -127,12 +127,14 @@ columns = 3
 
 [node name="PointTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
+tooltip_text = "0 points"
 texture = SubResource("AtlasTexture_fmh57")
 
 [node name="PointSlider" type="HSlider" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "change point limit"
 max_value = 1e+06
 step = 10.0
 value = 100000.0
@@ -155,20 +157,24 @@ scrollable = false
 
 [node name="PointTexture2" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
+tooltip_text = "1000000 points"
 texture = SubResource("AtlasTexture_75thn")
 
 [node name="DelayTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
+tooltip_text = "draw all points"
 texture = SubResource("AtlasTexture_vlc14")
 
 [node name="DelaySlider" type="HSlider" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\""
 value = 10.0
 
 [node name="DelayTexture2" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
+tooltip_text = "delay of 100 points"
 texture = SubResource("AtlasTexture_xxxko")
 
 [node name="Right" type="MarginContainer" parent="Columns"]
@@ -193,6 +199,7 @@ mouse_filter = 2
 
 [node name="ColorButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
+tooltip_text = "change background color"
 shortcut = SubResource("Shortcut_jbswu")
 texture_normal = SubResource("AtlasTexture_yl1cn")
 texture_pressed = SubResource("AtlasTexture_407ms")
@@ -201,15 +208,18 @@ texture_hover = SubResource("AtlasTexture_cncu8")
 [node name="SaveButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
 size_flags_vertical = 0
+tooltip_text = "save image"
 texture_normal = SubResource("AtlasTexture_bhyhh")
 texture_pressed = SubResource("AtlasTexture_vxkup")
 texture_hover = SubResource("AtlasTexture_3ur5h")
 
 [node name="CenterButton" parent="Columns/Right/Top/Main" instance=ExtResource("4_3q2yo")]
 layout_mode = 2
+tooltip_text = "change view"
 
 [node name="SizeButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
+tooltip_text = "change image size"
 texture_normal = SubResource("AtlasTexture_6jvvs")
 texture_pressed = SubResource("AtlasTexture_nraaw")
 texture_hover = SubResource("AtlasTexture_06psx")
@@ -228,6 +238,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="ColorSliders" parent="." instance=ExtResource("8_bgnmw")]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2

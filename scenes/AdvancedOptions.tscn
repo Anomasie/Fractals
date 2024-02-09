@@ -68,6 +68,7 @@ texture = SubResource("AtlasTexture_xd8lg")
 
 [node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
+tooltip_text = "enter translation in x-axis"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -76,6 +77,7 @@ page = 0.1
 [node name="TranslationY" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter translation in y-axis"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -92,6 +94,7 @@ texture = SubResource("AtlasTexture_yt3rn")
 [node name="ContractionX" type="SpinBox" parent="Main/ContractionBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter distortion along x-axis"
 max_value = 1.0
 step = 0.001
 page = 0.1
@@ -99,6 +102,7 @@ page = 0.1
 [node name="ContractionY" type="SpinBox" parent="Main/ContractionBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter distortion along y-axis"
 max_value = 1.0
 step = 0.001
 page = 0.1
@@ -112,6 +116,7 @@ texture = SubResource("AtlasTexture_v75dv")
 
 [node name="Rotation" type="SpinBox" parent="Main/RotationBox"]
 layout_mode = 2
+tooltip_text = "enter rotation degree"
 max_value = 360.0
 page = 1.0
 rounded = true
@@ -120,6 +125,7 @@ suffix = "°"
 [node name="Mirror" type="CheckButton" parent="Main/RotationBox"]
 layout_mode = 2
 size_flags_horizontal = 11
+tooltip_text = "flip rectangle"
 theme_override_icons/checked = SubResource("AtlasTexture_j1jwj")
 theme_override_icons/unchecked = SubResource("AtlasTexture_8u00t")
 
@@ -129,6 +135,7 @@ layout_mode = 2
 [node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
 size_flags_horizontal = 9
+tooltip_text = "close"
 texture_normal = SubResource("AtlasTexture_skh3p")
 texture_pressed = SubResource("AtlasTexture_yrwi1")
 texture_hover = SubResource("AtlasTexture_0v0vr")
@@ -136,6 +143,7 @@ texture_hover = SubResource("AtlasTexture_0v0vr")
 [node name="MatrixButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
 size_flags_horizontal = 11
+tooltip_text = "swtich to matrix view"
 texture_normal = SubResource("AtlasTexture_toxlq")
 texture_pressed = SubResource("AtlasTexture_qgt1m")
 texture_hover = SubResource("AtlasTexture_n8a5p")

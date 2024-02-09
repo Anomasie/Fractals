@@ -55,6 +55,7 @@ texture = SubResource("AtlasTexture_mm2rf")
 [node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter translation in x-axis"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -63,6 +64,7 @@ page = 0.1
 [node name="TranslationY" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter translation in y-axis"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -77,11 +79,13 @@ texture = SubResource("AtlasTexture_vuoyu")
 
 [node name="Matrix" type="GridContainer" parent="Main/MatrixBox"]
 layout_mode = 2
+theme_override_constants/h_separation = 16
 columns = 2
 
 [node name="Matrix11" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -90,6 +94,7 @@ page = 0.1
 [node name="Matrix12" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -98,6 +103,7 @@ page = 0.1
 [node name="Matrix21" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -106,6 +112,7 @@ page = 0.1
 [node name="Matrix33" type="SpinBox" parent="Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
 min_value = -1.0
 max_value = 2.0
 step = 0.001
@@ -116,12 +123,14 @@ layout_mode = 2
 
 [node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
+tooltip_text = "close"
 texture_normal = SubResource("AtlasTexture_gvdh1")
 texture_pressed = SubResource("AtlasTexture_p8v2a")
 texture_hover = SubResource("AtlasTexture_x6n0h")
 
 [node name="RotationButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
+tooltip_text = "switch to geometric view"
 texture_normal = SubResource("AtlasTexture_qcpij")
 texture_pressed = SubResource("AtlasTexture_y6pvj")
 texture_hover = SubResource("AtlasTexture_r3ss7")

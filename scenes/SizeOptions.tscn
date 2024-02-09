@@ -29,6 +29,7 @@ theme_override_constants/separation = 2
 
 [node name="SizeX" type="SpinBox" parent="Main"]
 layout_mode = 2
+tooltip_text = "image size for export"
 theme_override_icons/updown = SubResource("ImageTexture_trms6")
 min_value = 1.0
 max_value = 2028.0
@@ -44,6 +45,7 @@ vertical_alignment = 1
 
 [node name="SizeY" type="SpinBox" parent="Main"]
 layout_mode = 2
+tooltip_text = "image size for export"
 theme_override_icons/updown = SubResource("ImageTexture_trms6")
 min_value = 1.0
 max_value = 2028.0
@@ -55,6 +57,7 @@ suffix = "px"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+tooltip_text = "reset to original image size"
 texture_normal = SubResource("AtlasTexture_m00e8")
 texture_pressed = SubResource("AtlasTexture_jwla2")
 texture_hover = SubResource("AtlasTexture_rm38w")

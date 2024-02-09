@@ -4,7 +4,7 @@ signal close_me
 signal load_preset
 
 var PRESETS = {
-	"Sierpinski": {
+	"Sierpinski carpet": {
 		"texture": "res://assets/presets/SierpinskiCarpet.png",
 		"ifs": [
 			{
@@ -57,7 +57,7 @@ var PRESETS = {
 			}
 		]
 	},
-	"Koch": {
+	"Koch snowflake": {
 		"texture": "res://assets/presets/KochSnowflake.png",
 		"ifs": [
 			{
@@ -115,7 +115,7 @@ var PRESETS = {
 #			}
 #		]
 #	},
-	"Bernsley": {
+	"Bernsley fern": {
 		"texture": "res://assets/presets/BernsleyFern.png",
 		"ifs": [
 			{ # stem
@@ -154,6 +154,7 @@ func _ready():
 	for preset in PRESETS.keys():
 		var Instance = Preset.instantiate()
 		Instance.name = preset
+		Instance.tooltip_text = preset
 		Instance.pressed.connect(_on_preset_pressed.bind(preset))
 		self.add_child(Instance)
 		Instance.load_preset(PRESETS[preset])
