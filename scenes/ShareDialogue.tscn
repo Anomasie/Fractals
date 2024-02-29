@@ -103,7 +103,7 @@ text = "Venue"
 [node name="VenueEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "MINT-festival in Jena"
+placeholder_text = "MINT-festival Jena"
 
 [node name="ReadyButton" type="Button" parent="Container/Content/MarginContainer/Lines"]
 layout_mode = 2

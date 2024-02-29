@@ -3,6 +3,10 @@ extends MarginContainer
 @onready var ImagePreview = $Container/Content/MarginContainer/Lines/ImagePreview
 @onready var GalleryAdressLabel = $Container/Content/MarginContainer/Lines/GalleryAdressLabel
 
+@onready var DescriptionEdit = $Container/Content/MarginContainer/Lines/Tabular/DescriptionEdit
+@onready var NameEdit = $Container/Content/MarginContainer/Lines/Tabular/NameEdit
+@onready var VenueEdit = $Container/Content/MarginContainer/Lines/Tabular/VenueEdit
+
 @onready var GalleryContact = $GalleryContact
 
 var current_image
@@ -18,7 +22,12 @@ func open(image):
 	show()
 
 func _on_ready_button_pressed():
-	GalleryContact.send_image(current_image)
+	GalleryContact.send_image(
+		current_image,
+		DescriptionEdit.text,
+		NameEdit.text,
+		VenueEdit.text
+	)
 	hide()
 
 func _on_close_button_pressed():
