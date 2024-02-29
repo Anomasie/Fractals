@@ -6,12 +6,19 @@ extends Control
 @onready var ResizeTimer = $Lines/Content/ResizeTimer
 @onready var Title = $Lines/Title
 
+@onready var ShareDialogue = $ShareDialogue
+
 func _ready():
+	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_on_viewport_resize()
 	show_results(IFS.new())
-	
+	# set variables
 	PlaygroundUI.ResultUI = ResultUI
+	ResultUI.ShareDialogue = ShareDialogue
+	
+	# hide and show
+	ShareDialogue.hide()
 
 func _on_viewport_resize():
 	# get new size of viewport

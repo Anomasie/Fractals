@@ -151,42 +151,13 @@ func paint(results, centered):
 	# set image
 	Result.set_texture(ImageTexture.create_from_image(image))
 
-func _on_save_button_pressed():
-	if OS.has_feature("web"):
-		get_counter()
-		var filename = "fractal" + str(counter) + ".png"
-		# extract images
-		var background = Image.create(RealImage.get_width(), RealImage.get_height(), false, Image.FORMAT_RGBA8)
-		background.fill(ResultBackground.self_modulate)
-		background.convert(Image.FORMAT_RGBA8)
-		# add result (image) onto background
-		background.blit_rect_mask(
-			RealImage,
-			RealImage,
-			Rect2i(
-				0,
-				0,
-				RealImage.get_width(),
-				RealImage.get_height()),
-			Vector2i(
-				0,
-				0
-			)
-		)
-		background.flip_y()
-		# save image
-		var buf = background.save_png_to_buffer()
-		JavaScriptBridge.download_buffer(buf, filename)
-	else:
-		SaveFileDialog.open()
-
-func save(path):
+func get_image():
 	# extract images
-	var background = Image.create(RealImage.get_width(), RealImage.get_height(), false, Image.FORMAT_RGBA8)
-	background.fill(ResultBackground.self_modulate)
-	background.convert(Image.FORMAT_RGBA8)
+	var image = Image.create(RealImage.get_width(), RealImage.get_height(), false, Image.FORMAT_RGBA8)
+	image.fill(ResultBackground.self_modulate)
+	image.convert(Image.FORMAT_RGBA8)
 	# add result (image) onto background
-	background.blit_rect_mask(
+	image.blit_rect_mask(
 		RealImage,
 		RealImage,
 		Rect2i(
@@ -199,12 +170,33 @@ func save(path):
 			0
 		)
 	)
-	background.flip_y()
+	image.flip_y()
+	return image
+
+# send image to gallery
+
+@onready var ShareDialogue
+
+func _on_share_button_pressed():
+	ShareDialogue.open(get_image())
+
+# save image locally
+
+func _on_save_button_pressed():
+	if OS.has_feature("web"):
+		get_counter()
+		var filename = "fractal" + str(counter) + ".png"
+		var buf = get_image().save_png_to_buffer()
+		JavaScriptBridge.download_buffer(buf, filename)
+	else:
+		SaveFileDialog.open()
+
+func save(path):
 	# save image
 	if not path.ends_with(".png") and not path.ends_with(".PNG"):
-		background.save_png(path + ".png")
+		get_image().save_png(path + ".png")
 	else:
-		background.save_png(path)
+		get_image().save_png(path)
 
 func get_counter():
 	file_counter += 1

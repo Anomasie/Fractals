@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=31 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
@@ -54,6 +54,18 @@ atlas = ExtResource("2_bc0yl")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhyhh"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2kae"]
+atlas = ExtResource("3_limvo")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwoyi"]
+atlas = ExtResource("3_limvo")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb1ir"]
 atlas = ExtResource("3_limvo")
 region = Rect2(0, 0, 32, 32)
 
@@ -205,11 +217,18 @@ texture_normal = SubResource("AtlasTexture_yl1cn")
 texture_pressed = SubResource("AtlasTexture_407ms")
 texture_hover = SubResource("AtlasTexture_cncu8")
 
+[node name="ShareButton" type="TextureButton" parent="Columns/Right/Top/Main"]
+layout_mode = 2
+tooltip_text = "share image in gallery"
+texture_normal = SubResource("AtlasTexture_bhyhh")
+texture_pressed = SubResource("AtlasTexture_i2kae")
+texture_hover = SubResource("AtlasTexture_jwoyi")
+
 [node name="SaveButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
 size_flags_vertical = 0
-tooltip_text = "save image"
-texture_normal = SubResource("AtlasTexture_bhyhh")
+tooltip_text = "save image locally"
+texture_normal = SubResource("AtlasTexture_mb1ir")
 texture_pressed = SubResource("AtlasTexture_vxkup")
 texture_hover = SubResource("AtlasTexture_3ur5h")
 
@@ -248,6 +267,7 @@ mouse_filter = 2
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Columns/Right/Top/Main/ShareButton" to="." method="_on_share_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SizeButton" to="." method="_on_size_button_pressed"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://r1sotm75vv6j"]
+
+[ext_resource type="Script" path="res://scenes/server-contact/GalleryContact.gd" id="1_hs76i"]
+[ext_resource type="Script" path="res://scenes/server-contact/PolaroidsApi.gd" id="2_35uqw"]
+
+[node name="GalleryContact" type="Node"]
+script = ExtResource("1_hs76i")
+
+[node name="PolaroidsApi" type="Node" parent="."]
+script = ExtResource("2_35uqw")
