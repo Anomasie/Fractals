@@ -5,8 +5,8 @@ extends Node
 func _ready() -> void:
 	PolaroidsApi.on_response.connect(_on_response)
 
-func send_image(image = Image.load_from_file("res://assets/icon.png"), description="", nickname="", venue=""):
-	PolaroidsApi.send_image(Global.GALLERY_ADRESS, image, description, nickname, venue)
+func send_image(image = Image.load_from_file("res://assets/icon.png"), description="", nickname="", venue="", meta=""):
+	PolaroidsApi.send_image(Global.GALLERY_ADRESS, image, description, nickname, venue, meta)
 
 func _on_response(result: int, response_code: int, response: Dictionary) -> void:
 	if result == HTTPRequest.RESULT_SUCCESS:

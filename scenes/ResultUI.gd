@@ -178,7 +178,7 @@ func get_image():
 @onready var ShareDialogue
 
 func _on_share_button_pressed():
-	ShareDialogue.open(get_image())
+	ShareDialogue.open(get_image(), current_ifs)
 
 # save image locally
 
