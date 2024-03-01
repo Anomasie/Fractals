@@ -27,4 +27,4 @@ func reload_language():
 	for node in [Center, Normal]:
 		match Global.language:
 			"GER": node.tooltip_text = "ändere Bildausschnitt"
-			_: node.tooltop_text = "change view"
+			_: node.tooltip_text = "change view"

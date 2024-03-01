@@ -11,6 +11,8 @@ extends Control
 @onready var WarningLabel = $WarningContainer/WarningLabel
 @onready var WarningTimer = $WarningContainer/WarningTimer
 
+@onready var LanguageButton = $UIButtons/LanguageButton
+
 func _ready():
 	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
@@ -25,7 +27,7 @@ func _ready():
 	ShareDialogue.hide()
 	
 	# language & translation
-	reload_language()
+	_on_language_button_pressed()
 
 func _on_viewport_resize():
 	# get new size of viewport
@@ -99,7 +101,19 @@ func _on_share_dialogue_no_connection_to_server(response):
 func _on_warning_timer_timeout():
 	WarningLabel.text = ""
 
+# language & translation
 
+func _on_language_button_pressed():
+	match LanguageButton.text:
+		"GER":
+			Global.language = "GER"
+			LanguageButton.text = "EN"
+			LanguageButton.tooltip_text = "switch to English"
+		_:
+			Global.language = "EN"
+			LanguageButton.text = "GER"
+			LanguageButton.tooltip_text = "switch to German"
+	reload_language()
 
 func reload_language():
 	for node in [PlaygroundUI, ResultUI, ShareDialogue]:

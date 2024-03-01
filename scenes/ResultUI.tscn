@@ -53,17 +53,17 @@ region = Rect2(64, 64, 32, 32)
 atlas = ExtResource("2_bc0yl")
 region = Rect2(32, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bhyhh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hktmc"]
 atlas = ExtResource("3_limvo")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(0, 384, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i2kae"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lmy4"]
 atlas = ExtResource("3_limvo")
-region = Rect2(64, 64, 32, 32)
+region = Rect2(64, 384, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jwoyi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_akdnx"]
 atlas = ExtResource("3_limvo")
-region = Rect2(32, 64, 32, 32)
+region = Rect2(32, 384, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mb1ir"]
 atlas = ExtResource("3_limvo")
@@ -221,9 +221,9 @@ texture_hover = SubResource("AtlasTexture_cncu8")
 [node name="ShareButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
 tooltip_text = "share image in gallery"
-texture_normal = SubResource("AtlasTexture_bhyhh")
-texture_pressed = SubResource("AtlasTexture_i2kae")
-texture_hover = SubResource("AtlasTexture_jwoyi")
+texture_normal = SubResource("AtlasTexture_hktmc")
+texture_pressed = SubResource("AtlasTexture_6lmy4")
+texture_hover = SubResource("AtlasTexture_akdnx")
 
 [node name="SaveButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2

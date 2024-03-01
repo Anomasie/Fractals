@@ -16,22 +16,6 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_fcrs7")
 
-[node name="WarningContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_top = 32
-
-[node name="WarningLabel" type="Label" parent="WarningContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Your fractal has been successfully sent to the gallery."
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="WarningTimer" type="Timer" parent="WarningContainer"]
-wait_time = 5.0
-one_shot = true
-
 [node name="Lines" type="VBoxContainer" parent="."]
 layout_mode = 2
 
@@ -58,12 +42,41 @@ layout_mode = 2
 wait_time = 0.1
 one_shot = true
 
+[node name="WarningContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 32
+
+[node name="WarningLabel" type="Label" parent="WarningContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Your fractal has been successfully sent to the gallery."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WarningTimer" type="Timer" parent="WarningContainer"]
+wait_time = 5.0
+one_shot = true
+
 [node name="ShareDialogue" parent="." instance=ExtResource("4_kymfo")]
 layout_mode = 2
 
-[connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
+[node name="UIButtons" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 0
+
+[node name="LanguageButton" type="Button" parent="UIButtons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "EN"
+
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
+[connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]
 [connection signal="sent_away" from="ShareDialogue" to="." method="_on_share_dialogue_sent_away"]
 [connection signal="sent_successfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_successfully"]
 [connection signal="sent_unsuccessfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_unsuccessfully"]
+[connection signal="pressed" from="UIButtons/LanguageButton" to="." method="_on_language_button_pressed"]
