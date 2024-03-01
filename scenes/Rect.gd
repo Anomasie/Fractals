@@ -59,7 +59,8 @@ func _input(event):
 			editing_width = false
 			editing_height = false
 			editing_turn = false
-			TurnButton.disabled = false
+			for button in [WidthButtonR, WidthButtonL, HeightButtonD, DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU, TurnButton]:
+				button.disabled = false
 
 func _on_move_button_pressed():
 	editing_position = true
@@ -70,18 +71,20 @@ func _on_move_button_pressed():
 
 func _on_width_button_left_pressed():
 	editing_width = true
+	WidthButtonL.disabled = true
 	anchor.x = -1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
 	focus_me.emit()
 
 func _on_width_button_right_pressed():
 	editing_width = true
+	WidthButtonR.disabled = true
 	anchor.x = 1
 	rect_origin = Rect.get_global_position()
 	focus_me.emit()
 
+# this function is useless, because I removed the button, but I like to keeep it anyway
 func _on_height_button_up_pressed():
-	# actually, this method is useless, because I removed the button, but I like to keeep it
 	editing_height = true
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y)
@@ -89,6 +92,7 @@ func _on_height_button_up_pressed():
 
 func _on_height_button_down_pressed():
 	editing_height = true
+	HeightButtonD.disabled = true
 	anchor.y = 1
 	rect_origin = Rect.get_global_position()
 	focus_me.emit()
@@ -96,6 +100,7 @@ func _on_height_button_down_pressed():
 func _on_diag_button_rd_pressed():
 	editing_width = true
 	editing_height = true
+	DiagButtonRD.disabled = true
 	anchor.x = 1
 	anchor.y = 1
 	rect_origin = Rect.get_global_position()
@@ -104,6 +109,7 @@ func _on_diag_button_rd_pressed():
 func _on_diag_button_ld_pressed():
 	editing_width = true
 	editing_height = true
+	DiagButtonLD.disabled = true
 	anchor.x = -1
 	anchor.y = 1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
@@ -112,6 +118,7 @@ func _on_diag_button_ld_pressed():
 func _on_diag_button_ru_pressed():
 	editing_width = true
 	editing_height = true
+	DiagButtonRU.disabled = true
 	anchor.x = 1
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y).rotated(self.rotation)
@@ -120,6 +127,7 @@ func _on_diag_button_ru_pressed():
 func _on_diag_button_lu_pressed():
 	editing_width = true
 	editing_height = true
+	DiagButtonLU.disabled = true
 	anchor.x = -1
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, Rect.size.y).rotated(self.rotation)

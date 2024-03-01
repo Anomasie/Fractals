@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=24 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
@@ -8,25 +8,29 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(32, 32, 16, 16)
+region = Rect2(0, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcgre"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(48, 32, 16, 16)
+region = Rect2(32, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_likl4"]
 atlas = ExtResource("5_hmmwh")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d46o3"]
+atlas = ExtResource("5_hmmwh")
 region = Rect2(48, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5j0nk"]
-atlas = ExtResource("5_hmmwh")
-region = Rect2(64, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_050ry"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqdoo"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(80, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bifrm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_va76x"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mivkl"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(80, 32, 16, 16)
 
@@ -34,25 +38,29 @@ region = Rect2(80, 32, 16, 16)
 atlas = ExtResource("5_hmmwh")
 region = Rect2(0, 32, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtsv6"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(32, 32, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ctkp"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(16, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s83sm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sasoj"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(16, 32, 16, 16)
+region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yvakv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvlux"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(0, 48, 16, 16)
+region = Rect2(48, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7o8u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5lpp"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(16, 48, 16, 16)
+region = Rect2(80, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jbmv1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdo8s"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(16, 48, 16, 16)
+region = Rect2(64, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
 atlas = ExtResource("5_hmmwh")
@@ -131,6 +139,8 @@ tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_iy0ws")
 texture_pressed = SubResource("AtlasTexture_bcgre")
 texture_hover = SubResource("AtlasTexture_likl4")
+texture_disabled = SubResource("AtlasTexture_bcgre")
+texture_focused = SubResource("AtlasTexture_bcgre")
 
 [node name="WidthButtonLeft" type="TextureButton" parent="Content"]
 layout_mode = 2
@@ -140,6 +150,8 @@ tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_iy0ws")
 texture_pressed = SubResource("AtlasTexture_bcgre")
 texture_hover = SubResource("AtlasTexture_likl4")
+texture_disabled = SubResource("AtlasTexture_bcgre")
+texture_focused = SubResource("AtlasTexture_bcgre")
 flip_h = true
 
 [node name="HeightButtonDown" type="TextureButton" parent="Content"]
@@ -147,9 +159,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 tooltip_text = "shrink or expand"
-texture_normal = SubResource("AtlasTexture_5j0nk")
-texture_pressed = SubResource("AtlasTexture_050ry")
-texture_hover = SubResource("AtlasTexture_bifrm")
+texture_normal = SubResource("AtlasTexture_d46o3")
+texture_pressed = SubResource("AtlasTexture_tqdoo")
+texture_hover = SubResource("AtlasTexture_va76x")
+texture_disabled = SubResource("AtlasTexture_mivkl")
 
 [node name="DiagButtonRD" type="TextureButton" parent="Content"]
 layout_mode = 2
@@ -157,8 +170,9 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
-texture_pressed = SubResource("AtlasTexture_1ctkp")
-texture_hover = SubResource("AtlasTexture_s83sm")
+texture_pressed = SubResource("AtlasTexture_vtsv6")
+texture_hover = SubResource("AtlasTexture_1ctkp")
+texture_disabled = SubResource("AtlasTexture_sasoj")
 
 [node name="DiagButtonLD" type="TextureButton" parent="Content"]
 layout_mode = 2
@@ -166,8 +180,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
-texture_pressed = SubResource("AtlasTexture_1ctkp")
-texture_hover = SubResource("AtlasTexture_s83sm")
+texture_pressed = SubResource("AtlasTexture_vtsv6")
+texture_hover = SubResource("AtlasTexture_1ctkp")
+texture_disabled = SubResource("AtlasTexture_sasoj")
 flip_h = true
 
 [node name="DiagButtonRU" type="TextureButton" parent="Content"]
@@ -176,8 +191,9 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
-texture_pressed = SubResource("AtlasTexture_1ctkp")
-texture_hover = SubResource("AtlasTexture_s83sm")
+texture_pressed = SubResource("AtlasTexture_vtsv6")
+texture_hover = SubResource("AtlasTexture_1ctkp")
+texture_disabled = SubResource("AtlasTexture_sasoj")
 flip_v = true
 
 [node name="DiagButtonLU" type="TextureButton" parent="Content"]
@@ -186,8 +202,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "shrink or expand"
 texture_normal = SubResource("AtlasTexture_lq3gv")
-texture_pressed = SubResource("AtlasTexture_1ctkp")
-texture_hover = SubResource("AtlasTexture_s83sm")
+texture_pressed = SubResource("AtlasTexture_vtsv6")
+texture_hover = SubResource("AtlasTexture_1ctkp")
+texture_disabled = SubResource("AtlasTexture_sasoj")
 flip_h = true
 flip_v = true
 
@@ -195,9 +212,9 @@ flip_v = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_yvakv")
-texture_pressed = SubResource("AtlasTexture_k7o8u")
-texture_hover = SubResource("AtlasTexture_jbmv1")
+texture_normal = SubResource("AtlasTexture_nvlux")
+texture_pressed = SubResource("AtlasTexture_i5lpp")
+texture_hover = SubResource("AtlasTexture_hdo8s")
 
 [node name="TurnButton" type="TextureButton" parent="."]
 layout_mode = 2
