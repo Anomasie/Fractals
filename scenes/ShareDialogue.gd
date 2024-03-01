@@ -1,5 +1,10 @@
 extends MarginContainer
 
+signal sent_away
+signal sent_successfully
+signal sent_unsuccessfully
+signal no_connection_to_server
+
 @onready var ImagePreview = $Container/Content/MarginContainer/Lines/ImagePreview
 @onready var GalleryAdressLabel = $Container/Content/MarginContainer/Lines/GalleryAdressLabel
 
@@ -45,6 +50,16 @@ func _on_ready_button_pressed():
 		current_meta
 	)
 	hide()
+	sent_away.emit()
 
 func _on_close_button_pressed():
 	hide()
+
+func _on_gallery_contact_sent_successfully():
+	sent_successfully.emit()
+
+func _on_gallery_contact_sent_unsuccessfully(response_code):
+	sent_unsuccessfully.emit(response_code)
+
+func _on_gallery_contact_no_connection_to_server(result):
+	no_connection_to_server.emit(result)

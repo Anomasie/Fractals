@@ -125,5 +125,8 @@ texture_normal = SubResource("AtlasTexture_nf28d")
 texture_pressed = SubResource("AtlasTexture_ujvvc")
 texture_hover = SubResource("AtlasTexture_tu047")
 
+[connection signal="no_connection_to_server" from="GalleryContact" to="." method="_on_gallery_contact_no_connection_to_server"]
+[connection signal="sent_successfully" from="GalleryContact" to="." method="_on_gallery_contact_sent_successfully"]
+[connection signal="sent_unsuccessfully" from="GalleryContact" to="." method="_on_gallery_contact_sent_unsuccessfully"]
 [connection signal="pressed" from="Container/Content/MarginContainer/Lines/ReadyButton" to="." method="_on_ready_button_pressed"]
 [connection signal="pressed" from="Container/CloseButton" to="." method="_on_close_button_pressed"]
