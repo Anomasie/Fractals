@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=21 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
@@ -41,6 +41,18 @@ region = Rect2(16, 32, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_s83sm"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvakv"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7o8u"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbmv1"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(16, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bycuk"]
 atlas = ExtResource("5_hmmwh")
@@ -175,6 +187,14 @@ texture_hover = SubResource("AtlasTexture_s83sm")
 flip_h = true
 flip_v = true
 
+[node name="MirrorButton" type="TextureButton" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_yvakv")
+texture_pressed = SubResource("AtlasTexture_k7o8u")
+texture_hover = SubResource("AtlasTexture_jbmv1")
+
 [node name="TurnButton" type="TextureButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -193,4 +213,5 @@ texture_focused = SubResource("AtlasTexture_hrfjs")
 [connection signal="button_down" from="Content/DiagButtonLD" to="." method="_on_diag_button_ld_pressed"]
 [connection signal="button_down" from="Content/DiagButtonRU" to="." method="_on_diag_button_ru_pressed"]
 [connection signal="button_down" from="Content/DiagButtonLU" to="." method="_on_diag_button_lu_pressed"]
+[connection signal="pressed" from="Content/MirrorButton" to="." method="_on_mirror_button_pressed"]
 [connection signal="button_down" from="TurnButton" to="." method="_on_turn_button_pressed"]

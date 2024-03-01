@@ -19,6 +19,7 @@ signal changed
 @onready var DiagButtonLD = $Content/DiagButtonLD
 @onready var DiagButtonRU = $Content/DiagButtonRU
 @onready var DiagButtonLU = $Content/DiagButtonLU
+@onready var MirrorButton = $Content/MirrorButton
 
 @onready var Content = $Content
 @onready var TextureContainer = $Content/TextureContainer
@@ -129,6 +130,10 @@ func _on_turn_button_pressed():
 	editing_turn = true
 	rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	focus_me.emit()
+
+func _on_mirror_button_pressed():
+	mirror()
+	changed.emit()
 
 # "important" functions
 
