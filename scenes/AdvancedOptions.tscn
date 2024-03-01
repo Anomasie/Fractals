@@ -135,7 +135,7 @@ layout_mode = 2
 [node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
 size_flags_horizontal = 9
-tooltip_text = "close"
+tooltip_text = "close options"
 texture_normal = SubResource("AtlasTexture_skh3p")
 texture_pressed = SubResource("AtlasTexture_yrwi1")
 texture_hover = SubResource("AtlasTexture_0v0vr")

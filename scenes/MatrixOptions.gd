@@ -8,6 +8,9 @@ signal switch
 @onready var TranslationY = $Main/TranslationBox/TranslationY
 @onready var MatrixEntries = $Main/MatrixBox/Matrix.get_children()
 
+@onready var CloseButton = $ElseBox/CloseButton
+@onready var RotationButton = $ElseBox/RotationButton
+
 var disabled = false
 
 func _ready():
@@ -68,3 +71,24 @@ func _on_close_button_pressed():
 
 func _on_rotation_button_pressed():
 	switch.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			TranslationX.tooltip_text = "Verschiebung entlang der X-Achse"
+			TranslationY.tooltip_text = "Verschiebung entlang der Y-Achse"
+			for entry in MatrixEntries:
+				entry.tooltip_text = "Transformationsmatrix"
+			# buttons
+			CloseButton.tooltip_text = "schließen"
+			RotationButton.tooltip_text = "geometrische Ansicht"
+		_:
+			TranslationX.tooltip_text = "enter translation in x-axis"
+			TranslationY.tooltip_text = "enter translation in y-axis"
+			for entry in MatrixEntries:
+				entry.tooltip_text = "transformation matrix"
+			# buttons
+			CloseButton.tooltip_text = "close"
+			RotationButton.tooltip_text = "switch to geometric view"

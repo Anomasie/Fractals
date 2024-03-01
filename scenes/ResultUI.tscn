@@ -125,6 +125,7 @@ texture = ExtResource("2_ffygg")
 
 [node name="Result" type="TextureRect" parent="Columns/Left/Center"]
 layout_mode = 2
+tooltip_text = "current fractal"
 texture = ExtResource("2_ffygg")
 flip_v = true
 

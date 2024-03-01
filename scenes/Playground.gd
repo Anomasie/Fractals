@@ -89,3 +89,9 @@ func set_ifs(ifs, origin):
 	for contraction in ifs:
 		var Instance = add(origin, origin, true)
 		Instance.update_to( contraction, origin )
+
+# language & translation
+
+func reload_language():
+	for child in self.get_children():
+		child.reload_language()

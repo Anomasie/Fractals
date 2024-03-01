@@ -69,6 +69,7 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "image you are about to send to the gallery"
 texture = ExtResource("2_y3cc6")
 
 [node name="Tabular" type="GridContainer" parent="Container/Content/MarginContainer/Lines"]
@@ -84,6 +85,7 @@ text = "Description"
 [node name="DescriptionEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter description here"
 placeholder_text = "my favorite fractal"
 
 [node name="NameLabel" type="Label" parent="Container/Content/MarginContainer/Lines/Tabular"]
@@ -93,6 +95,7 @@ text = "Nickname"
 [node name="NameEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter your nickname here"
 placeholder_text = "my name"
 max_length = 10
 
@@ -103,6 +106,7 @@ text = "Venue"
 [node name="VenueEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "enter venue here (if existing)"
 placeholder_text = "MINT-festival Jena"
 
 [node name="ReadyButton" type="Button" parent="Container/Content/MarginContainer/Lines"]
@@ -111,6 +115,7 @@ text = "Share on website"
 
 [node name="GalleryAdressLabel" type="LineEdit" parent="Container/Content/MarginContainer/Lines"]
 layout_mode = 2
+tooltip_text = "link to gallery"
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 text = "www.make-your-own-fractal-de/gallery"
 alignment = 1

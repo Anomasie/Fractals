@@ -4,6 +4,16 @@ signal value_changed
 signal close_me
 signal switch
 
+@onready var TranslationX = $Main/TranslationBox/TranslationX
+@onready var TranslationY = $Main/TranslationBox/TranslationY
+@onready var ContractX = $Main/ContractionBox/ContractionX
+@onready var ContractY = $Main/ContractionBox/ContractionY
+@onready var Rotation = $Main/RotationBox/Rotation
+@onready var Mirror = $Main/RotationBox/Mirror
+
+@onready var CloseButton = $ElseBox/CloseButton
+@onready var MatrixButton = $ElseBox/MatrixButton
+
 var disabled = false
 
 func _ready():
@@ -13,13 +23,6 @@ func _ready():
 				ankle.value_changed.connect(_value_changed)
 			elif ankle is CheckButton:
 				ankle.pressed.connect(_on_mirror_pressed)
-
-@onready var TranslationX = $Main/TranslationBox/TranslationX
-@onready var TranslationY = $Main/TranslationBox/TranslationY
-@onready var ContractX = $Main/ContractionBox/ContractionX
-@onready var ContractY = $Main/ContractionBox/ContractionY
-@onready var Rotation = $Main/RotationBox/Rotation
-@onready var Mirror = $Main/RotationBox/Mirror
 
 func _value_changed(_new_value=0):
 	if not disabled:
@@ -97,3 +100,30 @@ func _on_close_button_pressed():
 
 func _on_matrix_button_pressed():
 	switch.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			# settings
+			TranslationX.tooltip_text = "Verschiebung entlang der X-Achse"
+			TranslationY.tooltip_text = "Verschiebung entlang der Y-Achse"
+			ContractX.tooltip_text = "Verzerrung entlang der X-Achse"
+			ContractY.tooltip_text = "Verzerrung entlang der Y-Achse"
+			Rotation.tooltip_text = "Rotation in °"
+			Mirror.tooltip_text = "Rechteck spiegeln"
+			# buttons
+			CloseButton.tooltip_text = "schließen"
+			MatrixButton.tooltip_text = "Matrix-Ansicht"
+		_:
+			# settings
+			TranslationX.tooltip_text = "enter translation in x-axis"
+			TranslationY.tooltip_text = "enter translation in y-axis"
+			ContractX.tooltip_text = "enter distortion along x-axis"
+			ContractY.tooltip_text = "enter distortion along y-axis"
+			Rotation.tooltip_text = "enter rotation degree"
+			Mirror.tooltip_text = "flip rectangle"
+			# buttons
+			CloseButton.tooltip_text = "close options"
+			MatrixButton.tooltip_text = "swtich to matrix view"

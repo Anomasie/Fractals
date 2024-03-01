@@ -11,6 +11,15 @@ signal focus_me
 signal changed
 
 # buttons
+@onready var MoveButton = $Content/TextureContainer/MoveButton
+@onready var WidthButtonR = $Content/WidthButtonRight
+@onready var WidthButtonL = $Content/WidthButtonLeft
+@onready var HeightButtonD = $Content/HeightButtonDown
+@onready var DiagButtonRD = $Content/DiagButtonRD
+@onready var DiagButtonLD = $Content/DiagButtonLD
+@onready var DiagButtonRU = $Content/DiagButtonRU
+@onready var DiagButtonLU = $Content/DiagButtonLU
+
 @onready var Content = $Content
 @onready var TextureContainer = $Content/TextureContainer
 @onready var Outline = $Content/OutlineContainer
@@ -28,6 +37,7 @@ var rect_origin
 
 func _ready():
 	color_rect(Color.BLACK)
+	reload_language()
 
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
@@ -228,3 +238,20 @@ func update_to(contr, origin):
 	Rect.self_modulate = contr.color
 	
 	changed.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			Outline.tooltip_text = "dieses Rechteck ist ausgewählt"
+			MoveButton.tooltip_text = "bewege das Rechteck, indem du klickst und ziehst"
+			for button in [WidthButtonR, WidthButtonL, HeightButtonD, DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU]:
+				button.tooltip_text = "vergrößern oder verkleinern"
+			TurnButton.tooltip_text = "rotieren"
+		_:
+			Outline.tooltip_text = "this rectangle is selected"
+			MoveButton.tooltip_text = "move by dragging and dropping"
+			for button in [WidthButtonR, WidthButtonL, HeightButtonD, DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU]:
+				button.tooltip_text = "shrink or expand"
+			TurnButton.tooltip_text = "rotate"

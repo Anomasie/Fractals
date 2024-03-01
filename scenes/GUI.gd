@@ -23,6 +23,9 @@ func _ready():
 	# hide and show
 	WarningLabel.text = ""
 	ShareDialogue.hide()
+	
+	# language & translation
+	reload_language()
 
 func _on_viewport_resize():
 	# get new size of viewport
@@ -68,22 +71,36 @@ func _on_resize_timer_timeout():
 ## share-dialogue
 
 func _on_share_dialogue_sent_away():
-	WarningLabel.text = "Sending your image to " + Global.GALLERY_ADRESS + "..."
+	match Global.language:
+		"GER": WarningLabel.text = "Dein Bild wird an " + Global.GALLERY_ADRESS + " gesendet ..."
+		_: WarningLabel.text = "Sending your image to " + Global.GALLERY_ADRESS + "..."
 	WarningTimer.start()
 
 func _on_share_dialogue_sent_successfully():
-	WarningLabel.text = "Your image has been sent successfully to " + Global.GALLERY_ADRESS + "."
+	match Global.language:
+		"GER": WarningLabel.text = "Dein Bild wurde erfolgreich an " + Global.GALLERY_ADRESS + " gesendet."
+		_: WarningLabel.text = "Your image has been sent successfully to " + Global.GALLERY_ADRESS + "."
 	WarningTimer.start()
 
 func _on_share_dialogue_sent_unsuccessfully(response_code):
-	WarningLabel.text = "Failed to send your image to " + Global.GALLERY_ADRESS + ". Error code: " + str(response_code)
+	match Global.language:
+		"GER": WarningLabel.text = "Beim Senden an " + Global.GALLERY_ADRESS + " trat ein Fehler auf. Fehlercode: " + str(response_code)
+		_: WarningLabel.text = "Failed to send your image to " + Global.GALLERY_ADRESS + ". Error code: " + str(response_code)
 	WarningTimer.start()
 
 func _on_share_dialogue_no_connection_to_server(response):
-	WarningLabel.text = "Failed to connect to " + Global.GALLERY_ADRESS + ". Response: " + str(response)
+	match Global.language:
+		"GER": WarningLabel.text = "Verbindung zu " + Global.GALLERY_ADRESS + " fehlgeschlagen. Antwort des Servers: " + str(response)
+		_: WarningLabel.text = "Failed to connect to " + Global.GALLERY_ADRESS + ". Response: " + str(response)
 	WarningTimer.start()
 
 ## close current message
 
 func _on_warning_timer_timeout():
 	WarningLabel.text = ""
+
+
+
+func reload_language():
+	for node in [PlaygroundUI, ResultUI, ShareDialogue]:
+		node.reload_language()

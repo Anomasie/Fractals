@@ -18,6 +18,10 @@ signal finished
 
 @onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
 
+@onready var AddButton = $Dialogue/Content/Columns/Buttons/AddButton
+@onready var CloseButton = $CloseButton
+@onready var ReadyButton = $Dialogue/Content/Columns/Buttons/ReadyButton
+
 var saved_colors = [Color("#002350"), Color("#008198"), Color("#539f32"), Color("#d86614")]
 
 var saved_color = Color.BLACK
@@ -155,3 +159,34 @@ func _on_close_button_pressed():
 	set_color(saved_color)
 	color_changed.emit()
 	finished.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			Preview.tooltip_text = "aktuelle Farbe"
+			HueSlider.tooltip_text = "Farbton"
+			ValueSlider.tooltip_text = "Helligkeit"
+			SatSlider.tooltip_text = "Sättigung"
+			for preset in Presets:
+				preset.tooltip_text = "klicke um diese Farbe zu wählen"
+			Hash.tooltip_text = "HTML-Farbcode"
+			for user_preset in UserPresets:
+				user_preset.tooltip_text = "gespeicherte Farbe\n(max. 8)"
+			AddButton.tooltip_text = "speichere aktuelle Farbe"
+			ReadyButton.tooltip_text = "fertig"
+			CloseButton.tooltip_text = "abbrechen und zu Ursprungsfarbe zurückkehren"
+		_:
+			Preview.tooltip_text = "preview of selected color"
+			HueSlider.tooltip_text = "hue (\"color tone\") of selected color"
+			ValueSlider.tooltip_text = "brightness"
+			SatSlider.tooltip_text = "saturation or intensity of the color"
+			for preset in Presets:
+				preset.tooltip_text = "preset color"
+			Hash.tooltip_text = "enter html-color-code here"
+			for user_preset in UserPresets:
+				user_preset.tooltip_text = "colors you saved\n(max. 8)"
+			AddButton.tooltip_text = "add current color to presets"
+			ReadyButton.tooltip_text = "choose this color"
+			CloseButton.tooltip_text = "reset and close"

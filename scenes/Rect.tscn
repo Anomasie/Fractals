@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=18 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
 [ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="2_gir0y"]
 [ext_resource type="Texture2D" uid="uid://dmlv7l6lwogmw" path="res://assets/maske.png" id="4_u4mid"]
 [ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/rect_buttons.png" id="5_hmmwh"]
-[ext_resource type="Texture2D" uid="uid://b7nocy7en10f7" path="res://assets/black.png" id="6_hec6w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
 atlas = ExtResource("5_hmmwh")
@@ -84,7 +83,6 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Outline" type="TextureRect" parent="Content/OutlineContainer"]
 layout_mode = 2
-tooltip_text = "this rectangle is selected"
 texture = ExtResource("2_gir0y")
 
 [node name="TextureContainer" type="MarginContainer" parent="Content"]
@@ -186,11 +184,6 @@ texture_normal = SubResource("AtlasTexture_bycuk")
 texture_pressed = SubResource("AtlasTexture_01f6q")
 texture_hover = SubResource("AtlasTexture_hrfjs")
 texture_focused = SubResource("AtlasTexture_hrfjs")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 2
-texture = ExtResource("6_hec6w")
 
 [connection signal="button_down" from="Content/TextureContainer/MoveButton" to="." method="_on_move_button_pressed"]
 [connection signal="button_down" from="Content/WidthButtonRight" to="." method="_on_width_button_right_pressed"]

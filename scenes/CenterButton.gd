@@ -22,3 +22,9 @@ func _on_normal_pressed():
 	pressed.emit()
 	Center.show()
 	Normal.hide()
+
+func reload_language():
+	for node in [Center, Normal]:
+		match Global.language:
+			"GER": node.tooltip_text = "ändere Bildausschnitt"
+			_: node.tooltop_text = "change view"

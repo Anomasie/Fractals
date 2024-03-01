@@ -5,6 +5,8 @@ signal load_preset
 
 var PRESETS = {
 	"Sierpinski carpet": {
+		"EN": "Sierpinski carpet",
+		"GER": "Sierpinski-Teppich",
 		"texture": "res://assets/presets/SierpinskiCarpet.png",
 		"ifs": [
 			{
@@ -58,6 +60,8 @@ var PRESETS = {
 		]
 	},
 	"Koch snowflake": {
+		"EN": "Koch snowflake",
+		"GER": "Koch-Schneeflocke",
 		"texture": "res://assets/presets/KochSnowflake.png",
 		"ifs": [
 			{
@@ -116,6 +120,8 @@ var PRESETS = {
 #		]
 #	},
 	"Bernsley fern": {
+		"EN": "Bernsley fern",
+		"GER": "Barnsley-Farn",
 		"texture": "res://assets/presets/BernsleyFern.png",
 		"ifs": [
 			{ # stem
@@ -151,10 +157,20 @@ var PRESETS = {
 @onready var CloseButton = $CloseButton
 
 func _ready():
+	load_presets()
+
+func load_presets():
+	# delete presets
+	for child in self.get_children():
+		if child != CloseButton:
+			child.queue_free()
+	# load new presets
 	for preset in PRESETS.keys():
 		var Instance = Preset.instantiate()
 		Instance.name = preset
-		Instance.tooltip_text = preset
+		match Global.language:
+			"GER": Instance.tooltip_text = PRESETS[preset]["GER"]
+			_: Instance.tooltip_text = PRESETS[preset]["EN"]
 		Instance.pressed.connect(_on_preset_pressed.bind(preset))
 		self.add_child(Instance)
 		Instance.load_preset(PRESETS[preset])
@@ -165,3 +181,13 @@ func _on_preset_pressed(preset):
 
 func _on_close_button_pressed():
 	close_me.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			CloseButton.tooltip_text = "schließen"
+		_:
+			CloseButton.tooltip_text = "close"
+	load_presets()

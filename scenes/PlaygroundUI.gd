@@ -9,6 +9,9 @@ extends MarginContainer
 @onready var AdvancedButton = $Columns/Right/Bottom/Main/AdvancedButton
 @onready var RotatOptions = $Bottom/RotatOptions
 @onready var MatrixOptions = $Bottom/MatrixOptions
+@onready var AddButton = $Columns/Left/Main/AddButton
+@onready var CloseAllButton = $Columns/Left/Main/CloseAllButton
+@onready var RemoveButton = $Columns/Left/Main/ButtonOptions/RemoveButton
 @onready var DuplicateButton = $Columns/Left/Main/ButtonOptions/DuplicateButton
 
 @onready var PresetsButton = $Columns/Right/Bottom/Main/PresetsButton
@@ -222,3 +225,32 @@ func _fractal_changed():
 		ifs.background_color = ResultUI.ResultBackground.self_modulate
 		# show results
 		self.get_parent().get_owner().show_results(ifs)
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			AddButton.tooltip_text = "füge neues Rechteck hinzu"
+			CloseAllButton.tooltip_text = "lösche alle Rechtecke"
+			RemoveButton.tooltip_text = "lösche markiertes Rechteck"
+			ColorButton.tooltip_text = "ändere Farbe des markierten Rechtecks"
+			DuplicateButton.tooltip_text = "dupliziere markiertes Rechteck"
+			AdvancedButton.tooltip_text = "fortgeschrittene Einstellungen"
+			PresetsButton.text = "Vorlagen"
+			PresetsButton.tooltip_text = "wähle ein Fraktal aus einer Vorlage"
+		_:
+			AddButton.tooltip_text = "add new rectangle"
+			CloseAllButton.tooltip_text = "delete all rectangles"
+			RemoveButton.tooltip_text = "delete selected rectangle"
+			ColorButton.tooltip_text = "change color of selected rectangle"
+			DuplicateButton.tooltip_text = "duplicate selected rectangle"
+			AdvancedButton.tooltip_text = "open advanced options"
+			PresetsButton.text = "Presets"
+			PresetsButton.tooltip_text = "choose fractal from a preset"
+	# pass on signal
+	Playground.reload_language()
+	Presets.reload_language()
+	MatrixOptions.reload_language()
+	RotatOptions.reload_language()
+	ColorSliders.reload_language()

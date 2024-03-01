@@ -4,6 +4,7 @@ signal value_changed
 
 @onready var SizeX = $Main/SizeX
 @onready var SizeY = $Main/SizeY
+@onready var ReloadButton = $Main/ReloadButton
 
 var disabled = false
 
@@ -27,3 +28,16 @@ func _on_size_y_value_changed(_value):
 func _on_reload_button_pressed():
 	load_ui( get_owner().current_loupe )
 	value_changed.emit()
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			SizeX.tooltip_text = "Bildgröße im Export"
+			SizeY.tooltip_text = "Bildgröße im Export"
+			ReloadButton.tooltip_text = "Bildgröße zurücksetzen"
+		_:
+			SizeX.tooltip_text = "image size for export"
+			SizeY.tooltip_text = "image size for export"
+			ReloadButton.tooltip_text = "reset to original image size"

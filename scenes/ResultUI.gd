@@ -5,14 +5,22 @@ extends MarginContainer
 
 @onready var SaveButton = $Columns/Right/Top/Main/SaveButton
 @onready var SaveFileDialog = $Columns/Right/Top/FileDialog
+@onready var ShareButton = $Columns/Right/Top/Main/ShareButton
 @onready var CenterButton = $Columns/Right/Top/Main/CenterButton
 @onready var ColorButton = $Columns/Right/Top/Main/ColorButton
 @onready var ColorSliders = $ColorSliders
+@onready var SizeButton = $Columns/Right/Top/Main/SizeButton
 
 @onready var SizeOptions = $SizeOptions
 
 @onready var PointSlider = $Columns/Left/Bottom/Lines/PointSlider
+@onready var PointTexture1 = $Columns/Left/Bottom/Lines/PointTexture1
+@onready var PointTexture2 = $Columns/Left/Bottom/Lines/PointTexture2
 @onready var PointTeller = $Columns/Left/Bottom/Lines/PointSlider/ActualValueSlider
+
+@onready var DelaySlider = $Columns/Left/Bottom/Lines/DelaySlider
+@onready var DelayTexture1 = $Columns/Left/Bottom/Lines/DelayTexture1
+@onready var DelayTexture2 = $Columns/Left/Bottom/Lines/DelayTexture2
 
 var RealImage
 var image_size = current_loupe
@@ -256,3 +264,46 @@ func _on_size_button_pressed():
 
 func _on_size_options_value_changed():
 	resize_image(SizeOptions.read_ui())
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			# Result
+			Result.tooltip_text = "aktuelles Fraktal"
+			# Sliders
+			## Point slider
+			PointTexture1.tooltip_text = "0 Punkte"
+			PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte"
+			PointTexture2.tooltip_text = "1.000.000 Punkte"
+			## Delay slider
+			DelayTexture1.tooltip_text = "zeichne alle Punkte"
+			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden"
+			DelayTexture2.tooltip_text = "Verzögerung von 100 Punkten"
+			# buttons
+			ColorButton.tooltip_text = "Hintergrundfarbe ändern"
+			ShareButton.tooltip_text = "teile dein Bild auf " + Global.GALLERY_ADRESS
+			SaveButton.tooltip_text = "Bild lokal speichern"
+			SizeButton.tooltip_text = "Bildgröße ändern"
+		_:
+			# Result
+			Result.tooltip_text = "current fractal"
+			# Sliders
+			## Point slider
+			PointTexture1.tooltip_text = "0 points"
+			PointSlider.tooltip_text = "change point limit"
+			PointTexture2.tooltip_text = "1,000,000 points"
+			## Delay slider
+			DelayTexture1.tooltip_text = "draw all points"
+			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\""
+			DelayTexture2.tooltip_text = "delay of 100 points"
+			# buttons
+			ColorButton.tooltip_text = "change background color"
+			ShareButton.tooltip_text = "share image in gallery"
+			SaveButton.tooltip_text = "save image locally"
+			SizeButton.tooltip_text = "change image size"
+	# pass on signal
+	CenterButton.reload_language()
+	SizeOptions.reload_language()
+	ColorSliders.reload_language()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://mtu0mxcjwc41"]
+[gd_scene load_steps=35 format=3 uid="uid://mtu0mxcjwc41"]
 
 [ext_resource type="Script" path="res://scenes/ColorSliders.gd" id="1_8ohfb"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_ppvln"]
@@ -85,14 +85,6 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkpn8"]
 atlas = ExtResource("3_12mbo")
 region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
-device = -1
-keycode = 67
-unicode = 99
-
-[sub_resource type="Shortcut" id="Shortcut_cqiv3"]
-events = [SubResource("InputEventKey_1kcjd")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sb07w"]
 atlas = ExtResource("3_12mbo")
@@ -375,7 +367,6 @@ texture_hover = SubResource("AtlasTexture_rkpn8")
 layout_mode = 2
 size_flags_vertical = 10
 tooltip_text = "choose this color"
-shortcut = SubResource("Shortcut_cqiv3")
 texture_normal = SubResource("AtlasTexture_sb07w")
 texture_pressed = SubResource("AtlasTexture_m8pl2")
 texture_hover = SubResource("AtlasTexture_i6q1w")
@@ -384,7 +375,7 @@ texture_hover = SubResource("AtlasTexture_i6q1w")
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-tooltip_text = "close and reset"
+tooltip_text = "reset and close"
 texture_normal = SubResource("AtlasTexture_75bkv")
 texture_pressed = SubResource("AtlasTexture_8kltj")
 texture_hover = SubResource("AtlasTexture_lrmm1")
