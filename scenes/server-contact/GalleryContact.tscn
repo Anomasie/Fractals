@@ -8,3 +8,12 @@ script = ExtResource("1_hs76i")
 
 [node name="PolaroidsApi" type="Node" parent="."]
 script = ExtResource("2_35uqw")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "test"
+autowrap_mode = 2

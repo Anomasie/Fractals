@@ -184,8 +184,8 @@ func _on_share_button_pressed():
 
 func _on_save_button_pressed():
 	if OS.has_feature("web"):
-		get_counter()
 		var filename = "fractal" + str(counter) + ".png"
+		counter += 1
 		var buf = get_image().save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
 	else:
@@ -197,9 +197,6 @@ func save(path):
 		get_image().save_png(path + ".png")
 	else:
 		get_image().save_png(path)
-
-func get_counter():
-	file_counter += 1
 
 # change centering picture
 
