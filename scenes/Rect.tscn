@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=22 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
@@ -58,13 +58,17 @@ region = Rect2(16, 48, 16, 16)
 atlas = ExtResource("5_hmmwh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_01f6q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xesyf"]
+atlas = ExtResource("5_hmmwh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bimh"]
 atlas = ExtResource("5_hmmwh")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hrfjs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hu2w"]
 atlas = ExtResource("5_hmmwh")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(64, 0, 32, 32)
 
 [node name="Container" type="MarginContainer"]
 offset_right = 48.0
@@ -201,9 +205,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 tooltip_text = "rotate"
 texture_normal = SubResource("AtlasTexture_bycuk")
-texture_pressed = SubResource("AtlasTexture_01f6q")
-texture_hover = SubResource("AtlasTexture_hrfjs")
-texture_focused = SubResource("AtlasTexture_hrfjs")
+texture_pressed = SubResource("AtlasTexture_xesyf")
+texture_hover = SubResource("AtlasTexture_3bimh")
+texture_disabled = SubResource("AtlasTexture_7hu2w")
 
 [connection signal="button_down" from="Content/TextureContainer/MoveButton" to="." method="_on_move_button_pressed"]
 [connection signal="button_down" from="Content/WidthButtonRight" to="." method="_on_width_button_right_pressed"]

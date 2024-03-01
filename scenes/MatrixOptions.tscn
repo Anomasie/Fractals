@@ -51,6 +51,7 @@ layout_mode = 2
 [node name="TranslationLabel" type="TextureRect" parent="Main/TranslationBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_mm2rf")
+stretch_mode = 2
 
 [node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
 layout_mode = 2
@@ -76,6 +77,7 @@ layout_mode = 2
 [node name="MatrixLabel" type="TextureRect" parent="Main/MatrixBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_vuoyu")
+stretch_mode = 2
 
 [node name="Matrix" type="GridContainer" parent="Main/MatrixBox"]
 layout_mode = 2

@@ -59,6 +59,7 @@ func _input(event):
 			editing_width = false
 			editing_height = false
 			editing_turn = false
+			TurnButton.disabled = false
 
 func _on_move_button_pressed():
 	editing_position = true
@@ -128,6 +129,7 @@ func _on_diag_button_lu_pressed():
 
 func _on_turn_button_pressed():
 	editing_turn = true
+	TurnButton.disabled = true
 	rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	focus_me.emit()
 
