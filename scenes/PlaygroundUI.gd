@@ -7,8 +7,8 @@ extends MarginContainer
 
 @onready var ButtonOptions = $Columns/Left/Main/ButtonOptions
 @onready var AdvancedButton = $Columns/Right/Bottom/Main/AdvancedButton
-@onready var RotatOptions = $Bottom/RotatOptions
-@onready var MatrixOptions = $Bottom/MatrixOptions
+@onready var RotatOptions = $RotatOptions
+@onready var MatrixOptions = $MatrixOptions
 @onready var AddButton = $Columns/Left/Main/AddButton
 @onready var CloseAllButton = $Columns/Left/Main/CloseAllButton
 @onready var RemoveButton = $Columns/Left/Main/ButtonOptions/RemoveButton
@@ -183,6 +183,12 @@ func _on_advanced_options_value_changed():
 func _on_advanced_options_switch():
 	matrix_options = true
 	_on_advanced_button_pressed()
+
+func _on_matrix_options_close_me():
+	_on_advanced_options_close_me()
+
+func _on_matrix_options_value_changed():
+	_on_advanced_options_value_changed()
 
 func _on_matrix_options_switch():
 	matrix_options = false

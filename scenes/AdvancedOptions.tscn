@@ -1,8 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://ci4h23rvdej3t"]
+[gd_scene load_steps=18 format=3 uid="uid://ci4h23rvdej3t"]
 
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_6tlme"]
 [ext_resource type="Script" path="res://scenes/AdvancedOptions.gd" id="1_jbv3n"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_4hq88"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_5yjsg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa7ud"]
+atlas = ExtResource("1_6tlme")
+region = Rect2(18, 2, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xd8lg"]
 atlas = ExtResource("2_4hq88")
@@ -52,25 +57,55 @@ region = Rect2(64, 256, 32, 32)
 atlas = ExtResource("2_4hq88")
 region = Rect2(32, 256, 32, 32)
 
-[node name="AdvancedOptions" type="HBoxContainer"]
-offset_top = 231.0
-offset_right = 280.0
-offset_bottom = 231.0
-theme_override_constants/separation = 16
+[node name="AdvancedOptions" type="MarginContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -192.0
+offset_right = 152.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 script = ExtResource("1_jbv3n")
 
-[node name="Main" type="VBoxContainer" parent="."]
+[node name="Content" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="TranslationBox" type="HBoxContainer" parent="Main"]
+[node name="Background" type="NinePatchRect" parent="Content"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xa7ud")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2
 
-[node name="TranslationLabel" type="TextureRect" parent="Main/TranslationBox"]
+[node name="AdvancedOptions" type="HBoxContainer" parent="Content/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Main" type="VBoxContainer" parent="Content/MarginContainer/AdvancedOptions"]
+layout_mode = 2
+
+[node name="TranslationBox" type="HBoxContainer" parent="Content/MarginContainer/AdvancedOptions/Main"]
+layout_mode = 2
+
+[node name="TranslationLabel" type="TextureRect" parent="Content/MarginContainer/AdvancedOptions/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_xd8lg")
 
-[node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
+[node name="TranslationX" type="SpinBox" parent="Content/MarginContainer/AdvancedOptions/Main/TranslationBox"]
 layout_mode = 2
 tooltip_text = "enter translation in x-axis"
 min_value = -1.0
@@ -78,7 +113,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="TranslationY" type="SpinBox" parent="Main/TranslationBox"]
+[node name="TranslationY" type="SpinBox" parent="Content/MarginContainer/AdvancedOptions/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter translation in y-axis"
@@ -87,15 +122,15 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="ContractionBox" type="HBoxContainer" parent="Main"]
+[node name="ContractionBox" type="HBoxContainer" parent="Content/MarginContainer/AdvancedOptions/Main"]
 layout_mode = 2
 
-[node name="ContractionLabel" type="TextureRect" parent="Main/ContractionBox"]
+[node name="ContractionLabel" type="TextureRect" parent="Content/MarginContainer/AdvancedOptions/Main/ContractionBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_yt3rn")
 
-[node name="ContractionX" type="SpinBox" parent="Main/ContractionBox"]
+[node name="ContractionX" type="SpinBox" parent="Content/MarginContainer/AdvancedOptions/Main/ContractionBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter distortion along x-axis"
@@ -103,7 +138,7 @@ max_value = 1.0
 step = 0.001
 page = 0.1
 
-[node name="ContractionY" type="SpinBox" parent="Main/ContractionBox"]
+[node name="ContractionY" type="SpinBox" parent="Content/MarginContainer/AdvancedOptions/Main/ContractionBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter distortion along y-axis"
@@ -111,14 +146,14 @@ max_value = 1.0
 step = 0.001
 page = 0.1
 
-[node name="RotationBox" type="HBoxContainer" parent="Main"]
+[node name="RotationBox" type="HBoxContainer" parent="Content/MarginContainer/AdvancedOptions/Main"]
 layout_mode = 2
 
-[node name="RotationLabel" type="TextureRect" parent="Main/RotationBox"]
+[node name="RotationLabel" type="TextureRect" parent="Content/MarginContainer/AdvancedOptions/Main/RotationBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_v75dv")
 
-[node name="Rotation" type="SpinBox" parent="Main/RotationBox"]
+[node name="Rotation" type="SpinBox" parent="Content/MarginContainer/AdvancedOptions/Main/RotationBox"]
 layout_mode = 2
 tooltip_text = "enter rotation degree"
 max_value = 360.0
@@ -126,7 +161,7 @@ page = 1.0
 rounded = true
 suffix = "°"
 
-[node name="Mirror" type="TextureButton" parent="Main/RotationBox"]
+[node name="Mirror" type="TextureButton" parent="Content/MarginContainer/AdvancedOptions/Main/RotationBox"]
 layout_mode = 2
 size_flags_horizontal = 2
 tooltip_text = "flip rectangle"
@@ -136,6 +171,7 @@ texture_hover = SubResource("AtlasTexture_6817m")
 
 [node name="ElseBox" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2
@@ -153,6 +189,6 @@ texture_normal = SubResource("AtlasTexture_toxlq")
 texture_pressed = SubResource("AtlasTexture_qgt1m")
 texture_hover = SubResource("AtlasTexture_n8a5p")
 
-[connection signal="pressed" from="Main/RotationBox/Mirror" to="." method="_on_mirror_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/AdvancedOptions/Main/RotationBox/Mirror" to="." method="_on_mirror_pressed"]
 [connection signal="pressed" from="ElseBox/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="ElseBox/MatrixButton" to="." method="_on_matrix_button_pressed"]

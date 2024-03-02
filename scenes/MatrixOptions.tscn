@@ -1,8 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdcy8qeketbv2"]
+[gd_scene load_steps=14 format=3 uid="uid://bdcy8qeketbv2"]
 
 [ext_resource type="Script" path="res://scenes/MatrixOptions.gd" id="1_55ogc"]
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_m2fv7"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_n2e17"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nqjoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb82n"]
+atlas = ExtResource("1_m2fv7")
+region = Rect2(18, 2, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mm2rf"]
 atlas = ExtResource("2_n2e17")
@@ -36,24 +41,52 @@ region = Rect2(64, 224, 32, 32)
 atlas = ExtResource("2_n2e17")
 region = Rect2(32, 224, 32, 32)
 
-[node name="MatrixOptions" type="HBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 16
+[node name="MatrixOptions" type="MarginContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -192.0
+offset_right = 168.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
 script = ExtResource("1_55ogc")
 
-[node name="Main" type="VBoxContainer" parent="."]
+[node name="Content" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="TranslationBox" type="HBoxContainer" parent="Main"]
+[node name="Background" type="NinePatchRect" parent="Content"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gb82n")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Options" type="MarginContainer" parent="Content"]
 layout_mode = 2
 
-[node name="TranslationLabel" type="TextureRect" parent="Main/TranslationBox"]
+[node name="Columns" type="HBoxContainer" parent="Content/Options"]
 layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Main" type="VBoxContainer" parent="Content/Options/Columns"]
+layout_mode = 2
+
+[node name="TranslationBox" type="HBoxContainer" parent="Content/Options/Columns/Main"]
+layout_mode = 2
+
+[node name="TranslationLabel" type="TextureRect" parent="Content/Options/Columns/Main/TranslationBox"]
+layout_mode = 2
+size_flags_vertical = 4
 texture = SubResource("AtlasTexture_mm2rf")
 stretch_mode = 2
 
-[node name="TranslationX" type="SpinBox" parent="Main/TranslationBox"]
+[node name="TranslationX" type="SpinBox" parent="Content/Options/Columns/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter translation in x-axis"
@@ -62,7 +95,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="TranslationY" type="SpinBox" parent="Main/TranslationBox"]
+[node name="TranslationY" type="SpinBox" parent="Content/Options/Columns/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter translation in y-axis"
@@ -71,20 +104,21 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="MatrixBox" type="HBoxContainer" parent="Main"]
+[node name="MatrixBox" type="HBoxContainer" parent="Content/Options/Columns/Main"]
 layout_mode = 2
 
-[node name="MatrixLabel" type="TextureRect" parent="Main/MatrixBox"]
+[node name="MatrixLabel" type="TextureRect" parent="Content/Options/Columns/Main/MatrixBox"]
 layout_mode = 2
+size_flags_vertical = 4
 texture = SubResource("AtlasTexture_vuoyu")
 stretch_mode = 2
 
-[node name="Matrix" type="GridContainer" parent="Main/MatrixBox"]
+[node name="Matrix" type="GridContainer" parent="Content/Options/Columns/Main/MatrixBox"]
 layout_mode = 2
 theme_override_constants/h_separation = 16
 columns = 2
 
-[node name="Matrix11" type="SpinBox" parent="Main/MatrixBox/Matrix"]
+[node name="Matrix11" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -93,7 +127,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix12" type="SpinBox" parent="Main/MatrixBox/Matrix"]
+[node name="Matrix12" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -102,7 +136,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix21" type="SpinBox" parent="Main/MatrixBox/Matrix"]
+[node name="Matrix21" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -111,7 +145,7 @@ max_value = 2.0
 step = 0.001
 page = 0.1
 
-[node name="Matrix33" type="SpinBox" parent="Main/MatrixBox/Matrix"]
+[node name="Matrix33" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -122,6 +156,8 @@ page = 0.1
 
 [node name="ElseBox" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="CloseButton" type="TextureButton" parent="ElseBox"]
 layout_mode = 2

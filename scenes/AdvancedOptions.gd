@@ -1,15 +1,17 @@
-extends HBoxContainer
+extends MarginContainer
 
 signal value_changed
 signal close_me
 signal switch
 
-@onready var TranslationX = $Main/TranslationBox/TranslationX
-@onready var TranslationY = $Main/TranslationBox/TranslationY
-@onready var ContractX = $Main/ContractionBox/ContractionX
-@onready var ContractY = $Main/ContractionBox/ContractionY
-@onready var Rotation = $Main/RotationBox/Rotation
-@onready var Mirror = $Main/RotationBox/Mirror
+@onready var Main = $Content/MarginContainer/AdvancedOptions/Main
+
+@onready var TranslationX = $Content/MarginContainer/AdvancedOptions/Main/TranslationBox/TranslationX
+@onready var TranslationY = $Content/MarginContainer/AdvancedOptions/Main/TranslationBox/TranslationY
+@onready var ContractX = $Content/MarginContainer/AdvancedOptions/Main/ContractionBox/ContractionX
+@onready var ContractY = $Content/MarginContainer/AdvancedOptions/Main/ContractionBox/ContractionY
+@onready var Rotation = $Content/MarginContainer/AdvancedOptions/Main/RotationBox/Rotation
+@onready var Mirror = $Content/MarginContainer/AdvancedOptions/Main/RotationBox/Mirror
 
 @onready var CloseButton = $ElseBox/CloseButton
 @onready var MatrixButton = $ElseBox/MatrixButton
@@ -17,7 +19,7 @@ signal switch
 var disabled = false
 
 func _ready():
-	for child in $Main.get_children():
+	for child in Main.get_children():
 		for ankle in child.get_children():
 			if ankle is SpinBox:
 				ankle.value_changed.connect(_value_changed)

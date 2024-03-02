@@ -1,12 +1,12 @@
-extends HBoxContainer
+extends MarginContainer
 
 signal value_changed
 signal close_me
 signal switch
 
-@onready var TranslationX = $Main/TranslationBox/TranslationX
-@onready var TranslationY = $Main/TranslationBox/TranslationY
-@onready var MatrixEntries = $Main/MatrixBox/Matrix.get_children()
+@onready var TranslationX = $Content/Options/Columns/Main/TranslationBox/TranslationX
+@onready var TranslationY = $Content/Options/Columns/Main/TranslationBox/TranslationY
+@onready var MatrixEntries = $Content/Options/Columns/Main/MatrixBox/Matrix.get_children()
 
 @onready var CloseButton = $ElseBox/CloseButton
 @onready var RotationButton = $ElseBox/RotationButton
