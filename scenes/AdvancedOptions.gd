@@ -117,7 +117,7 @@ func reload_language():
 			Rotation.tooltip_text = "Rotation in °"
 			Mirror.tooltip_text = "Rechteck spiegeln"
 			# buttons
-			CloseButton.tooltip_text = "schließen"
+			CloseButton.tooltip_text = "erweiterte Optionen schließen"
 			MatrixButton.tooltip_text = "Matrix-Ansicht"
 		_:
 			# settings
@@ -128,5 +128,5 @@ func reload_language():
 			Rotation.tooltip_text = "enter rotation degree"
 			Mirror.tooltip_text = "flip rectangle"
 			# buttons
-			CloseButton.tooltip_text = "close options"
+			CloseButton.tooltip_text = "close advanced options"
 			MatrixButton.tooltip_text = "swtich to matrix view"

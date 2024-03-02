@@ -6,7 +6,7 @@ extends MarginContainer
 @onready var BlueTexture = $Columns/Right/Center/Center/BlueTexture
 
 @onready var ButtonOptions = $Columns/Left/Main/ButtonOptions
-@onready var AdvancedButton = $Columns/Right/Bottom/Main/AdvancedButton
+@onready var AdvancedButton = $Columns/Left/Main/ButtonOptions/AdvancedButton
 @onready var RotatOptions = $RotatOptions
 @onready var MatrixOptions = $MatrixOptions
 @onready var AddButton = $Columns/Left/Main/AddButton
@@ -64,7 +64,6 @@ func focus(Rect = CurrentRect):
 	if typeof(CurrentRect) == TYPE_NIL:
 		# and hide advanced option-button
 		ButtonOptions.hide()
-		AdvancedButton.hide()
 	# if you are focusing something:
 	else:
 		## update AdvancedOptions
@@ -75,7 +74,6 @@ func focus(Rect = CurrentRect):
 		## open advanced option-button
 		else:
 			ButtonOptions.show()
-			AdvancedButton.show()
 			PresetsButton.show()
 		# coloring
 		if ColorSliders.visible:
@@ -104,12 +102,10 @@ func _on_close_all_pressed():
 	Playground.close_all()
 	CurrentRect = null
 	# left
-	ColorButton.hide()
 	ColorSliders.close()
 	# right
 	RotatOptions.hide()
 	MatrixOptions.hide()
-	AdvancedButton.hide()
 	Presets.hide()
 	PresetsButton.show()
 	# reload fractal
@@ -152,19 +148,20 @@ var matrix_options = false
 func _on_advanced_button_pressed():
 	disabled += 1
 	
-	AdvancedButton.hide()
-	RotatOptions.visible = not matrix_options
-	MatrixOptions.visible = matrix_options
-	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-	PresetsButton.hide()
+	if RotatOptions.visible or MatrixOptions.visible:
+		_on_advanced_options_close_me()
+	else:
+		RotatOptions.visible = not matrix_options
+		MatrixOptions.visible = matrix_options
+		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		PresetsButton.hide()
 	
 	disabled -= 1
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()
 	MatrixOptions.hide()
-	AdvancedButton.show()
 	PresetsButton.show()
 
 func _on_advanced_options_value_changed():
@@ -199,13 +196,10 @@ func _on_matrix_options_switch():
 
 func _on_presets_button_pressed():
 	Presets.show()
-	AdvancedButton.hide()
 	PresetsButton.hide()
 
 func _on_presets_close_me():
 	Presets.hide()
-	if typeof(CurrentRect) != TYPE_NIL:
-		AdvancedButton.show()
 	PresetsButton.show()
 
 func _on_presets_load_preset(ifs):

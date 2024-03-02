@@ -187,7 +187,7 @@ func _on_close_button_pressed():
 func reload_language():
 	match Global.language:
 		"GER":
-			CloseButton.tooltip_text = "schließen"
+			CloseButton.tooltip_text = "Vorlagen schließen"
 		_:
-			CloseButton.tooltip_text = "close"
+			CloseButton.tooltip_text = "close presets"
 	load_presets()

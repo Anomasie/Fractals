@@ -34,17 +34,57 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bytrw"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 128, 32, 32)
+[sub_resource type="InputEventKey" id="InputEventKey_440vp"]
+device = -1
+keycode = 68
+unicode = 100
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1xys4"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 128, 32, 32)
+[sub_resource type="Shortcut" id="Shortcut_cmo8y"]
+events = [SubResource("InputEventKey_440vp")]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6mc7g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjd7y"]
 atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 128, 32, 32)
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsctq"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eyvm"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_jhmuf"]
+events = [SubResource("InputEventKey_1kcjd")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4f0q"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u86y8"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvvj1"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 192, 32, 32)
 
 [sub_resource type="InputEventKey" id="InputEventKey_ptcdk"]
 device = -1
@@ -69,57 +109,17 @@ region = Rect2(64, 96, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 96, 32, 32)
 
-[sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
-device = -1
-keycode = 67
-unicode = 99
-
-[sub_resource type="Shortcut" id="Shortcut_jhmuf"]
-events = [SubResource("InputEventKey_1kcjd")]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4f0q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bytrw"]
 atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(0, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u86y8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xys4"]
 atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 64, 32, 32)
+region = Rect2(64, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nvvj1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mc7g"]
 atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="InputEventKey" id="InputEventKey_440vp"]
-device = -1
-keycode = 68
-unicode = 100
-
-[sub_resource type="Shortcut" id="Shortcut_cmo8y"]
-events = [SubResource("InputEventKey_440vp")]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjd7y"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rsctq"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3eyvm"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 192, 32, 32)
+region = Rect2(32, 128, 32, 32)
 
 [node name="PlaygroundUI" type="MarginContainer"]
 layout_direction = 2
@@ -156,26 +156,17 @@ texture_normal = SubResource("AtlasTexture_y2edm")
 texture_pressed = SubResource("AtlasTexture_l22sp")
 texture_hover = SubResource("AtlasTexture_e5vrq")
 
-[node name="CloseAllButton" type="TextureButton" parent="Columns/Left/Main"]
-visibility_layer = 2
-layout_mode = 2
-size_flags_horizontal = 0
-tooltip_text = "delete all rectangles"
-texture_normal = SubResource("AtlasTexture_bytrw")
-texture_pressed = SubResource("AtlasTexture_1xys4")
-texture_hover = SubResource("AtlasTexture_6mc7g")
-
 [node name="ButtonOptions" type="VBoxContainer" parent="Columns/Left/Main"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="RemoveButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+[node name="DuplicateButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
-tooltip_text = "delete selected rectangle"
-shortcut = SubResource("Shortcut_5hmfe")
-texture_normal = SubResource("AtlasTexture_n5pe3")
-texture_pressed = SubResource("AtlasTexture_jbxom")
-texture_hover = SubResource("AtlasTexture_vv145")
+tooltip_text = "duplicate selected rectangle"
+shortcut = SubResource("Shortcut_cmo8y")
+texture_normal = SubResource("AtlasTexture_pjd7y")
+texture_pressed = SubResource("AtlasTexture_rsctq")
+texture_hover = SubResource("AtlasTexture_3eyvm")
 
 [node name="ColorButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
@@ -185,13 +176,29 @@ texture_normal = SubResource("AtlasTexture_l4f0q")
 texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
-[node name="DuplicateButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+[node name="AdvancedButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
 layout_mode = 2
-tooltip_text = "duplicate selected rectangle"
-shortcut = SubResource("Shortcut_cmo8y")
-texture_normal = SubResource("AtlasTexture_pjd7y")
-texture_pressed = SubResource("AtlasTexture_rsctq")
-texture_hover = SubResource("AtlasTexture_3eyvm")
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_rqsg6")
+texture_pressed = SubResource("AtlasTexture_u0188")
+texture_hover = SubResource("AtlasTexture_tf6n6")
+
+[node name="RemoveButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+layout_mode = 2
+tooltip_text = "delete selected rectangle"
+shortcut = SubResource("Shortcut_5hmfe")
+texture_normal = SubResource("AtlasTexture_n5pe3")
+texture_pressed = SubResource("AtlasTexture_jbxom")
+texture_hover = SubResource("AtlasTexture_vv145")
+
+[node name="CloseAllButton" type="TextureButton" parent="Columns/Left/Main"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "delete all rectangles"
+texture_normal = SubResource("AtlasTexture_bytrw")
+texture_pressed = SubResource("AtlasTexture_1xys4")
+texture_hover = SubResource("AtlasTexture_6mc7g")
 
 [node name="Right" type="VBoxContainer" parent="Columns"]
 layout_mode = 2
@@ -240,13 +247,6 @@ size_flags_vertical = 8
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="AdvancedButton" type="TextureButton" parent="Columns/Right/Bottom/Main"]
-layout_mode = 2
-tooltip_text = "open advanced options"
-texture_normal = SubResource("AtlasTexture_rqsg6")
-texture_pressed = SubResource("AtlasTexture_u0188")
-texture_hover = SubResource("AtlasTexture_tf6n6")
-
 [node name="PresetsButton" type="Button" parent="Columns/Right/Bottom/Main"]
 layout_mode = 2
 tooltip_text = "choose fractal from a preset"
@@ -275,11 +275,11 @@ wait_time = 0.1
 one_shot = true
 
 [connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/AdvancedButton" to="." method="_on_advanced_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
 [connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]

@@ -82,7 +82,7 @@ func reload_language():
 			for entry in MatrixEntries:
 				entry.tooltip_text = "Transformationsmatrix"
 			# buttons
-			CloseButton.tooltip_text = "schließen"
+			CloseButton.tooltip_text = "Matrix-Optionen schließen"
 			RotationButton.tooltip_text = "geometrische Ansicht"
 		_:
 			TranslationX.tooltip_text = "enter translation in x-axis"
@@ -90,5 +90,5 @@ func reload_language():
 			for entry in MatrixEntries:
 				entry.tooltip_text = "transformation matrix"
 			# buttons
-			CloseButton.tooltip_text = "close"
+			CloseButton.tooltip_text = "close matrix options"
 			RotationButton.tooltip_text = "switch to geometric view"
