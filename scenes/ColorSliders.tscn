@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://mtu0mxcjwc41"]
+[gd_scene load_steps=32 format=3 uid="uid://mtu0mxcjwc41"]
 
 [ext_resource type="Script" path="res://scenes/ColorSliders.gd" id="1_8ohfb"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_ppvln"]
@@ -85,18 +85,6 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkpn8"]
 atlas = ExtResource("3_12mbo")
 region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sb07w"]
-atlas = ExtResource("3_12mbo")
-region = Rect2(0, 160, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m8pl2"]
-atlas = ExtResource("3_12mbo")
-region = Rect2(64, 160, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i6q1w"]
-atlas = ExtResource("3_12mbo")
-region = Rect2(32, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75bkv"]
 atlas = ExtResource("4_u2u55")
@@ -363,14 +351,6 @@ texture_normal = SubResource("AtlasTexture_pcoqw")
 texture_pressed = SubResource("AtlasTexture_gcil7")
 texture_hover = SubResource("AtlasTexture_rkpn8")
 
-[node name="ReadyButton" type="TextureButton" parent="Dialogue/Content/Columns/Buttons"]
-layout_mode = 2
-size_flags_vertical = 10
-tooltip_text = "choose this color"
-texture_normal = SubResource("AtlasTexture_sb07w")
-texture_pressed = SubResource("AtlasTexture_m8pl2")
-texture_hover = SubResource("AtlasTexture_i6q1w")
-
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -386,5 +366,4 @@ texture_hover = SubResource("AtlasTexture_lrmm1")
 [connection signal="focus_exited" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
 [connection signal="text_submitted" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
 [connection signal="pressed" from="Dialogue/Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
-[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/ReadyButton" to="." method="_on_ready_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

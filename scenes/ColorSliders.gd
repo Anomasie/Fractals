@@ -20,12 +20,8 @@ signal finished
 
 @onready var AddButton = $Dialogue/Content/Columns/Buttons/AddButton
 @onready var CloseButton = $CloseButton
-@onready var ReadyButton = $Dialogue/Content/Columns/Buttons/ReadyButton
 
 var saved_colors = [Color("#002350"), Color("#008198"), Color("#539f32"), Color("#d86614")]
-
-var saved_color = Color.BLACK
-# the color before editing (to restore if closed by pressing X)
 
 var disabled = 0
 
@@ -43,7 +39,6 @@ func _ready():
 # open and close
 
 func open(color):
-	saved_color = color
 	# load ui
 	set_color(color)
 	load_preset_colors()
@@ -151,13 +146,7 @@ func _on_hash_focus_exited():
 
 # end dialogue
 
-func _on_ready_button_pressed():
-	saved_color = Preview.modulate
-	finished.emit()
-
 func _on_close_button_pressed():
-	set_color(saved_color)
-	color_changed.emit()
 	finished.emit()
 
 # language & translation
@@ -175,8 +164,7 @@ func reload_language():
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "gespeicherte Farbe\n(max. 8)"
 			AddButton.tooltip_text = "speichere aktuelle Farbe"
-			ReadyButton.tooltip_text = "fertig"
-			CloseButton.tooltip_text = "abbrechen und zu Ursprungsfarbe zurückkehren"
+			CloseButton.tooltip_text = "Farbansicht schließen"
 		_:
 			Preview.tooltip_text = "preview of selected color"
 			HueSlider.tooltip_text = "hue (\"color tone\") of selected color"
@@ -188,5 +176,4 @@ func reload_language():
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "colors you saved\n(max. 8)"
 			AddButton.tooltip_text = "add current color to presets"
-			ReadyButton.tooltip_text = "choose this color"
-			CloseButton.tooltip_text = "reset and close"
+			CloseButton.tooltip_text = "close color settings"
