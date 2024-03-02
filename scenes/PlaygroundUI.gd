@@ -145,17 +145,23 @@ func _on_duplicate_button_pressed():
 
 var matrix_options = false
 
+func open_advanced_options():
+	# visibility
+	RotatOptions.visible = not matrix_options
+	MatrixOptions.visible = matrix_options
+	# load data
+	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+	# hide presets, because why not?
+#	PresetsButton.hide()
+
 func _on_advanced_button_pressed():
 	disabled += 1
 	
 	if RotatOptions.visible or MatrixOptions.visible:
 		_on_advanced_options_close_me()
 	else:
-		RotatOptions.visible = not matrix_options
-		MatrixOptions.visible = matrix_options
-		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-		PresetsButton.hide()
+		open_advanced_options()
 	
 	disabled -= 1
 
@@ -179,7 +185,7 @@ func _on_advanced_options_value_changed():
 
 func _on_advanced_options_switch():
 	matrix_options = true
-	_on_advanced_button_pressed()
+	open_advanced_options()
 
 func _on_matrix_options_close_me():
 	_on_advanced_options_close_me()
@@ -189,7 +195,7 @@ func _on_matrix_options_value_changed():
 
 func _on_matrix_options_switch():
 	matrix_options = false
-	_on_advanced_button_pressed()
+	open_advanced_options()
 
 
 ## presets
