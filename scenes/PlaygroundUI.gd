@@ -15,8 +15,8 @@ extends MarginContainer
 @onready var DuplicateButton = $Columns/Left/Main/ButtonOptions/DuplicateButton
 
 @onready var PresetsButton = $Columns/Right/Bottom/Main/PresetsButton
-@onready var Presets = $Bottom/Presets
-@onready var PresetTimer = $Bottom/PresetTimer
+@onready var Presets = $Presets
+@onready var PresetTimer = $PresetTimer
 
 @onready var ColorButton = $Columns/Left/Main/ButtonOptions/ColorButton
 @onready var ColorSliders = $ColorSliders

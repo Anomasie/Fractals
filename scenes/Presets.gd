@@ -1,4 +1,4 @@
-extends HFlowContainer
+extends MarginContainer
 
 signal close_me
 signal load_preset
@@ -155,13 +155,14 @@ var PRESETS = {
 
 @onready var Preset = load("res://scenes/Preset.tscn")
 @onready var CloseButton = $CloseButton
+@onready var Presets = $Margin/Content/Presets
 
 func _ready():
 	load_presets()
 
 func load_presets():
 	# delete presets
-	for child in self.get_children():
+	for child in Presets.get_children():
 		if child != CloseButton:
 			child.queue_free()
 	# load new presets
@@ -172,9 +173,8 @@ func load_presets():
 			"GER": Instance.tooltip_text = PRESETS[preset]["GER"]
 			_: Instance.tooltip_text = PRESETS[preset]["EN"]
 		Instance.pressed.connect(_on_preset_pressed.bind(preset))
-		self.add_child(Instance)
+		Presets.add_child(Instance)
 		Instance.load_preset(PRESETS[preset])
-	self.move_child(CloseButton, -1)
 
 func _on_preset_pressed(preset):
 	load_preset.emit( IFS.from_dict( PRESETS[preset]["ifs"]) )

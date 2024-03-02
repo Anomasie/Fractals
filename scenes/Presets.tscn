@@ -1,7 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://co7ekdte8fr1f"]
+[gd_scene load_steps=8 format=3 uid="uid://co7ekdte8fr1f"]
 
 [ext_resource type="Script" path="res://scenes/Presets.gd" id="1_k08fq"]
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_s5qvd"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_ehsui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxuct"]
+atlas = ExtResource("1_s5qvd")
+region = Rect2(18, 2, 12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1seyx"]
 atlas = ExtResource("2_ehsui")
@@ -15,13 +20,47 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("2_ehsui")
 region = Rect2(32, 0, 32, 32)
 
-[node name="Presets" type="HFlowContainer"]
+[node name="Presets" type="MarginContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_k08fq")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="Margin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vxuct")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Content" type="MarginContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Presets" type="HFlowContainer" parent="Margin/Content"]
+layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
-script = ExtResource("1_k08fq")
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 tooltip_text = "close"
 texture_normal = SubResource("AtlasTexture_1seyx")
 texture_pressed = SubResource("AtlasTexture_jous6")

@@ -133,17 +133,6 @@ script = ExtResource("1_ioibl")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
-[node name="Bottom" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="Presets" parent="Bottom" instance=ExtResource("5_jja2r")]
-layout_mode = 2
-
-[node name="PresetTimer" type="Timer" parent="Bottom"]
-wait_time = 0.1
-one_shot = true
-
 [node name="Columns" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
@@ -264,6 +253,10 @@ tooltip_text = "choose fractal from a preset"
 text = "Presets"
 alignment = 2
 
+[node name="Presets" parent="." instance=ExtResource("5_jja2r")]
+visible = false
+layout_mode = 2
+
 [node name="ColorSliders" parent="." instance=ExtResource("8_aj8ad")]
 visible = false
 layout_mode = 2
@@ -277,9 +270,10 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[connection signal="close_me" from="Bottom/Presets" to="." method="_on_presets_close_me"]
-[connection signal="load_preset" from="Bottom/Presets" to="." method="_on_presets_load_preset"]
-[connection signal="timeout" from="Bottom/PresetTimer" to="." method="_on_preset_timer_timeout"]
+[node name="PresetTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
 [connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
@@ -287,6 +281,8 @@ layout_mode = 2
 [connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Bottom/Main/AdvancedButton" to="." method="_on_advanced_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
+[connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
+[connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
 [connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]
 [connection signal="close_me" from="RotatOptions" to="." method="_on_advanced_options_close_me"]
@@ -295,3 +291,4 @@ layout_mode = 2
 [connection signal="close_me" from="MatrixOptions" to="." method="_on_matrix_options_close_me"]
 [connection signal="switch" from="MatrixOptions" to="." method="_on_matrix_options_switch"]
 [connection signal="value_changed" from="MatrixOptions" to="." method="_on_matrix_options_value_changed"]
+[connection signal="timeout" from="PresetTimer" to="." method="_on_preset_timer_timeout"]
