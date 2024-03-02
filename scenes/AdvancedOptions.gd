@@ -33,12 +33,13 @@ func _on_mirror_pressed():
 		disabled = true
 		# change translation
 		var vec_to_right = Vector2(ContractX.value, 0).rotated(2 * PI - Rotation.value / 360 * 2 * PI)
-		if Mirror.button_pressed:
+		if not Mirror.flip_h:
 			TranslationX.value += vec_to_right.x
 			TranslationY.value -= vec_to_right.y
 		else:
 			TranslationX.value -= vec_to_right.x
 			TranslationY.value += vec_to_right.y
+		Mirror.flip_h = not Mirror.flip_h
 		# commit changes
 		disabled = false
 		value_changed.emit()
@@ -69,7 +70,7 @@ func load_ui(contraction):
 				rot_value -= 360
 		Rotation.value = rot_value
 	# mirroring
-	Mirror.button_pressed = contraction.mirrored
+	Mirror.flip_h = contraction.mirrored
 	if contraction.mirrored:
 		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
 		TranslationX.value += vec_to_right.x
@@ -88,7 +89,7 @@ func read_ui():
 	## user-friendly translation: anchor bottom-left
 	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
 	# mirroring
-	contraction.mirrored = Mirror.button_pressed
+	contraction.mirrored = Mirror.flip_h
 	if contraction.mirrored:
 		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
 		contraction.translation -= vec_to_right

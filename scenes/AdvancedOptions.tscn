@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ci4h23rvdej3t"]
+[gd_scene load_steps=16 format=3 uid="uid://ci4h23rvdej3t"]
 
 [ext_resource type="Script" path="res://scenes/AdvancedOptions.gd" id="1_jbv3n"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_4hq88"]
@@ -16,13 +16,17 @@ region = Rect2(64, 96, 32, 32)
 atlas = ExtResource("2_4hq88")
 region = Rect2(0, 96, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j1jwj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ep30"]
+atlas = ExtResource("2_4hq88")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kjnu"]
 atlas = ExtResource("2_4hq88")
 region = Rect2(64, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8u00t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6817m"]
 atlas = ExtResource("2_4hq88")
-region = Rect2(0, 128, 32, 32)
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skh3p"]
 atlas = ExtResource("2_5yjsg")
@@ -122,12 +126,13 @@ page = 1.0
 rounded = true
 suffix = "°"
 
-[node name="Mirror" type="CheckButton" parent="Main/RotationBox"]
+[node name="Mirror" type="TextureButton" parent="Main/RotationBox"]
 layout_mode = 2
-size_flags_horizontal = 11
+size_flags_horizontal = 2
 tooltip_text = "flip rectangle"
-theme_override_icons/checked = SubResource("AtlasTexture_j1jwj")
-theme_override_icons/unchecked = SubResource("AtlasTexture_8u00t")
+texture_normal = SubResource("AtlasTexture_5ep30")
+texture_pressed = SubResource("AtlasTexture_0kjnu")
+texture_hover = SubResource("AtlasTexture_6817m")
 
 [node name="ElseBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -148,5 +153,6 @@ texture_normal = SubResource("AtlasTexture_toxlq")
 texture_pressed = SubResource("AtlasTexture_qgt1m")
 texture_hover = SubResource("AtlasTexture_n8a5p")
 
+[connection signal="pressed" from="Main/RotationBox/Mirror" to="." method="_on_mirror_pressed"]
 [connection signal="pressed" from="ElseBox/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="ElseBox/MatrixButton" to="." method="_on_matrix_button_pressed"]
