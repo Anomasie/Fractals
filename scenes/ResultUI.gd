@@ -22,6 +22,8 @@ extends MarginContainer
 @onready var DelayTexture1 = $Columns/Left/Bottom/Lines/DelayTexture1
 @onready var DelayTexture2 = $Columns/Left/Bottom/Lines/DelayTexture2
 
+@onready var ShareDialogue
+
 var RealImage
 var image_size = current_loupe
 
@@ -182,8 +184,6 @@ func get_image():
 	return image
 
 # send image to gallery
-
-@onready var ShareDialogue
 
 func _on_share_button_pressed():
 	ShareDialogue.open(get_image(), current_ifs)

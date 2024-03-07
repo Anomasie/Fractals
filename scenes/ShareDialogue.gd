@@ -37,16 +37,31 @@ func open(image, ifs):
 func get_meta_data(ifs):
 	var string = ""
 	for contraction in ifs.systems:
+		string += "|"
 		string += str(contraction.translation.x) + "," + str(contraction.translation.y) + ","
 		string += str(contraction.contract.x) + "," + str(contraction.contract.y) + ","
 		string += str(contraction.rotation) + ","
-		string += str(contraction.mirrored) + ","
-		string += contraction.color.to_html(false) + "|"
+		string += str(int(contraction.mirrored)) + ","
+		string += contraction.color.to_html(false)
+	print(string) # example: |0.49999997019768,0.28867515921593,0.33333334326744,0.33333334326744,1.04719758033752,0,00abff|0,-0,0.33333334326744,0.33333334326744,0,0,0081ff|0.33333334326744,-0.00000002980232,0.33333334326744,0.33333334326744,-1.04719758033752,0,0081ff|0.66666668653488,-0,0.33333334326744,0.33333334326744,0,0,d1e8ff
 	return string
 
-func get_ifs(_meta_data):
-	# to be done
-	return
+func get_ifs(meta_data):
+	if meta_data:
+		var units = meta_data.split("|", false)
+		var ifs = IFS.new()
+		for unit in units:
+			var entries = unit.split(",", false)
+			var contraction = Contraction.new()
+			contraction.translation = Vector2(float(entries[0]), float(entries[1]))
+			contraction.contract = Vector2(float(entries[2]), float(entries[3]))
+			contraction.rotation = float(entries[4])
+			contraction.mirrored = entries[5] == "1"
+			contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
+			ifs.systems.push_back(contraction)
+		return ifs
+	else:
+		return false
 
 func _on_ready_button_pressed():
 	GalleryContact.send_image(

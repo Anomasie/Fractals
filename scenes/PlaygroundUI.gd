@@ -24,6 +24,9 @@ extends MarginContainer
 var disabled = 0
 var rot = randi_range(0,360-1)
 
+var old_loupe = Global.LOUPE
+var old_origin
+
 func _ready():
 	Playground.fractal_changed.connect(_fractal_changed)
 	# hide and show
@@ -32,9 +35,6 @@ func _ready():
 	Presets.show()
 	focus()
 
-var old_loupe = Global.LOUPE
-var old_origin
-
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
 	#resize_playground()
@@ -42,6 +42,8 @@ func resize():
 func resize_playground():
 	disabled += 1
 	
+	if typeof(old_origin) == TYPE_NIL:
+		old_origin = get_origin()
 	Playground.resize(old_origin, old_loupe, get_origin(), Global.LOUPE)
 	old_loupe = Global.LOUPE
 	old_origin = get_origin()

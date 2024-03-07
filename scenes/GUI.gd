@@ -13,6 +13,10 @@ extends Control
 
 @onready var LanguageButton = $UIButtons/LanguageButton
 
+# for loading urls
+@onready var URLTimer = $LoadFromURLTimer
+var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_hash_change)
+
 func _ready():
 	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
@@ -28,6 +32,27 @@ func _ready():
 	
 	# language & translation
 	_on_language_button_pressed()
+	
+	# for loading urls
+	URLTimer.start()
+
+# loading url
+
+func _on_url_hash_change(_event):
+	try_load_from_url()
+
+## is the url-code valid?
+func try_load_from_url():
+	var url_hash = JavaScriptBridge.get_interface("location")
+	if url_hash:
+		var url_str = url_hash["hash"].get_slice("#", 1).percent_decode()
+		# build code
+		var url_ifs = ShareDialogue.get_ifs()
+		## if valid: build ifs
+		if url_ifs is IFS:
+			PlaygroundUI._on_presets_load_preset(url_ifs.systems)
+
+# working
 
 func _on_viewport_resize():
 	# get new size of viewport
@@ -118,3 +143,9 @@ func _on_language_button_pressed():
 func reload_language():
 	for node in [PlaygroundUI, ResultUI, ShareDialogue]:
 		node.reload_language()
+
+func _on_load_from_url_timer_timeout():
+	var js_window = JavaScriptBridge.get_interface("window")
+	if js_window:
+		js_window.addEventListener("hashchange", js_callback_on_url_hash_change)
+	try_load_from_url()

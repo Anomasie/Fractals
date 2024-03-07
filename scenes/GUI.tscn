@@ -73,6 +73,10 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "EN"
 
+[node name="LoadFromURLTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]
@@ -80,3 +84,4 @@ text = "EN"
 [connection signal="sent_successfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_successfully"]
 [connection signal="sent_unsuccessfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_unsuccessfully"]
 [connection signal="pressed" from="UIButtons/LanguageButton" to="." method="_on_language_button_pressed"]
+[connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
