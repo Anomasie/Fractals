@@ -49,9 +49,13 @@ func get_ifs(meta_data):
 	if meta_data:
 		var units = meta_data.split("|", false)
 		if len(units) > 0:
+			if units[0].length() != 6: # no background color saved :(
+				units.push_front("ffffff") # set it to white
 			var systems = []
 			for i in len(units)-1:
 				var entries = units[i+1].split(",", false)
+				if len(entries) < 6: # someone messed up the url! >:(
+					return
 				var contraction = Contraction.new()
 				contraction.translation = Vector2(float(entries[0]), float(entries[1]))
 				contraction.contract = Vector2(float(entries[2]), float(entries[3]))

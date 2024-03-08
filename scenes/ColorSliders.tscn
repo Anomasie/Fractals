@@ -30,19 +30,6 @@ gradient = SubResource("Gradient_qvcnl")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atda5"]
 
-[sub_resource type="Gradient" id="Gradient_15o5r"]
-offsets = PackedFloat32Array(0, 0.167, 0.333, 0.5, 0.667, 0.833, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_koc1a"]
-gradient = SubResource("Gradient_15o5r")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_namad"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4t1bo"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
-
 [sub_resource type="Gradient" id="Gradient_uk8i4"]
 resource_local_to_scene = true
 colors = PackedColorArray(1, 1, 1, 1, 0, 1, 0, 1)
@@ -60,6 +47,19 @@ texture_margin_bottom = 8.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kyfgn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wk3s"]
+
+[sub_resource type="Gradient" id="Gradient_15o5r"]
+offsets = PackedFloat32Array(0, 0.167, 0.333, 0.5, 0.667, 0.833, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_koc1a"]
+gradient = SubResource("Gradient_15o5r")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_namad"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4t1bo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
@@ -155,6 +155,24 @@ theme_override_styles/slider = SubResource("StyleBoxEmpty_kopvc")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_mvmrp")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atda5")
 
+[node name="Saturation" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Saturation"]
+layout_mode = 2
+texture = SubResource("GradientTexture1D_1bh3c")
+
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Saturation"]
+layout_mode = 2
+tooltip_text = "saturation or intensity of the color"
+theme_override_styles/slider = SubResource("StyleBoxTexture_2ro3f")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_kyfgn")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1wk3s")
+
 [node name="Hue" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
@@ -174,24 +192,6 @@ theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_4t1bo")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_721e2")
 max_value = 256.0
 value = 50.0
-
-[node name="Saturation" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Saturation"]
-layout_mode = 2
-texture = SubResource("GradientTexture1D_1bh3c")
-
-[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Saturation"]
-layout_mode = 2
-tooltip_text = "saturation or intensity of the color"
-theme_override_styles/slider = SubResource("StyleBoxTexture_2ro3f")
-theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_kyfgn")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1wk3s")
 
 [node name="Presets" type="HBoxContainer" parent="Dialogue/Content/Columns/Sliders"]
 custom_minimum_size = Vector2(0, 16)
@@ -361,8 +361,8 @@ texture_pressed = SubResource("AtlasTexture_8kltj")
 texture_hover = SubResource("AtlasTexture_lrmm1")
 
 [connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="focus_exited" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
 [connection signal="text_submitted" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
 [connection signal="pressed" from="Dialogue/Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
