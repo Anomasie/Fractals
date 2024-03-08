@@ -34,8 +34,8 @@ func open(image, ifs):
 	ImagePreview.set_texture(ImageTexture.create_from_image(preview_image))
 	show()
 
-func get_meta_data(ifs, background_color=Color.WHITE):
-	var string = background_color.to_html()
+func get_meta_data(ifs):
+	var string = ifs.background_color.to_html()
 	for contraction in ifs.systems:
 		string += "|"
 		string += str(contraction.translation.x) + "," + str(contraction.translation.y) + ","
@@ -43,8 +43,6 @@ func get_meta_data(ifs, background_color=Color.WHITE):
 		string += str(contraction.rotation) + ","
 		string += str(int(contraction.mirrored)) + ","
 		string += contraction.color.to_html(false)
-	#print(string)
-	# example: |0.49999997019768,0.28867515921593,0.33333334326744,0.33333334326744,1.04719758033752,0,00abff|0,-0,0.33333334326744,0.33333334326744,0,0,0081ff|0.33333334326744,-0.00000002980232,0.33333334326744,0.33333334326744,-1.04719758033752,0,0081ff|0.66666668653488,-0,0.33333334326744,0.33333334326744,0,0,d1e8ff
 	return string
 
 func get_ifs(meta_data):

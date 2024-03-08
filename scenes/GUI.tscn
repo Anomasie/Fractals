@@ -21,7 +21,6 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Lines"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Fractals"
 horizontal_alignment = 1
@@ -78,6 +77,7 @@ text = "EN"
 wait_time = 0.3
 one_shot = true
 
+[connection signal="color_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_color_changed"]
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]

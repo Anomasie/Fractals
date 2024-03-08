@@ -71,7 +71,7 @@ func try_load_from_url():
 			# valid -> build
 			if url_ifs is IFS:
 				PlaygroundUI._on_presets_load_preset(url_ifs.systems)
-				ResultUI.ResultBackground.self_modulate = url_ifs.background_color
+				ResultUI.load_color(url_ifs.background_color)
 
 # working
 
@@ -176,3 +176,11 @@ func _on_load_from_url_timer_timeout():
 		js_window.addEventListener("hashchange", js_callback_on_url_hash_change)
 	try_load_from_url()
 	storing_url_disabled -= 1
+
+
+func _on_result_ui_color_changed():
+	var ifs = PlaygroundUI.get_ifs()
+	# update ifs background
+	ifs.background_color = ResultUI.ResultBackground.self_modulate
+	# update result-ui and url
+	store_to_url(ifs)

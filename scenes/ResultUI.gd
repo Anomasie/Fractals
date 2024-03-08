@@ -1,5 +1,7 @@
 extends MarginContainer
 
+signal color_changed
+
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
 
@@ -238,6 +240,11 @@ func _on_delay_slider_value_changed(value):
 
 # background color
 
+func load_color(color):
+	ResultBackground.self_modulate = color
+	if ColorSliders.visible:
+		ColorSliders.open(color)
+
 func _on_color_button_pressed():
 	if ColorSliders.visible:
 		ColorSliders._on_close_button_pressed()
@@ -246,6 +253,7 @@ func _on_color_button_pressed():
 
 func _on_color_sliders_color_changed():
 	ResultBackground.self_modulate = ColorSliders.get_color()
+	color_changed.emit()
 
 func _on_color_sliders_finished():
 	ColorSliders.close()
