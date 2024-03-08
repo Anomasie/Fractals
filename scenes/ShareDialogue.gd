@@ -49,8 +49,10 @@ func get_ifs(meta_data):
 	if meta_data:
 		var units = meta_data.split("|", false)
 		if len(units) > 0:
-			if units[0].length() != 6: # no background color saved :(
-				units.push_front("ffffff") # set it to white
+			if not Color.html_is_valid(units[0]): # no background color saved :(
+				var old_units = units.duplicate()
+				units = [Color.WHITE.to_html()] # set it to white
+				units.append_array(old_units)
 			var systems = []
 			for i in len(units)-1:
 				var entries = units[i+1].split(",", false)

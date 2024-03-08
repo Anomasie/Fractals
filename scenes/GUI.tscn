@@ -21,7 +21,6 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Lines"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "Fractals"
 horizontal_alignment = 1
