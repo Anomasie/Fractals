@@ -53,6 +53,9 @@ func resize_playground():
 func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
 
+func get_ifs():
+	return Playground.get_ifs( get_origin() )
+
 # focus
 
 signal focus_ready
@@ -228,11 +231,8 @@ func _on_preset_timer_timeout():
 
 func _fractal_changed():
 	if not disabled:
-		var ifs = Playground.get_ifs( get_origin() )
-		# update ifs_menu
-		ifs.background_color = ResultUI.ResultBackground.self_modulate
 		# show results
-		self.get_parent().get_owner().show_results(ifs)
+		self.get_parent().get_owner().show_results()
 
 # language & translation
 

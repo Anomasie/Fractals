@@ -250,7 +250,7 @@ func update_to(contr, origin):
 	#if contr.mirrored:
 		#self.position -= Vector2(size.x, 0).rotated(self.rotation)
 	# color
-	Rect.self_modulate = contr.color
+	color_rect(contr.color)
 	
 	changed.emit()
 

@@ -17,11 +17,15 @@ extends Control
 @onready var URLTimer = $LoadFromURLTimer
 var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_hash_change)
 
+var loading_url_disabled = 0
+var storing_url_disabled = 0
+
 func _ready():
+	storing_url_disabled += 1 # wait until URLTimer is ready
 	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_on_viewport_resize()
-	show_results(IFS.new())
+	show_results()
 	# set variables
 	PlaygroundUI.ResultUI = ResultUI
 	ResultUI.ShareDialogue = ShareDialogue
@@ -39,18 +43,35 @@ func _ready():
 # loading url
 
 func _on_url_hash_change(_event):
-	try_load_from_url()
+	if loading_url_disabled == 0:
+		try_load_from_url()
+
+func store_to_url(current_ifs):
+	if storing_url_disabled == 0:
+		loading_url_disabled += 1
+		
+		var url_hash = ShareDialogue.get_meta_data(current_ifs)
+		JavaScriptBridge.eval("window.location.hash = \"#" + url_hash + "\"")
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		
+		loading_url_disabled -= 1
 
 ## is the url-code valid?
 func try_load_from_url():
 	var url_hash = JavaScriptBridge.get_interface("location")
 	if url_hash:
-		var url_str = url_hash["hash"].get_slice("#", 1).percent_decode()
-		# build code
-		var url_ifs = ShareDialogue.get_ifs()
-		## if valid: build ifs
-		if url_ifs is IFS:
-			PlaygroundUI._on_presets_load_preset(url_ifs.systems)
+		if url_hash:
+			var url_str = url_hash["hash"].get_slice("#", 1)#.percent_decode()
+			# build code
+			var url_ifs = ShareDialogue.get_ifs(url_str)
+			# valid -> build
+			if url_ifs is IFS:
+				PlaygroundUI._on_presets_load_preset(url_ifs.systems)
+				ResultUI.ResultBackground.self_modulate = url_ifs.background_color
 
 # working
 
@@ -87,8 +108,13 @@ func _on_viewport_resize():
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
-func show_results(results):
-	ResultUI.open(results)
+func show_results():
+	var ifs = PlaygroundUI.get_ifs()
+	# update ifs background
+	ifs.background_color = ResultUI.ResultBackground.self_modulate
+	# update result-ui and url
+	store_to_url(ifs)
+	ResultUI.open(ifs)
 
 func _on_resize_timer_timeout():
 	PlaygroundUI.resize_playground()
@@ -149,3 +175,4 @@ func _on_load_from_url_timer_timeout():
 	if js_window:
 		js_window.addEventListener("hashchange", js_callback_on_url_hash_change)
 	try_load_from_url()
+	storing_url_disabled -= 1
