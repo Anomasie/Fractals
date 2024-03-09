@@ -2,42 +2,69 @@ extends MarginContainer
 
 signal value_changed
 
-@onready var SizeX = $Main/SizeX
-@onready var SizeY = $Main/SizeY
-@onready var ReloadButton = $Main/ReloadButton
+@onready var SizeXEdit = $Container/Content/Main/SizeX/Edit
+@onready var SizeYEdit = $Container/Content/Main/SizeY/Edit
+@onready var ReloadButton = $ReloadButton
+@onready var CloseButton = $CloseButton
 
-var disabled = false
+var disabled = 0
 
 func load_ui(new_size):
-	disabled = true
-	SizeX.value = new_size.x
-	SizeY.value = new_size.y
-	disabled = false
+	disabled += 1
+	
+	SizeXEdit.placeholder_text = str(new_size.x)
+	SizeYEdit.placeholder_text = str(new_size.y)
+	
+	disabled -= 1
 
 func read_ui():
-	return Vector2i(SizeX.value, SizeY.value)
+	var array = []
+	for edit in [SizeXEdit, SizeYEdit]:
+		if int(edit.text) > 0:
+			array.append(int(edit.text))
+		else:
+			edit.text = ""
+			if int(edit.placeholder_text) > 0:
+				array.append(int(edit.placeholder_text))
+			else:
+				edit.placeholder_text = "1"
+				array.append(1)
+	return Vector2i(array[0], array[1])
 
-func _on_size_x_value_changed(_value):
-	if not disabled:
-		value_changed.emit()
+func _on_edit_focus_exited():
+	_on_edit_text_submitted()
 
-func _on_size_y_value_changed(_value):
-	if not disabled:
+func _on_edit_text_submitted(_some_text = ""):
+	# delete text
+	for edit in [SizeXEdit, SizeYEdit]:
+		if edit.text and int(edit.text) > 0:
+			edit.placeholder_text = edit.text
+		edit.text = ""
+		disabled += 1
+		edit.release_focus()
+		disabled -= 1
+	# commit text
+	if disabled == 0:
 		value_changed.emit()
 
 func _on_reload_button_pressed():
 	load_ui( get_owner().current_loupe )
 	value_changed.emit()
 
+func _on_close_button_pressed():
+	hide()
+
 # language & translation
 
 func reload_language():
 	match Global.language:
 		"GER":
-			SizeX.tooltip_text = "Bildgröße im Export"
-			SizeY.tooltip_text = "Bildgröße im Export"
+			SizeXEdit.tooltip_text = "Bildgröße im Export"
+			SizeYEdit.tooltip_text = "Bildgröße im Export"
 			ReloadButton.tooltip_text = "Bildgröße zurücksetzen"
+			CloseButton.tooltip_text = "Größeneinstellungen schließen"
 		_:
-			SizeX.tooltip_text = "image size for export"
-			SizeY.tooltip_text = "image size for export"
+			SizeXEdit.tooltip_text = "image size for export"
+			SizeYEdit.tooltip_text = "image size for export"
 			ReloadButton.tooltip_text = "reset to original image size"
+			CloseButton.tooltip_text = "close size settings"

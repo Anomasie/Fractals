@@ -79,7 +79,8 @@ func _process(delta):
 
 func resize():
 	current_loupe = Global.LOUPE
-	image_size = current_loupe
+	if not image_size:
+		image_size = current_loupe
 	open(current_ifs)
 
 func resize_image(new_size):
