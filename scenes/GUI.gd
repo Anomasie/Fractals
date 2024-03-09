@@ -79,7 +79,7 @@ func _on_load_from_url_timer_timeout():
 	try_load_from_url()
 	storing_url_disabled -= 1
 
-func _on_result_ui_saved_image():
+func _on_result_ui_store_to_url():
 	store_to_url()
 
 # resizing stuff
@@ -130,16 +130,11 @@ func show_results():
 	#store_to_url() # that's mostly spam for the browser history
 	ResultUI.open(ifs)
 
-func _on_result_ui_color_changed():
-	# update result-ui and url
-	store_to_url()
-
 # "warning" messages
 
 ## share-dialogue
 
 func _on_share_dialogue_sent_away():
-	store_to_url()
 	match Global.language:
 		"GER": WarningLabel.text = "Dein Bild wird an " + Global.GALLERY_ADRESS + " gesendet ..."
 		_: WarningLabel.text = "Sending your image to " + Global.GALLERY_ADRESS + "..."

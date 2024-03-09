@@ -78,7 +78,7 @@ wait_time = 0.3
 one_shot = true
 
 [connection signal="color_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_color_changed"]
-[connection signal="saved_image" from="Lines/Content/ResultUI" to="." method="_on_result_ui_saved_image"]
+[connection signal="store_to_url" from="Lines/Content/ResultUI" to="." method="_on_result_ui_store_to_url"]
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]

@@ -1,7 +1,7 @@
 extends MarginContainer
 
 signal color_changed
-signal saved_image
+signal store_to_url
 
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
@@ -190,17 +190,18 @@ func get_image():
 # send image to gallery
 
 func _on_share_button_pressed():
+	store_to_url.emit()
 	ShareDialogue.open(get_image(), current_ifs)
 
 # save image locally
 
 func _on_save_button_pressed():
+	store_to_url.emit()
 	if OS.has_feature("web"):
 		var filename = "fractal" + str(file_counter) + ".png"
 		file_counter += 1
 		var buf = get_image().save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
-		saved_image.emit()
 	else:
 		SaveFileDialog.open()
 
@@ -210,7 +211,6 @@ func save(path):
 		get_image().save_png(path + ".png")
 	else:
 		get_image().save_png(path)
-	saved_image.emit()
 
 # change centering picture
 
