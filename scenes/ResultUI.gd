@@ -196,8 +196,8 @@ func _on_share_button_pressed():
 
 func _on_save_button_pressed():
 	if OS.has_feature("web"):
-		var filename = "fractal" + str(counter) + ".png"
-		counter += 1
+		var filename = "fractal" + str(file_counter) + ".png"
+		file_counter += 1
 		var buf = get_image().save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
 		saved_image.emit()
