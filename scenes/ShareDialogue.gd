@@ -62,7 +62,7 @@ func get_ifs(meta_data):
 				contraction.translation = Vector2(float(entries[0]), float(entries[1]))
 				contraction.contract = Vector2(float(entries[2]), float(entries[3]))
 				contraction.rotation = float(entries[4])
-				contraction.mirrored = entries[5] == "1"
+				contraction.mirrored = (entries[5] in ["1", "true"])
 				contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
 				systems.append(contraction)
 			var ifs = IFS.new()

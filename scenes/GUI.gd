@@ -51,7 +51,7 @@ func store_to_url(current_ifs):
 		loading_url_disabled += 1
 		
 		var url_hash = ShareDialogue.get_meta_data(current_ifs)
-		JavaScriptBridge.eval("window.location.hash = \"#" + url_hash + "\"")
+		JavaScriptBridge.eval("location.replace(\"#%s\")" % url_hash)
 		await get_tree().process_frame
 		await get_tree().process_frame
 		await get_tree().process_frame

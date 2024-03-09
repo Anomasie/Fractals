@@ -242,6 +242,7 @@ func _on_delay_slider_value_changed(value):
 
 func load_color(color):
 	ResultBackground.self_modulate = color
+	current_ifs.background_color = color
 	if ColorSliders.visible:
 		ColorSliders.open(color)
 
