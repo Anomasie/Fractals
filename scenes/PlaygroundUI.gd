@@ -32,6 +32,7 @@ func _ready():
 	# hide and show
 	ColorSliders.close()
 	PresetsButton.hide()
+	CloseAllButton.hide()
 	Presets.show()
 	focus()
 
@@ -98,6 +99,7 @@ func _on_add_pressed():
 	if rot >= 2 * PI:
 		rot -= 2 * PI
 	_on_presets_close_me()
+	CloseAllButton.show()
 	
 	disabled -= 1
 
@@ -106,9 +108,9 @@ func _on_close_all_pressed():
 	
 	Playground.close_all()
 	CurrentRect = null
-	# left
+	# buttons
+	CloseAllButton.hide()
 	ColorSliders.close()
-	# right
 	RotatOptions.hide()
 	MatrixOptions.hide()
 	Presets.hide()
@@ -122,7 +124,10 @@ func _on_close_all_pressed():
 
 func _on_remove_button_pressed():
 	disabled += 1
+	
 	await Playground.close(CurrentRect)
+	CloseAllButton.visible = ( Playground.current_rect_counter > 0 )
+	
 	disabled -= 1
 	_fractal_changed()
 
@@ -216,6 +221,7 @@ func _on_presets_close_me():
 func _on_presets_load_preset(ifs):
 	disabled += 1
 	
+	CloseAllButton.show()
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
 	PresetTimer.start()

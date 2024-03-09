@@ -4,6 +4,7 @@ signal fractal_changed
 
 var Rect = load("res://scenes/Rect.tscn")
 
+var current_rect_counter = 0
 var counter = 0
 
 var emit_fractal_changed_next_frame = false
@@ -49,16 +50,22 @@ func add(pos, origin, duplicating=false):
 	if duplicating:
 		return Instance
 	emit_fractal_changed_next_frame = true
+	
+	current_rect_counter += 1
 
 func close_all():
 	for child in self.get_children():
 		close(child)
 	get_parent().focus(null)
+	
+	current_rect_counter = 0 # just for savety
 
 func close(MyRect):
 	MyRect.queue_free()
 	get_parent().focus(null)
 	emit_fractal_changed_next_frame = true
+	
+	current_rect_counter -= 1
 
 func duplicate_rect(MyRect, origin):
 	# add some child
