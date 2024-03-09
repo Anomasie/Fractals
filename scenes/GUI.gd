@@ -40,23 +40,22 @@ func _ready():
 	# for loading urls
 	URLTimer.start()
 
-# loading url
+# url stuff
 
 func _on_url_hash_change(_event):
 	if loading_url_disabled == 0:
 		try_load_from_url()
 
-func store_to_url(current_ifs):
+func store_to_url():
 	if storing_url_disabled == 0:
+		# get ifs
+		var ifs = PlaygroundUI.get_ifs()
+		ifs.background_color = ResultUI.ResultBackground.self_modulate
+		
 		loading_url_disabled += 1
 		
-		var url_hash = ShareDialogue.get_meta_data(current_ifs)
+		var url_hash = ShareDialogue.get_meta_data(ifs)
 		JavaScriptBridge.eval("location.replace(\"#%s\")" % url_hash)
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
 		
 		loading_url_disabled -= 1
 
@@ -73,7 +72,17 @@ func try_load_from_url():
 				PlaygroundUI._on_presets_load_preset(url_ifs.systems)
 				ResultUI.load_color(url_ifs.background_color)
 
-# working
+func _on_load_from_url_timer_timeout():
+	var js_window = JavaScriptBridge.get_interface("window")
+	if js_window:
+		js_window.addEventListener("hashchange", js_callback_on_url_hash_change)
+	try_load_from_url()
+	storing_url_disabled -= 1
+
+func _on_result_ui_saved_image():
+	store_to_url()
+
+# resizing stuff
 
 func _on_viewport_resize():
 	# get new size of viewport
@@ -108,22 +117,29 @@ func _on_viewport_resize():
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
+func _on_resize_timer_timeout():
+	PlaygroundUI.resize_playground()
+
+# result stuff
+
 func show_results():
 	var ifs = PlaygroundUI.get_ifs()
 	# update ifs background
 	ifs.background_color = ResultUI.ResultBackground.self_modulate
 	# update result-ui and url
-	store_to_url(ifs)
+	#store_to_url() # that's mostly spam for the browser history
 	ResultUI.open(ifs)
 
-func _on_resize_timer_timeout():
-	PlaygroundUI.resize_playground()
+func _on_result_ui_color_changed():
+	# update result-ui and url
+	store_to_url()
 
 # "warning" messages
 
 ## share-dialogue
 
 func _on_share_dialogue_sent_away():
+	store_to_url()
 	match Global.language:
 		"GER": WarningLabel.text = "Dein Bild wird an " + Global.GALLERY_ADRESS + " gesendet ..."
 		_: WarningLabel.text = "Sending your image to " + Global.GALLERY_ADRESS + "..."
@@ -169,18 +185,3 @@ func _on_language_button_pressed():
 func reload_language():
 	for node in [PlaygroundUI, ResultUI, ShareDialogue]:
 		node.reload_language()
-
-func _on_load_from_url_timer_timeout():
-	var js_window = JavaScriptBridge.get_interface("window")
-	if js_window:
-		js_window.addEventListener("hashchange", js_callback_on_url_hash_change)
-	try_load_from_url()
-	storing_url_disabled -= 1
-
-
-func _on_result_ui_color_changed():
-	var ifs = PlaygroundUI.get_ifs()
-	# update ifs background
-	ifs.background_color = ResultUI.ResultBackground.self_modulate
-	# update result-ui and url
-	store_to_url(ifs)

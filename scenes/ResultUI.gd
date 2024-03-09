@@ -1,6 +1,7 @@
 extends MarginContainer
 
 signal color_changed
+signal saved_image
 
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
@@ -199,6 +200,7 @@ func _on_save_button_pressed():
 		counter += 1
 		var buf = get_image().save_png_to_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
+		saved_image.emit()
 	else:
 		SaveFileDialog.open()
 
@@ -208,6 +210,7 @@ func save(path):
 		get_image().save_png(path + ".png")
 	else:
 		get_image().save_png(path)
+	saved_image.emit()
 
 # change centering picture
 
