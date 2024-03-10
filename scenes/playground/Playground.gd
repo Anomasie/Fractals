@@ -15,10 +15,11 @@ func _process(_delta):
 		emit_fractal_changed_next_frame = false
 
 func _input(event):
-	if event.is_action_pressed("scroll_up"):
-		focus( self.get_child(0) )
-	elif event.is_action_pressed("scroll_down"):
-		focus( self.get_child(0) )
+	if current_rect_counter > 0:
+		if event.is_action_pressed("scroll_up"):
+			focus( self.get_child(0) )
+		elif event.is_action_pressed("scroll_down"):
+			focus( self.get_child(0) )
 
 func _fractal_changed():
 	if not emit_fractal_changed_next_frame:

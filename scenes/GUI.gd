@@ -13,6 +13,7 @@ extends Control
 
 @onready var LanguageButton = $UIButtons/LanguageButton
 @onready var HelpButton = $UIButtons/HelpButton
+@onready var HelpOptions = $HelpOptions
 
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer
@@ -34,6 +35,7 @@ func _ready():
 	# hide and show
 	WarningLabel.text = ""
 	ShareDialogue.hide()
+	HelpOptions.hide()
 	
 	# language & translation
 	_on_language_button_pressed()
@@ -115,6 +117,7 @@ func _on_viewport_resize():
 	# resize everything
 	PlaygroundUI.resize()
 	ResultUI.resize()
+	HelpOptions.custom_minimum_size = viewport_size/3*2
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
@@ -167,7 +170,7 @@ func _on_warning_timer_timeout():
 # help
 
 func _on_help_button_pressed():
-	print("help!")
+	HelpOptions.open()
 
 # language & translation
 
@@ -190,5 +193,5 @@ func reload_language():
 		_:
 			HelpButton.tooltip_text = "help"
 	# pass on signal
-	for node in [PlaygroundUI, ResultUI, ShareDialogue]:
+	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions]:
 		node.reload_language()
