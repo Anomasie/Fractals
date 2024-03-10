@@ -95,6 +95,7 @@ func open(ifs, centered=CenterButton.centered):
 func open_new_ifs(centered=CenterButton.centered):
 	var ifs = new_ifs
 	current_ifs = ifs
+	current_ifs.background_color = ResultBackground.self_modulate
 	# create empty, white image
 	var image = Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color.TRANSPARENT) # white
@@ -258,6 +259,7 @@ func _on_color_button_pressed():
 
 func _on_color_sliders_color_changed():
 	ResultBackground.self_modulate = ColorSliders.get_color()
+	current_ifs.background_color = ResultBackground.self_modulate
 	color_changed.emit()
 
 func _on_color_sliders_finished():
