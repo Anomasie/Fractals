@@ -12,6 +12,7 @@ extends Control
 @onready var WarningTimer = $WarningContainer/WarningTimer
 
 @onready var LanguageButton = $UIButtons/LanguageButton
+@onready var HelpButton = $UIButtons/HelpButton
 
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer
@@ -163,6 +164,11 @@ func _on_share_dialogue_no_connection_to_server(response):
 func _on_warning_timer_timeout():
 	WarningLabel.text = ""
 
+# help
+
+func _on_help_button_pressed():
+	print("help!")
+
 # language & translation
 
 func _on_language_button_pressed():
@@ -178,5 +184,11 @@ func _on_language_button_pressed():
 	reload_language()
 
 func reload_language():
+	match Global.language:
+		"GER":
+			HelpButton.tooltip_text = "Hilfe"
+		_:
+			HelpButton.tooltip_text = "help"
+	# pass on signal
 	for node in [PlaygroundUI, ResultUI, ShareDialogue]:
 		node.reload_language()

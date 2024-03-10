@@ -4,7 +4,7 @@ extends Node
 signal user_saved_colors_changed
 
 const SAVE_PATH = "res://"
-const GALLERY_ADRESS = "https://polaroids.yuustan.space/g/test"
+const GALLERY_ADRESS = "https://gallery.fracmi.cc/g/ifs"
 
 var language = "GER"
 

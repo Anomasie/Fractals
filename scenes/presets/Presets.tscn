@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://co7ekdte8fr1f"]
 
-[ext_resource type="Script" path="res://scenes/Presets.gd" id="1_k08fq"]
+[ext_resource type="Script" path="res://scenes/presets/Presets.gd" id="1_k08fq"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_s5qvd"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_ehsui"]
 

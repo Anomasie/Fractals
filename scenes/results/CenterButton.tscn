@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dpi78ruafalrj"]
 
-[ext_resource type="Script" path="res://scenes/CenterButton.gd" id="1_th8sh"]
+[ext_resource type="Script" path="res://scenes/results/CenterButton.gd" id="1_th8sh"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="1_uytef"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0jaac"]

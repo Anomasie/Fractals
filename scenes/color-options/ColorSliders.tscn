@@ -1,12 +1,12 @@
 [gd_scene load_steps=32 format=3 uid="uid://mtu0mxcjwc41"]
 
-[ext_resource type="Script" path="res://scenes/ColorSliders.gd" id="1_8ohfb"]
-[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_ppvln"]
-[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_12mbo"]
-[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="4_u2u55"]
+[ext_resource type="Script" path="res://scenes/color-options/ColorSliders.gd" id="1_ryk5y"]
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="2_ifvt5"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_ihvhm"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="4_eexud"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bj178"]
-atlas = ExtResource("1_ppvln")
+atlas = ExtResource("2_ifvt5")
 region = Rect2(18, 2, 12, 12)
 
 [sub_resource type="Gradient" id="Gradient_xjnaf"]
@@ -75,27 +75,27 @@ unicode = 43
 events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcoqw"]
-atlas = ExtResource("3_12mbo")
+atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gcil7"]
-atlas = ExtResource("3_12mbo")
+atlas = ExtResource("3_ihvhm")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkpn8"]
-atlas = ExtResource("3_12mbo")
+atlas = ExtResource("3_ihvhm")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75bkv"]
-atlas = ExtResource("4_u2u55")
+atlas = ExtResource("4_eexud")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8kltj"]
-atlas = ExtResource("4_u2u55")
+atlas = ExtResource("4_eexud")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrmm1"]
-atlas = ExtResource("4_u2u55")
+atlas = ExtResource("4_eexud")
 region = Rect2(32, 0, 32, 32)
 
 [node name="ColorSliders" type="MarginContainer"]
@@ -105,7 +105,7 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
-script = ExtResource("1_8ohfb")
+script = ExtResource("1_ryk5y")
 
 [node name="Dialogue" type="MarginContainer" parent="."]
 layout_mode = 2

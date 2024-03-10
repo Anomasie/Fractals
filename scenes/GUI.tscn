@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://uat15tg6ijgh"]
+[gd_scene load_steps=9 format=3 uid="uid://uat15tg6ijgh"]
 
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
-[ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/PlaygroundUI.tscn" id="1_kg3c1"]
-[ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/ResultUI.tscn" id="2_wgaj6"]
-[ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/ShareDialogue.tscn" id="4_kymfo"]
+[ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/playground/PlaygroundUI.tscn" id="1_kg3c1"]
+[ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/results/ResultUI.tscn" id="2_wgaj6"]
+[ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/results/ShareDialogue.tscn" id="4_kymfo"]
+[ext_resource type="Texture2D" uid="uid://q482hh141kmp" path="res://assets/gui/main_gui_buttons.png" id="5_snlkm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i014u"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fmbf"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8m6c"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(32, 0, 32, 32)
 
 [node name="GUI" type="MarginContainer"]
 anchors_preset = 15
@@ -73,6 +86,14 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "EN"
 
+[node name="HelpButton" type="TextureButton" parent="UIButtons"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_i014u")
+texture_pressed = SubResource("AtlasTexture_1fmbf")
+texture_hover = SubResource("AtlasTexture_r8m6c")
+
 [node name="LoadFromURLTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
@@ -86,4 +107,5 @@ one_shot = true
 [connection signal="sent_successfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_successfully"]
 [connection signal="sent_unsuccessfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_unsuccessfully"]
 [connection signal="pressed" from="UIButtons/LanguageButton" to="." method="_on_language_button_pressed"]
+[connection signal="pressed" from="UIButtons/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]

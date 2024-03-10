@@ -1,13 +1,13 @@
 [gd_scene load_steps=31 format=3 uid="uid://bcoioblesr22e"]
 
-[ext_resource type="Script" path="res://scenes/ResultUI.gd" id="1_p14af"]
+[ext_resource type="Script" path="res://scenes/results/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
-[ext_resource type="Script" path="res://scenes/SaveFileDialog.gd" id="3_1twtw"]
+[ext_resource type="Script" path="res://scenes/results/SaveFileDialog.gd" id="3_1twtw"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
-[ext_resource type="PackedScene" uid="uid://dpi78ruafalrj" path="res://scenes/CenterButton.tscn" id="4_3q2yo"]
-[ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/SizeOptions.tscn" id="5_ok3dt"]
-[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/ColorSliders.tscn" id="8_bgnmw"]
+[ext_resource type="PackedScene" uid="uid://dpi78ruafalrj" path="res://scenes/results/CenterButton.tscn" id="4_3q2yo"]
+[ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/results/SizeOptions.tscn" id="5_ok3dt"]
+[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/color-options/ColorSliders.tscn" id="8_bgnmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
 atlas = ExtResource("3_limvo")

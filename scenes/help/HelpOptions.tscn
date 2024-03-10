@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://ltwl751ep3gp"]
+
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_qah6b"]
+[ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nmpk1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxm7j"]
+atlas = ExtResource("1_qah6b")
+region = Rect2(18, 2, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr62d"]
+atlas = ExtResource("2_nmpk1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qg8p0"]
+atlas = ExtResource("2_nmpk1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2o42"]
+atlas = ExtResource("2_nmpk1")
+region = Rect2(32, 0, 32, 32)
+
+[node name="HelpOptions" type="MarginContainer"]
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="Content"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gxm7j")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Margin" type="MarginContainer" parent="Content"]
+layout_mode = 2
+
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+tooltip_text = "reset and close"
+texture_normal = SubResource("AtlasTexture_jr62d")
+texture_pressed = SubResource("AtlasTexture_qg8p0")
+texture_hover = SubResource("AtlasTexture_k2o42")

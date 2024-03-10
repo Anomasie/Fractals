@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://byf84h81elkst"]
 
-[ext_resource type="Script" path="res://scenes/ColorBar.gd" id="1_g431d"]
+[ext_resource type="Script" path="res://scenes/color-options/ColorBar.gd" id="1_g431d"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="1_noqwc"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]

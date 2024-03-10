@@ -2,7 +2,7 @@ extends Node
 
 signal fractal_changed
 
-var Rect = load("res://scenes/Rect.tscn")
+var Rect = load("res://scenes/playground/Rect.tscn")
 
 var current_rect_counter = 0
 var counter = 0

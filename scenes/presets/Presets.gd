@@ -153,7 +153,7 @@ var PRESETS = {
 }
 
 
-@onready var Preset = load("res://scenes/Preset.tscn")
+@onready var Preset = load("res://scenes/presets/Preset.tscn")
 @onready var CloseButton = $CloseButton
 @onready var Presets = $Margin/Content/Presets
 

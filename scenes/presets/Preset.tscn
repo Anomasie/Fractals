@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwce7pw2ji0m4"]
 
 [ext_resource type="Texture2D" uid="uid://coi5u3kqbwaoh" path="res://assets/presets/SierpinskiCarpet.png" id="1_agbdg"]
-[ext_resource type="Script" path="res://scenes/Preset.gd" id="1_qu6lb"]
+[ext_resource type="Script" path="res://scenes/presets/Preset.gd" id="1_qu6lb"]
 
 [node name="Sierpinski" type="MarginContainer"]
 size_flags_horizontal = 4

@@ -1,13 +1,13 @@
 [gd_scene load_steps=37 format=3 uid="uid://q88x6y11n1jm"]
 
-[ext_resource type="Script" path="res://scenes/PlaygroundUI.gd" id="1_ioibl"]
+[ext_resource type="Script" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
-[ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/Playground.tscn" id="4_xpdbu"]
-[ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/AdvancedOptions.tscn" id="4_yd3uv"]
-[ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/Presets.tscn" id="5_jja2r"]
-[ext_resource type="PackedScene" uid="uid://bdcy8qeketbv2" path="res://scenes/MatrixOptions.tscn" id="5_nxfo1"]
-[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/ColorSliders.tscn" id="8_aj8ad"]
+[ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/playground/Playground.tscn" id="4_xpdbu"]
+[ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/advanced-options/AdvancedOptions.tscn" id="4_yd3uv"]
+[ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/presets/Presets.tscn" id="5_jja2r"]
+[ext_resource type="PackedScene" uid="uid://bdcy8qeketbv2" path="res://scenes/advanced-options/MatrixOptions.tscn" id="5_nxfo1"]
+[ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/color-options/ColorSliders.tscn" id="8_aj8ad"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1

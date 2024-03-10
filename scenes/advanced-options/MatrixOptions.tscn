@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://bdcy8qeketbv2"]
 
-[ext_resource type="Script" path="res://scenes/MatrixOptions.gd" id="1_55ogc"]
+[ext_resource type="Script" path="res://scenes/advanced-options/MatrixOptions.gd" id="1_55ogc"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_m2fv7"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_n2e17"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nqjoq"]
