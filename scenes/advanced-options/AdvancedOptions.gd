@@ -29,6 +29,10 @@ func _ready():
 func _value_changed(_new_value=0):
 	if not disabled:
 		value_changed.emit()
+		# release focus
+		## doesn't work as for now :(
+		for button in [TranslationX, TranslationY, ContractX, ContractY, Rotation]:
+			button.release_focus()
 
 func _on_mirror_pressed():
 	if not disabled:

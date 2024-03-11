@@ -22,6 +22,12 @@ func _ready():
 func _value_changed(_new_value=0):
 	if not disabled:
 		value_changed.emit()
+		# release focus
+		## doesn't work as for now :(
+		for button in MatrixEntries:
+			button.release_focus()
+		TranslationX.release_focus()
+		TranslationY.release_focus()
 
 func load_ui(contraction):
 	# do not emit value_changed
