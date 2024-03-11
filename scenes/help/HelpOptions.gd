@@ -49,7 +49,8 @@ func _ready():
 		if EXPLANATIONS[EXPLANATIONS.keys()[i]].has(Global.language):
 			button.text =EXPLANATIONS[EXPLANATIONS.keys()[i]][Global.language]
 		else:
-			button.text = "ERROR in HelpOptions, _ready: no text found for button " + button.name
+			button.text = "???"
+			print("ERROR in HelpOptions, _ready: no name found for button " + button.name)
 		# add button
 		Informations.add_child(button)
 
@@ -62,7 +63,8 @@ func load_text():
 	if EXPLANATIONS[Informations.get_child(current_info).name]["text"].has(Global.language):
 		InfoLabel.text = EXPLANATIONS[Informations.get_child(current_info).name]["text"][Global.language]
 	else:
-		InfoLabel.text = "ERROR in HelpOptions, _ready: no text found for button " + Informations.get_child(current_info).name
+		InfoLabel.text = "no text available"
+		print("ERROR in HelpOptions, load_text: no text found for button " + Informations.get_child(current_info).name)
 
 func set_focus():
 	for i in len(Informations.get_children()):
@@ -76,10 +78,19 @@ func reload_language():
 	for button in Informations.get_children():
 		match Global.language:
 			"GER":
-				button.tooltip_text = "Informationen über " + EXPLANATIONS[button.name]["GER"]
+				if EXPLANATIONS[button.name].has(Global.language):
+					button.text = EXPLANATIONS[button.name][Global.language]
+					button.tooltip_text = "Informationen über " + EXPLANATIONS[button.name][Global.language]
+				else:
+					button.text = "???"
+					print("ERROR in HelpOptions, _ready: no name found for button " + button.name)
 			_:
-				button.tooltip_text = "informations about " + EXPLANATIONS[button.name]["EN"]
-		button.text = EXPLANATIONS[button.name][Global.language]
+				if EXPLANATIONS[button.name].has(Global.language):
+					button.text =EXPLANATIONS[button.name][Global.language]
+					button.tooltip_text = "informations about " + EXPLANATIONS[button.name][Global.language]
+				else:
+					button.text = "???"
+					print("ERROR in HelpOptions, _ready: no name found for button " + button.name)
 	# info-text
 	load_text()
 
