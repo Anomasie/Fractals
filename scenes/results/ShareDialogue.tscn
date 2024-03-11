@@ -107,7 +107,7 @@ text = "Venue"
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter venue here (if existing)"
-placeholder_text = "MINT-festival Jena"
+placeholder_text = "none"
 
 [node name="ReadyButton" type="Button" parent="Container/Content/MarginContainer/Lines"]
 layout_mode = 2

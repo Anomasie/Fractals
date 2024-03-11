@@ -8,6 +8,7 @@ signal value_changed
 @onready var CloseButton = $CloseButton
 
 var disabled = 0
+var custom_value = false
 
 func load_ui(new_size):
 	disabled += 1
@@ -37,9 +38,10 @@ func _on_edit_focus_exited():
 func _on_edit_text_submitted(_some_text = ""):
 	# delete text
 	for edit in [SizeXEdit, SizeYEdit]:
-		if edit.text and int(edit.text) > 0:
-			edit.placeholder_text = edit.text
-		edit.text = ""
+		var valid_changes = true
+		if not edit.text or not int(edit.text) > 0:
+			valid_changes = false
+		custom_value = custom_value or valid_changes
 		disabled += 1
 		edit.release_focus()
 		disabled -= 1
@@ -48,7 +50,18 @@ func _on_edit_text_submitted(_some_text = ""):
 		value_changed.emit()
 
 func _on_reload_button_pressed():
-	load_ui( get_owner().current_loupe )
+	disabled += 1
+	
+	custom_value = false
+	var new_size = get_owner().current_loupe
+	# reset edits
+	SizeXEdit.placeholder_text = str(new_size.x)
+	SizeYEdit.placeholder_text = str(new_size.y)
+	SizeXEdit.text = ""
+	SizeYEdit.text = ""
+	
+	disabled -= 1
+	
 	value_changed.emit()
 
 func _on_close_button_pressed():

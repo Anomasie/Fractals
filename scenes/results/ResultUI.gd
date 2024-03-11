@@ -80,6 +80,9 @@ func _process(delta):
 
 func resize():
 	current_loupe = Global.LOUPE
+	if not SizeOptions.custom_value:
+		image_size = current_loupe
+		SizeOptions.load_ui(current_loupe)
 	if not image_size:
 		image_size = current_loupe
 	open(current_ifs)
@@ -269,11 +272,10 @@ func _on_color_sliders_finished():
 
 func _on_size_button_pressed():
 	if not SizeOptions.visible:
-		var image = Result.get_texture().get_image()
-		SizeOptions.load_ui(
-			Vector2i(image.get_width(), image.get_height())
-		)
 		SizeOptions.show()
+		if not SizeOptions.custom_value:
+			var image = Result.get_texture().get_image()
+			SizeOptions.load_ui( Vector2i(image.get_width(), image.get_height()) )
 	else:
 		SizeOptions.hide()
 

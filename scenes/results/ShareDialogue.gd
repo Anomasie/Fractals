@@ -111,7 +111,7 @@ func reload_language():
 			# venue
 			VenueLabel.text = "Event"
 			VenueEdit.tooltip_text = "gib hier das Event ein, auf dem du das Fraktal erstellt hast (falls vorhanden)"
-			VenueEdit.placeholder_text = "MINT-Festival Jena"
+			VenueEdit.placeholder_text = "keines"
 			# Ready Button
 			ReadyButton.text = "Sende Bild an Galerie"
 			# GalleryAdress label
@@ -132,7 +132,7 @@ func reload_language():
 			# venue
 			VenueLabel.text = "Venue"
 			VenueEdit.tooltip_text = "enter venue here (if existing)"
-			VenueEdit.placeholder_text = "MINT-Festival Jena"
+			VenueEdit.placeholder_text = "none"
 			# Ready Button
 			ReadyButton.text = "Share on website"
 			# GalleryAdress label
