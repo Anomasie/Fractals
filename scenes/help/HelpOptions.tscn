@@ -43,29 +43,50 @@ patch_margin_bottom = 2
 
 [node name="Content" type="MarginContainer" parent="Margin"]
 layout_mode = 2
+theme_override_constants/margin_top = 48
 
 [node name="Lines" type="VBoxContainer" parent="Margin/Content"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="TutorialButton" type="Button" parent="Margin/Content/Lines"]
-layout_mode = 2
-text = "start a quick tour"
-
 [node name="Splitter" type="HBoxContainer" parent="Margin/Content/Lines"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 32
+theme_override_constants/separation = 0
 
 [node name="Informations" type="VBoxContainer" parent="Margin/Content/Lines/Splitter"]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 
 [node name="InfoLabel" type="RichTextLabel" parent="Margin/Content/Lines/Splitter"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 theme_override_constants/line_separation = 8
 text = "This is a text about rects. Rects, or rectangles, are beautiful things. I like them very much. This was my text about rects."
+selection_enabled = true
+
+[node name="Top" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 0
+
+[node name="Background" type="NinePatchRect" parent="Top"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gxm7j")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Conent" type="MarginContainer" parent="Top"]
+layout_mode = 2
+
+[node name="TutorialButton" type="Button" parent="Top/Conent"]
+layout_mode = 2
+text = "start a quick tour"
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
@@ -76,5 +97,5 @@ texture_normal = SubResource("AtlasTexture_jr62d")
 texture_pressed = SubResource("AtlasTexture_qg8p0")
 texture_hover = SubResource("AtlasTexture_k2o42")
 
-[connection signal="pressed" from="Margin/Content/Lines/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Top/Conent/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

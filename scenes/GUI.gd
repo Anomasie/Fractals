@@ -117,7 +117,10 @@ func _on_viewport_resize():
 	# resize everything
 	PlaygroundUI.resize()
 	ResultUI.resize()
-	HelpOptions.custom_minimum_size = viewport_size/3*2
+	HelpOptions.custom_minimum_size = Vector2i(
+		max( viewport_size.x/3*2, ShareDialogue.Margin.size.x),
+		max( viewport_size.y/3*2, ShareDialogue.Margin.size.y)
+	)
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
@@ -170,7 +173,7 @@ func _on_warning_timer_timeout():
 # help
 
 func _on_help_button_pressed():
-	HelpOptions.open()
+	HelpOptions.visible = not HelpOptions.visible
 
 # language & translation
 

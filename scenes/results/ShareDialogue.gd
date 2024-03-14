@@ -8,6 +8,8 @@ signal no_connection_to_server
 @onready var ImagePreview = $Container/Content/MarginContainer/Lines/ImagePreview
 @onready var GalleryAdressLabel = $Container/Content/MarginContainer/Lines/GalleryAdressLabel
 
+@onready var Margin = $Container/Content/MarginContainer
+
 @onready var DescriptionLabel = $Container/Content/MarginContainer/Lines/Tabular/DescriptionLabel
 @onready var DescriptionEdit = $Container/Content/MarginContainer/Lines/Tabular/DescriptionEdit
 @onready var NameLabel = $Container/Content/MarginContainer/Lines/Tabular/NameLabel
