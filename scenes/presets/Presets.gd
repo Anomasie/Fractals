@@ -156,6 +156,7 @@ var PRESETS = {
 @onready var Preset = load("res://scenes/presets/Preset.tscn")
 @onready var CloseButton = $CloseButton
 @onready var Presets = $Margin/Content/Presets
+@onready var PresetLabel = $Top/Content/PresetLabel
 
 func _ready():
 	load_presets()
@@ -188,6 +189,8 @@ func reload_language():
 	match Global.language:
 		"GER":
 			CloseButton.tooltip_text = "Vorlagen schließen"
+			PresetLabel.text = "Vorlagen"
 		_:
 			CloseButton.tooltip_text = "close presets"
+			PresetLabel.text = "Presets"
 	load_presets()

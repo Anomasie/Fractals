@@ -41,6 +41,7 @@ func add(pos, origin, duplicating=false):
 	var contr = Contraction.new()
 	contr.translation = pos
 	contr.contract = Vector2(0.25,0.25)
+	current_rect_counter += 1
 	
 	Instance.focus_me.connect(focus.bind(Instance))
 	Instance.changed.connect(_fractal_changed)
@@ -48,11 +49,11 @@ func add(pos, origin, duplicating=false):
 	Instance.update_to(contr, origin)
 	self.focus(Instance)
 	get_parent().focus(Instance)
-	if duplicating:
-		return Instance
+	
 	emit_fractal_changed_next_frame = true
 	
-	current_rect_counter += 1
+	if duplicating:
+		return Instance
 
 func close_all():
 	for child in self.get_children():
@@ -67,13 +68,14 @@ func close(MyRect):
 	emit_fractal_changed_next_frame = true
 	
 	current_rect_counter -= 1
+	
+	print(current_rect_counter)
 
 func duplicate_rect(MyRect, origin):
 	# add some child
 	var Instance = await add(Vector2.ZERO, origin, true)
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
-	fractal_changed.emit()
 
 func focus(MyRect):
 	self.move_child(MyRect, -1)

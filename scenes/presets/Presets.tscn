@@ -57,6 +57,27 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
+[node name="Top" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 0
+
+[node name="Background" type="NinePatchRect" parent="Top"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vxuct")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Content" type="MarginContainer" parent="Top"]
+layout_mode = 2
+
+[node name="PresetLabel" type="Label" parent="Top/Content"]
+layout_mode = 2
+text = "Presets"
+
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
