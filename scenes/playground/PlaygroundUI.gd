@@ -38,14 +38,12 @@ var old_origin
 func _ready():
 	Playground.fractal_changed.connect(_fractal_changed)
 	# hide and show
+	AdvButOpt.hide()
+	CloseAllButton.hide()
 	ColorSliders.close()
 	PresetsButton.hide()
-	CloseAllButton.hide()
 	Presets.show()
 	focus()
-	
-	TxtButton.hide()
-	AdvButOpt.hide()
 
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
@@ -180,6 +178,22 @@ func open_advanced_options():
 func _on_advanced_button_pressed():
 	AdvButOpt.visible = not AdvButOpt.visible
 
+func _on_rotation_button_pressed():
+	disabled += 1
+	
+	matrix_options = false
+	open_advanced_options()
+	
+	disabled -= 1
+
+func _on_matrix_button_pressed():
+	disabled += 1
+	
+	matrix_options = true
+	open_advanced_options()
+	
+	disabled -= 1
+
 func _on_advanced_options_close_me():
 	RotatOptions.hide()
 	MatrixOptions.hide()
@@ -279,20 +293,3 @@ func reload_language():
 	MatrixOptions.reload_language()
 	RotatOptions.reload_language()
 	ColorSliders.reload_language()
-
-
-func _on_rotation_button_pressed():
-	disabled += 1
-	
-	matrix_options = false
-	open_advanced_options()
-	
-	disabled -= 1
-
-func _on_matrix_button_pressed():
-	disabled += 1
-	
-	matrix_options = true
-	open_advanced_options()
-	
-	disabled -= 1
