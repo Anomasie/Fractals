@@ -3,22 +3,30 @@ extends MarginContainer
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
 # However, it was in a previous version, and I diffuse to change the name.
-@onready var BlueTexture = $Columns/Right/Center/Center/BlueTexture
+@onready var BlueTexture = $Right/Center/Center/BlueTexture
 
-@onready var ButtonOptions = $Columns/Left/Main/ButtonOptions
-@onready var AdvancedButton = $Columns/Left/Main/ButtonOptions/AdvancedButton
+@onready var ButtonOptions = $Left/Main/ButtonOptions
+# advanced options
+## buttons
+@onready var AdvancedButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvancedButton
+@onready var AdvButOpt = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt
+@onready var RotationButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/RotationButton
+@onready var MatrixButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/MatrixButton
+@onready var TxtButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/TxTButton
+## options
 @onready var RotatOptions = $RotatOptions
 @onready var MatrixOptions = $MatrixOptions
-@onready var AddButton = $Columns/Left/Main/AddButton
-@onready var CloseAllButton = $Columns/Left/Main/CloseAllButton
-@onready var RemoveButton = $Columns/Left/Main/ButtonOptions/RemoveButton
-@onready var DuplicateButton = $Columns/Left/Main/ButtonOptions/DuplicateButton
-
-@onready var PresetsButton = $Columns/Right/Bottom/Main/PresetsButton
+# rect buttons
+@onready var AddButton = $Left/Main/AddButton
+@onready var CloseAllButton = $Left/Main/CloseAllButton
+@onready var RemoveButton = $Left/Main/ButtonOptions/RemoveButton
+@onready var DuplicateButton = $Left/Main/ButtonOptions/DuplicateButton
+# presets
+@onready var PresetsButton = $Right/Bottom/Main/PresetsButton
 @onready var Presets = $Presets
 @onready var PresetTimer = $PresetTimer
-
-@onready var ColorButton = $Columns/Left/Main/ButtonOptions/ColorButton
+# colors
+@onready var ColorButton = $Left/Main/ButtonOptions/ColorButton
 @onready var ColorSliders = $ColorSliders
 
 var disabled = 0
@@ -35,6 +43,9 @@ func _ready():
 	CloseAllButton.hide()
 	Presets.show()
 	focus()
+	
+	TxtButton.hide()
+	AdvButOpt.hide()
 
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
@@ -156,6 +167,7 @@ func _on_duplicate_button_pressed():
 var matrix_options = false
 
 func open_advanced_options():
+	AdvButOpt.hide()
 	# visibility
 	RotatOptions.visible = not matrix_options
 	MatrixOptions.visible = matrix_options
@@ -166,14 +178,7 @@ func open_advanced_options():
 #	PresetsButton.hide()
 
 func _on_advanced_button_pressed():
-	disabled += 1
-	
-	if RotatOptions.visible or MatrixOptions.visible:
-		_on_advanced_options_close_me()
-	else:
-		open_advanced_options()
-	
-	disabled -= 1
+	AdvButOpt.visible = not AdvButOpt.visible
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()
@@ -253,6 +258,9 @@ func reload_language():
 			AdvancedButton.tooltip_text = "fortgeschrittene Einstellungen"
 			PresetsButton.text = "Vorlagen"
 			PresetsButton.tooltip_text = "wähle ein Fraktal aus einer Vorlage"
+			RotationButton.tooltip_text = "erweiterte Optionen (geometrische Ansicht)"
+			MatrixButton.tooltip_text = "erweiterte Optionen (Matrix-Ansicht)"
+			TxtButton.tooltip_text = "erweiterte Optionen über Textdatei"
 		_:
 			AddButton.tooltip_text = "add new rectangle"
 			CloseAllButton.tooltip_text = "delete all rectangles"
@@ -262,9 +270,29 @@ func reload_language():
 			AdvancedButton.tooltip_text = "open advanced options"
 			PresetsButton.text = "Presets"
 			PresetsButton.tooltip_text = "choose fractal from a preset"
+			RotationButton.tooltip_text = "open advanced options (geometric view)"
+			MatrixButton.tooltip_text = "open advanced options (matrix view)"
+			TxtButton.tooltip_text = "open advanced options (txt data)"
 	# pass on signal
 	Playground.reload_language()
 	Presets.reload_language()
 	MatrixOptions.reload_language()
 	RotatOptions.reload_language()
 	ColorSliders.reload_language()
+
+
+func _on_rotation_button_pressed():
+	disabled += 1
+	
+	matrix_options = false
+	open_advanced_options()
+	
+	disabled -= 1
+
+func _on_matrix_button_pressed():
+	disabled += 1
+	
+	matrix_options = true
+	open_advanced_options()
+	
+	disabled -= 1

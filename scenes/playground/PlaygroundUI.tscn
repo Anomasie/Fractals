@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=47 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="4_m6gkt"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/playground/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/advanced-options/AdvancedOptions.tscn" id="4_yd3uv"]
 [ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/presets/Presets.tscn" id="5_jja2r"]
@@ -74,18 +75,6 @@ region = Rect2(64, 64, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 192, 32, 32)
-
 [sub_resource type="InputEventKey" id="InputEventKey_ptcdk"]
 device = -1
 keycode = 4194305
@@ -108,6 +97,54 @@ region = Rect2(64, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vv145"]
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip26f"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhldk"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jolpy"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gikmk"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1s"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(64, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nybl5"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(32, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlg3p"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(0, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcrot"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(64, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc3st"]
+atlas = ExtResource("4_m6gkt")
+region = Rect2(32, 416, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bytrw"]
 atlas = ExtResource("4_fd4oq")
@@ -133,20 +170,16 @@ script = ExtResource("1_ioibl")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
 
-[node name="Columns" type="HBoxContainer" parent="."]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Left" type="MarginContainer" parent="Columns"]
+[node name="Left" type="MarginContainer" parent="."]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Main" type="VBoxContainer" parent="Columns/Left"]
+[node name="Main" type="VBoxContainer" parent="Left"]
 layout_mode = 2
 
-[node name="AddButton" type="TextureButton" parent="Columns/Left/Main"]
+[node name="AddButton" type="TextureButton" parent="Left/Main"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
@@ -156,11 +189,11 @@ texture_normal = SubResource("AtlasTexture_y2edm")
 texture_pressed = SubResource("AtlasTexture_l22sp")
 texture_hover = SubResource("AtlasTexture_e5vrq")
 
-[node name="ButtonOptions" type="VBoxContainer" parent="Columns/Left/Main"]
+[node name="ButtonOptions" type="VBoxContainer" parent="Left/Main"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="DuplicateButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+[node name="DuplicateButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
 tooltip_text = "duplicate selected rectangle"
 shortcut = SubResource("Shortcut_cmo8y")
@@ -168,7 +201,7 @@ texture_normal = SubResource("AtlasTexture_pjd7y")
 texture_pressed = SubResource("AtlasTexture_rsctq")
 texture_hover = SubResource("AtlasTexture_3eyvm")
 
-[node name="ColorButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+[node name="ColorButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
 tooltip_text = "change color of selected rectangle"
 shortcut = SubResource("Shortcut_jhmuf")
@@ -176,14 +209,7 @@ texture_normal = SubResource("AtlasTexture_l4f0q")
 texture_pressed = SubResource("AtlasTexture_u86y8")
 texture_hover = SubResource("AtlasTexture_nvvj1")
 
-[node name="AdvancedButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
-layout_mode = 2
-tooltip_text = "open advanced options"
-texture_normal = SubResource("AtlasTexture_rqsg6")
-texture_pressed = SubResource("AtlasTexture_u0188")
-texture_hover = SubResource("AtlasTexture_tf6n6")
-
-[node name="RemoveButton" type="TextureButton" parent="Columns/Left/Main/ButtonOptions"]
+[node name="RemoveButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
 tooltip_text = "delete selected rectangle"
 shortcut = SubResource("Shortcut_5hmfe")
@@ -191,7 +217,45 @@ texture_normal = SubResource("AtlasTexture_n5pe3")
 texture_pressed = SubResource("AtlasTexture_jbxom")
 texture_hover = SubResource("AtlasTexture_vv145")
 
-[node name="CloseAllButton" type="TextureButton" parent="Columns/Left/Main"]
+[node name="AdvancedOptions" type="HBoxContainer" parent="Left/Main/ButtonOptions"]
+layout_mode = 2
+
+[node name="AdvancedButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_rqsg6")
+texture_pressed = SubResource("AtlasTexture_u0188")
+texture_hover = SubResource("AtlasTexture_tf6n6")
+
+[node name="AdvButOpt" type="VBoxContainer" parent="Left/Main/ButtonOptions/AdvancedOptions"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RotationButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
+layout_mode = 2
+tooltip_text = "switch to geometric view"
+texture_normal = SubResource("AtlasTexture_ip26f")
+texture_pressed = SubResource("AtlasTexture_mhldk")
+texture_hover = SubResource("AtlasTexture_jolpy")
+
+[node name="MatrixButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
+layout_mode = 2
+size_flags_horizontal = 11
+tooltip_text = "swtich to matrix view"
+texture_normal = SubResource("AtlasTexture_gikmk")
+texture_pressed = SubResource("AtlasTexture_y4r1s")
+texture_hover = SubResource("AtlasTexture_nybl5")
+
+[node name="TxTButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
+layout_mode = 2
+size_flags_horizontal = 11
+tooltip_text = "swtich to matrix view"
+texture_normal = SubResource("AtlasTexture_nlg3p")
+texture_pressed = SubResource("AtlasTexture_lcrot")
+texture_hover = SubResource("AtlasTexture_fc3st")
+
+[node name="CloseAllButton" type="TextureButton" parent="Left/Main"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
@@ -200,12 +264,12 @@ texture_normal = SubResource("AtlasTexture_bytrw")
 texture_pressed = SubResource("AtlasTexture_1xys4")
 texture_hover = SubResource("AtlasTexture_6mc7g")
 
-[node name="Right" type="VBoxContainer" parent="Columns"]
+[node name="Right" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="Center" type="MarginContainer" parent="Columns/Right"]
+[node name="Center" type="MarginContainer" parent="Right"]
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 4
@@ -216,7 +280,7 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Frame" type="NinePatchRect" parent="Columns/Right/Center"]
+[node name="Frame" type="NinePatchRect" parent="Right/Center"]
 layout_mode = 2
 texture = ExtResource("2_sdntq")
 patch_margin_left = 14
@@ -224,7 +288,7 @@ patch_margin_top = 14
 patch_margin_right = 14
 patch_margin_bottom = 14
 
-[node name="Center" type="MarginContainer" parent="Columns/Right/Center"]
+[node name="Center" type="MarginContainer" parent="Right/Center"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 3
@@ -232,22 +296,22 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="BlueTexture" type="TextureRect" parent="Columns/Right/Center/Center"]
+[node name="BlueTexture" type="TextureRect" parent="Right/Center/Center"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Bottom" type="MarginContainer" parent="Columns/Right"]
+[node name="Bottom" type="MarginContainer" parent="Right"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Main" type="HBoxContainer" parent="Columns/Right/Bottom"]
+[node name="Main" type="HBoxContainer" parent="Right/Bottom"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="PresetsButton" type="Button" parent="Columns/Right/Bottom/Main"]
+[node name="PresetsButton" type="Button" parent="Right/Bottom/Main"]
 layout_mode = 2
 tooltip_text = "choose fractal from a preset"
 text = "Presets"
@@ -274,13 +338,15 @@ layout_mode = 2
 wait_time = 0.1
 one_shot = true
 
-[connection signal="pressed" from="Columns/Left/Main/AddButton" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/AdvancedButton" to="." method="_on_advanced_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
-[connection signal="pressed" from="Columns/Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
-[connection signal="pressed" from="Columns/Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
+[connection signal="pressed" from="Left/Main/AddButton" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvancedButton" to="." method="_on_advanced_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/RotationButton" to="." method="_on_rotation_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/MatrixButton" to="." method="_on_matrix_button_pressed"]
+[connection signal="pressed" from="Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
