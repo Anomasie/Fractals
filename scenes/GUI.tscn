@@ -84,7 +84,10 @@ size_flags_vertical = 4
 [node name="UIButtons" type="MarginContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
 [node name="LanguageButton" type="Button" parent="UIButtons"]
 layout_mode = 2
