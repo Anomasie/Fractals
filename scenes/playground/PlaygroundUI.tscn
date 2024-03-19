@@ -175,9 +175,11 @@ visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="Main" type="VBoxContainer" parent="Left"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="AddButton" type="TextureButton" parent="Left/Main"]
 visibility_layer = 2
@@ -192,6 +194,7 @@ texture_hover = SubResource("AtlasTexture_e5vrq")
 [node name="ButtonOptions" type="VBoxContainer" parent="Left/Main"]
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="DuplicateButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
