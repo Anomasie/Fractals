@@ -14,6 +14,7 @@ extends Control
 @onready var LanguageButton = $UIButtons/LanguageButton
 @onready var HelpButton = $UIButtons/HelpButton
 @onready var HelpOptions = $HelpOptions
+@onready var TxtOptions = $TxtOptions
 
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer
@@ -34,8 +35,9 @@ func _ready():
 	
 	# hide and show
 	WarningLabel.text = ""
-	ShareDialogue.hide()
+	TxtOptions.hide()
 	HelpOptions.hide()
+	ShareDialogue.hide()
 	
 	# language & translation
 	_on_language_button_pressed()
@@ -54,26 +56,33 @@ func store_to_url():
 		# get ifs
 		var ifs = PlaygroundUI.get_ifs()
 		ifs.background_color = ResultUI.ResultBackground.self_modulate
+		ifs.delay = ResultUI.current_ifs.delay
 		
 		loading_url_disabled += 1
 		
 		var url_hash = ShareDialogue.get_meta_data(ifs)
 		JavaScriptBridge.eval("location.replace(\"#%s\")" % url_hash)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
 		
 		loading_url_disabled -= 1
 
-## is the url-code valid?
 func try_load_from_url():
 	var url_hash = JavaScriptBridge.get_interface("location")
 	if url_hash:
-		if url_hash:
-			var url_str = url_hash["hash"].get_slice("#", 1)#.percent_decode()
-			# build code
-			var url_ifs = ShareDialogue.get_ifs(url_str)
-			# valid -> build
-			if url_ifs is IFS:
-				PlaygroundUI._on_presets_load_preset(url_ifs.systems)
-				ResultUI.load_color(url_ifs.background_color)
+		var url_str = url_hash["hash"].get_slice("#", 1)#.percent_decode()
+		try_load_from_string(url_str)
+
+func try_load_from_string(meta_data):
+	if meta_data:
+		# build code
+		var meta_ifs = ShareDialogue.get_ifs(meta_data)
+		# valid -> build
+		if meta_ifs is IFS:
+			PlaygroundUI._on_presets_load_preset(meta_ifs.systems)
+			ResultUI.load_color(meta_ifs.background_color)
+			ResultUI.DelaySlider.value = meta_ifs.delay
 
 func _on_load_from_url_timer_timeout():
 	var js_window = JavaScriptBridge.get_interface("window")
@@ -121,6 +130,10 @@ func _on_viewport_resize():
 		max( viewport_size.x/3*2, ShareDialogue.Margin.size.x),
 		max( viewport_size.y/3*2, ShareDialogue.Margin.size.y)
 	)
+	TxtOptions.custom_minimum_size = Vector2i(
+		max( viewport_size.x/4*3, ShareDialogue.Margin.size.x),
+		max( viewport_size.y/4*3, ShareDialogue.Margin.size.y)
+	)
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
@@ -133,9 +146,12 @@ func show_results():
 	var ifs = PlaygroundUI.get_ifs()
 	# update ifs background
 	ifs.background_color = ResultUI.ResultBackground.self_modulate
+	ifs.delay = ResultUI.current_ifs.delay
 	# update result-ui and url
 	#store_to_url() # that's mostly spam for the browser history
 	ResultUI.open(ifs)
+	if TxtOptions.visible:
+		TxtOptions.load_dict( TxtOptions.dict_from_ifs(ifs) )
 
 # "warning" messages
 
@@ -175,6 +191,17 @@ func _on_warning_timer_timeout():
 func _on_help_button_pressed():
 	HelpOptions.visible = not HelpOptions.visible
 
+# txt options
+
+func _on_playground_ui_open_txt_options():
+	var ifs = PlaygroundUI.get_ifs()
+	# update ifs background
+	ifs.background_color = ResultUI.ResultBackground.self_modulate
+	ifs.delay = ResultUI.current_ifs.delay
+	
+	TxtOptions.load_dict( TxtOptions.dict_from_ifs(ifs) )
+	TxtOptions.show()
+
 # language & translation
 
 func _on_language_button_pressed():
@@ -192,9 +219,15 @@ func _on_language_button_pressed():
 func reload_language():
 	match Global.language:
 		"GER":
-			HelpButton.tooltip_text = "Hilfe"
+			HelpButton.tooltip_text = "Informationen"
 		_:
-			HelpButton.tooltip_text = "help"
+			HelpButton.tooltip_text = "information"
 	# pass on signal
 	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions]:
 		node.reload_language()
+
+
+# debugging
+
+func _on_debug_button_pressed():
+	pass

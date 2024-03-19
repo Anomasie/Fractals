@@ -37,7 +37,12 @@ func open(image, ifs):
 	show()
 
 func get_meta_data(ifs):
+	# background color
 	var string = ifs.background_color.to_html()
+	# delay
+	if ifs.delay != Global.DEFAULT_DELAY:
+		string += "|" + str(ifs.delay)
+	# ifs data
 	for contraction in ifs.systems:
 		string += "|"
 		string += str(contraction.translation.x) + "," + str(contraction.translation.y) + ","
@@ -51,13 +56,20 @@ func get_ifs(meta_data):
 	if meta_data:
 		var units = meta_data.split("|", false)
 		if len(units) > 0:
-			if not Color.html_is_valid(units[0]): # no background color saved :(
-				var old_units = units.duplicate()
-				units = [Color.WHITE.to_html()] # set it to white
-				units.append_array(old_units)
+			var ifs = IFS.new()
+			# background color
+			ifs.background_color = Color.from_string(units[0], Color.WHITE)
+			## background color saved? -> delete first entry
+			if Color.html_is_valid(units[0]): 
+				units.remove_at(0)
+			# delay
+			if len(units) > 0 and len(units[0].split(",", false)) == 1:
+				ifs.delay = int(units[0])
+				units.remove_at(0)
+			# functions
 			var systems = []
-			for i in len(units)-1:
-				var entries = units[i+1].split(",", false)
+			for i in len(units):
+				var entries = units[i].split(",", false)
 				if len(entries) < 6: # someone messed up the url! >:(
 					return
 				var contraction = Contraction.new()
@@ -67,9 +79,7 @@ func get_ifs(meta_data):
 				contraction.mirrored = (entries[5] in ["1", "true"])
 				contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
 				systems.append(contraction)
-			var ifs = IFS.new()
 			ifs.systems = systems
-			ifs.background_color = Color.from_string(units[0], Color.WHITE)
 			return ifs
 
 func _on_ready_button_pressed():

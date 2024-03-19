@@ -1,0 +1,4 @@
+Possible future features
+I wasn't able to do yet
+
+- add description or data about the fractal to png-export-version

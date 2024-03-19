@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://uat15tg6ijgh"]
+[gd_scene load_steps=11 format=3 uid="uid://uat15tg6ijgh"]
 
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
 [ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/playground/PlaygroundUI.tscn" id="1_kg3c1"]
 [ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/results/ResultUI.tscn" id="2_wgaj6"]
+[ext_resource type="PackedScene" uid="uid://biuetoakcmrk0" path="res://scenes/advanced-options/TxtOptions.tscn" id="4_bq5pq"]
 [ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/results/ShareDialogue.tscn" id="4_kymfo"]
 [ext_resource type="PackedScene" uid="uid://ltwl751ep3gp" path="res://scenes/help/HelpOptions.tscn" id="5_ewkqs"]
 [ext_resource type="Texture2D" uid="uid://q482hh141kmp" path="res://assets/gui/main_gui_buttons.png" id="5_snlkm"]
@@ -56,30 +57,17 @@ layout_mode = 2
 wait_time = 0.1
 one_shot = true
 
-[node name="WarningContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 32
-
-[node name="WarningLabel" type="Label" parent="WarningContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Your fractal has been successfully sent to the gallery."
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="WarningTimer" type="Timer" parent="WarningContainer"]
-wait_time = 5.0
-one_shot = true
-
-[node name="ShareDialogue" parent="." instance=ExtResource("4_kymfo")]
+[node name="TxtOptions" parent="." instance=ExtResource("4_bq5pq")]
+visible = false
 layout_mode = 2
 
 [node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="ShareDialogue" parent="." instance=ExtResource("4_kymfo")]
+layout_mode = 2
 
 [node name="UIButtons" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -103,18 +91,45 @@ texture_normal = SubResource("AtlasTexture_i014u")
 texture_pressed = SubResource("AtlasTexture_1fmbf")
 texture_hover = SubResource("AtlasTexture_r8m6c")
 
+[node name="WarningContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 32
+
+[node name="WarningLabel" type="Label" parent="WarningContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Your fractal has been successfully sent to the gallery."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WarningTimer" type="Timer" parent="WarningContainer"]
+wait_time = 5.0
+one_shot = true
+
 [node name="LoadFromURLTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
+[node name="Debug-Button" type="Button" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Debug-Button
+"
+
+[connection signal="open_txt_options" from="Lines/Content/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
 [connection signal="color_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_color_changed"]
 [connection signal="store_to_url" from="Lines/Content/ResultUI" to="." method="_on_result_ui_store_to_url"]
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
-[connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]
 [connection signal="sent_away" from="ShareDialogue" to="." method="_on_share_dialogue_sent_away"]
 [connection signal="sent_successfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_successfully"]
 [connection signal="sent_unsuccessfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_unsuccessfully"]
 [connection signal="pressed" from="UIButtons/LanguageButton" to="." method="_on_language_button_pressed"]
 [connection signal="pressed" from="UIButtons/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
+[connection signal="pressed" from="Debug-Button" to="." method="_on_debug_button_pressed"]

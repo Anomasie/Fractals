@@ -69,7 +69,6 @@ func load_ui(contraction):
 	else:
 		var rot_value = 360 - contraction.rotation / (2 * PI) * 360
 		while rot_value < 0 - 0.5 or rot_value >= 359 + 0.5:
-			print(rot_value)
 			if rot_value < 0 - 0.5:
 				rot_value += 360
 			else:

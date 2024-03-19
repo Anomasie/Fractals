@@ -3,8 +3,13 @@ extends Node
 
 signal user_saved_colors_changed
 
+# constants
+## paths
 const SAVE_PATH = "res://"
 const GALLERY_ADRESS = "https://gallery.fracmi.cc/g/ifs"
+## ResultUI
+const DEFAULT_DELAY = 10
+const DEFAULT_POINTS = 100000
 
 var language = "GER"
 

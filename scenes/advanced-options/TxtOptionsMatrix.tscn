@@ -1,0 +1,137 @@
+[gd_scene load_steps=7 format=3 uid="uid://sfgrfcxf5a3v"]
+
+[ext_resource type="Script" path="res://scenes/advanced-options/TxtOptionsMatrix.gd" id="1_jsx4e"]
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="2_lsnwv"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_m5prj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb82n"]
+atlas = ExtResource("2_lsnwv")
+region = Rect2(18, 2, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm2rf"]
+atlas = ExtResource("3_m5prj")
+region = Rect2(0, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuoyu"]
+atlas = ExtResource("3_m5prj")
+region = Rect2(32, 288, 32, 32)
+
+[node name="Content" type="MarginContainer"]
+offset_right = 304.0
+offset_bottom = 160.0
+script = ExtResource("1_jsx4e")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gb82n")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Main" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Main" type="VBoxContainer" parent="Main/Columns"]
+layout_mode = 2
+
+[node name="TranslationBox" type="HBoxContainer" parent="Main/Columns/Main"]
+layout_mode = 2
+
+[node name="TranslationLabel" type="TextureRect" parent="Main/Columns/Main/TranslationBox"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_mm2rf")
+stretch_mode = 2
+
+[node name="TranslationX" type="SpinBox" parent="Main/Columns/Main/TranslationBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "enter translation in x-axis"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="TranslationY" type="SpinBox" parent="Main/Columns/Main/TranslationBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "enter translation in y-axis"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="MatrixBox" type="HBoxContainer" parent="Main/Columns/Main"]
+layout_mode = 2
+
+[node name="MatrixLabel" type="TextureRect" parent="Main/Columns/Main/MatrixBox"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_vuoyu")
+stretch_mode = 2
+
+[node name="Matrix" type="GridContainer" parent="Main/Columns/Main/MatrixBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="Matrix11" type="SpinBox" parent="Main/Columns/Main/MatrixBox/Matrix"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix12" type="SpinBox" parent="Main/Columns/Main/MatrixBox/Matrix"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix21" type="SpinBox" parent="Main/Columns/Main/MatrixBox/Matrix"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="Matrix33" type="SpinBox" parent="Main/Columns/Main/MatrixBox/Matrix"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "transformation matrix"
+min_value = -1.0
+max_value = 2.0
+step = 0.001
+page = 0.1
+
+[node name="ColorBox" type="HBoxContainer" parent="Main/Columns/Main"]
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="Main/Columns/Main/ColorBox"]
+layout_mode = 2
+text = "Color"
+
+[node name="ColorEdit" type="LineEdit" parent="Main/Columns/Main/ColorBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "#aabbccdd"
+max_length = 9

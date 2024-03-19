@@ -37,16 +37,20 @@ var current_size = 1
 var file_counter = 0
 
 func _ready():
+	# set values
+	## PointTeller (ActualValueSlider)
 	PointSlider.value = limit
 	PointTeller.min_value = PointSlider.min_value
 	PointTeller.max_value = PointSlider.max_value
 	PointTeller.value = 0
+	## other sliders
+	PointSlider.value = Global.DEFAULT_POINTS
+	DelaySlider.value = Global.DEFAULT_DELAY
+	# hide & show
 	SaveFileDialog.hide()
 	ColorSliders.hide()
 	SizeOptions.hide()
 	resize()
-
-var delay = 10
 
 var limit = 100000
 var frame_limit = 1000 # to manage frame performance
@@ -74,7 +78,7 @@ func _process(delta):
 		var amount = min(frame_limit, limit-counter)
 		counter += amount
 		## paint them
-		paint(current_ifs.calculate_fractal( point.new(), delay, amount), CenterButton.centered)
+		paint(current_ifs.calculate_fractal( point.new(), amount), CenterButton.centered)
 		## update slider
 		PointTeller.value = counter
 
@@ -127,7 +131,7 @@ func open_new_ifs(centered=CenterButton.centered):
 			length - rect.size.y
 		) / 2
 		current_size = length * 1.1
-	# set counter and stuff
+	# set counter
 	counter = 0
 
 func paint(results, centered):
@@ -243,7 +247,7 @@ func _on_point_slider_drag_ended(_value_changed):
 # more clarity!
 
 func _on_delay_slider_value_changed(value):
-	delay = value
+	current_ifs.delay = value
 	open(current_ifs)
 
 # background color

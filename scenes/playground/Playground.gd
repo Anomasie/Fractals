@@ -68,8 +68,6 @@ func close(MyRect):
 	emit_fractal_changed_next_frame = true
 	
 	current_rect_counter -= 1
-	
-	print(current_rect_counter)
 
 func duplicate_rect(MyRect, origin):
 	# add some child

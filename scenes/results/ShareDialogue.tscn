@@ -83,6 +83,7 @@ layout_mode = 2
 text = "Description"
 
 [node name="DescriptionEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter description here"
@@ -93,6 +94,7 @@ layout_mode = 2
 text = "Nickname"
 
 [node name="NameEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter your nickname here"
@@ -104,6 +106,7 @@ layout_mode = 2
 text = "Venue"
 
 [node name="VenueEdit" type="LineEdit" parent="Container/Content/MarginContainer/Lines/Tabular"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter venue here (if existing)"
@@ -113,13 +116,10 @@ placeholder_text = "none"
 layout_mode = 2
 text = "Share on website"
 
-[node name="GalleryAdressLabel" type="LineEdit" parent="Container/Content/MarginContainer/Lines"]
+[node name="GalleryAdressLabel" type="Label" parent="Container/Content/MarginContainer/Lines"]
 layout_mode = 2
 tooltip_text = "link to gallery"
-theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 text = "www.make-your-own-fractal-de/gallery"
-alignment = 1
-editable = false
 
 [node name="CloseButton" type="TextureButton" parent="Container"]
 layout_mode = 2

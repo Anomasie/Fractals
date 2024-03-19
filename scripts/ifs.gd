@@ -2,6 +2,7 @@ class_name IFS
 
 var systems = [] # array of contractions
 var background_color = Color.WHITE
+var delay = Global.DEFAULT_DELAY
 
 func apply_contraction(pos):
 	if len(systems) > 0:
@@ -43,7 +44,7 @@ func random_walk(pos, length=1, distribution=[]):
 	else:
 		return pos
 
-func calculate_fractal(start=point.new(), delay=10, points=2000):
+func calculate_fractal(start=point.new(), points=2000):
 	var result = []
 	# check if system is empty
 	if len(systems) > 0:

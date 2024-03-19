@@ -1,5 +1,7 @@
 extends MarginContainer
 
+signal open_txt_options
+
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
 # However, it was in a previous version, and I diffuse to change the name.
@@ -12,13 +14,13 @@ extends MarginContainer
 @onready var AdvButOpt = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt
 @onready var RotationButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/RotationButton
 @onready var MatrixButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/MatrixButton
-@onready var TxtButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/TxTButton
+@onready var TxtButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/TxtButton
 ## options
 @onready var RotatOptions = $RotatOptions
 @onready var MatrixOptions = $MatrixOptions
 # rect buttons
 @onready var AddButton = $Left/Main/AddButton
-@onready var CloseAllButton = $Left/Main/CloseAllButton
+@onready var CloseAllButton = $Left/Main/ButtonOptions/CloseAllButton
 @onready var RemoveButton = $Left/Main/ButtonOptions/RemoveButton
 @onready var DuplicateButton = $Left/Main/ButtonOptions/DuplicateButton
 # presets
@@ -36,7 +38,11 @@ var old_loupe = Global.LOUPE
 var old_origin
 
 func _ready():
+	# connect
 	Playground.fractal_changed.connect(_fractal_changed)
+	# set minimal size
+	## Advanced Options
+	$Left/Main/ButtonOptions/AdvancedOptions.custom_minimum_size = $Left/Main/ButtonOptions/AdvancedOptions.size
 	# hide and show
 	AdvButOpt.hide()
 	CloseAllButton.hide()
@@ -193,6 +199,9 @@ func _on_matrix_button_pressed():
 	open_advanced_options()
 	
 	disabled -= 1
+
+func _on_txt_button_pressed():
+	open_txt_options.emit()
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()

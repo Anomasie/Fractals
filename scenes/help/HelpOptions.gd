@@ -105,12 +105,24 @@ drawing them can lead to interesting pictures and effects."
 		"GER": "Über das\nProgramm",
 		"EN": "About this\nprogram",
 		"text": {
-			"GER": "Das Programm dieser Website wurde an der Friedrich-Schiller-Universität Jena entwickelt.\n\
-Es steht unter der GNU General Public license; \
-der dazugehörige Code ist einsehbar unter\n\nhttps://github.com/Anomasie/Fractals",
-			"EN": "The program on this website was developed at the Friedrich-Schiller-Universität Jena.\n\
-It is built under the GNU General Public license; \
-the corresponding code is available under\n\nhttps://github.com/Anomasie/Fractals"
+			"GER": "Entwickelt von:
+	Marta Imke
+	Friedrich-Schiller-Universität Jena
+
+Lizenz:
+	GNU General Public license, Version 3
+
+Github-Seite:
+	https://github.com/Anomasie/Fractals",
+			"EN": "developed by:
+	Marta Imke
+	Friedrich-Schiller-Universität Jena
+
+license:
+	GNU General Public license, Version 3
+
+github page:
+	https://github.com/Anomasie/Fractals",
 		}
 	}
 }
@@ -121,7 +133,7 @@ const ADDITIONAL_TEXT = {
 
 @onready var CursorTexture = load("res://assets/gui/cursor.png")
 
-@onready var TutorialButton = $Top/Conent/TutorialButton
+@onready var TitleLabel = $Top/Conent/TitleLabel
 @onready var Informations = $Margin/Content/Lines/Splitter/Informations
 @onready var InfoLabel = $Margin/Content/Lines/Splitter/InfoLabel
 
@@ -168,9 +180,9 @@ func reload_language():
 	# tutorial-buggon
 	match Global.language:
 		"GER":
-			TutorialButton.text = "Starte ein kurzes Tutorial"
+			TitleLabel.text = "Informationen"
 		_:
-			TutorialButton.text = "start a quick tutorial"
+			TitleLabel.text = "start a quick tutorial"
 	# info-buttons
 	for button in Informations.get_children():
 		match Global.language:

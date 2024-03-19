@@ -98,6 +98,18 @@ region = Rect2(64, 96, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(32, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bytrw"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xys4"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mc7g"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 128, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
 atlas = ExtResource("4_fd4oq")
 region = Rect2(0, 192, 32, 32)
@@ -145,18 +157,6 @@ region = Rect2(64, 416, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fc3st"]
 atlas = ExtResource("4_m6gkt")
 region = Rect2(32, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bytrw"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1xys4"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6mc7g"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 128, 32, 32)
 
 [node name="PlaygroundUI" type="MarginContainer"]
 layout_direction = 2
@@ -217,12 +217,21 @@ texture_normal = SubResource("AtlasTexture_n5pe3")
 texture_pressed = SubResource("AtlasTexture_jbxom")
 texture_hover = SubResource("AtlasTexture_vv145")
 
+[node name="CloseAllButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "delete all rectangles"
+texture_normal = SubResource("AtlasTexture_bytrw")
+texture_pressed = SubResource("AtlasTexture_1xys4")
+texture_hover = SubResource("AtlasTexture_6mc7g")
+
 [node name="AdvancedOptions" type="HBoxContainer" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
 
 [node name="AdvancedButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 0
 tooltip_text = "open advanced options"
 texture_normal = SubResource("AtlasTexture_rqsg6")
 texture_pressed = SubResource("AtlasTexture_u0188")
@@ -247,23 +256,13 @@ texture_normal = SubResource("AtlasTexture_gikmk")
 texture_pressed = SubResource("AtlasTexture_y4r1s")
 texture_hover = SubResource("AtlasTexture_nybl5")
 
-[node name="TxTButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
-visible = false
+[node name="TxtButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
 layout_mode = 2
 size_flags_horizontal = 11
 tooltip_text = "swtich to matrix view"
 texture_normal = SubResource("AtlasTexture_nlg3p")
 texture_pressed = SubResource("AtlasTexture_lcrot")
 texture_hover = SubResource("AtlasTexture_fc3st")
-
-[node name="CloseAllButton" type="TextureButton" parent="Left/Main"]
-visibility_layer = 2
-layout_mode = 2
-size_flags_horizontal = 0
-tooltip_text = "delete all rectangles"
-texture_normal = SubResource("AtlasTexture_bytrw")
-texture_pressed = SubResource("AtlasTexture_1xys4")
-texture_hover = SubResource("AtlasTexture_6mc7g")
 
 [node name="Right" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -343,10 +342,11 @@ one_shot = true
 [connection signal="pressed" from="Left/Main/ButtonOptions/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Left/Main/ButtonOptions/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Left/Main/ButtonOptions/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/CloseAllButton" to="." method="_on_close_all_pressed"]
 [connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvancedButton" to="." method="_on_advanced_button_pressed"]
 [connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/RotationButton" to="." method="_on_rotation_button_pressed"]
 [connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/MatrixButton" to="." method="_on_matrix_button_pressed"]
-[connection signal="pressed" from="Left/Main/CloseAllButton" to="." method="_on_close_all_pressed"]
+[connection signal="pressed" from="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/TxtButton" to="." method="_on_txt_button_pressed"]
 [connection signal="pressed" from="Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]
