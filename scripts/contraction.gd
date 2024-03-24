@@ -41,3 +41,50 @@ static func from_dict(dict):
 	if dict.has("color"):
 		contr.color = dict["color"]
 	return contr
+
+# matrix
+
+static func contraction_from_matrix(array):
+	# not the right format? -> return
+	if typeof(array) != TYPE_ARRAY or len(array) != 4:
+		return Vector2.ZERO
+	# right format :)
+	# get matrix
+	var matrix = Transform2D(
+		Vector2(array[0], array[1]),
+		Vector2(array[2], array[3]),
+		Vector2.ZERO
+	)
+	# contraction
+	return Vector2(
+		(matrix * Vector2(1,0)).length(),
+		(matrix * Vector2(0,1)).length()
+	)
+
+static func rotation_from_matrix(array):
+	# not the right format? -> return
+	if typeof(array) != TYPE_ARRAY or len(array) != 4:
+		return Vector2.ZERO
+	# right format :)
+	# get matrix
+	var matrix = Transform2D(
+		Vector2(array[0], array[1]),
+		Vector2(array[2], array[3]),
+		Vector2.ZERO
+	)
+	# rotation
+	var rotation = (matrix * Vector2(1,0)).angle()
+	# mirroring?
+	## calculate determinant
+	var mirrored = (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0
+	if mirrored:
+		rotation = PI - rotation
+	return rotation
+
+static func mirrored_from_matrix(array):
+	# not the right format? -> return
+	if typeof(array) != TYPE_ARRAY or len(array) != 4:
+		return Vector2.ZERO
+	# right format :)
+	## use determinant
+	return (array[0] * array[3] - array[1] * array[2]) < 0
