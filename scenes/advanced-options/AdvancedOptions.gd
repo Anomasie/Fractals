@@ -96,8 +96,7 @@ func read_ui():
 	# mirroring
 	contraction.mirrored = Mirror.flip_h
 	if contraction.mirrored:
-		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
-		contraction.translation -= vec_to_right
+		contraction.translation -= Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
 	# color will be added by PlaygroundUI
 	return contraction
 

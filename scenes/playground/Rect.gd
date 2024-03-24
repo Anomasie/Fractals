@@ -144,6 +144,7 @@ func _on_turn_button_pressed():
 func _on_mirror_button_pressed():
 	mirror()
 	changed.emit()
+	focus_me.emit()
 
 # "important" functions
 

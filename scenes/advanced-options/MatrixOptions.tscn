@@ -123,7 +123,7 @@ theme_override_constants/h_separation = 16
 columns = 2
 
 [node name="Matrix11" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
-custom_minimum_size = Vector2(0, 16)
+custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -133,7 +133,7 @@ step = 0.001
 page = 0.1
 
 [node name="Matrix12" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
-custom_minimum_size = Vector2(0, 16)
+custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -143,7 +143,7 @@ step = 0.001
 page = 0.1
 
 [node name="Matrix21" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
-custom_minimum_size = Vector2(0, 16)
+custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
@@ -153,7 +153,7 @@ step = 0.001
 page = 0.1
 
 [node name="Matrix33" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
-custom_minimum_size = Vector2(0, 16)
+custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"

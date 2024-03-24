@@ -44,6 +44,24 @@ static func from_dict(dict):
 
 # matrix
 
+func to_matrix():
+	var vec_x = Vector2(1,0)
+	var vec_y = Vector2(0,1)
+	vec_x = (vec_x * contract.x).rotated(rotation)
+	vec_y = (vec_y * contract.y).rotated(rotation)
+	if mirrored:
+		vec_x.x *= -1
+		vec_y.x *= -1
+	var array = [vec_x.x, vec_x.y, vec_y.x, vec_y.y]
+	return array # WARNING: If it is mirrored, the translation has to be altered
+
+static func from_matrix(array):
+	var result = Contraction.new()
+	result.contract = contraction_from_matrix(array)
+	result.rotation = rotation_from_matrix(array)
+	result.mirrored = mirrored_from_matrix(array)
+	return result # WARNING: Does not have a translation or a color yet
+
 static func contraction_from_matrix(array):
 	# not the right format? -> return
 	if typeof(array) != TYPE_ARRAY or len(array) != 4:
@@ -73,13 +91,12 @@ static func rotation_from_matrix(array):
 		Vector2.ZERO
 	)
 	# rotation
-	var rotation = (matrix * Vector2(1,0)).angle()
+	var rot = (matrix * Vector2(1,0)).angle()
 	# mirroring?
 	## calculate determinant
-	var mirrored = (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0
-	if mirrored:
-		rotation = PI - rotation
-	return rotation
+	if (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0:
+		rot = PI - rot
+	return rot
 
 static func mirrored_from_matrix(array):
 	# not the right format? -> return
@@ -87,4 +104,4 @@ static func mirrored_from_matrix(array):
 		return Vector2.ZERO
 	# right format :)
 	## use determinant
-	return (array[0] * array[3] - array[1] * array[2]) < 0
+	return (array[0] * array[3] - array[1] * array[2] < 0)

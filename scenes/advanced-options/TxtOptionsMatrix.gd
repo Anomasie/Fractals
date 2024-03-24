@@ -27,11 +27,12 @@ func load_ui(dict):
 	disabled -= 1
 
 func read_ui():
-	var contraction = Contraction.new()
-	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
-	contraction.contract = contraction.from_matrix(
+	var contraction = Contraction.from_matrix(
 		[Matrix[0].value, Matrix[1].value, Matrix[2].value, Matrix[3].value]
 	)
+	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
+	if contraction.mirrored:
+		contraction.translation -= Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
 	contraction.color = Color.from_string(ColorEdit.text, contraction.color)
 	return contraction
 

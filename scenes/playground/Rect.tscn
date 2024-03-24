@@ -78,7 +78,7 @@ region = Rect2(32, 0, 32, 32)
 atlas = ExtResource("5_hmmwh")
 region = Rect2(64, 0, 32, 32)
 
-[node name="Container" type="MarginContainer"]
+[node name="Rect" type="MarginContainer"]
 offset_right = 48.0
 offset_bottom = 80.0
 mouse_filter = 2
