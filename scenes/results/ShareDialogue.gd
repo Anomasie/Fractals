@@ -30,7 +30,7 @@ func _ready():
 
 func open(image, ifs):
 	current_image = image
-	current_meta = IFS.get_meta_data(ifs)
+	current_meta = ifs.to_meta_data()
 	var preview_image = current_image.duplicate()
 	preview_image.resize(ImagePreview.custom_minimum_size.x, ImagePreview.custom_minimum_size.y)
 	ImagePreview.set_texture(ImageTexture.create_from_image(preview_image))

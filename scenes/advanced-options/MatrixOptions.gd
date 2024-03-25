@@ -50,7 +50,6 @@ func read_ui():
 		MatrixEntries[2].value, MatrixEntries[3].value
 	])
 	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
-	print(contraction.translation)
 	return contraction
 
 func _on_close_button_pressed():

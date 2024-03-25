@@ -75,8 +75,6 @@ func get_ifs():
 func set_ifs(ifs):
 	disabled += 1
 	
-	print(ifs.systems[0])
-	
 	CloseAllButton.show()
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()

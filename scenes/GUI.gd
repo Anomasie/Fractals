@@ -32,6 +32,7 @@ func _ready():
 	# set variables
 	PlaygroundUI.ResultUI = ResultUI
 	ResultUI.ShareDialogue = ShareDialogue
+	PlaygroundUI.Playground.TxTOptions = TxtOptions
 	
 	# hide and show
 	WarningLabel.text = ""
@@ -44,6 +45,11 @@ func _ready():
 	
 	# for loading urls
 	URLTimer.start()
+
+func load_ifs(ifs):
+	PlaygroundUI.set_ifs(ifs)
+	ResultUI.load_color(ifs.background_color)
+	ResultUI.DelaySlider.value = ifs.delay
 
 # url stuff
 
@@ -60,7 +66,7 @@ func store_to_url():
 		
 		loading_url_disabled += 1
 		
-		var url_hash = IFS.get_meta_data(ifs)
+		var url_hash = ifs.to_meta_data()
 		JavaScriptBridge.eval("location.replace(\"#%s\")" % url_hash)
 		await get_tree().process_frame
 		await get_tree().process_frame
@@ -80,9 +86,7 @@ func try_load_from_string(meta_data):
 		var meta_ifs = IFS.from_meta_data(meta_data)
 		# valid -> build
 		if meta_ifs is IFS:
-			PlaygroundUI.set_ifs(meta_ifs.systems)
-			ResultUI.load_color(meta_ifs.background_color)
-			ResultUI.DelaySlider.value = meta_ifs.delay
+			load_ifs(meta_ifs)
 
 func _on_load_from_url_timer_timeout():
 	var js_window = JavaScriptBridge.get_interface("window")
@@ -151,7 +155,11 @@ func show_results():
 	#store_to_url() # that's mostly spam for the browser history
 	ResultUI.open(ifs)
 	if TxtOptions.visible:
-		TxtOptions.load_dict( TxtOptions.dict_from_ifs(ifs) )
+		TxtOptions.load_ui(ifs)
+
+func _on_result_ui_fractal_changed():
+	if TxtOptions.visible:
+		TxtOptions.load_ui(ResultUI.current_ifs)
 
 # "warning" messages
 
@@ -199,8 +207,11 @@ func _on_playground_ui_open_txt_options():
 	ifs.background_color = ResultUI.ResultBackground.self_modulate
 	ifs.delay = ResultUI.current_ifs.delay
 	
-	TxtOptions.load_dict( TxtOptions.dict_from_ifs(ifs) )
-	TxtOptions.show()
+	TxtOptions.open(ifs)
+
+func _on_txt_options_changed(new_ifs):
+	load_ifs(new_ifs)
+
 
 # language & translation
 
@@ -226,12 +237,10 @@ func reload_language():
 	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions]:
 		node.reload_language()
 
-
 # debugging
 
 func _on_debug_button_pressed():
 	pass
-
 
 func _on_debug_edit_text_submitted(new_text):
 	try_load_from_string(new_text)

@@ -1,6 +1,6 @@
 extends MarginContainer
 
-signal color_changed
+signal fractal_changed
 signal store_to_url
 
 @onready var Result = $Columns/Left/Center/Result
@@ -247,6 +247,7 @@ func _on_point_slider_drag_ended(_value_changed):
 # more clarity!
 
 func _on_delay_slider_value_changed(value):
+	fractal_changed.emit()
 	current_ifs.delay = value
 	open(current_ifs)
 
@@ -267,7 +268,7 @@ func _on_color_button_pressed():
 func _on_color_sliders_color_changed():
 	ResultBackground.self_modulate = ColorSliders.get_color()
 	current_ifs.background_color = ResultBackground.self_modulate
-	color_changed.emit()
+	fractal_changed.emit()
 
 func _on_color_sliders_finished():
 	ColorSliders.close()

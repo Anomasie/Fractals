@@ -9,6 +9,8 @@ var counter = 0
 
 var emit_fractal_changed_next_frame = false
 
+@onready var TxTOptions # to disable scrolling if they are visible
+
 func _process(_delta):
 	if emit_fractal_changed_next_frame:
 		fractal_changed.emit()
@@ -16,10 +18,11 @@ func _process(_delta):
 
 func _input(event):
 	if current_rect_counter > 0:
-		if event.is_action_pressed("scroll_up"):
-			focus( self.get_child(0) )
-		elif event.is_action_pressed("scroll_down"):
-			focus( self.get_child(0) )
+		if not TxTOptions.visible:
+			if event.is_action_pressed("scroll_up"):
+				focus( self.get_child(0) )
+			elif event.is_action_pressed("scroll_down"):
+				focus( self.get_child(0) )
 
 func _fractal_changed():
 	if not emit_fractal_changed_next_frame:

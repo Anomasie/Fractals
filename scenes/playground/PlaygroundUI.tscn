@@ -198,6 +198,7 @@ mouse_filter = 2
 
 [node name="DuplicateButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "duplicate selected rectangle"
 shortcut = SubResource("Shortcut_cmo8y")
 texture_normal = SubResource("AtlasTexture_pjd7y")
@@ -206,6 +207,7 @@ texture_hover = SubResource("AtlasTexture_3eyvm")
 
 [node name="ColorButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "change color of selected rectangle"
 shortcut = SubResource("Shortcut_jhmuf")
 texture_normal = SubResource("AtlasTexture_l4f0q")
@@ -214,6 +216,7 @@ texture_hover = SubResource("AtlasTexture_nvvj1")
 
 [node name="RemoveButton" type="TextureButton" parent="Left/Main/ButtonOptions"]
 layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "delete selected rectangle"
 shortcut = SubResource("Shortcut_5hmfe")
 texture_normal = SubResource("AtlasTexture_n5pe3")
@@ -260,7 +263,6 @@ texture_pressed = SubResource("AtlasTexture_y4r1s")
 texture_hover = SubResource("AtlasTexture_nybl5")
 
 [node name="TxtButton" type="TextureButton" parent="Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 11
 tooltip_text = "swtich to matrix view"

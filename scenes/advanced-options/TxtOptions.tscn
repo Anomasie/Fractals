@@ -1,14 +1,52 @@
-[gd_scene load_steps=16 format=3 uid="uid://biuetoakcmrk0"]
+[gd_scene load_steps=26 format=3 uid="uid://biuetoakcmrk0"]
 
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_plj4u"]
 [ext_resource type="Script" path="res://scenes/advanced-options/TxtOptions.gd" id="1_xlj4t"]
 [ext_resource type="PackedScene" uid="uid://sfgrfcxf5a3v" path="res://scenes/advanced-options/TxtOptionsMatrix.tscn" id="2_jtxnn"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_vnmwm"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_5ih3y"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_uxvup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kd2x"]
 atlas = ExtResource("1_plj4u")
 region = Rect2(18, 2, 12, 12)
+
+[sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_06eut"]
+device = -1
+keycode = 43
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_g66ps"]
+events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejdfw"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mitqt"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y63d"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km5ul"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o0ha"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esjly"]
+atlas = ExtResource("3_uxvup")
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jh44"]
 atlas = ExtResource("2_vnmwm")
@@ -89,21 +127,69 @@ layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="MatrixContainer" type="HFlowContainer" parent="Main/Content/Lines/Scroller"]
+[node name="Lines" type="VBoxContainer" parent="Main/Content/Lines/Scroller"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="MatrixOptions" parent="Main/Content/Lines/Scroller/MatrixContainer" instance=ExtResource("2_jtxnn")]
+[node name="General" type="GridContainer" parent="Main/Content/Lines/Scroller/Lines"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="ColorLabel" type="Label" parent="Main/Content/Lines/Scroller/Lines/General"]
+layout_mode = 2
+text = "Background Color:"
+
+[node name="ColorEdit" type="LineEdit" parent="Main/Content/Lines/Scroller/Lines/General"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "#ffffff"
+
+[node name="Delaylabel" type="Label" parent="Main/Content/Lines/Scroller/Lines/General"]
+layout_mode = 2
+text = "Delay:"
+
+[node name="DelayEdit" type="SpinBox" parent="Main/Content/Lines/Scroller/Lines/General"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 20.0
+
+[node name="PlaygroundButtons" type="HBoxContainer" parent="Main/Content/Lines/Scroller/Lines"]
 layout_mode = 2
 
-[node name="MatrixOptions2" parent="Main/Content/Lines/Scroller/MatrixContainer" instance=ExtResource("2_jtxnn")]
+[node name="AddButton" type="TextureButton" parent="Main/Content/Lines/Scroller/Lines/PlaygroundButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_g66ps")
+texture_normal = SubResource("AtlasTexture_ejdfw")
+texture_pressed = SubResource("AtlasTexture_mitqt")
+texture_hover = SubResource("AtlasTexture_6y63d")
+
+[node name="CloseAllButton" type="TextureButton" parent="Main/Content/Lines/Scroller/Lines/PlaygroundButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "delete all rectangles"
+texture_normal = SubResource("AtlasTexture_km5ul")
+texture_pressed = SubResource("AtlasTexture_7o0ha")
+texture_hover = SubResource("AtlasTexture_esjly")
+
+[node name="MatrixContainer" type="HFlowContainer" parent="Main/Content/Lines/Scroller/Lines"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MatrixOptions" parent="Main/Content/Lines/Scroller/Lines/MatrixContainer" instance=ExtResource("2_jtxnn")]
 layout_mode = 2
 
-[node name="MatrixOptions3" parent="Main/Content/Lines/Scroller/MatrixContainer" instance=ExtResource("2_jtxnn")]
+[node name="MatrixOptions2" parent="Main/Content/Lines/Scroller/Lines/MatrixContainer" instance=ExtResource("2_jtxnn")]
 layout_mode = 2
 
-[node name="MatrixOptions4" parent="Main/Content/Lines/Scroller/MatrixContainer" instance=ExtResource("2_jtxnn")]
+[node name="MatrixOptions3" parent="Main/Content/Lines/Scroller/Lines/MatrixContainer" instance=ExtResource("2_jtxnn")]
+layout_mode = 2
+
+[node name="MatrixOptions4" parent="Main/Content/Lines/Scroller/Lines/MatrixContainer" instance=ExtResource("2_jtxnn")]
 layout_mode = 2
 
 [node name="CloseButton" type="TextureButton" parent="."]
@@ -138,4 +224,8 @@ texture_normal = SubResource("AtlasTexture_ht3vv")
 texture_pressed = SubResource("AtlasTexture_lsu3u")
 texture_hover = SubResource("AtlasTexture_3ovtd")
 
+[connection signal="text_submitted" from="Main/Content/Lines/Scroller/Lines/General/ColorEdit" to="." method="_on_color_edit_text_submitted"]
+[connection signal="value_changed" from="Main/Content/Lines/Scroller/Lines/General/DelayEdit" to="." method="_on_delay_edit_value_changed"]
+[connection signal="pressed" from="Main/Content/Lines/Scroller/Lines/PlaygroundButtons/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="Main/Content/Lines/Scroller/Lines/PlaygroundButtons/CloseAllButton" to="." method="_on_close_all_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
