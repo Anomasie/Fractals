@@ -72,6 +72,18 @@ func get_origin():
 func get_ifs():
 	return Playground.get_ifs( get_origin() )
 
+func set_ifs(ifs):
+	disabled += 1
+	
+	print(ifs.systems[0])
+	
+	CloseAllButton.show()
+	Playground.set_ifs(ifs, get_origin())
+	_on_presets_close_me()
+	PresetTimer.start()
+	
+	disabled -= 1
+
 # focus
 
 signal focus_ready
@@ -247,14 +259,7 @@ func _on_presets_close_me():
 	PresetsButton.show()
 
 func _on_presets_load_preset(ifs):
-	disabled += 1
-	
-	CloseAllButton.show()
-	Playground.set_ifs(ifs, get_origin())
-	_on_presets_close_me()
-	PresetTimer.start()
-	
-	disabled -= 1
+	set_ifs(ifs)
 
 func _on_preset_timer_timeout():
 	_fractal_changed()

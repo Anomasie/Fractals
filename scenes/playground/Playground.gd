@@ -94,7 +94,7 @@ func set_ifs(ifs, origin):
 	# remove all buttons
 	close_all()
 	# add new buttons
-	for contraction in ifs:
+	for contraction in ifs.systems:
 		var Instance = add(origin, origin, true)
 		Instance.update_to( contraction, origin )
 

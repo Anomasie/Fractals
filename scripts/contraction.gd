@@ -8,7 +8,7 @@ var color = Color.BLACK
 
 func apply(p):
 	if mirrored:
-		p = Vector2(1.0 - p.x, p.y) # mirror
+		p.x *= -1 # mirror
 	p = Vector2(p.x * contract.x, p.y * contract.y) # scale
 	p = p.rotated(-rotation) # rotate
 	p += translation # translate
@@ -23,25 +23,6 @@ func mix(c):
 func linear(a, b, lambda=0.5):
 	return lambda * a + (1 - lambda) * b
 
-# dict
-
-static func from_dict(dict):
-	var contr = Contraction.new()
-	if dict.has("translation"):
-		contr.translation = Vector2(
-			dict["translation"].x,
-			dict["translation"].y
-		)
-	if dict.has("contract"):
-		contr.contract = dict["contract"]
-	if dict.has("rotation"):
-		contr.rotation = dict["rotation"]
-	if dict.has("mirrored"):
-		contr.mirrored = dict["mirrored"]
-	if dict.has("color"):
-		contr.color = dict["color"]
-	return contr
-
 # matrix
 
 func to_matrix():
@@ -53,7 +34,7 @@ func to_matrix():
 		vec_x.x *= -1
 		vec_y.x *= -1
 	var array = [vec_x.x, vec_x.y, vec_y.x, vec_y.y]
-	return array # WARNING: If it is mirrored, the translation has to be altered
+	return array
 
 static func from_matrix(array):
 	var result = Contraction.new()

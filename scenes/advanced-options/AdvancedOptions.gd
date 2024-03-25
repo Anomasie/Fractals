@@ -76,10 +76,6 @@ func load_ui(contraction):
 		Rotation.value = rot_value
 	# mirroring
 	Mirror.flip_h = contraction.mirrored
-	if contraction.mirrored:
-		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
-		TranslationX.value += vec_to_right.x
-		TranslationY.value -= vec_to_right.y
 	# enable value_changed
 	disabled = false
 
@@ -95,8 +91,6 @@ func read_ui():
 	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
 	# mirroring
 	contraction.mirrored = Mirror.flip_h
-	if contraction.mirrored:
-		contraction.translation -= Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
 	# color will be added by PlaygroundUI
 	return contraction
 

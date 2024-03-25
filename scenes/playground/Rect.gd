@@ -36,6 +36,8 @@ var editing_turn = false
 var anchor = Vector2i(1,1)
 var rect_origin
 
+var disabled = 0
+
 func _ready():
 	color_rect(Color.BLACK)
 	reload_language()
@@ -197,6 +199,7 @@ func color_rect(color):
 
 func get_contraction(origin, loupe = Global.LOUPE):
 	var contraction = Contraction.new()
+	
 	var translation = Vector2.ZERO
 	if (TextureContainer.position + Rect.position).length() == 0:
 		translation = Vector2(
@@ -208,17 +211,27 @@ func get_contraction(origin, loupe = Global.LOUPE):
 			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / loupe.x,
 			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / loupe.y
 		)
+	
+	# contract
 	contraction.contract = Vector2(
 		self.Rect.size.x / loupe.x,
 		self.Rect.size.y / loupe.y
 	)
+	
+	# rotation
 	contraction.rotation = self.rotation
+	
+	# mirror
+	contraction.mirrored = Maske.flip_h
+	
 	# current translation: position of top-left-edge
 	## wanted translation: position of bottom-left-edge
 	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
 	contraction.translation.y *= -1
-	# mirror
-	contraction.mirrored = Maske.flip_h
+	# if mirrored: change anchor to bottom-right point
+	if contraction.mirrored:
+		contraction.translation += Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
+	
 	# color
 	contraction.color = self.Rect.self_modulate
 	return contraction
@@ -226,10 +239,15 @@ func get_contraction(origin, loupe = Global.LOUPE):
 # advanced options
 
 func update_to(contr, origin):
+	var translation = Vector2.ZERO
+	if contr.mirrored:
+		translation = contr.apply(Vector2(1,0))
+	else:
+		translation = contr.translation
 	# translation
 	var scaled_position = Vector2(
-		contr.translation.x * Global.LOUPE.x,
-		- contr.translation.y * Global.LOUPE.y
+		translation.x * Global.LOUPE.x,
+		-translation.y * Global.LOUPE.y
 	)
 	var real_position
 	# not loaded

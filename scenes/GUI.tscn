@@ -112,13 +112,18 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="Debug-Button" type="Button" parent="."]
+[node name="DebugButton" type="Button" parent="."]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Debug-Button
 "
+
+[node name="DebugEdit" type="LineEdit" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
 
 [connection signal="open_txt_options" from="Lines/Content/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
 [connection signal="color_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_color_changed"]
@@ -132,4 +137,5 @@ text = "Debug-Button
 [connection signal="pressed" from="UIButtons/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
-[connection signal="pressed" from="Debug-Button" to="." method="_on_debug_button_pressed"]
+[connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
+[connection signal="text_submitted" from="DebugEdit" to="." method="_on_debug_edit_text_submitted"]

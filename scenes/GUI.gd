@@ -60,7 +60,7 @@ func store_to_url():
 		
 		loading_url_disabled += 1
 		
-		var url_hash = ShareDialogue.get_meta_data(ifs)
+		var url_hash = IFS.get_meta_data(ifs)
 		JavaScriptBridge.eval("location.replace(\"#%s\")" % url_hash)
 		await get_tree().process_frame
 		await get_tree().process_frame
@@ -77,10 +77,10 @@ func try_load_from_url():
 func try_load_from_string(meta_data):
 	if meta_data:
 		# build code
-		var meta_ifs = ShareDialogue.get_ifs(meta_data)
+		var meta_ifs = IFS.from_meta_data(meta_data)
 		# valid -> build
 		if meta_ifs is IFS:
-			PlaygroundUI._on_presets_load_preset(meta_ifs.systems)
+			PlaygroundUI.set_ifs(meta_ifs.systems)
 			ResultUI.load_color(meta_ifs.background_color)
 			ResultUI.DelaySlider.value = meta_ifs.delay
 
@@ -231,3 +231,7 @@ func reload_language():
 
 func _on_debug_button_pressed():
 	pass
+
+
+func _on_debug_edit_text_submitted(new_text):
+	try_load_from_string(new_text)

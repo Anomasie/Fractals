@@ -87,10 +87,106 @@ func get_distribution():
 		distribution.append(sum)
 	return distribution
 
-# dictionaries
+# conversion of data types
 
-static func from_dict(array):
-	var ifs = []
-	for entry in array:
-		ifs.append(Contraction.from_dict(entry))
-	return ifs
+static func get_meta_data(ifs):
+	# version
+	var string = "v1"
+	# background color
+	string += "|" + ifs.background_color.to_html()
+	# delay
+	string += "|" + str(ifs.delay)
+	# ifs data
+	for contraction in ifs.systems:
+		string += "|"
+		string += str(contraction.translation.x) + "," + str(contraction.translation.y) + ","
+		string += str(contraction.contract.x) + "," + str(contraction.contract.y) + ","
+		string += str(contraction.rotation) + ","
+		string += str(int(contraction.mirrored)) + ","
+		string += contraction.color.to_html(false)
+	return string
+
+static func from_meta_data(meta_data):
+	if meta_data:
+		# get version
+		if meta_data[0] == "v":
+			meta_data.trim_prefix("v")
+			var version = int(meta_data.split("|", false)[0])
+			return from_meta_data_version(meta_data, version)
+		else:
+			return from_meta_data_version(meta_data, 0)
+
+static func from_meta_data_version(meta_data, version):
+	match version:
+		# WARNING: Don't change anything as long as you want to support old links!
+		0:
+			# split into units
+			var units = meta_data.split("|", false)
+			if len(units) > 0:
+				var ifs = IFS.new()
+				
+				# background color
+				ifs.background_color = Color.from_string(units[0], Color.WHITE)
+				## background color saved? -> delete first entry
+				if Color.html_is_valid(units[0]): 
+					units.remove_at(0)
+				
+				# delay
+				if len(units) > 0 and len(units[0].split(",", false)) == 1:
+					ifs.delay = int(units[0])
+					units.remove_at(0)
+				
+				# functions
+				var systems = []
+				for i in len(units):
+					var entries = units[i].split(",", false)
+					if len(entries) < 6: # someone messed up the url! >:(
+						return
+					var contraction = Contraction.new()
+					contraction.translation = Vector2(float(entries[0]), float(entries[1]))
+					contraction.contract = Vector2(float(entries[2]), float(entries[3]))
+					contraction.rotation = float(entries[4])
+					contraction.mirrored = (entries[5] in ["1", "true"])
+					if contraction.mirrored: # if mirrored: change anchor to bottom-left point
+						contraction.translation += Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
+					contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
+					systems.append(contraction)
+				ifs.systems = systems
+				
+				return ifs
+		_: # current version
+			# split into units:
+			## very first is the version
+			## first unit is the background color
+			## second unit stands for delay
+			## the rest are the systems to portray
+			var units = meta_data.split("|", false)
+			if len(units) > 0:
+				var ifs = IFS.new()
+				
+				units.remove_at(0)
+				
+				# background color
+				ifs.background_color = Color.from_string(units[0], Color.WHITE)
+				units.remove_at(0)
+				
+				# delay
+				ifs.delay = int(units[0])
+				units.remove_at(0)
+				
+				# functions
+				var systems = []
+				for i in len(units):
+					var entries = units[i].split(",", false)
+					if len(entries) < 6: # someone messed up the url! >:(
+						return
+					var contraction = Contraction.new()
+					contraction.translation = Vector2(float(entries[0]), float(entries[1]))
+					contraction.contract = Vector2(float(entries[2]), float(entries[3]))
+					contraction.rotation = float(entries[4])
+					contraction.mirrored = (entries[5] in ["1", "true"])
+					contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
+					systems.append(contraction)
+				ifs.systems = systems
+				
+				return ifs

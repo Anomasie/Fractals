@@ -41,11 +41,6 @@ func load_ui(contraction):
 	# translation
 	TranslationX.value = contraction.translation.x
 	TranslationY.value = contraction.translation.y
-	## mirrored?
-	if contraction.mirrored:
-		var vec_to_right = Vector2(contraction.contract.x, 0).rotated(contraction.rotation)
-		TranslationX.value += vec_to_right.x
-		TranslationY.value -= vec_to_right.y
 	# enable value_changed
 	disabled = false
 
@@ -55,8 +50,7 @@ func read_ui():
 		MatrixEntries[2].value, MatrixEntries[3].value
 	])
 	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
-	if contraction.mirrored:
-		contraction.translation -= Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
+	print(contraction.translation)
 	return contraction
 
 func _on_close_button_pressed():

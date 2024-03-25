@@ -30,57 +30,11 @@ func _ready():
 
 func open(image, ifs):
 	current_image = image
-	current_meta = get_meta_data(ifs)
+	current_meta = IFS.get_meta_data(ifs)
 	var preview_image = current_image.duplicate()
 	preview_image.resize(ImagePreview.custom_minimum_size.x, ImagePreview.custom_minimum_size.y)
 	ImagePreview.set_texture(ImageTexture.create_from_image(preview_image))
 	show()
-
-func get_meta_data(ifs):
-	# background color
-	var string = ifs.background_color.to_html()
-	# delay
-	if ifs.delay != Global.DEFAULT_DELAY:
-		string += "|" + str(ifs.delay)
-	# ifs data
-	for contraction in ifs.systems:
-		string += "|"
-		string += str(contraction.translation.x) + "," + str(contraction.translation.y) + ","
-		string += str(contraction.contract.x) + "," + str(contraction.contract.y) + ","
-		string += str(contraction.rotation) + ","
-		string += str(int(contraction.mirrored)) + ","
-		string += contraction.color.to_html(false)
-	return string
-
-func get_ifs(meta_data):
-	if meta_data:
-		var units = meta_data.split("|", false)
-		if len(units) > 0:
-			var ifs = IFS.new()
-			# background color
-			ifs.background_color = Color.from_string(units[0], Color.WHITE)
-			## background color saved? -> delete first entry
-			if Color.html_is_valid(units[0]): 
-				units.remove_at(0)
-			# delay
-			if len(units) > 0 and len(units[0].split(",", false)) == 1:
-				ifs.delay = int(units[0])
-				units.remove_at(0)
-			# functions
-			var systems = []
-			for i in len(units):
-				var entries = units[i].split(",", false)
-				if len(entries) < 6: # someone messed up the url! >:(
-					return
-				var contraction = Contraction.new()
-				contraction.translation = Vector2(float(entries[0]), float(entries[1]))
-				contraction.contract = Vector2(float(entries[2]), float(entries[3]))
-				contraction.rotation = float(entries[4])
-				contraction.mirrored = (entries[5] in ["1", "true"])
-				contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
-				systems.append(contraction)
-			ifs.systems = systems
-			return ifs
 
 func _on_ready_button_pressed():
 	GalleryContact.send_image(
