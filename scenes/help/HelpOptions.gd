@@ -95,12 +95,15 @@ Even though those first points do not necessarily belong to the fractal associat
 drawing them can lead to interesting pictures and effects."
 		}
 	},
-	"about": {
-		"GER": "Über das\nProgramm",
-		"EN": "About this\nprogram",
+	"contact": {
+		"GER": "Kontakt",
+		"EN": "contact",
 		"text": {
-			"GER": "Entwickelt von:
+			"GER": "Ich freue mich über jegliche Rückmeldungen mit Anmerkungen oder Ideen, Bugs oder Fehlern.
+
+Kontakt:
 	Marta Imke
+	marta.imke@uni-jena.de
 	Friedrich-Schiller-Universität Jena
 
 Lizenz:
@@ -108,8 +111,11 @@ Lizenz:
 
 Github-Seite:
 	https://github.com/Anomasie/Fractals",
-			"EN": "developed by:
+			"EN": "I look forward to all feedback with comments or ideas, bugs and errors on this page.
+
+contact:
 	Marta Imke
+	marta.imke@uni-jena.de
 	Friedrich-Schiller-Universität Jena
 
 license:
