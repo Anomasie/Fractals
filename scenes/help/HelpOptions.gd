@@ -1,7 +1,5 @@
 extends MarginContainer
 
-signal start_tutorial
-
 const EXPLANATIONS = {
 	"fractal": {
 		"GER": "Fraktal",
@@ -9,18 +7,18 @@ const EXPLANATIONS = {
 		"text": {
 			"GER": "Fraktale sind eine Art von Objekten, die vieles in der Natur widerspiegeln können, \
 beispielsweise das Aussehen von Wolken oder die Blattstruktur eines Farns. \
-Sie haben eine „gebrochene Dimension“ und können nicht einfach aus einzelnen Punkten, \
+Sie haben eine „gebrochene Dimension“ und können nicht einfach aus separierten Punkten, \
 Kurven und Flächen zusammengesetzt werden. \
 Viele Fraktale haben die Eigenschaft, selbstähnlich zu sein. \
 Sie bestehen also aus mehreren kleinen Kopien von sich selbst. \n\n\
 Um ein Fraktal zu erzeugen, benutzt diese Website sogenannte iterierte Funktionensysteme \
 aus affinen Abbildungen.",
-			"EN": "Fractals are a kind of objects which can mirror plenty different structures in nature, \
+			"EN": "Fractals are a type of object which can mirror many different structures in nature, \
 for example clouds or the leaf structure of some ferns. \
-They have a dimension which is „fractional“, so they cannot be composed of combining discrete points, \
+They have a dimension which is „fractional“, so they cannot be created by combining finitely many points, \
 curves or areas. \
-Many fractals are self-similar, which means that they consist of finitely many small copies of themselves. \
-One way to produce a fractal is to make use of what is called an iterated functional system consisting of \
+Many fractals are self-similar, which means that they consist of small copies of themselves. \
+One way to produce a fractal is to make use of what is called an iterated function system consisting of \
 affine maps."
 		}
 	},
@@ -41,13 +39,13 @@ linken (bzw. oberen) Seite des Bildschirms. \
 Jedes Rechteck stellt die Verzerrung des Einheitsquadrates unter einer Funktion des IFS dar.",
 		"EN": "Our goal is to create a fractal on a plane. \
 We will accomplish this by using so-called affine maps. \
-These are functions which stretch or clinch, translate, mirror or rotate, in arbitrary combinations.\n\
+These are functions which stretch or shrink, translate, mirror or rotate, in arbitrary combinations.\n\
 One way to illustrate a particular affine map is to examine the effect of the mapping on the unit square. \
 Affine maps will map sqares to rectangles. \
 Finitely many of those functions are called an iterated function system (IFS).\n\n\
 In this program, the IFS used to produce the fractal on the right (or bottom) side of the page \
 consists of the functions each represented by a small rectangle on the left (or top) side of the page. \
-Each rectangle depicts the distortion of one function in the IFS."
+Each rectangle depicts the image of the unit square under one function in the IFS."
 		}
 	},
 	"calculation": {
@@ -64,16 +62,14 @@ Das Verfahren besteht aus den folgenden Schritten.\n\n\
 4. Setze g(p') =: p'' und zeichne ihn zu p und p'.\n\n\
 5. Wiederhole das so lange, bis du genug Punkte für eine detaillierte Zeichnung
 bestimmt hast.",
-			"EN": "When a fractal needs to be calculated with a program, \
-it is usefull to use the method of random points. \
-This method begins by taking a random point p and draw it on the plane. \
-It precedes by the following steps. \n\n\
-1. Choose a random function of your IFS, for example some function f.\n\n\
+			"EN": "The method of random points is a good way to draw a fractal with a program.\
+This method begins by taking a random point p and drawing it on the plane. \
+It proceeds by the following steps. \n\n\
+1. Choose a random function of your IFS, for example f.\n\n\
 2. Let f(p) =: p' and draw p' on the same plane on which p already is.\n\n\
-3. Choose a random function, again, of your IFS. Your could, of course, choose again function f. \
-However, as you do not have to choose f again, let the function chosen be called g.\n\n\
-4. Let g(p') =: p''. Draw p'' to p and p'. \n\n\
-5. Repeat this procedure so long until you have drawn enough points for your satisfaction."
+3. Choose another random function of your IFS, say, g.\n\n\
+4. Let g(p') =: p''. Draw p'' in addition to p and p'. \n\n\
+5. Repeat this procedure until you are satisfied with the number of points."
 		}
 	},
 	"delay": {
@@ -90,14 +86,12 @@ Eine Möglichkeit, diesen Fehler unsichtbar zu machen, \
 ist zum Beispiel, die ersten hundert Punkte nicht zu zeichnen.\n\n\
 Auch wenn diese ersten Punkte nicht zum Fraktal gehören, das von dem IFS erzeugt wird, \
 kann sich durch das Zeichnen dieser Punkte durchaus interessante Formen ergeben.",
-			"EN": "When using the random point method, \
-it might be the case that the first points drawn do not actually belong to the fractal you want to draw: \
-as you might remember, we started this method with a random point - of course, this point does not have \
-to be in the fractal.\n\
+			"EN": "Since we started with a random point, \
+it might be the case that the first points drawn do not actually belong to the fractal we want to draw.\n\
 However, after a few steps of the method, the error caused by this initial misstep \
-will be invisible to the human eye (or to your computer's desktop resolution, respectively). 
-One possible outlet is to not draw the first hundred points calculated.\n\n\
-Even though those first points do not necessarily belong to the ifs's fractal,
+will be invisible to the human eye (or to your computer's desktop resolution). 
+One possible solution is to not draw the first hundred points calculated.\n\n\
+Even though those first points do not necessarily belong to the fractal associated with the IFS,
 drawing them can lead to interesting pictures and effects."
 		}
 	},
@@ -180,9 +174,9 @@ func reload_language():
 	# tutorial-buggon
 	match Global.language:
 		"GER":
-			TitleLabel.text = "Informationen"
+			TitleLabel.text = "Allgemeine Informationen"
 		_:
-			TitleLabel.text = "start a quick tutorial"
+			TitleLabel.text = "general informations"
 	# info-buttons
 	for button in Informations.get_children():
 		match Global.language:
@@ -214,6 +208,3 @@ func _on_info_button_pressed(pressed_one):
 			current_info = i
 	set_focus()
 	load_text()
-
-func _on_tutorial_button_pressed():
-	start_tutorial.emit()

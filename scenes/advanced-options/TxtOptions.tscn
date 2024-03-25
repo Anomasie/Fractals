@@ -116,10 +116,19 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="Main/Content/Lines"]
+[node name="PythonEdit" type="CodeEdit" parent="Main/Content/Lines"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "background-color = #ffffff,"
+text = "background_color = \"#ffffff\"
+delay = 10
+
+translations = []
+matrices = []
+colors = []
+
+translations.append( [0.4, 0.0])
+matrices.append([[0.5, 0][0, 0.5]])
+colors.append(\"#000000\")"
 caret_blink = true
 
 [node name="Scroller" type="ScrollContainer" parent="Main/Content/Lines"]

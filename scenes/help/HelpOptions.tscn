@@ -43,6 +43,7 @@ patch_margin_bottom = 2
 
 [node name="Content" type="MarginContainer" parent="Margin"]
 layout_mode = 2
+theme_override_constants/margin_top = 48
 
 [node name="Lines" type="VBoxContainer" parent="Margin/Content"]
 layout_mode = 2
@@ -67,7 +68,6 @@ context_menu_enabled = true
 selection_enabled = true
 
 [node name="Top" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

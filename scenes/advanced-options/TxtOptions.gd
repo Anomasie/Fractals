@@ -71,7 +71,21 @@ func open(ifs):
 func _on_close_button_pressed():
 	hide()
 
-# matrix entries
+# Matrix-Stuff
+
+## buttons
+
+func _on_add_button_pressed():
+	current_ifs.systems.append(Contraction.new())
+	update_ui()
+	changed.emit(read_ui())
+
+func _on_close_all_button_pressed():
+	current_ifs.systems = []
+	update_ui()
+	changed.emit(read_ui())
+
+## matrix entries
 
 func _on_matrix_value_changed():
 	if disabled == 0:
@@ -86,7 +100,7 @@ func _on_matrix_duplicate_me(node):
 	update_ui()
 	changed.emit(read_ui())
 
-# background color
+## background color
 
 func _on_color_edit_text_submitted(new_text):
 	if Color.html_is_valid(new_text):
@@ -96,17 +110,11 @@ func _on_color_edit_text_submitted(new_text):
 	else:
 		ColorEdit.text = ""
 
+## delay
+
 func _on_delay_edit_value_changed(_value):
 	if disabled == 0:
 		changed.emit(read_ui())
 
+# python/txt stuff
 
-func _on_add_button_pressed():
-	current_ifs.systems.append(Contraction.new())
-	update_ui()
-	changed.emit(read_ui())
-
-func _on_close_all_button_pressed():
-	current_ifs.systems = []
-	update_ui()
-	changed.emit(read_ui())
