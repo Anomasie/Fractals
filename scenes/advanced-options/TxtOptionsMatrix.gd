@@ -49,7 +49,6 @@ func _on_edit_value_changed(_value = 0):
 	if disabled == 0:
 		value_changed.emit()
 
-
 func _on_color_edit_text_submitted(new_text):
 	if Color.html_is_valid(new_text):
 		ColorEdit.text = ""

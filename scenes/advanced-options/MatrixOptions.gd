@@ -11,16 +11,41 @@ signal switch
 @onready var CloseButton = $ElseBox/CloseButton
 @onready var RotationButton = $ElseBox/RotationButton
 
-var disabled = false
+var disabled = 0
 
 func _ready():
-	for ankle in MatrixEntries:
-		ankle.value_changed.connect(_value_changed)
-	TranslationX.value_changed.connect(_value_changed)
-	TranslationY.value_changed.connect(_value_changed)
+	for i in len(MatrixEntries):
+		MatrixEntries[i].value_changed.connect(_matrix_value_changed.bind(i))
+	TranslationX.value_changed.connect(_translation_value_changed)
+	TranslationY.value_changed.connect(_translation_value_changed)
 
-func _value_changed(_new_value=0):
-	if not disabled:
+func _matrix_value_changed(_new_value, index):
+	if disabled == 0:
+		disabled += 1
+		
+		# set to nearest possible matrix
+		var matrix = []
+		for i in len(MatrixEntries):
+			matrix.append(MatrixEntries[i].value)
+		print("before: ", matrix)
+		print(index)
+		matrix = Contraction.nearest_allowed_matrix(matrix, index)
+		print("after: ", matrix)
+		load_matrix(matrix)
+		# changed
+		value_changed.emit()
+		# release focus
+		## doesn't work as for now :(
+		for button in MatrixEntries:
+			button.release_focus()
+		TranslationX.release_focus()
+		TranslationY.release_focus()
+		
+		disabled -= 1
+
+func _translation_value_changed(_new_value):
+	if disabled == 0:
+		# changed
 		value_changed.emit()
 		# release focus
 		## doesn't work as for now :(
@@ -29,20 +54,26 @@ func _value_changed(_new_value=0):
 		TranslationX.release_focus()
 		TranslationY.release_focus()
 
+func load_matrix(array):
+	if typeof(array) != TYPE_ARRAY or len(array) != 4:
+		print("ERROR in MatrixOptions, load_matrix: ", array, " is not an array of length 4")
+		return
+	# set values
+	for i in len(array):
+		MatrixEntries[i].value = array[i]
+
 func load_ui(contraction):
 	# do not emit value_changed
-	disabled = true
+	disabled += 1
 	# matrix
 	var matrix = contraction.to_matrix()
-	MatrixEntries[0].value = matrix[0]
-	MatrixEntries[1].value = matrix[1]
-	MatrixEntries[2].value = matrix[2]
-	MatrixEntries[3].value = matrix[3]
+	for i in len(matrix):
+		MatrixEntries[i].value = matrix[i]
 	# translation
 	TranslationX.value = contraction.translation.x
 	TranslationY.value = contraction.translation.y
 	# enable value_changed
-	disabled = false
+	disabled -= 1
 
 func read_ui():
 	var contraction = Contraction.from_matrix([
