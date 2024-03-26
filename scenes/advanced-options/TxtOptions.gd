@@ -2,6 +2,8 @@ extends MarginContainer
 
 signal changed
 
+@onready var PythonEdit = $Main/Content/Lines/PythonEdit
+
 @onready var TxtOptionsMatrix = load("res://scenes/advanced-options/TxtOptionsMatrix.tscn")
 @onready var MatrixContainer = $Main/Content/Lines/Scroller/Lines/MatrixContainer
 
@@ -118,3 +120,10 @@ func _on_delay_edit_value_changed(_value):
 
 # python/txt stuff
 
+func _on_python_edit_text_changed():
+	var ifs = PythonEdit.read_text()
+	load_ui(ifs)
+
+
+func _on_python_edit_please_reload():
+	PythonEdit.load_text(current_ifs)

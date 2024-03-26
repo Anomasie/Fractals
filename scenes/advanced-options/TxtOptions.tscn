@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://biuetoakcmrk0"]
+[gd_scene load_steps=27 format=3 uid="uid://biuetoakcmrk0"]
 
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_plj4u"]
 [ext_resource type="Script" path="res://scenes/advanced-options/TxtOptions.gd" id="1_xlj4t"]
 [ext_resource type="PackedScene" uid="uid://sfgrfcxf5a3v" path="res://scenes/advanced-options/TxtOptionsMatrix.tscn" id="2_jtxnn"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_vnmwm"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_5ih3y"]
+[ext_resource type="PackedScene" uid="uid://xk64ex5gvy0l" path="res://scenes/advanced-options/PythonEdit.tscn" id="3_ke18k"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_uxvup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kd2x"]
@@ -116,20 +117,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 
-[node name="PythonEdit" type="CodeEdit" parent="Main/Content/Lines"]
+[node name="PythonEdit" parent="Main/Content/Lines" instance=ExtResource("3_ke18k")]
 layout_mode = 2
-size_flags_vertical = 3
-text = "background_color = \"#ffffff\"
-delay = 10
-
-translations = []
-matrices = []
-colors = []
-
-translations.append( [0.4, 0.0])
-matrices.append([[0.5, 0][0, 0.5]])
-colors.append(\"#000000\")"
-caret_blink = true
 
 [node name="Scroller" type="ScrollContainer" parent="Main/Content/Lines"]
 layout_mode = 2
@@ -233,6 +222,8 @@ texture_normal = SubResource("AtlasTexture_ht3vv")
 texture_pressed = SubResource("AtlasTexture_lsu3u")
 texture_hover = SubResource("AtlasTexture_3ovtd")
 
+[connection signal="please_reload" from="Main/Content/Lines/PythonEdit" to="." method="_on_python_edit_please_reload"]
+[connection signal="text_changed" from="Main/Content/Lines/PythonEdit" to="." method="_on_python_edit_text_changed"]
 [connection signal="text_submitted" from="Main/Content/Lines/Scroller/Lines/General/ColorEdit" to="." method="_on_color_edit_text_submitted"]
 [connection signal="value_changed" from="Main/Content/Lines/Scroller/Lines/General/DelayEdit" to="." method="_on_delay_edit_value_changed"]
 [connection signal="pressed" from="Main/Content/Lines/Scroller/Lines/PlaygroundButtons/AddButton" to="." method="_on_add_button_pressed"]

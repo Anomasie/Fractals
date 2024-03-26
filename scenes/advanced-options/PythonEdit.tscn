@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://xk64ex5gvy0l"]
+
+[ext_resource type="Script" path="res://scenes/advanced-options/PythonEdit.gd" id="1_s5q1s"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_lf5av"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cskex"]
+atlas = ExtResource("2_lf5av")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbx5t"]
+atlas = ExtResource("2_lf5av")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6gsm"]
+atlas = ExtResource("2_lf5av")
+region = Rect2(32, 64, 32, 32)
+
+[node name="PythonEdit" type="TextEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "background_color = \"#ffffff\"
+delay = 10
+
+translations = []
+matrices = []
+colors = []
+
+translations.append( [0.4, 0.0])
+matrices.append([[0.5, 0][0, 0.5]])
+colors.append(\"#000000\")"
+caret_blink = true
+script = ExtResource("1_s5q1s")
+
+[node name="ReloadButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+tooltip_text = "reset to original image size"
+texture_normal = SubResource("AtlasTexture_cskex")
+texture_pressed = SubResource("AtlasTexture_pbx5t")
+texture_hover = SubResource("AtlasTexture_j6gsm")
+
+[connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]
