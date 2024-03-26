@@ -27,10 +27,7 @@ func _matrix_value_changed(_new_value, index):
 		var matrix = []
 		for i in len(MatrixEntries):
 			matrix.append(MatrixEntries[i].value)
-		print("before: ", matrix)
-		print(index)
 		matrix = Contraction.nearest_allowed_matrix(matrix, index)
-		print("after: ", matrix)
 		load_matrix(matrix)
 		# changed
 		value_changed.emit()

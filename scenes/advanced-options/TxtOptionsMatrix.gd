@@ -13,18 +13,24 @@ var disabled = 0
 
 func _ready():
 	# connect signals
-	for node in [TranslationX, TranslationY] + Matrix:
-		node.value_changed.connect(_on_edit_value_changed)
+	for i in len(Matrix):
+		Matrix[i].value_changed.connect(_on_matrix_edit_value_changed.bind(i))
+	TranslationX.value_changed.connect(_on_translation_edit_value_changed)
+	TranslationY.value_changed.connect(_on_translation_edit_value_changed)
+
+func load_matrix(array):
+	disabled += 1
+	for i in len(Matrix):
+		Matrix[i].value = array[i]
+	disabled -= 1
 
 func load_ui(contraction):
 	# do not emit value_changed
 	disabled += 1
 	# matrix
 	var matrix = contraction.to_matrix()
-	Matrix[0].value = matrix[0]
-	Matrix[1].value = matrix[1]
-	Matrix[2].value = matrix[2]
-	Matrix[3].value = matrix[3]
+	for i in len(Matrix):
+		Matrix[i].value = matrix[i]
 	# translation
 	TranslationX.value = contraction.translation.x
 	TranslationY.value = contraction.translation.y
@@ -45,7 +51,21 @@ func read_ui():
 		contraction.color = Color.from_string(ColorEdit.placeholder_text, Color.BLACK)
 	return contraction
 
-func _on_edit_value_changed(_value = 0):
+func _on_matrix_edit_value_changed(_value, index):
+	if disabled == 0:
+		disabled += 1
+		
+		# set to nearest possible matrix
+		var matrix = []
+		for i in len(Matrix):
+			matrix.append(Matrix[i].value)
+		matrix = Contraction.nearest_allowed_matrix(matrix, index)
+		load_matrix(matrix)
+		value_changed.emit()
+		
+		disabled -= 1
+
+func _on_translation_edit_value_changed(_value):
 	if disabled == 0:
 		value_changed.emit()
 
@@ -53,10 +73,9 @@ func _on_color_edit_text_submitted(new_text):
 	if Color.html_is_valid(new_text):
 		ColorEdit.text = ""
 		ColorEdit.placeholder_text = new_text
-		_on_edit_value_changed()
+		value_changed.emit()
 	else:
 		ColorEdit.text = ""
-
 
 func _on_remove_button_pressed():
 	remove_me.emit(self)
