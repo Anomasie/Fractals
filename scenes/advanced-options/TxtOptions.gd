@@ -123,6 +123,7 @@ func _on_delay_edit_value_changed(_value):
 func _on_python_edit_text_changed():
 	var ifs = PythonEdit.read_text()
 	load_ui(ifs)
+	changed.emit(ifs)
 
 func _on_python_edit_please_reload():
 	PythonEdit.load_text(current_ifs)
