@@ -205,6 +205,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="DownloadButton" type="TextureButton" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -214,6 +215,7 @@ texture_pressed = SubResource("AtlasTexture_q732p")
 texture_hover = SubResource("AtlasTexture_np1ex")
 
 [node name="UploadButton" type="TextureButton" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0

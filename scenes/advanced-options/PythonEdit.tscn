@@ -22,16 +22,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-text = "background_color = \"#ffffff\"
-delay = 10
+text = "The Barnsley fern
+background_color = \"#ffffff\";
+delay = 20
 
-translations = []
-matrices = []
-colors = []
+# function 1
+The very first mapping!
+It symbols the stem of the Barnsley fern
+translation = [0,0]; # this is the translation
+matrix = [[0.5, 0], [0, 0.5]],
 
-translations.append( [0.4, 0.0])
-matrices.append([[0.5, 0][0, 0.5]])
-colors.append(\"#000000\")"
+# function 2
+The second mapping models something different.
+translation = [0,0.2]
+matrix = [[0-1,0.4], [0.3,0.1]]
+color = \"#000000\""
 caret_blink = true
 script = ExtResource("1_s5q1s")
 
@@ -48,9 +53,9 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 8
-tooltip_text = "reset to original image size"
 texture_normal = SubResource("AtlasTexture_cskex")
 texture_pressed = SubResource("AtlasTexture_pbx5t")
 texture_hover = SubResource("AtlasTexture_j6gsm")
 
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]
 [connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]

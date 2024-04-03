@@ -10,6 +10,8 @@ signal changed
 @onready var ColorEdit = $Main/Content/Lines/Scroller/Lines/General/ColorEdit
 @onready var DelayEdit = $Main/Content/Lines/Scroller/Lines/General/DelayEdit
 
+@onready var CloseButton = $CloseButton
+
 var current_ifs = IFS.new()
 
 var disabled = 0
@@ -49,7 +51,8 @@ func update_ui():
 
 func load_ui(new_ifs):
 	current_ifs = new_ifs
-	update_ui()
+	if not disabled:
+		update_ui()
 
 func read_ui():
 	var ifs = IFS.new()
@@ -68,6 +71,7 @@ func read_ui():
 
 func open(ifs):
 	load_ui(ifs)
+	PythonEdit.load_text(ifs)
 	show()
 
 func _on_close_button_pressed():
@@ -127,3 +131,10 @@ func _on_python_edit_text_changed():
 
 func _on_python_edit_please_reload():
 	PythonEdit.load_text(current_ifs)
+
+# language & translation
+
+func reload_language():
+	print("please implement tooltip descriptions for TxTOptions")
+	# pass on signal
+	PythonEdit.reload_language()

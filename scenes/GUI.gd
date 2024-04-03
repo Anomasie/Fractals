@@ -23,6 +23,8 @@ var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_ha
 var loading_url_disabled = 0
 var storing_url_disabled = 0
 
+var fractal_changed_disabled = 0
+
 func _ready():
 	storing_url_disabled += 1 # wait until URLTimer is ready
 	# connect signals
@@ -47,9 +49,11 @@ func _ready():
 	URLTimer.start()
 
 func load_ifs(ifs):
+	fractal_changed_disabled += 1
 	PlaygroundUI.set_ifs(ifs)
 	ResultUI.load_color(ifs.background_color)
 	ResultUI.DelaySlider.value = ifs.delay
+	fractal_changed_disabled -= 1
 
 # url stuff
 
@@ -158,7 +162,7 @@ func show_results():
 		TxtOptions.load_ui(ifs)
 
 func _on_result_ui_fractal_changed():
-	if TxtOptions.visible:
+	if TxtOptions.visible and fractal_changed_disabled == 0:
 		TxtOptions.load_ui(ResultUI.current_ifs)
 
 # "warning" messages
@@ -212,7 +216,6 @@ func _on_playground_ui_open_txt_options():
 func _on_txt_options_changed(new_ifs):
 	load_ifs(new_ifs)
 
-
 # language & translation
 
 func _on_language_button_pressed():
@@ -234,7 +237,7 @@ func reload_language():
 		_:
 			HelpButton.tooltip_text = "information"
 	# pass on signal
-	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions]:
+	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions, TxtOptions]:
 		node.reload_language()
 
 # debugging
