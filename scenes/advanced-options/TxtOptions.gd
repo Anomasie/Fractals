@@ -124,6 +124,5 @@ func _on_python_edit_text_changed():
 	var ifs = PythonEdit.read_text()
 	load_ui(ifs)
 
-
 func _on_python_edit_please_reload():
 	PythonEdit.load_text(current_ifs)

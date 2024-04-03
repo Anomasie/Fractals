@@ -23,6 +23,7 @@ func read_vars():
 
 func read_text():
 	var ifs = IFS.new()
+	read_vars()
 	# search background
 	var begin_bg_string = text.find("background_color")
 	if begin_bg_string >= 0:
@@ -59,7 +60,7 @@ func load_text(ifs):
 		var text_after_input = text.right(-(begin_bg_input+end_bg_input)-1)
 		text = text_before_input + "#\"" + ifs.background_color.to_html() + "\"" + text_after_input
 	else:
-		text = "background_color = #\"ifs.background_color.to_html()\"" + text
+		text = "background_color = #\"ifs.background_color.to_html()\"\n" + text
 
 
 func _on_reload_button_pressed():
