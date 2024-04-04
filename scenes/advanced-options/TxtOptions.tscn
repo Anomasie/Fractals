@@ -93,6 +93,7 @@ offset_right = 96.0
 offset_bottom = 80.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -101,6 +102,7 @@ script = ExtResource("1_xlj4t")
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Background" type="NinePatchRect" parent="Main"]
 layout_mode = 2

@@ -41,6 +41,7 @@ caret_blink = true
 script = ExtResource("1_s5q1s")
 
 [node name="ReloadButton" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

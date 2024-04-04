@@ -9,6 +9,9 @@ signal duplicate_me
 @onready var Matrix = $Content/Main/Columns/Main/MatrixBox/Matrix.get_children()
 @onready var ColorEdit = $Content/Main/Columns/Main/ColorBox/ColorEdit
 
+@onready var RemoveButton = $Buttons/RemoveButton
+@onready var DuplicateButton = $Buttons/DuplicateButton
+
 var disabled = 0
 
 func _ready():
@@ -82,3 +85,24 @@ func _on_remove_button_pressed():
 
 func _on_duplicate_button_pressed():
 	duplicate_me.emit(self)
+
+# language & translation
+
+func reload_language():
+	match Global.language:
+		"GER":
+			TranslationX.tooltip_text = "Verschiebung entlang der X-Achse"
+			TranslationY.tooltip_text = "Verschiebung entlang der Y-Achse"
+			for entry in Matrix:
+				entry.tooltip_text = "Transformationsmatrix"
+			# buttons
+			RemoveButton.tooltip_text = "Diese Funktion nlöschen"
+			DuplicateButton.tooltip_text = "Diese Funktion duplizieren"
+		_:
+			TranslationX.tooltip_text = "enter translation in x-axis"
+			TranslationY.tooltip_text = "enter translation in y-axis"
+			for entry in Matrix:
+				entry.tooltip_text = "transformation matrix"
+			# buttons
+			RemoveButton.tooltip_text = "delete this function"
+			DuplicateButton.tooltip_text = "duplicate this function"

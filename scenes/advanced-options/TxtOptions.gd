@@ -11,6 +11,8 @@ signal changed
 @onready var DelayEdit = $Main/Content/Lines/Scroller/Lines/General/DelayEdit
 
 @onready var CloseButton = $CloseButton
+@onready var CloseAllButton = $Main/Content/Lines/Scroller/Lines/PlaygroundButtons/CloseAllButton
+@onready var AddButton = $Main/Content/Lines/Scroller/Lines/PlaygroundButtons/AddButton
 
 var current_ifs = IFS.new()
 
@@ -53,6 +55,8 @@ func load_ui(new_ifs):
 	current_ifs = new_ifs
 	if not disabled:
 		update_ui()
+	if not PythonEdit.has_focus():
+		PythonEdit.load_text(current_ifs)
 
 func read_ui():
 	var ifs = IFS.new()
@@ -135,6 +139,20 @@ func _on_python_edit_please_reload():
 # language & translation
 
 func reload_language():
-	print("please implement tooltip descriptions for TxTOptions")
+	match Global.language:
+		"GER":
+			CloseButton.tooltip_text = "Text-Optionen schließen"
+			CloseAllButton.tooltip_text = "Alle Funktionen löschen"
+			AddButton.tooltip_text = "Funktion hinzufügen"
+			DelayEdit.tooltip_text = "Verzögerung der Berechnung eingeben"
+			ColorEdit.tooltip_text = "Hintergrundfarbe des Fraktals"
+		_:
+			CloseButton.tooltip_text = "close text options"
+			CloseAllButton.tooltip_text = "delete all functions"
+			AddButton.tooltip_text = "add function"
+			DelayEdit.tooltip_text = "enter delay of the ifs calculation"
+			ColorEdit.tooltip_text = "enter background color of the fractal"
 	# pass on signal
 	PythonEdit.reload_language()
+	for child in MatrixContainer.get_children():
+		child.reload_language()
