@@ -85,7 +85,7 @@ static func mirrored_from_matrix(array):
 	## use determinant
 	return (array[0] * array[3] - array[1] * array[2] < 0)
 
-static func nearest_allowed_matrix(array, unchangeable_index=2):
+static func nearest_allowed_matrix(array, unchangeable_index=0):
 	if array[0] * array[2] + array[1] * array[3] == 0:
 		return array
 	else:

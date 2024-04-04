@@ -55,7 +55,7 @@ func load_ui(new_ifs):
 	current_ifs = new_ifs
 	if not disabled:
 		update_ui()
-	if not PythonEdit.has_focus():
+	if not PythonEdit.do_i_have_focus():
 		PythonEdit.load_text(current_ifs)
 
 func read_ui():
