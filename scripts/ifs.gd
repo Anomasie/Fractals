@@ -199,14 +199,11 @@ func to_dict():
 	dict["delay"] = delay
 	dict["systems"] = []
 	for contraction in systems:
-		var vec_x = Vector2(1,0)
-		var vec_y = Vector2(0,1)
-		vec_x = (vec_x * contraction.contract.x).rotated(contraction.rotation)
-		vec_y = (vec_y * contraction.contract.y).rotated(contraction.rotation)
+		var matrix = contraction.to_matrix()
 		dict["systems"].append(
 			{
 				"translation": [contraction.translation.x, contraction.translation.y],
-				"matrix": [vec_x.x, vec_x.y, vec_y.x, vec_y.y],
+				"matrix": matrix,
 				"color": contraction.color.to_html()
 			}
 		)
@@ -221,29 +218,14 @@ static func from_dict(dict):
 	if dict.has("systems"):
 		for system in dict["systems"]:
 			var contraction = Contraction.new()
+			# matrix
+			if system.has("matrix") and typeof(system["matrix"]) == TYPE_ARRAY and len(system["matrix"]) == 4:
+				contraction = contraction.from_matrix(system["matrix"])
 			if system.has("translation") and typeof(system["translation"]) == TYPE_ARRAY and len(system["translation"]) == 2:
 				contraction.translation = Vector2(
 					float(system["translation"][0]),
 					float(system["translation"][1])
 				)
-			if system.has("matrix") and typeof(system["matrix"]) == TYPE_ARRAY and len(system["matrix"]) == 4:
-				var matrix = Transform2D(
-					Vector2(float(system["matrix"][0]), float(system["matrix"][1])),
-					Vector2(float(system["matrix"][2]), float(system["matrix"][3])),
-					Vector2.ZERO
-				)
-				# contraction
-				contraction.contract = Vector2(
-					(matrix * Vector2(1,0)).length(),
-					(matrix * Vector2(0,1)).length()
-				)
-				# rotation
-				contraction.rotation = (matrix * Vector2(1,0)).angle()
-				# mirroring?
-				## calculate determinant
-				contraction.mirrored = (matrix.x.x * matrix.y.y - matrix.x.y * matrix.y.x) < 0
-				if contraction.mirrored:
-					contraction.rotation = PI - contraction.rotation
 			if system.has("color"):
 				contraction.color = Color.from_string(str(system["color"]), Color.BLACK)
 			ifs.systems.append(contraction)

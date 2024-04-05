@@ -51,19 +51,23 @@ func _on_python_edit_please_reload():
 # saving & loading stuff
 
 func load_json_file(path):
-	print(path)
+	JsonEdit.text = FileAccess.get_file_as_string(path)
+	_on_python_edit_text_changed()
 
 func save_json_file(path):
-	print("saving in ", path)
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(JsonEdit.text)
 
 func _on_download_button_pressed():
-	saving = false
+	saving = true
 	reload_language_file_dialog()
+	MyFileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 	MyFileDialog.open()
 
 func _on_upload_button_pressed():
-	saving = true
+	saving = false
 	reload_language_file_dialog()
+	MyFileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	MyFileDialog.open()
 
 func _on_my_file_dialog_path_selected(path):

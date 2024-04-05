@@ -126,6 +126,9 @@ texture_pressed = SubResource("AtlasTexture_lsu3u")
 texture_hover = SubResource("AtlasTexture_3ovtd")
 
 [node name="MyFileDialog" parent="." instance=ExtResource("8_gbooe")]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
 
 [connection signal="please_reload" from="Main/Content/Lines/JsonEdit" to="." method="_on_python_edit_please_reload"]
 [connection signal="text_changed" from="Main/Content/Lines/JsonEdit" to="." method="_on_python_edit_text_changed"]
