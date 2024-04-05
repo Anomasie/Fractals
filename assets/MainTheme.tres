@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=10 format=3 uid="uid://c42j2c4nk8yk"]
 
-[ext_resource type="FontFile" uid="uid://2ovkditfsus5" path="res://assets/fonts/dogicapixel.ttf" id="1_3wdgg"]
+[ext_resource type="FontFile" uid="uid://4oj2h4kfkoyh" path="res://assets/fonts/dogicapixel-new.ttf" id="1_scyhq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afnlq"]
 
@@ -22,8 +22,8 @@ bg_color = Color(1, 1, 1, 1)
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
 
 [resource]
-default_font = ExtResource("1_3wdgg")
-default_font_size = 16
+default_font = ExtResource("1_scyhq")
+default_font_size = 20
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(0.533333, 0.94902, 0.94902, 1)
 Button/colors/font_pressed_color = Color(0, 0.72549, 0.72549, 1)

@@ -124,6 +124,14 @@ license:
 github page:
 	https://github.com/Anomasie/Fractals",
 		}
+	},
+	"credits": {
+		"GER": "Credits",
+		"EN": "credits",
+		"text": {
+			"GER": "",
+			"EN": ""
+		}
 	}
 }
 
