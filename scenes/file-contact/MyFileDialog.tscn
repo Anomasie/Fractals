@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://eeubmpoydn2u"]
+
+[ext_resource type="Script" path="res://scenes/file-contact/MyFileDialog.gd" id="1_ghbhd"]
+
+[node name="MyFileDialog" type="FileDialog"]
+position = Vector2i(128, 128)
+size = Vector2i(911, 273)
+visible = true
+exclusive = false
+content_scale_mode = 2
+dialog_close_on_escape = false
+access = 2
+script = ExtResource("1_ghbhd")
+
+[connection signal="file_selected" from="." to="." method="_on_file_selected"]

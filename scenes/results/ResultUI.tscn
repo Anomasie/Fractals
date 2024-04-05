@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scenes/results/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
-[ext_resource type="Script" path="res://scenes/results/SaveFileDialog.gd" id="3_1twtw"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
 [ext_resource type="PackedScene" uid="uid://dpi78ruafalrj" path="res://scenes/results/CenterButton.tscn" id="4_3q2yo"]
 [ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/results/SizeOptions.tscn" id="5_ok3dt"]
+[ext_resource type="PackedScene" uid="uid://eeubmpoydn2u" path="res://scenes/file-contact/MyFileDialog.tscn" id="6_i4mu4"]
 [ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/color-options/ColorSliders.tscn" id="8_bgnmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmh57"]
@@ -244,14 +244,8 @@ texture_normal = SubResource("AtlasTexture_6jvvs")
 texture_pressed = SubResource("AtlasTexture_nraaw")
 texture_hover = SubResource("AtlasTexture_06psx")
 
-[node name="FileDialog" type="FileDialog" parent="Columns/Right/Top"]
-position = Vector2i(128, 128)
-size = Vector2i(911, 273)
-exclusive = false
-content_scale_mode = 2
-dialog_close_on_escape = false
-access = 2
-script = ExtResource("3_1twtw")
+[node name="SaveFileDialog" parent="Columns/Right/Top" instance=ExtResource("6_i4mu4")]
+visible = false
 
 [node name="SizeOptions" parent="." instance=ExtResource("5_ok3dt")]
 layout_mode = 2
@@ -272,7 +266,7 @@ mouse_filter = 2
 [connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SizeButton" to="." method="_on_size_button_pressed"]
-[connection signal="file_selected" from="Columns/Right/Top/FileDialog" to="Columns/Right/Top/FileDialog" method="_on_file_selected"]
+[connection signal="path_selected" from="Columns/Right/Top/SaveFileDialog" to="." method="_on_save_file_dialog_path_selected"]
 [connection signal="value_changed" from="SizeOptions" to="." method="_on_size_options_value_changed"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
 [connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]

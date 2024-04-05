@@ -1,5 +1,7 @@
 extends FileDialog
 
+signal path_selected
+
 func open():
 	popup()
 	invalidate() # it was supposed to help fixing a bug, but I am not sure what it does
@@ -8,5 +10,5 @@ func open():
 func close():
 	hide()
 
-func _on_file_selected(_path):
-	get_owner().save(current_path)
+func _on_file_selected(path):
+	path_selected.emit(path)

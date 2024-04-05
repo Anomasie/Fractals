@@ -7,7 +7,7 @@ signal store_to_url
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
 
 @onready var SaveButton = $Columns/Right/Top/Main/SaveButton
-@onready var SaveFileDialog = $Columns/Right/Top/FileDialog
+@onready var SaveFileDialog = $Columns/Right/Top/SaveFileDialog
 @onready var ShareButton = $Columns/Right/Top/Main/ShareButton
 @onready var CenterButton = $Columns/Right/Top/Main/CenterButton
 @onready var ColorButton = $Columns/Right/Top/Main/ColorButton
@@ -47,7 +47,7 @@ func _ready():
 	PointSlider.value = Global.DEFAULT_POINTS
 	DelaySlider.value = Global.DEFAULT_DELAY
 	# hide & show
-	SaveFileDialog.hide()
+	SaveFileDialog.close()
 	ColorSliders.hide()
 	SizeOptions.hide()
 	resize()
@@ -220,6 +220,9 @@ func save(path):
 	else:
 		get_image().save_png(path)
 
+func _on_save_file_dialog_path_selected(path):
+	save(path)
+
 # change centering picture
 
 func _on_center_button_pressed():
@@ -308,6 +311,8 @@ func reload_language():
 			ShareButton.tooltip_text = "teile dein Bild auf " + Global.GALLERY_ADRESS
 			SaveButton.tooltip_text = "Bild lokal speichern"
 			SizeButton.tooltip_text = "Bildgröße ändern"
+			# file dialog
+			SaveFileDialog.title = "Bild speichern"
 		_:
 			# Result
 			Result.tooltip_text = "current fractal"
@@ -325,6 +330,9 @@ func reload_language():
 			ShareButton.tooltip_text = "share image in gallery"
 			SaveButton.tooltip_text = "save image locally"
 			SizeButton.tooltip_text = "change image size"
+			# file dialog
+			SaveFileDialog.title = "save image"
+			
 	# pass on signal
 	CenterButton.reload_language()
 	SizeOptions.reload_language()

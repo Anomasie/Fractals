@@ -22,8 +22,9 @@ var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_ha
 
 var loading_url_disabled = 0
 var storing_url_disabled = 0
-
 var fractal_changed_disabled = 0
+
+var load_ui_when_txt_options_open = true
 
 func _ready():
 	storing_url_disabled += 1 # wait until URLTimer is ready
@@ -160,10 +161,14 @@ func show_results():
 	ResultUI.open(ifs)
 	if TxtOptions.visible:
 		TxtOptions.load_ui(ifs)
+	else:
+		load_ui_when_txt_options_open = true
 
 func _on_result_ui_fractal_changed():
 	if TxtOptions.visible and fractal_changed_disabled == 0:
 		TxtOptions.load_ui(ResultUI.current_ifs)
+	else:
+		load_ui_when_txt_options_open = true
 
 # "warning" messages
 
@@ -212,6 +217,9 @@ func _on_playground_ui_open_txt_options():
 	ifs.delay = ResultUI.current_ifs.delay
 	
 	TxtOptions.open(ifs)
+	if load_ui_when_txt_options_open:
+		TxtOptions.load_ui(ifs)
+		load_ui_when_txt_options_open = false
 
 func _on_txt_options_changed(new_ifs):
 	load_ifs(new_ifs)

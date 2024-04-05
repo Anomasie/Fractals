@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=3 uid="uid://jcyu2afmvis8"]
+
+[ext_resource type="Script" path="res://scenes/advanced-options/AllMatrixOptions.gd" id="1_igg3o"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="1_yyxan"]
+[ext_resource type="PackedScene" uid="uid://sfgrfcxf5a3v" path="res://scenes/advanced-options/TxtOptionsMatrix.tscn" id="2_1q7fv"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_06eut"]
+device = -1
+keycode = 43
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_g66ps"]
+events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejdfw"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mitqt"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y63d"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km5ul"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o0ha"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esjly"]
+atlas = ExtResource("1_yyxan")
+region = Rect2(32, 128, 32, 32)
+
+[node name="AllMatrixOptions" type="VBoxContainer"]
+offset_right = 689.0
+offset_bottom = 460.0
+size_flags_horizontal = 3
+script = ExtResource("1_igg3o")
+
+[node name="General" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="ColorLabel" type="Label" parent="General"]
+layout_mode = 2
+text = "Background Color:"
+
+[node name="ColorEdit" type="LineEdit" parent="General"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "#ffffff"
+
+[node name="Delaylabel" type="Label" parent="General"]
+layout_mode = 2
+text = "Delay:"
+
+[node name="DelayEdit" type="SpinBox" parent="General"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 20.0
+
+[node name="PlaygroundButtons" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="AddButton" type="TextureButton" parent="PlaygroundButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_g66ps")
+texture_normal = SubResource("AtlasTexture_ejdfw")
+texture_pressed = SubResource("AtlasTexture_mitqt")
+texture_hover = SubResource("AtlasTexture_6y63d")
+
+[node name="CloseAllButton" type="TextureButton" parent="PlaygroundButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "delete all rectangles"
+texture_normal = SubResource("AtlasTexture_km5ul")
+texture_pressed = SubResource("AtlasTexture_7o0ha")
+texture_hover = SubResource("AtlasTexture_esjly")
+
+[node name="MatrixContainer" type="HFlowContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MatrixOptions" parent="MatrixContainer" instance=ExtResource("2_1q7fv")]
+layout_mode = 2
+
+[node name="MatrixOptions2" parent="MatrixContainer" instance=ExtResource("2_1q7fv")]
+layout_mode = 2
+
+[node name="MatrixOptions3" parent="MatrixContainer" instance=ExtResource("2_1q7fv")]
+layout_mode = 2
+
+[node name="MatrixOptions4" parent="MatrixContainer" instance=ExtResource("2_1q7fv")]
+layout_mode = 2
