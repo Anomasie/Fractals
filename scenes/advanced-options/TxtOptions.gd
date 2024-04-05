@@ -8,6 +8,8 @@ signal changed
 
 @onready var CloseButton = $CloseButton
 
+@onready var UploadButton = $HBoxContainer/UploadButton
+
 var current_ifs = IFS.new()
 var disabled = 0
 var saving = false # for save/load-file-dialog
@@ -15,6 +17,8 @@ var saving = false # for save/load-file-dialog
 func _ready():
 	# hide & show
 	MyFileDialog.close()
+	if OS.has_feature("web"):
+		UploadButton.hide() # because I can not upload files in web servers, unfortunately
 
 func load_ui(new_ifs):
 	current_ifs = new_ifs
@@ -59,10 +63,15 @@ func save_json_file(path):
 	file.store_string(JsonEdit.text)
 
 func _on_download_button_pressed():
-	saving = true
-	reload_language_file_dialog()
-	MyFileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
-	MyFileDialog.open()
+	if OS.has_feature("web"):
+		var filename = "fractal.json"
+		var buf = JsonEdit.text.to_utf8_buffer()
+		JavaScriptBridge.download_buffer(buf, filename)
+	else:
+		saving = true
+		reload_language_file_dialog()
+		MyFileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+		MyFileDialog.open()
 
 func _on_upload_button_pressed():
 	saving = false
