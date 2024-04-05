@@ -99,7 +99,8 @@ drawing them can lead to interesting pictures and effects."
 		"GER": "Kontakt",
 		"EN": "contact",
 		"text": {
-			"GER": "Ich freue mich über jegliche Rückmeldungen mit Anmerkungen oder Ideen, Bugs oder Fehlern.
+			"GER": "\
+Ich freue mich über jegliche Rückmeldungen mit Anmerkungen oder Ideen, Bugs oder Fehlern.
 
 Kontakt:
 	Marta Imke
@@ -111,7 +112,8 @@ Lizenz:
 
 Github-Seite:
 	https://github.com/Anomasie/Fractals",
-			"EN": "I look forward to all feedback with comments or ideas, bugs and errors on this page.
+			"EN": "\
+I look forward to all feedback with comments or ideas, bugs and errors on this page.
 
 contact:
 	Marta Imke
@@ -129,8 +131,32 @@ github page:
 		"GER": "Credits",
 		"EN": "credits",
 		"text": {
-			"GER": "",
-			"EN": ""
+			"GER": "\
+Engine:
+	Godot
+
+Schriftart basiert auf:
+	Dogicapixel
+	von Roberto Mocci auf DaFont
+	https://www.dafont.com/dogica.font
+
+Benutzte Software:
+	Aseprite (Bilder für das Design)
+	BitFontMaker2 (Schriftartentwicklung)
+	Godot 4 (Programmierung)",
+			"EN": "\
+Engine:
+	Godot
+
+Font based on:
+	Dogicapixel
+	by Roberto Mocci on DaFont
+	https://www.dafont.com/dogica.font
+
+Software used:
+	Aseprite (Button images)
+	BitFontMaker2 (Font design)
+	Godot 4 (programming)"
 		}
 	}
 }

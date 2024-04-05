@@ -212,6 +212,7 @@ func _on_matrix_button_pressed():
 
 func _on_txt_button_pressed():
 	open_txt_options.emit()
+	AdvButOpt.hide()
 
 func _on_advanced_options_close_me():
 	RotatOptions.hide()

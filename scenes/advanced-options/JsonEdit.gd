@@ -78,7 +78,7 @@ func reload_language():
 	match Global.language:
 		"GER":
 			ReloadButton.tooltip_text = "lade Text aus aktuellem IFS"
-			RoundButton.tooltip_text = "runde Zahlen auf " + str(DIGITS) + " Nachkommastellen"
+			RoundButton.tooltip_text = "runde Zahlen mit Genauigkeit " + str(DIGITS)
 		_:
 			ReloadButton.tooltip_text = "load text from current ifs"
-			RoundButton.tooltip_text = "round numbers to " + str(DIGITS) + " decimal places"
+			RoundButton.tooltip_text = "round numbers with accuracy of " + str(DIGITS)
