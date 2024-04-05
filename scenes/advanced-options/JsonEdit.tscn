@@ -1,56 +1,51 @@
 [gd_scene load_steps=9 format=3 uid="uid://xk64ex5gvy0l"]
 
-[ext_resource type="Script" path="res://scenes/advanced-options/PythonEdit.gd" id="1_s5q1s"]
-[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_lf5av"]
+[ext_resource type="Script" path="res://scenes/advanced-options/JsonEdit.gd" id="1_aapdo"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_w1fki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cskex"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbx5t"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j6gsm"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5yhre"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(0, 480, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7xwy"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(64, 480, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e71bh"]
-atlas = ExtResource("2_lf5av")
+atlas = ExtResource("2_w1fki")
 region = Rect2(32, 480, 32, 32)
 
-[node name="PythonEdit" type="TextEdit"]
+[node name="JsonEdit" type="CodeEdit"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-text = "The Barnsley fern
-background_color = \"#ffffff\";
-delay = 20
-
-# function 1
-The very first mapping!
-It symbols the stem of the Barnsley fern
-translation = [0,0]; # this is the translation
-matrix = [[0.5, 0], [0, 0.5]],
-
-# function 2
-The second mapping models something different.
-translation = [0,0.2]
-matrix = [[0-1,0.4], [0.3,0.1]]
-color = \"#000000\""
+text = "{
+	\"background_color\": \"#ffffff\",
+	\"delay\": 20,
+	\"systems\":  [{
+		\"translation\": [0,0],
+		\"matrix\": [0.5, 0, 0, 0.5],
+		\"color\": \"#000000\"}
+	]
+}"
 caret_blink = true
-script = ExtResource("1_s5q1s")
+code_completion_enabled = true
+script = ExtResource("1_aapdo")
 
 [node name="ReloadButton" type="TextureButton" parent="."]
 visible = false
@@ -71,6 +66,7 @@ texture_pressed = SubResource("AtlasTexture_pbx5t")
 texture_hover = SubResource("AtlasTexture_j6gsm")
 
 [node name="RoundButton" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

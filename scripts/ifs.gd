@@ -195,7 +195,7 @@ static func from_meta_data_version(meta_data, version):
 
 func to_dict():
 	var dict = {}
-	dict["background color"] = background_color
+	dict["background color"] = background_color.to_html()
 	dict["delay"] = delay
 	dict["systems"] = []
 	for contraction in systems:
@@ -226,7 +226,7 @@ static func from_dict(dict):
 					float(system["translation"][0]),
 					float(system["translation"][1])
 				)
-			if system.has("matrix") and typeof(system["matrix"]) == TYPE_ARRAY and len(system["matrix"] == 4):
+			if system.has("matrix") and typeof(system["matrix"]) == TYPE_ARRAY and len(system["matrix"]) == 4:
 				var matrix = Transform2D(
 					Vector2(float(system["matrix"][0]), float(system["matrix"][1])),
 					Vector2(float(system["matrix"][2]), float(system["matrix"][3])),

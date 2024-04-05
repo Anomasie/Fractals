@@ -2,7 +2,7 @@ extends MarginContainer
 
 signal changed
 
-@onready var PythonEdit = $Main/Content/Lines/PythonEdit
+@onready var JsonEdit = $Main/Content/Lines/JsonEdit
 
 @onready var TxtOptionsMatrix = load("res://scenes/advanced-options/TxtOptionsMatrix.tscn")
 @onready var MatrixContainer = $Main/Content/Lines/Scroller/Lines/MatrixContainer
@@ -55,8 +55,8 @@ func load_ui(new_ifs):
 	current_ifs = new_ifs
 	if not disabled:
 		update_ui()
-	if not PythonEdit.do_i_have_focus():
-		PythonEdit.load_text(current_ifs)
+	if not JsonEdit.do_i_have_focus():
+		JsonEdit.load_text(current_ifs)
 
 func read_ui():
 	var ifs = IFS.new()
@@ -75,7 +75,7 @@ func read_ui():
 
 func open(ifs):
 	load_ui(ifs)
-	PythonEdit.load_text(ifs)
+	JsonEdit.load_text(ifs)
 	show()
 
 func _on_close_button_pressed():
@@ -129,12 +129,12 @@ func _on_delay_edit_value_changed(_value):
 # python/txt stuff
 
 func _on_python_edit_text_changed():
-	var ifs = PythonEdit.read_text()
+	var ifs = JsonEdit.read_text()
 	load_ui(ifs)
 	changed.emit(ifs)
 
 func _on_python_edit_please_reload():
-	PythonEdit.load_text(current_ifs)
+	JsonEdit.load_text(current_ifs)
 
 # language & translation
 
@@ -153,6 +153,6 @@ func reload_language():
 			DelayEdit.tooltip_text = "enter delay of the ifs calculation"
 			ColorEdit.tooltip_text = "enter background color of the fractal"
 	# pass on signal
-	PythonEdit.reload_language()
+	JsonEdit.reload_language()
 	for child in MatrixContainer.get_children():
 		child.reload_language()
