@@ -241,8 +241,10 @@ func _on_language_button_pressed():
 func reload_language():
 	match Global.language:
 		"GER":
+			Title.text = "Erstelle dein eigenes Fraktal!"
 			HelpButton.tooltip_text = "Informationen"
 		_:
+			Title.text = "Make your own fractal!"
 			HelpButton.tooltip_text = "information"
 	# pass on signal
 	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions, TxtOptions]:
