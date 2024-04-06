@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ltwl751ep3gp"]
+[gd_scene load_steps=9 format=3 uid="uid://ltwl751ep3gp"]
 
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_qah6b"]
 [ext_resource type="Script" path="res://scenes/help/HelpOptions.gd" id="1_wuxvr"]
+[ext_resource type="PackedScene" uid="uid://yu4vk6tx0qn5" path="res://scenes/help/HelpOptionsButton.tscn" id="2_hlyym"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nmpk1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxm7j"]
@@ -29,6 +30,7 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_wuxvr")
+HelpOptionsButton = ExtResource("2_hlyym")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -52,11 +54,11 @@ theme_override_constants/separation = 32
 [node name="Splitter" type="HBoxContainer" parent="Margin/Content/Lines"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 0
 
 [node name="Informations" type="VBoxContainer" parent="Margin/Content/Lines/Splitter"]
-custom_minimum_size = Vector2(192, 0)
+custom_minimum_size = Vector2(164, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="InfoLabel" type="RichTextLabel" parent="Margin/Content/Lines/Splitter"]
 layout_mode = 2

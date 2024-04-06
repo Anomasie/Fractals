@@ -107,3 +107,8 @@ layout_mode = 2
 
 [node name="MatrixOptions4" parent="MatrixContainer" instance=ExtResource("2_1q7fv")]
 layout_mode = 2
+
+[connection signal="text_submitted" from="General/ColorEdit" to="." method="_on_color_edit_text_submitted"]
+[connection signal="value_changed" from="General/DelayEdit" to="." method="_on_delay_edit_value_changed"]
+[connection signal="pressed" from="PlaygroundButtons/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="PlaygroundButtons/CloseAllButton" to="." method="_on_close_all_button_pressed"]

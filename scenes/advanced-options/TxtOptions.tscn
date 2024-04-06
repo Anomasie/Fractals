@@ -127,6 +127,7 @@ texture_hover = SubResource("AtlasTexture_3ovtd")
 
 [node name="MyFileDialog" parent="." instance=ExtResource("8_gbooe")]
 title = "Open a File"
+visible = false
 ok_button_text = "Open"
 file_mode = 0
 

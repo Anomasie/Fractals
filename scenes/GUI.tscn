@@ -62,11 +62,13 @@ visible = false
 layout_mode = 2
 
 [node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="ShareDialogue" parent="." instance=ExtResource("4_kymfo")]
+visible = false
 layout_mode = 2
 
 [node name="UIButtons" type="MarginContainer" parent="."]

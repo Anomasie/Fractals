@@ -7,28 +7,28 @@ signal open_txt_options
 # However, it was in a previous version, and I diffuse to change the name.
 @onready var BlueTexture = $Right/Center/Center/BlueTexture
 
-@onready var ButtonOptions = $Left/Main/ButtonOptions
 # advanced options
 ## buttons
-@onready var AdvancedButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvancedButton
-@onready var AdvButOpt = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt
-@onready var RotationButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/RotationButton
-@onready var MatrixButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/MatrixButton
-@onready var TxtButton = $Left/Main/ButtonOptions/AdvancedOptions/AdvButOpt/TxtButton
+@onready var AdvancedOptions = $Left/Main/AdvancedOptions # VBoxContainer
+@onready var AdvancedButton = $Left/Main/AdvancedOptions/AdvancedButton
+@onready var AdvButOpt = $Left/Main/AdvancedOptions/AdvButOpt
+@onready var RotationButton = $Left/Main/AdvancedOptions/AdvButOpt/RotationButton
+@onready var MatrixButton = $Left/Main/AdvancedOptions/AdvButOpt/MatrixButton
+@onready var TxtButton = $Left/Main/AdvancedOptions/AdvButOpt/TxtButton
 ## options
 @onready var RotatOptions = $RotatOptions
 @onready var MatrixOptions = $MatrixOptions
 # rect buttons
 @onready var AddButton = $Left/Main/AddButton
-@onready var CloseAllButton = $Left/Main/ButtonOptions/CloseAllButton
-@onready var RemoveButton = $Left/Main/ButtonOptions/RemoveButton
-@onready var DuplicateButton = $Left/Main/ButtonOptions/DuplicateButton
+@onready var CloseAllButton = $Left/Main/CloseAllButton
+@onready var RemoveButton = $Left/Main/RemoveButton
+@onready var DuplicateButton = $Left/Main/DuplicateButton
 # presets
 @onready var PresetsButton = $Right/Bottom/Main/PresetsButton
 @onready var Presets = $Presets
 @onready var PresetTimer = $PresetTimer
 # colors
-@onready var ColorButton = $Left/Main/ButtonOptions/ColorButton
+@onready var ColorButton = $Left/Main/ColorButton
 @onready var ColorSliders = $ColorSliders
 
 var disabled = 0
@@ -37,16 +37,22 @@ var rot = randi_range(0,360-1)
 var old_loupe = Global.LOUPE
 var old_origin
 
+var rotatoptions_open = false
+var matrixoptions_open = false
+var colorsliders_open = false
+
 func _ready():
 	# connect
 	Playground.fractal_changed.connect(_fractal_changed)
 	# set minimal size
 	## Advanced Options
-	$Left/Main/ButtonOptions/AdvancedOptions.custom_minimum_size = $Left/Main/ButtonOptions/AdvancedOptions.size
+	AdvancedOptions.custom_minimum_size = AdvancedOptions.size
 	# hide and show
 	AdvButOpt.hide()
-	CloseAllButton.hide()
+	set_focused_rect_options_disabled(true)
 	ColorSliders.close()
+	RotatOptions.hide()
+	MatrixOptions.hide()
 	PresetsButton.hide()
 	Presets.show()
 	focus()
@@ -75,12 +81,20 @@ func get_ifs():
 func set_ifs(ifs):
 	disabled += 1
 	
-	CloseAllButton.show()
+	if len(ifs.systems) > 0:
+		CloseAllButton.disabled = false
 	Playground.set_ifs(ifs, get_origin())
 	_on_presets_close_me()
 	PresetTimer.start()
 	
 	disabled -= 1
+
+# hide and show
+
+func set_focused_rect_options_disabled(disable = true):
+	for button in [DuplicateButton, ColorButton, RemoveButton, RotationButton, MatrixButton]:
+		button.disabled = disable
+	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
 
 # focus
 
@@ -94,20 +108,28 @@ func focus(Rect = CurrentRect):
 	## close advanced options
 	if typeof(CurrentRect) == TYPE_NIL:
 		# and hide advanced option-button
-		ButtonOptions.hide()
+		set_focused_rect_options_disabled(true)
+		RotatOptions.hide()
+		MatrixOptions.hide()
+		ColorSliders.hide()
 	# if you are focusing something:
 	else:
 		## update AdvancedOptions
-		if RotatOptions.visible or MatrixOptions.visible:
-			ButtonOptions.show()
+		if rotatoptions_open:
+			set_focused_rect_options_disabled(false)
+			RotatOptions.show()
+			MatrixOptions.hide()
 			RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		elif matrixoptions_open:
+			set_focused_rect_options_disabled(false)
+			MatrixOptions.show()
+			RotatOptions.hide()
 			MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-		## open advanced option-button
 		else:
-			ButtonOptions.show()
+			set_focused_rect_options_disabled(false)
 			PresetsButton.show()
 		# coloring
-		if ColorSliders.visible:
+		if colorsliders_open:
 			# load new color
 			ColorSliders.open( Rect.get_color() )
 	focus_ready.emit()
@@ -134,7 +156,7 @@ func _on_close_all_pressed():
 	Playground.close_all()
 	CurrentRect = null
 	# buttons
-	CloseAllButton.hide()
+	CloseAllButton.disabled = true
 	ColorSliders.close()
 	RotatOptions.hide()
 	MatrixOptions.hide()
@@ -150,8 +172,14 @@ func _on_close_all_pressed():
 func _on_remove_button_pressed():
 	disabled += 1
 	
+	# hide advanced options
+	set_focused_rect_options_disabled(true) # no focus anymore
+	RotatOptions.hide()
+	MatrixOptions.hide()
+	ColorSliders.hide()
+	# close rect
 	await Playground.close(CurrentRect)
-	CloseAllButton.visible = ( Playground.current_rect_counter > 0 )
+	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
 	
 	disabled -= 1
 	_fractal_changed()
@@ -159,7 +187,8 @@ func _on_remove_button_pressed():
 ## colors
 
 func _on_color_button_pressed():
-	if not ColorSliders.visible:
+	colorsliders_open = not colorsliders_open
+	if colorsliders_open:
 		ColorSliders.open(CurrentRect.get_color())
 	else:
 		ColorSliders._on_close_button_pressed()
@@ -169,6 +198,7 @@ func _on_color_sliders_color_changed():
 	_fractal_changed()
 
 func _on_color_sliders_finished():
+	colorsliders_open = false
 	ColorSliders.close()
 
 ## duplicate button
@@ -183,11 +213,17 @@ var matrix_options = false
 func open_advanced_options():
 	AdvButOpt.hide()
 	# visibility
-	RotatOptions.visible = not matrix_options
-	MatrixOptions.visible = matrix_options
+	rotatoptions_open = not matrix_options
+	matrixoptions_open = matrix_options
 	# load data
-	RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-	MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+	if rotatoptions_open:
+		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		RotatOptions.show()
+		MatrixOptions.hide()
+	elif matrixoptions_open:
+		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		MatrixOptions.show()
+		RotatOptions.hide()
 	# hide presets, because why not?
 #	PresetsButton.hide()
 
@@ -215,7 +251,9 @@ func _on_txt_button_pressed():
 	AdvButOpt.hide()
 
 func _on_advanced_options_close_me():
+	rotatoptions_open = false
 	RotatOptions.hide()
+	matrixoptions_open = false
 	MatrixOptions.hide()
 	PresetsButton.show()
 
@@ -245,7 +283,6 @@ func _on_matrix_options_value_changed():
 func _on_matrix_options_switch():
 	matrix_options = false
 	open_advanced_options()
-
 
 ## presets
 

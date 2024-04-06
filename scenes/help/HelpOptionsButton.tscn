@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://yu4vk6tx0qn5"]
+
+[node name="HelpOptionsButton" type="Button"]
+offset_right = 160.0
+offset_bottom = 28.0
+theme_type_variation = &"TextButton"
+disabled = true
+text = "Text of this button"
+alignment = 0
+clip_text = true

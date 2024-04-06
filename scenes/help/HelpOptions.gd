@@ -165,7 +165,7 @@ const ADDITIONAL_TEXT = {
 	
 }
 
-@onready var CursorTexture = load("res://assets/gui/cursor.png")
+@export var HelpOptionsButton: PackedScene
 
 @onready var TitleLabel = $Top/Conent/TitleLabel
 @onready var Informations = $Margin/Content/Lines/Splitter/Informations
@@ -176,11 +176,9 @@ var current_info = 0
 func _ready():
 	for i in len(EXPLANATIONS.keys()):
 		# set up button
-		var button = Button.new()
+		var button = HelpOptionsButton.instantiate()
 		button.name = EXPLANATIONS.keys()[i]
-		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		button.pressed.connect(_on_info_button_pressed.bind(i))
-		button.clip_text = true
 		# set language
 		if EXPLANATIONS[EXPLANATIONS.keys()[i]].has(Global.language):
 			button.text =EXPLANATIONS[EXPLANATIONS.keys()[i]][Global.language]
@@ -206,9 +204,9 @@ func load_text():
 func set_focus():
 	for i in len(Informations.get_children()):
 		if i == current_info:
-			Informations.get_child(i).icon = CursorTexture
+			Informations.get_child(i).disabled = true
 		else:
-			Informations.get_child(i).icon = null
+			Informations.get_child(i).disabled = false
 
 func reload_language():
 	# tutorial-buggon

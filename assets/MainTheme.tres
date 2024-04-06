@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://c42j2c4nk8yk"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c42j2c4nk8yk"]
 
 [ext_resource type="FontFile" uid="uid://4oj2h4kfkoyh" path="res://assets/fonts/dogicapixel-new.ttf" id="1_scyhq"]
 
@@ -20,6 +20,14 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_807xy"]
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2q2v"]
+bg_color = Color(0, 0, 0, 0)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [resource]
 default_font = ExtResource("1_scyhq")
@@ -45,6 +53,9 @@ MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
+TextButton/base_type = &"Button"
+TextButton/colors/font_disabled_color = Color(1, 1, 1, 1)
+TextButton/styles/disabled = SubResource("StyleBoxFlat_u2q2v")
 TextEdit/colors/background_color = Color(1, 1, 1, 1)
 TextEdit/colors/caret_color = Color(0, 0, 0, 1)
 TextEdit/colors/font_color = Color(0, 0, 0, 1)

@@ -1,5 +1,7 @@
 class_name IFS
 
+const ACCURACY = 0.0000001
+
 var systems = [] # array of contractions
 var background_color = Color.WHITE
 var delay = Global.DEFAULT_DELAY
@@ -88,6 +90,12 @@ func get_distribution():
 	return distribution
 
 # conversion of data types
+
+func round_all(array):
+	var new_array = []
+	for element in array:
+		new_array.append( snapped(element, ACCURACY) )
+	return new_array
 
 func to_meta_data():
 	# version
@@ -199,10 +207,13 @@ func to_dict():
 	dict["delay"] = delay
 	dict["systems"] = []
 	for contraction in systems:
-		var matrix = contraction.to_matrix()
+		var matrix = round_all(contraction.to_matrix())
 		dict["systems"].append(
 			{
-				"translation": [contraction.translation.x, contraction.translation.y],
+				"translation": [
+					snapped(contraction.translation.x, ACCURACY),
+					snapped(contraction.translation.y, ACCURACY)
+				],
 				"matrix": matrix,
 				"color": contraction.color.to_html()
 			}
