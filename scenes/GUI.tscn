@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://uat15tg6ijgh"]
+[gd_scene load_steps=12 format=3 uid="uid://uat15tg6ijgh"]
 
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
 [ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/playground/PlaygroundUI.tscn" id="1_kg3c1"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/results/ShareDialogue.tscn" id="4_kymfo"]
 [ext_resource type="PackedScene" uid="uid://ltwl751ep3gp" path="res://scenes/help/HelpOptions.tscn" id="5_ewkqs"]
 [ext_resource type="Texture2D" uid="uid://q482hh141kmp" path="res://assets/gui/main_gui_buttons.png" id="5_snlkm"]
+[ext_resource type="PackedScene" uid="uid://6djx0t3248n1" path="res://scenes/tooltips/TooltipSubstitute.tscn" id="8_kl7tn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i014u"]
 atlas = ExtResource("5_snlkm")
@@ -126,6 +127,9 @@ text = "Debug-Button
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="TooltipSubstitute" parent="." instance=ExtResource("8_kl7tn")]
+layout_mode = 2
 
 [connection signal="open_txt_options" from="Lines/Content/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
 [connection signal="fractal_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_fractal_changed"]

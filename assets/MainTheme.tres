@@ -12,14 +12,29 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kkuj4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vpnys"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnocd"]
 bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c32e5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s15ey"]
 bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_807xy"]
-bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ji2de"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2q2v"]
 bg_color = Color(0, 0, 0, 0)
@@ -45,10 +60,11 @@ LineEdit/colors/caret_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/colors/font_outline_color = Color(1, 1, 1, 0)
 LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.501961)
+LineEdit/colors/font_uneditable_color = Color(1, 1, 1, 1)
 LineEdit/constants/caret_width = 2
-LineEdit/styles/focus = SubResource("StyleBoxFlat_vpnys")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_c32e5")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_807xy")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_pnocd")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_s15ey")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_ji2de")
 MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16

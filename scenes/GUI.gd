@@ -48,6 +48,9 @@ func _ready():
 	
 	# for loading urls
 	URLTimer.start()
+	
+	# tooltip_text
+	Global.tooltip_nodes.append_array([HelpButton, LanguageButton])
 
 func load_ifs(ifs):
 	fractal_changed_disabled += 1

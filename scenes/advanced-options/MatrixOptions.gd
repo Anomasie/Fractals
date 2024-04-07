@@ -18,6 +18,11 @@ func _ready():
 		MatrixEntries[i].value_changed.connect(_matrix_value_changed.bind(i))
 	TranslationX.value_changed.connect(_translation_value_changed)
 	TranslationY.value_changed.connect(_translation_value_changed)
+	# tooltips
+	Global.tooltip_nodes.append_array([
+		TranslationX, TranslationY,
+		CloseButton, RotationButton
+	]+ MatrixEntries)
 
 func _matrix_value_changed(_new_value, index):
 	if disabled == 0:

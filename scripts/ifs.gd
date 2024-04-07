@@ -231,7 +231,7 @@ static func from_dict(dict):
 			var contraction = Contraction.new()
 			# matrix
 			if system.has("matrix") and typeof(system["matrix"]) == TYPE_ARRAY and len(system["matrix"]) == 4:
-				contraction = contraction.from_matrix(system["matrix"])
+				contraction = Contraction.from_matrix(system["matrix"])
 			if system.has("translation") and typeof(system["translation"]) == TYPE_ARRAY and len(system["translation"]) == 2:
 				contraction.translation = Vector2(
 					float(system["translation"][0]),

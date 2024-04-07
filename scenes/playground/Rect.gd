@@ -41,6 +41,13 @@ var disabled = 0
 func _ready():
 	color_rect(Color.BLACK)
 	reload_language()
+	
+	# tooltips
+	Global.add_to_tooltip_nodes([
+		MoveButton, WidthButtonR, WidthButtonL, HeightButtonD,
+		DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU,
+		MirrorButton, TurnButton,
+		Outline])
 
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:

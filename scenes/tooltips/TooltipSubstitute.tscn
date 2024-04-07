@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://6djx0t3248n1"]
+
+[ext_resource type="Script" path="res://scenes/tooltips/TooltipSubstitute.gd" id="1_s3pgo"]
+
+[node name="TooltipSubstitute" type="MarginContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_s3pgo")
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="TooltipLabel" type="Label" parent="Content"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "tooltip_text"
+vertical_alignment = 2

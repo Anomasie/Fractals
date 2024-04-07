@@ -255,7 +255,6 @@ mouse_filter = 2
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
-mouse_filter = 2
 
 [connection signal="drag_ended" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
 [connection signal="drag_started" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]

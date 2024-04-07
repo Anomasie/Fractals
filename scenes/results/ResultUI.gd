@@ -51,6 +51,14 @@ func _ready():
 	ColorSliders.hide()
 	SizeOptions.hide()
 	resize()
+	# tooltips
+	Global.tooltip_nodes.append_array([
+		Result,
+		PointTexture1, PointSlider, PointTexture2,
+		DelayTexture1, DelaySlider, DelayTexture2,
+		ColorButton, ShareButton, SaveButton, SizeButton,
+		SaveFileDialog
+	])
 
 var limit = 100000
 var frame_limit = 1000 # to manage frame performance

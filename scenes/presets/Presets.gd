@@ -32,6 +32,8 @@ var PRESETS = {
 
 func _ready():
 	load_presets()
+	# tooltips
+	Global.tooltip_nodes.append(CloseButton)
 
 func load_presets():
 	# delete presets
@@ -42,9 +44,10 @@ func load_presets():
 	for preset in PRESETS.keys():
 		var Instance = Preset.instantiate()
 		Instance.name = preset
-		match Global.language:
-			"GER": Instance.tooltip_text = PRESETS[preset]["GER"]
-			_: Instance.tooltip_text = PRESETS[preset]["EN"]
+		# add tooltips
+		if PRESETS[preset].has(Global.language):
+			Instance.tooltip_text = PRESETS[preset][Global.language]
+		# connect & add node
 		Instance.pressed.connect(_on_preset_pressed.bind(preset))
 		Presets.add_child(Instance)
 		Instance.load_preset(PRESETS[preset])

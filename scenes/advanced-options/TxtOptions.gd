@@ -9,6 +9,10 @@ signal changed
 @onready var CloseButton = $CloseButton
 
 @onready var UploadButton = $HBoxContainer/UploadButton
+@onready var DownloadButton = $HBoxContainer/DownloadButton
+
+@export var WebFileDialogScene : PackedScene
+@onready var WebFileDialog : Node
 
 var current_ifs = IFS.new()
 var disabled = 0
@@ -18,7 +22,12 @@ func _ready():
 	# hide & show
 	MyFileDialog.close()
 	if OS.has_feature("web"):
-		UploadButton.hide() # because I can not upload files in web servers, unfortunately
+		var new_child = WebFileDialogScene.instantiate()
+		new_child.open_file.connect(_on_web_file_dialog_open_file)
+		self.add_child(new_child)
+		WebFileDialog = new_child
+	# connect tooltips
+	Global.tooltip_nodes.append_array([CloseButton, DownloadButton, UploadButton])
 
 func load_ui(new_ifs):
 	current_ifs = new_ifs
@@ -74,10 +83,13 @@ func _on_download_button_pressed():
 		MyFileDialog.open()
 
 func _on_upload_button_pressed():
-	saving = false
-	reload_language_file_dialog()
-	MyFileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	MyFileDialog.open()
+	if OS.has_feature("web"):
+		WebFileDialog.load_file()
+	else:
+		saving = false
+		reload_language_file_dialog()
+		MyFileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+		MyFileDialog.open()
 
 func _on_my_file_dialog_path_selected(path):
 	if saving:
@@ -86,14 +98,22 @@ func _on_my_file_dialog_path_selected(path):
 		load_json_file(path)
 	MyFileDialog.close()
 
+func _on_web_file_dialog_open_file(content):
+	JsonEdit.text = content
+	_on_python_edit_text_changed()
+
 # language & translation
 
 func reload_language():
 	match Global.language:
 		"GER":
 			CloseButton.tooltip_text = "Text-Optionen schließen"
+			DownloadButton.tooltip_text = "JSON-Datei herunterladen"
+			UploadButton.tooltip_text = "JSON-Datei hochladen"
 		_:
 			CloseButton.tooltip_text = "close text options"
+			DownloadButton.tooltip_text = "download JSON-file"
+			UploadButton.tooltip_text = "upload JSON-file"
 	# pass on signal
 	AllMatrixOptions.reload_language()
 	JsonEdit.reload_language()

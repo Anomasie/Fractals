@@ -29,6 +29,7 @@ window/size/viewport_height=720
 [gui]
 
 theme/custom="res://assets/MainTheme.tres"
+timers/tooltip_delay_sec=100.0
 
 [input]
 

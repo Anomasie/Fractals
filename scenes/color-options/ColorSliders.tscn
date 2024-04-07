@@ -101,6 +101,7 @@ region = Rect2(32, 0, 32, 32)
 [node name="ColorSliders" type="MarginContainer"]
 offset_right = 422.0
 offset_bottom = 120.0
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -109,6 +110,7 @@ script = ExtResource("1_ryk5y")
 
 [node name="Dialogue" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Background" type="NinePatchRect" parent="Dialogue"]
 layout_mode = 2

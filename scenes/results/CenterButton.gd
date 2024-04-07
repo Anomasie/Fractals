@@ -10,6 +10,8 @@ var centered = false
 func _ready():
 	Center.show()
 	Normal.hide()
+	
+	Global.tooltip_nodes.append_array([Normal, Center])
 
 func _on_center_pressed():
 	centered = true

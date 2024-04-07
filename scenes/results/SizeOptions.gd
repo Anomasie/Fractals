@@ -10,6 +10,9 @@ signal value_changed
 var disabled = 0
 var custom_value = false
 
+func _ready():
+	Global.tooltip_nodes.append_array([SizeXEdit, SizeYEdit, ReloadButton, CloseButton])
+
 func load_ui(new_size):
 	disabled += 1
 	

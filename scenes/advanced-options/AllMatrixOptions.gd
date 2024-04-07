@@ -22,6 +22,8 @@ func _ready():
 		child.value_changed.connect(_on_matrix_value_changed)
 		child.remove_me.connect(_on_matrix_remove_me)
 		child.duplicate_me.connect(_on_matrix_duplicate_me)
+	# tooltips
+	Global.tooltip_nodes.append_array([ColorEdit, DelayEdit, CloseAllButton, AddButton])
 
 func update_ui(new_ifs):
 	disabled += 1

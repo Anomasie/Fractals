@@ -25,6 +25,13 @@ func _ready():
 				ankle.value_changed.connect(_value_changed)
 			elif ankle is CheckButton:
 				ankle.pressed.connect(_on_mirror_pressed)
+	# tooltips
+	Global.tooltip_nodes.append_array([
+		TranslationX, TranslationY,
+		ContractX, ContractY,
+		Rotation, Mirror,
+		CloseButton, MatrixButton
+	])
 
 func _value_changed(_new_value=0):
 	if not disabled:

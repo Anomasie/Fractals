@@ -33,7 +33,14 @@ func _ready():
 	for i in len(UserPresets):
 		UserPresets[i].pressed.connect(_on_user_preset_pressed.bind(i))
 	# connect with global
+	## preset colors
 	Global.user_saved_colors_changed.connect(load_user_preset_colors)
+	## tooltips
+	Global.tooltip_nodes.append_array([
+		Preview, HueSlider, ValueSlider, SatSlider,
+		Hash, AddButton, CloseButton
+	] + Presets + UserPresets)
+	# open something
 	open(Color.BLUE)
 
 # open and close

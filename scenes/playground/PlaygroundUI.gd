@@ -44,9 +44,11 @@ var colorsliders_open = false
 func _ready():
 	# connect
 	Playground.fractal_changed.connect(_fractal_changed)
+	
 	# set minimal size
 	## Advanced Options
 	AdvancedOptions.custom_minimum_size = AdvancedOptions.size
+	
 	# hide and show
 	AdvButOpt.hide()
 	set_focused_rect_options_disabled(true)
@@ -56,6 +58,13 @@ func _ready():
 	PresetsButton.hide()
 	Presets.show()
 	focus()
+	
+	# tooltips
+	Global.tooltip_nodes.append_array([
+		AddButton, DuplicateButton, ColorButton,
+		RemoveButton, CloseAllButton,
+		AdvancedButton, RotationButton, MatrixButton, TxtButton,
+		PresetsButton])
 
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
@@ -229,6 +238,7 @@ func open_advanced_options():
 
 func _on_advanced_button_pressed():
 	AdvButOpt.visible = not AdvButOpt.visible
+	Presets.hide()
 
 func _on_rotation_button_pressed():
 	disabled += 1
@@ -316,27 +326,27 @@ func reload_language():
 		"GER":
 			AddButton.tooltip_text = "füge neues Rechteck hinzu"
 			CloseAllButton.tooltip_text = "lösche alle Rechtecke"
-			RemoveButton.tooltip_text = "lösche markiertes Rechteck"
-			ColorButton.tooltip_text = "ändere Farbe des markierten Rechtecks"
-			DuplicateButton.tooltip_text = "dupliziere markiertes Rechteck"
+			RemoveButton.tooltip_text = "lösche ausgewähltes Rechteck"
+			ColorButton.tooltip_text = "ändere Farbe des ausgewählten Rechtecks"
+			DuplicateButton.tooltip_text = "dupliziere ausgewähltes Rechteck"
 			AdvancedButton.tooltip_text = "fortgeschrittene Einstellungen"
+			RotationButton.tooltip_text = "Rechteck bearbeiten"
+			MatrixButton.tooltip_text = "Matrix bearbeiten"
+			TxtButton.tooltip_text = "System bearbeiten"
 			PresetsButton.text = "Vorlagen"
 			PresetsButton.tooltip_text = "wähle ein Fraktal aus einer Vorlage"
-			RotationButton.tooltip_text = "erweiterte Optionen (geometrische Ansicht)"
-			MatrixButton.tooltip_text = "erweiterte Optionen (Matrix-Ansicht)"
-			TxtButton.tooltip_text = "erweiterte Optionen über Textdatei"
 		_:
 			AddButton.tooltip_text = "add new rectangle"
 			CloseAllButton.tooltip_text = "delete all rectangles"
 			RemoveButton.tooltip_text = "delete selected rectangle"
 			ColorButton.tooltip_text = "change color of selected rectangle"
 			DuplicateButton.tooltip_text = "duplicate selected rectangle"
-			AdvancedButton.tooltip_text = "open advanced options"
+			AdvancedButton.tooltip_text = "advanced options"
+			RotationButton.tooltip_text = "edit rectangle"
+			MatrixButton.tooltip_text = "edit matrix"
+			TxtButton.tooltip_text = "edit system"
 			PresetsButton.text = "Presets"
 			PresetsButton.tooltip_text = "choose fractal from a preset"
-			RotationButton.tooltip_text = "open advanced options (geometric view)"
-			MatrixButton.tooltip_text = "open advanced options (matrix view)"
-			TxtButton.tooltip_text = "open advanced options (txt data)"
 	# pass on signal
 	Playground.reload_language()
 	Presets.reload_language()

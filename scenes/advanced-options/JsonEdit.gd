@@ -7,6 +7,9 @@ const DIGITS = 0.05
 @onready var ReloadButton = $ReloadButton
 @onready var RoundButton = $RoundButton
 
+func _ready():
+	Global.tooltip_nodes.append_array([ReloadButton, RoundButton])
+
 func do_i_have_focus():
 	return self.has_focus() or RoundButton.has_focus()
 

@@ -4,6 +4,10 @@ const EXPLANATIONS = {
 	"fractal": {
 		"GER": "Fraktal",
 		"EN": "fractal",
+		"tooltip": {
+			"GER": "Was ist ein Fraktal?",
+			"EN": "What is a fractal?"
+		},
 		"text": {
 			"GER": "Fraktale sind eine Art von Objekten, die vieles in der Natur widerspiegeln können, \
 beispielsweise das Aussehen von Wolken oder die Blattstruktur eines Farns. \
@@ -25,6 +29,10 @@ affine maps."
 	"ifs": {
 		"GER": "IFS",
 		"EN": "IFS",
+		"tooltip": {
+			"GER": "Was ist ein IFS?",
+			"EN": "What is an IFS?"
+		},
 		"text": {
 			"GER": "Wir wollen ein Fraktal in der Ebene erstellen. \
 Dazu benutzen wir sogenannte affine Abbildungen. \
@@ -51,6 +59,10 @@ Each rectangle depicts the image of the unit square under one function in the IF
 	"calculation": {
 		"GER": "Verfahren",
 		"EN": "calculation",
+		"tooltip": {
+			"GER": "Erklärung der Punkteberechnung",
+			"EN": "explanation of calculation of points"
+		},
 		"text": {
 			"GER": "Wenn Fraktale mit einem Programm \
 berechnet werden sollen, bietet sich das Zufallspunkt-Verfahren an. \
@@ -75,6 +87,10 @@ It proceeds by the following steps. \n\n\
 	"delay": {
 		"GER": "Verzögerung\nbeim Zeichnen\nder Punkte",
 		"EN": "delay",
+		"tooltip": {
+			"GER": "Informationen über die Verzögerung beim Zeichnen der Punkte",
+			"EN": "information about the delay in drawing the points"
+		},
 		"text": {
 			"GER": "Während des Zufallspunktverfahrens können die ersten Punkte \
 eventuell noch etwas neben dem eigentlichen Fraktal liegen: \
@@ -98,6 +114,10 @@ drawing them can lead to interesting pictures and effects."
 	"contact": {
 		"GER": "Kontakt",
 		"EN": "contact",
+		"tooltip": {
+			"GER": "Kontaktinformationen",
+			"EN": "contact information"
+		},
 		"text": {
 			"GER": "\
 Ich freue mich über jegliche Rückmeldungen mit Anmerkungen oder Ideen, Bugs oder Fehlern.
@@ -110,8 +130,9 @@ Kontakt:
 Lizenz:
 	GNU General Public license, Version 3
 
-Github-Seite:
-	https://github.com/Anomasie/Fractals",
+Quellcode:
+	Editor: https://github.com/Anomasie/Fractals
+	Galerie: https://github.com/hermlon/polaroids",
 			"EN": "\
 I look forward to all feedback with comments or ideas, bugs and errors on this page.
 
@@ -123,15 +144,24 @@ contact:
 license:
 	GNU General Public license, Version 3
 
-github page:
-	https://github.com/Anomasie/Fractals",
+source code:
+	Editor: https://github.com/Anomasie/Fractals
+	Gallery: https://github.com/hermlon/polaroids",
 		}
 	},
 	"credits": {
 		"GER": "Credits",
 		"EN": "credits",
+		"tooltip": {
+			"GER": "Credits und verwendete Software",
+			"EN": "credits to co-workers and information about software"
+		},
 		"text": {
 			"GER": "\
+Galerie und JavaScript:
+	hermlon
+	https://github.com/hermlon/
+
 Engine:
 	Godot
 
@@ -145,6 +175,10 @@ Benutzte Software:
 	BitFontMaker2 (Schriftartentwicklung)
 	Godot 4 (Programmierung)",
 			"EN": "\
+Gallery and JavaScript:
+	hermlon
+	https://github.com/hermlon/
+
 Engine:
 	Godot
 
@@ -171,6 +205,8 @@ const ADDITIONAL_TEXT = {
 @onready var Informations = $Margin/Content/Lines/Splitter/Informations
 @onready var InfoLabel = $Margin/Content/Lines/Splitter/InfoLabel
 
+@onready var CloseButton = $CloseButton
+
 var current_info = 0
 
 func _ready():
@@ -188,6 +224,8 @@ func _ready():
 		# add button
 		Informations.add_child(button)
 	set_focus()
+	# tooltips
+	Global.tooltip_nodes.append_array([CloseButton] + Informations.get_children())
 
 func open():
 	set_focus()
@@ -213,22 +251,24 @@ func reload_language():
 	match Global.language:
 		"GER":
 			TitleLabel.text = "Allgemeine Informationen"
+			CloseButton.tooltip_text = "Informationen schließen"
 		_:
-			TitleLabel.text = "general informations"
+			TitleLabel.text = "general information"
+			CloseButton.tooltip_text = "close general information"
 	# info-buttons
 	for button in Informations.get_children():
+		if EXPLANATIONS[button.name].has("tooltip") and EXPLANATIONS[button.name]["tooltip"].has(Global.language):
+			button.tooltip_text = EXPLANATIONS[button.name]["tooltip"][Global.language]
 		match Global.language:
 			"GER":
 				if EXPLANATIONS[button.name].has(Global.language):
 					button.text = EXPLANATIONS[button.name][Global.language]
-					button.tooltip_text = "Informationen über " + EXPLANATIONS[button.name][Global.language]
 				else:
 					button.text = "???"
 					print("ERROR in HelpOptions, _ready: no name found for button " + button.name)
 			_:
 				if EXPLANATIONS[button.name].has(Global.language):
 					button.text =EXPLANATIONS[button.name][Global.language]
-					button.tooltip_text = "informations about " + EXPLANATIONS[button.name][Global.language]
 				else:
 					button.text = "???"
 					print("ERROR in HelpOptions, _ready: no name found for button " + button.name)

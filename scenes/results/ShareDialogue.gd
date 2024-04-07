@@ -27,6 +27,12 @@ var current_meta
 
 func _ready():
 	GalleryAdressLabel.text = Global.GALLERY_ADRESS
+	# tooltips
+	Global.tooltip_nodes.append_array([
+		ImagePreview,
+		DescriptionEdit, NameEdit, VenueEdit,
+		CloseButton
+	])
 
 func open(image, ifs):
 	current_image = image

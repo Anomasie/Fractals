@@ -118,7 +118,6 @@ text = "Share on website"
 
 [node name="GalleryAdressLabel" type="Label" parent="Container/Content/MarginContainer/Lines"]
 layout_mode = 2
-tooltip_text = "link to gallery"
 text = "www.make-your-own-fractal-de/gallery"
 
 [node name="CloseButton" type="TextureButton" parent="Container"]

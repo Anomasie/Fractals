@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://biuetoakcmrk0"]
+[gd_scene load_steps=19 format=3 uid="uid://biuetoakcmrk0"]
 
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_plj4u"]
 [ext_resource type="Script" path="res://scenes/advanced-options/TxtOptions.gd" id="1_xlj4t"]
+[ext_resource type="PackedScene" uid="uid://cguyaq4ee4f6h" path="res://scenes/file-contact/WebFileDialog.tscn" id="2_ogjqs"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_vnmwm"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_5ih3y"]
 [ext_resource type="PackedScene" uid="uid://xk64ex5gvy0l" path="res://scenes/advanced-options/JsonEdit.tscn" id="3_ke18k"]
@@ -62,6 +63,7 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_xlj4t")
+WebFileDialogScene = ExtResource("2_ogjqs")
 
 [node name="Main" type="MarginContainer" parent="."]
 layout_mode = 2
