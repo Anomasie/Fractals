@@ -124,7 +124,7 @@ Ich freue mich über jegliche Rückmeldungen mit Anmerkungen oder Ideen, Bugs od
 
 Kontakt:
 	Marta Imke
-	marta.imke@uni-jena.de
+	marta.imke@gmail.com
 	Friedrich-Schiller-Universität Jena
 
 Lizenz:
@@ -138,8 +138,9 @@ I look forward to all feedback with comments or ideas, bugs and errors on this p
 
 contact:
 	Marta Imke
-	marta.imke@uni-jena.de
+	marta.imke@gmail.com
 	Friedrich-Schiller-Universität Jena
+	Germany
 
 license:
 	GNU General Public license, Version 3
@@ -158,6 +159,9 @@ source code:
 		},
 		"text": {
 			"GER": "\
+Erstellt von:
+	Marta Imke
+
 Galerie und JavaScript:
 	hermlon
 	https://github.com/hermlon/
@@ -175,6 +179,9 @@ Benutzte Software:
 	BitFontMaker2 (Schriftartentwicklung)
 	Godot 4 (Programmierung)",
 			"EN": "\
+Created by:
+	Marta Imke
+
 Gallery and JavaScript:
 	hermlon
 	https://github.com/hermlon/
