@@ -74,7 +74,7 @@ func _process(delta):
 		open_new_ifs(new_ifs_centered)
 		new_ifs = null
 	
-	if counter < limit:
+	if limit < 0 or counter < limit:
 		# decide how many points to be calculated in one frame
 		if delta > 1.0/15: # too slow
 			frame_limit = max(0, frame_limit-10)
@@ -83,12 +83,30 @@ func _process(delta):
 		
 		# calculate more points
 		## how many?
-		var amount = min(frame_limit, limit-counter)
+		var amount = frame_limit
+		if limit >= 0:
+			amount = min(frame_limit, limit-counter)
 		counter += amount
 		## paint them
 		paint(current_ifs.calculate_fractal( point.new(), amount), CenterButton.centered)
 		## update slider
-		PointTeller.value = counter
+		PointTeller.value = point_slider_descaled(counter)
+
+const POINT_LIMIT_HALF_VALUE = 1000000
+
+func point_slider_scaled(x = float( PointSlider.value )):
+	if x >= PointSlider.max_value:
+		return -1
+	else:
+		return int(
+			- log(float(PointSlider.max_value - x)/PointSlider.max_value) * POINT_LIMIT_HALF_VALUE
+		)
+
+func point_slider_descaled(y):
+	if y < 0:
+		return PointSlider.max_value
+	else:
+		return int( PointSlider.max_value * (1 - exp( - float(y) / POINT_LIMIT_HALF_VALUE )) ) + 1
 
 func resize():
 	current_loupe = Global.LOUPE
@@ -240,20 +258,22 @@ func _on_center_button_pressed():
 
 var dragging_point_slider = false
 
-func _on_point_slider_value_changed(value):
+func _on_point_slider_value_changed(_value=null):
 	# set new point limit
-	limit = value
+	limit = point_slider_scaled()
 	# if too many points:
 	## restart
-	if counter > limit and not dragging_point_slider:
+	if limit >= 0 and counter > limit and not dragging_point_slider:
 		open(current_ifs)
+	
+	reload_language()
 
 func _on_point_slider_drag_started():
 	dragging_point_slider = true
 
 func _on_point_slider_drag_ended(_value_changed):
 	dragging_point_slider = false
-	_on_point_slider_value_changed(PointSlider.value)
+	_on_point_slider_value_changed()
 
 # more clarity!
 
@@ -261,6 +281,8 @@ func _on_delay_slider_value_changed(value):
 	fractal_changed.emit()
 	current_ifs.delay = value
 	open(current_ifs)
+	
+	reload_language()
 
 # background color
 
@@ -308,11 +330,14 @@ func reload_language():
 			# Sliders
 			## Point slider
 			PointTexture1.tooltip_text = "0 Punkte"
-			PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte"
-			PointTexture2.tooltip_text = "1.000.000 Punkte"
+			if limit >= 0:
+				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: " + str(limit)
+			else:
+				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: unendlich"
+			PointTexture2.tooltip_text = "berechne Punkte ohne Limit"
 			## Delay slider
 			DelayTexture1.tooltip_text = "zeichne alle Punkte"
-			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden"
+			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden. Aktuell: " + str(DelaySlider.value)
 			DelayTexture2.tooltip_text = "Verzögerung von 100 Punkten"
 			# buttons
 			ColorButton.tooltip_text = "Hintergrundfarbe ändern"
@@ -327,11 +352,14 @@ func reload_language():
 			# Sliders
 			## Point slider
 			PointTexture1.tooltip_text = "0 points"
-			PointSlider.tooltip_text = "change point limit"
-			PointTexture2.tooltip_text = "1,000,000 points"
+			if limit >= 0:
+				PointSlider.tooltip_text = "change point limit. Current value: " + str(limit)
+			else:
+				PointSlider.tooltip_text = "change point limit. Current value: infinity"
+			PointTexture2.tooltip_text = "do not stop calculating points"
 			## Delay slider
 			DelayTexture1.tooltip_text = "draw all points"
-			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\""
+			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\". Current value: " + str(DelaySlider.value)
 			DelayTexture2.tooltip_text = "delay of 100 points"
 			# buttons
 			ColorButton.tooltip_text = "change background color"
