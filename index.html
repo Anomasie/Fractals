@@ -8,7 +8,7 @@
         }
         
         a:link {
-          color: #578eb6;
+          color: #ffffff;
           background-color: transparent;
           text-decoration: none;
         }
@@ -34,12 +34,32 @@
             margin-right: 64px;
             margin-bottom: 64px;
             margin-left: 64px;
+            text-align: center;
         }
         
         h1 {
 			text-align:center;
-			margin: 32px 0 128px 0;
+			margin: 64px 0 64px 0;
 		}
+		
+		/* Container für die Bilder und Unterschriften */
+        .image-container {
+            display: flex;
+            justify-content: center; /* Zentriert die Bilder */
+            gap: 32px; /* Abstand zwischen den Bildern */
+            text-align: center; /* Zentriert die Unterschriften */
+            flex-wrap: wrap; /* Bilder umbrechen, falls der Platz zu klein wird */
+        }
+        /* Stil für jedes Bild und seine Unterschrift */
+        .image-item {
+            box-sizing: border-box;
+            margin-bottom: 20px; /* Abstand nach unten, falls Bilder umbrechen */
+        }
+        
+        /* Stil für die Bildunterschriften */
+        .caption {
+            margin-top: 8px;
+        }
     </style>
     <title>Fractals</title>
   </head>
@@ -51,13 +71,29 @@
         Where do you want to go to? / <i>Wonach suchst du?</i>
     </p>
     <p>
-        Gallery :
-        <a href="https://gallery.fracmi.cc/g/ifs/">gallery.fracmi.cc/g/ifs</a>
-    </p>
-    <p>
-        Fractal Generator : <a href="https://editor.fracmi.cc/">editor.fracmi.cc</a> <br>
-        (Not recommended for smartphones. /
-        <i>Nicht empfohlen für Smartphones.)</i>
+		<div class="image-container">
+			<!-- Erstes Bild -->
+			<div class="image-item">
+				<a href="https://editor.fracmi.cc/">
+					<img src="panel-editor.png" alt="Fractal Generator">
+					<div class="caption">Fractal Generator</div>
+				</a>
+			</div>
+			<!-- Zweites Bild -->
+			<div class="image-item">
+				<a href="https://gallery.fracmi.cc/g/ifs/">
+					<img src="panel-gallery.png" alt="Gallery">
+					<div class="caption">Gallery</div>
+				</a>
+			</div>
+			<!-- Drittes Bild -->
+			<div class="image-item">
+				<a href="https://github.com/Anomasie/Fractals">
+					<img src="panel-poster.png" alt="Poster">
+					<div class="caption">Poster</div>
+				</a>
+			</div>
+		</div>
     </p>
     <p>
         Source code / <i>Quellcode </i>:<br>
