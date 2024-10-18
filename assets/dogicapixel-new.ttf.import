@@ -2,19 +2,20 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://2ovkditfsus5"
-path="res://.godot/imported/dogicapixel.ttf-3fbcbaf38caf6d66939bcd4c156f5820.fontdata"
+uid="uid://b0sulbmd2h3ww"
+path="res://.godot/imported/dogicapixel-new.ttf-eea4b5d607dc441f20463e76d1ece84e.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/dogicapixel.ttf"
-dest_files=["res://.godot/imported/dogicapixel.ttf-3fbcbaf38caf6d66939bcd4c156f5820.fontdata"]
+source_file="res://assets/dogicapixel-new.ttf"
+dest_files=["res://.godot/imported/dogicapixel-new.ttf-eea4b5d607dc441f20463e76d1ece84e.fontdata"]
 
 [params]
 
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

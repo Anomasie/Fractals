@@ -120,6 +120,13 @@ text = "Share on website"
 layout_mode = 2
 text = "www.make-your-own-fractal-de/gallery"
 
+[node name="Label" type="Label" parent="Container/Content/MarginContainer/Lines"]
+layout_mode = 2
+text = "All fractals uploaded to the gallery are free to use and modify for everyone."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="CloseButton" type="TextureButton" parent="Container"]
 layout_mode = 2
 size_flags_horizontal = 8
