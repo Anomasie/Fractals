@@ -16,6 +16,7 @@ signal no_connection_to_server
 @onready var NameEdit = $Container/Content/MarginContainer/Lines/Tabular/NameEdit
 @onready var VenueLabel = $Container/Content/MarginContainer/Lines/Tabular/VenueLabel
 @onready var VenueEdit = $Container/Content/MarginContainer/Lines/Tabular/VenueEdit
+@onready var LegalLabel = $Container/Content/MarginContainer/Lines/LegalLabel
 
 @onready var ReadyButton = $Container/Content/MarginContainer/Lines/ReadyButton
 @onready var CloseButton = $Container/CloseButton
@@ -88,6 +89,8 @@ func reload_language():
 			ReadyButton.text = "Sende Bild an Galerie"
 			# GalleryAdress label
 			GalleryAdressLabel.tooltip_text = "Link zur Galerie"
+			# Legal label
+			LegalLabel.text = "Alle Fraktale in der Galerie dürfen von allen benutzt und verändert werden."
 			# Close Button
 			CloseButton.tooltip_text = "abbrechen"
 		_:
@@ -109,5 +112,7 @@ func reload_language():
 			ReadyButton.text = "Share on website"
 			# GalleryAdress label
 			GalleryAdressLabel.tooltip_text = "link to gallery"
+			# Legal label
+			LegalLabel.text = "All fractals uploaded to the gallery are free to use and modify for everyone."
 			# Close Button
 			CloseButton.tooltip_text = "close without sending"

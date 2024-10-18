@@ -111,6 +111,54 @@ Even though those first points do not necessarily belong to the fractal associat
 drawing them can lead to interesting pictures and effects."
 		}
 	},
+	"FAQ": {
+		"GER": "FAQ",
+		"EN": "FAQ",
+		"tooltip": {
+			"GER": "Häufig gestellte Fragen (und Antworten darauf)",
+			"EN": "Frequently asked questions (and answers to them)"
+		},
+		"text": {
+			"GER": "\
+Wie kann ich meine Fraktale speichern, wenn ich sie später neu im Editor öffnen möchte?
+-> Es gibt verschiedene Möglichkeiten:
+- Du kannst es in die Galerie hochladen (rechts). In der Galerie gibt es die Möglichkeit, \
+hochgeladene Fraktale neu im Editor zu laden. \
+ACHTUNG: Bilder in der Galerie sind öffentlich und frei benutzbar für jede*n.
+- Unter \"Fortgeschrittene Einstellungen (links) -> System bearbeiten (unten)\" gibt es die Möglichkeit, das \
+gesamte IFS als JSON-Datei zu speichern (ganz unten). Wenn du es wieder laden möchtest, kannst du unter derselben \
+Einstellung die gespeicherte JSON-Datei wieder hochladen und so das IFS laden.
+- Wenn du das Programm im Web benutzt, kannst du den Link speichern. WICHTIG: Davor musst du den Link erneuert werden. \
+Das geht zum Beispiel, indem du auf \"Bild lokal speichern\" klickst (unabhängig davon, ob du es danach speicherst oder nicht).
+
+Warum ändern sich, wenn ich in der Matrix-Ansicht eine Zahl ändere, auch andere Einträge der Matrix?
+-> Das liegt daran, dass die hier verwendeten Matrizen die Einheitsvektoren auf zueinander senkrechte Vektoren abbilden \
+(deshalb lassen sich die Abbildungen durch Rechtecke darstellen und nicht durch unregelmäßige Vierecke). \
+Eine gegebene Matrix abzutippen sollte in der Reihenfolge \"oben links, oben rechts, unten links, unten rechts\" möglich sein.
+
+Warum sind nicht alle Werte in der geometrischen Ansicht oder der Matrix-Ansicht erlaubt?
+-> Die Einträge müssen Kontraktionen ergeben, können also nicht zu groß werden. \
+Außerdem dürfen sie nicht zu klein sein, da die Rechtecke sonst nicht mehr darstellbar wären.",
+			"EN": "\
+How can I save a fractal to open it later again in the editor?
+-> There are different possible ways to do this.
+- You can upload your fractal to the gallery. In the gallery, it is possible to open all uploaded fractals. \
+NOTE: Images in the gallery are public and free to use for everyone.
+- Under \"advanced settings -> edit system\", there is an option to download the IFS as a JSON file. \
+You can save your fractal locally this way and load it using the same JSON file and the upload-button there.
+- If you are using the web version, you can save the link. NOTE: Before that, you have to reload the link. \
+The easiest way to do that is to click on \"save image locally\" (independent on whether you actually save the image or not).
+
+In matrix view, why do some entries change if I change unrelated matrix entries?
+-> This is due to the matrix having to map the unit vectors onto orthogonal vectors. (Which is why we can use \
+rectangles to describe the functions involved, and not arbitrary quadrangles.) \
+You can enter a known matrix in the order \"upper left, upper right, lower left, lower right\".
+
+Why are some entry values not allowed in matrix and geometric view?
+-> The mapping has to be a contraction, so the matrix or contraction entries are not permitted to be too high, \
+and they cannot be to small in order to display the rectangles.",
+		}
+	},
 	"contact": {
 		"GER": "Kontakt",
 		"EN": "contact",

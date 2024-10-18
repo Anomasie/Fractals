@@ -120,7 +120,8 @@ text = "Share on website"
 layout_mode = 2
 text = "www.make-your-own-fractal-de/gallery"
 
-[node name="Label" type="Label" parent="Container/Content/MarginContainer/Lines"]
+[node name="LegalLabel" type="Label" parent="Container/Content/MarginContainer/Lines"]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 text = "All fractals uploaded to the gallery are free to use and modify for everyone."
 horizontal_alignment = 1
