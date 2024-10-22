@@ -149,7 +149,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 tooltip_text = "change point limit"
 max_value = 1e+06
-value = 100000.0
+value = 500000.0
 
 [node name="ActualValueSlider" type="HSlider" parent="Columns/Left/Bottom/Lines/PointSlider"]
 layout_mode = 1

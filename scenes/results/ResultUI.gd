@@ -36,15 +36,24 @@ var current_origin = Vector2.ZERO
 var current_size = 1
 var file_counter = 0
 
+var limit = 0
+var frame_limit = 1000 # to manage frame performance
+var max_frame_limit = 100000
+var frame_step = 100
+var counter = 0
+
+var new_ifs
+var new_ifs_centered
+
 func _ready():
 	# set values
 	## PointTeller (ActualValueSlider)
-	PointSlider.value = limit
+	PointSlider.value = point_slider_descaled(Global.DEFAULT_POINTS)
+	limit = Global.DEFAULT_POINTS
 	PointTeller.min_value = PointSlider.min_value
 	PointTeller.max_value = PointSlider.max_value
 	PointTeller.value = 0
 	## other sliders
-	PointSlider.value = Global.DEFAULT_POINTS
 	DelaySlider.value = Global.DEFAULT_DELAY
 	# hide & show
 	SaveFileDialog.close()
@@ -60,15 +69,6 @@ func _ready():
 		SaveFileDialog
 	])
 
-var limit = 100000
-var frame_limit = 1000 # to manage frame performance
-var max_frame_limit = 10000
-var min_frame_limit = 100
-var counter = 0
-
-var new_ifs
-var new_ifs_centered
-
 func _process(delta):
 	if new_ifs:
 		open_new_ifs(new_ifs_centered)
@@ -77,9 +77,11 @@ func _process(delta):
 	if limit < 0 or counter < limit:
 		# decide how many points to be calculated in one frame
 		if delta > 1.0/15: # too slow
-			frame_limit = max(0, frame_limit-10)
+			frame_limit = max(0, frame_limit-frame_step)
+			print("slower!", frame_limit)
 		if delta < 1.0/30: # fast enough
-			frame_limit = min(frame_limit+10, max_frame_limit)
+			frame_limit = min(frame_limit+frame_step, max_frame_limit)
+			print("faster!", frame_limit)
 		
 		# calculate more points
 		## how many?
