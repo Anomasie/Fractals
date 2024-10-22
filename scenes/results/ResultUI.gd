@@ -76,13 +76,12 @@ func _process(delta):
 	
 	if limit < 0 or counter < limit:
 		# decide how many points to be calculated in one frame
-		if delta > 1.0/15: # too slow
-			frame_limit = max(0, frame_limit-frame_step)
-			print("slower!", frame_limit)
-		if delta < 1.0/30: # fast enough
-			frame_limit = min(frame_limit+frame_step, max_frame_limit)
-			print("faster!", frame_limit)
-		
+		if len(current_ifs.systems) > 0:
+			if delta > 1.0/15: # too slow
+				frame_limit = max(0, frame_limit-frame_step)
+			if delta < 1.0/30: # fast enough
+				frame_limit = min(frame_limit+frame_step, max_frame_limit)
+				
 		# calculate more points
 		## how many?
 		var amount = frame_limit
