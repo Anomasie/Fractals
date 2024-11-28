@@ -2,6 +2,8 @@ extends FileDialog
 
 signal path_selected
 
+var tooltip_text = ""
+
 func open():
 	popup()
 	invalidate() # it was supposed to help fixing a bug, but I am not sure what it does

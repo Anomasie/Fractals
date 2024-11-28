@@ -55,8 +55,10 @@ func _ready():
 	PointTeller.min_value = PointSlider.min_value
 	PointTeller.max_value = PointSlider.max_value
 	PointTeller.value = 0
+	PointLineEdit.placeholder_text = str(limit)
 	## other sliders
 	DelaySlider.value = Global.DEFAULT_DELAY
+	DelayLineEdit.placeholder_text = str(current_ifs.delay)
 	# hide & show
 	SaveFileDialog.close()
 	ColorSliders.hide()
@@ -264,6 +266,7 @@ var dragging_point_slider = false
 func _on_point_slider_value_changed(_value=null):
 	# set new point limit
 	limit = point_slider_scaled()
+	PointLineEdit.placeholder_text = str(limit)
 	# if too many points:
 	## restart
 	if limit >= 0 and counter > limit and not dragging_point_slider:
@@ -283,6 +286,7 @@ func _on_point_slider_drag_ended(_value_changed):
 func _on_delay_slider_value_changed(value):
 	fractal_changed.emit()
 	current_ifs.delay = value
+	DelayLineEdit.placeholder_text = str(current_ifs.delay)
 	open(current_ifs)
 	
 	reload_language()

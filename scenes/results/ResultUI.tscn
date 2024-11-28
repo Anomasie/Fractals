@@ -173,8 +173,9 @@ tooltip_text = "1000000 points"
 texture = SubResource("AtlasTexture_75thn")
 
 [node name="PointLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines"]
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
-placeholder_text = "150000"
+placeholder_text = "123456789"
 
 [node name="DelayTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
