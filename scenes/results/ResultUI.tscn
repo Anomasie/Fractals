@@ -136,7 +136,7 @@ mouse_filter = 2
 
 [node name="Lines" type="GridContainer" parent="Columns/Left/Bottom"]
 layout_mode = 2
-columns = 3
+columns = 4
 
 [node name="PointTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
@@ -172,6 +172,10 @@ layout_mode = 2
 tooltip_text = "1000000 points"
 texture = SubResource("AtlasTexture_75thn")
 
+[node name="PointLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines"]
+layout_mode = 2
+placeholder_text = "150000"
+
 [node name="DelayTexture1" type="TextureRect" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
 tooltip_text = "draw all points"
@@ -188,6 +192,10 @@ value = 10.0
 layout_mode = 2
 tooltip_text = "delay of 100 points"
 texture = SubResource("AtlasTexture_xxxko")
+
+[node name="DelayLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines"]
+layout_mode = 2
+placeholder_text = "15"
 
 [node name="Right" type="MarginContainer" parent="Columns"]
 layout_mode = 2
@@ -258,7 +266,9 @@ size_flags_vertical = 8
 [connection signal="drag_ended" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_ended"]
 [connection signal="drag_started" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
+[connection signal="text_submitted" from="Columns/Left/Bottom/Lines/PointLineEdit" to="." method="_on_point_line_edit_text_submitted"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
+[connection signal="text_submitted" from="Columns/Left/Bottom/Lines/DelayLineEdit" to="." method="_on_delay_line_edit_text_submitted"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ShareButton" to="." method="_on_share_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]

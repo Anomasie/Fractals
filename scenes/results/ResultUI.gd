@@ -20,10 +20,12 @@ signal store_to_url
 @onready var PointTexture1 = $Columns/Left/Bottom/Lines/PointTexture1
 @onready var PointTexture2 = $Columns/Left/Bottom/Lines/PointTexture2
 @onready var PointTeller = $Columns/Left/Bottom/Lines/PointSlider/ActualValueSlider
+@onready var PointLineEdit = $Columns/Left/Bottom/Lines/PointLineEdit
 
 @onready var DelaySlider = $Columns/Left/Bottom/Lines/DelaySlider
 @onready var DelayTexture1 = $Columns/Left/Bottom/Lines/DelayTexture1
 @onready var DelayTexture2 = $Columns/Left/Bottom/Lines/DelayTexture2
+@onready var DelayLineEdit = $Columns/Left/Bottom/Lines/DelayLineEdit
 
 @onready var ShareDialogue
 
@@ -63,8 +65,8 @@ func _ready():
 	# tooltips
 	Global.tooltip_nodes.append_array([
 		Result,
-		PointTexture1, PointSlider, PointTexture2,
-		DelayTexture1, DelaySlider, DelayTexture2,
+		PointTexture1, PointSlider, PointTexture2, PointLineEdit,
+		DelayTexture1, DelaySlider, DelayTexture2, DelayLineEdit,
 		ColorButton, ShareButton, SaveButton, SizeButton,
 		SaveFileDialog
 	])
@@ -285,6 +287,29 @@ func _on_delay_slider_value_changed(value):
 	
 	reload_language()
 
+## enter exact digits for points and delay
+
+func _on_point_line_edit_text_submitted(new_text: String) -> void:
+	var value
+	if new_text in [-1, "infty", "infinity", "infinite", "inf", "unendlich"]:
+		value = -1
+		PointSlider.value = PointSlider.max_value
+	else:
+		value = int(new_text)
+		PointSlider.value = point_slider_descaled(value)
+	_on_point_slider_value_changed()
+	# set text
+	PointLineEdit.placeholder_text = str(value)
+	PointLineEdit.text = ""
+
+func _on_delay_line_edit_text_submitted(new_text: String) -> void:
+	var value = int(new_text)
+	DelaySlider.value = value
+	_on_delay_slider_value_changed(DelaySlider.value)
+	# set text
+	DelayLineEdit.placeholder_text = str(DelaySlider.value)
+	DelayLineEdit.text = ""
+
 # background color
 
 func load_color(color):
@@ -336,10 +361,12 @@ func reload_language():
 			else:
 				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: unendlich"
 			PointTexture2.tooltip_text = "berechne Punkte ohne Limit"
+			PointLineEdit.tooltip_text = "aktuelle Anzahl zu berechnender Punkte"
 			## Delay slider
 			DelayTexture1.tooltip_text = "zeichne alle Punkte"
 			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden. Aktuell: " + str(DelaySlider.value)
 			DelayTexture2.tooltip_text = "Verzögerung von 100 Punkten"
+			DelayLineEdit.tooltip_text = "aktuelle Verzögerung"
 			# buttons
 			ColorButton.tooltip_text = "Hintergrundfarbe ändern"
 			ShareButton.tooltip_text = "teile dein Bild auf " + Global.GALLERY_ADRESS
@@ -358,10 +385,12 @@ func reload_language():
 			else:
 				PointSlider.tooltip_text = "change point limit. Current value: infinity"
 			PointTexture2.tooltip_text = "do not stop calculating points"
+			PointLineEdit.tooltip_text = "current point limit"
 			## Delay slider
 			DelayTexture1.tooltip_text = "draw all points"
 			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\". Current value: " + str(DelaySlider.value)
 			DelayTexture2.tooltip_text = "delay of 100 points"
+			DelayLineEdit.tooltip_text = "current delay"
 			# buttons
 			ColorButton.tooltip_text = "change background color"
 			ShareButton.tooltip_text = "share image in gallery"
