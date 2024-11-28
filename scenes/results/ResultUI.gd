@@ -294,6 +294,10 @@ func _on_delay_slider_value_changed(value):
 ## enter exact digits for points and delay
 
 func _on_point_line_edit_text_submitted(new_text: String) -> void:
+	if new_text == "":
+		_on_point_slider_value_changed()
+		return
+	
 	var value
 	if new_text in [-1, "infty", "infinity", "infinite", "inf", "unendlich"]:
 		value = -1
@@ -307,6 +311,10 @@ func _on_point_line_edit_text_submitted(new_text: String) -> void:
 	PointLineEdit.text = ""
 
 func _on_delay_line_edit_text_submitted(new_text: String) -> void:
+	if new_text == "":
+		_on_delay_slider_value_changed(DelaySlider.value)
+		return
+	
 	var value = int(new_text)
 	DelaySlider.value = value
 	_on_delay_slider_value_changed(DelaySlider.value)
