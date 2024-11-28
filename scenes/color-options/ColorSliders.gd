@@ -145,6 +145,7 @@ func _on_hash_text_submitted(new_text):
 	Hash.release_focus()
 	if len(new_text) == 6:
 		set_color(Color.from_string(new_text, Preview.modulate))
+		color_changed.emit()
 	else:
 		delete_hash_text()
 
