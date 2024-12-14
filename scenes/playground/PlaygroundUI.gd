@@ -85,7 +85,9 @@ func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
 
 func get_ifs():
-	return Playground.get_ifs( get_origin() )
+	var ifs = Playground.get_ifs( get_origin() )
+	ifs.uniform_coloring = ColorSliders.uniform_coloring
+	return ifs
 
 func set_ifs(ifs):
 	disabled += 1
@@ -93,6 +95,7 @@ func set_ifs(ifs):
 	if len(ifs.systems) > 0:
 		CloseAllButton.disabled = false
 	Playground.set_ifs(ifs, get_origin())
+	ColorSliders.set_uniform_coloring(ifs.uniform_coloring)
 	_on_presets_close_me()
 	PresetTimer.start()
 	

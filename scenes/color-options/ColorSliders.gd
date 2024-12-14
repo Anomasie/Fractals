@@ -3,6 +3,8 @@ extends MarginContainer
 signal color_changed
 signal finished
 
+@export var BACKGROUND_COLOR_SLIDER = false
+
 @onready var Preview = $Dialogue/Content/Columns/Preview
 
 @onready var HueTexture = $Dialogue/Content/Columns/Sliders/Hue/Texture
@@ -14,14 +16,17 @@ signal finished
 
 @onready var Presets = $Dialogue/Content/Columns/Sliders/Presets.get_children()
 @onready var UserPresetNode = $Dialogue/Content/Columns/Sliders/UserPresets
+@onready var UserPresetsLabel = $Dialogue/Content/Columns/Sliders/UserPresets/UserPresetsLabel
 @onready var UserPresets = $Dialogue/Content/Columns/Sliders/UserPresets.get_children()
 
 @onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
 
 @onready var AddButton = $Dialogue/Content/Columns/Buttons/AddButton
+@onready var UniformColorButton = $Dialogue/Content/Columns/Buttons/UniformColorButton
 @onready var CloseButton = $CloseButton
 
 var saved_colors = [Color("#002350"), Color("#008198"), Color("#539f32"), Color("#d86614")]
+var uniform_coloring = false
 
 var disabled = 0
 
@@ -30,8 +35,10 @@ func _ready():
 	for i in len(Presets):
 		if Presets[i] is TextureButton:
 			Presets[i].pressed.connect(_on_preset_pressed.bind(i))
+	UserPresets.pop_front()
 	for i in len(UserPresets):
-		UserPresets[i].pressed.connect(_on_user_preset_pressed.bind(i))
+		if UserPresets[i] is TextureButton:
+			UserPresets[i].pressed.connect(_on_user_preset_pressed.bind(i))
 	# connect with global
 	## preset colors
 	Global.user_saved_colors_changed.connect(load_user_preset_colors)
@@ -42,6 +49,8 @@ func _ready():
 	] + Presets + UserPresets)
 	# open something
 	open(Color.BLUE)
+	
+	UniformColorButton.visible = not self.BACKGROUND_COLOR_SLIDER
 
 # open and close
 
@@ -157,6 +166,16 @@ func _on_hash_focus_exited():
 func _on_close_button_pressed():
 	finished.emit()
 
+# color algorithm
+
+func set_uniform_coloring(value) -> void:
+	uniform_coloring = value
+	UniformColorButton.set_uniform_colorong(value)
+
+func _on_uniform_color_button_pressed() -> void:
+	uniform_coloring = UniformColorButton.uniform
+	color_changed.emit()
+
 # language & translation
 
 func reload_language():
@@ -169,6 +188,7 @@ func reload_language():
 			for preset in Presets:
 				preset.tooltip_text = "klicke um diese Farbe zu wählen"
 			Hash.tooltip_text = "HTML-Farbcode"
+			UserPresetsLabel.text = "Gespeichert:"
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "gespeicherte Farbe\n(max. 8)"
 			AddButton.tooltip_text = "speichere aktuelle Farbe"
@@ -181,7 +201,8 @@ func reload_language():
 			for preset in Presets:
 				preset.tooltip_text = "preset color"
 			Hash.tooltip_text = "enter html-color-code here"
+			UserPresetsLabel.text = "Saved:"
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "colors you saved\n(max. 8)"
-			AddButton.tooltip_text = "add current color to presets"
+			AddButton.tooltip_text = "save current color"
 			CloseButton.tooltip_text = "close color settings"

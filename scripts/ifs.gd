@@ -5,7 +5,9 @@ const ACCURACY = 0.0000001
 var systems = [] # array of contractions
 var background_color = Color.WHITE
 var delay = Global.DEFAULT_DELAY
+var uniform_coloring = false
 
+# currently unused
 func apply_contraction(pos):
 	if len(systems) > 0:
 		var distribution = get_distribution()
@@ -14,7 +16,10 @@ func apply_contraction(pos):
 			if random <= distribution[i]:
 				var result = point.new()
 				result.position = systems[ i ].apply(pos.position)
-				result.color = systems[ i ].mix(pos.color)
+				if uniform_coloring:
+					result.color = systems[i]
+				else:
+					result.color = systems[ i ].mix(pos.color)
 				return [result, i]
 	else:
 		return
@@ -25,7 +30,10 @@ func random_walk(pos, length=1, distribution=[]):
 			var fs = systems[ randi_range(0, len(systems)-1) ]
 			var result = point.new()
 			result.position = fs.apply(pos.position)
-			result.color = fs.mix(pos.color)
+			if uniform_coloring:
+				result.color = fs.color
+			else:
+				result.color = fs.mix(pos.color)
 			return random_walk(
 				result,
 				length - 1,
@@ -37,7 +45,10 @@ func random_walk(pos, length=1, distribution=[]):
 				if random <= distribution[i]:
 					var result = point.new()
 					result.position = systems[ i ].apply(pos.position)
-					result.color = systems[ i ].mix(pos.color)
+					if uniform_coloring:
+						result.color = systems[i].color
+					else:
+						result.color = systems[i].mix(pos.color)
 					return random_walk(
 						result,
 						length - 1,
@@ -99,11 +110,13 @@ func round_all(array):
 
 func to_meta_data():
 	# version
-	var string = "v1"
+	var string = "v2"
 	# background color
 	string += "|" + background_color.to_html()
 	# delay
 	string += "|" + str(delay)
+	# color mixing
+	string += "|" + str(int(uniform_coloring))
 	# ifs data
 	for contraction in systems:
 		string += "|"
@@ -162,7 +175,7 @@ static func from_meta_data_version(meta_data, version):
 				ifs.systems = meta_ifs_systems
 				
 				return ifs
-		_: # current version
+		1: # background color
 			# split into units:
 			## very first is the version
 			## first unit is the background color
@@ -198,6 +211,46 @@ static func from_meta_data_version(meta_data, version):
 				ifs.systems = meta_ifs_systems
 				
 				return ifs
+		_: # uniform coloring / current version
+			# split into units:
+			## very first is the version
+			## first unit is the background color
+			## second unit stands for delay
+			## the rest are the systems to portray
+			var units = meta_data.split("|", false)
+			if len(units) > 0:
+				var ifs = IFS.new()
+				
+				units.remove_at(0)
+				
+				# background color
+				ifs.background_color = Color.from_string(units[0], Color.WHITE)
+				units.remove_at(0)
+				
+				# delay
+				ifs.delay = int(units[0])
+				units.remove_at(0)
+				
+				# uniform coloring
+				ifs.uniform_coloring = (units[0] == 1)
+				units.remove_at(0)
+				
+				# functions
+				var meta_ifs_systems = []
+				for i in len(units):
+					var entries = units[i].split(",", false)
+					if len(entries) < 6: # someone messed up the url! >:(
+						return
+					var contraction = Contraction.new()
+					contraction.translation = Vector2(float(entries[0]), float(entries[1]))
+					contraction.contract = Vector2(float(entries[2]), float(entries[3]))
+					contraction.rotation = float(entries[4])
+					contraction.mirrored = (entries[5] in ["1", "true"])
+					contraction.color = Color.from_string(entries[6], Color.BLACK) # black is default
+					meta_ifs_systems.append(contraction)
+				ifs.systems = meta_ifs_systems
+				
+				return ifs
 
 # dictionaries
 
@@ -205,6 +258,7 @@ func to_dict():
 	var dict = {}
 	dict["background color"] = background_color.to_html()
 	dict["delay"] = delay
+	dict["uniform coloring"] = int(uniform_coloring)
 	dict["systems"] = []
 	for contraction in systems:
 		var matrix = round_all(contraction.to_matrix())
@@ -226,6 +280,8 @@ static func from_dict(dict):
 		ifs.background_color = Color.from_string(dict["background color"], Color.WHITE)
 	if dict.has("delay"):
 		ifs.delay = int(dict["delay"])
+	if dict.has("uniform coloring"):
+		ifs.uniform_coloring = (int(dict["uniform coloring"]) == 1)
 	if dict.has("systems"):
 		for system in dict["systems"]:
 			var contraction = Contraction.new()
