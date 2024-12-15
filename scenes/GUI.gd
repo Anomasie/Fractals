@@ -88,6 +88,10 @@ func try_load_from_url():
 		var url_str = url_hash["hash"].get_slice("#", 1)#.percent_decode()
 		try_load_from_string(url_str)
 
+func try_load_from_link(url_link="#"):
+	if url_link.find("#") >= 0:
+		try_load_from_string(url_link.get_slice("#", 1))
+
 func try_load_from_string(meta_data):
 	if meta_data:
 		# build code
@@ -259,4 +263,5 @@ func _on_debug_button_pressed():
 	pass
 
 func _on_debug_edit_text_submitted(new_text):
-	try_load_from_string(new_text)
+	try_load_from_link(new_text)
+	print("yes!")

@@ -123,8 +123,7 @@ size_flags_vertical = 8
 text = "Debug-Button
 "
 
-[node name="DebugEdit" type="LineEdit" parent="."]
-visible = false
+[node name="DebugLinkEdit" type="LineEdit" parent="."]
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -145,4 +144,4 @@ layout_mode = 2
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
-[connection signal="text_submitted" from="DebugEdit" to="." method="_on_debug_edit_text_submitted"]
+[connection signal="text_submitted" from="DebugLinkEdit" to="." method="_on_debug_edit_text_submitted"]

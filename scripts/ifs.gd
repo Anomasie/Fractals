@@ -232,7 +232,7 @@ static func from_meta_data_version(meta_data, version):
 				units.remove_at(0)
 				
 				# uniform coloring
-				ifs.uniform_coloring = (units[0] == 1)
+				ifs.uniform_coloring = (int(units[0]) == 1)
 				units.remove_at(0)
 				
 				# functions
