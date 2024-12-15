@@ -1,10 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://mtu0mxcjwc41"]
+[gd_scene load_steps=35 format=3 uid="uid://mtu0mxcjwc41"]
 
 [ext_resource type="Script" path="res://scenes/color-options/ColorSliders.gd" id="1_ryk5y"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="2_ifvt5"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_ihvhm"]
+[ext_resource type="PackedScene" uid="uid://duebklrl317w2" path="res://scenes/general/SwitchButton.tscn" id="4_2fov5"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="4_eexud"]
-[ext_resource type="PackedScene" uid="uid://pk12fvudk64h" path="res://scenes/color-options/UniformColorButton.tscn" id="4_meri6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bj178"]
 atlas = ExtResource("2_ifvt5")
@@ -86,6 +86,16 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkpn8"]
 atlas = ExtResource("3_ihvhm")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqvyr"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8kje"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(0, 256, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75bkv"]
 atlas = ExtResource("4_eexud")
@@ -238,6 +248,24 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
+[node name="Set5" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "preset color"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set6" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "preset color"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
 [node name="Hashtag" type="Label" parent="Dialogue/Content/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_vertical = 1
@@ -357,8 +385,12 @@ texture_normal = SubResource("AtlasTexture_pcoqw")
 texture_pressed = SubResource("AtlasTexture_gcil7")
 texture_hover = SubResource("AtlasTexture_rkpn8")
 
-[node name="UniformColorButton" parent="Dialogue/Content/Columns/Buttons" instance=ExtResource("4_meri6")]
+[node name="UniformButton" parent="Dialogue/Content/Columns/Buttons" instance=ExtResource("4_2fov5")]
 layout_mode = 2
+tooltip_ = "change color algorithm"
+tooltip_ger = "ändere Farbgebung"
+tex_on = SubResource("AtlasTexture_vqvyr")
+tex_off = SubResource("AtlasTexture_p8kje")
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
@@ -375,5 +407,5 @@ texture_hover = SubResource("AtlasTexture_lrmm1")
 [connection signal="focus_exited" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
 [connection signal="text_submitted" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
 [connection signal="pressed" from="Dialogue/Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
-[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/UniformColorButton" to="." method="_on_uniform_color_button_pressed"]
+[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/UniformButton" to="." method="_on_uniform_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

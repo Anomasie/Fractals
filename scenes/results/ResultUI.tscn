@@ -1,10 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=33 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/results/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_ffygg"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="3_limvo"]
-[ext_resource type="PackedScene" uid="uid://dpi78ruafalrj" path="res://scenes/results/CenterButton.tscn" id="4_3q2yo"]
+[ext_resource type="PackedScene" uid="uid://duebklrl317w2" path="res://scenes/general/SwitchButton.tscn" id="5_comce"]
 [ext_resource type="PackedScene" uid="uid://d02voib3j3r1l" path="res://scenes/results/SizeOptions.tscn" id="5_ok3dt"]
 [ext_resource type="PackedScene" uid="uid://eeubmpoydn2u" path="res://scenes/file-contact/MyFileDialog.tscn" id="6_i4mu4"]
 [ext_resource type="PackedScene" uid="uid://mtu0mxcjwc41" path="res://scenes/color-options/ColorSliders.tscn" id="8_bgnmw"]
@@ -76,6 +76,14 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ur5h"]
 atlas = ExtResource("3_limvo")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abqm7"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adciy"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jvvs"]
 atlas = ExtResource("3_limvo")
@@ -194,7 +202,10 @@ layout_mode = 2
 tooltip_text = "delay of 100 points"
 texture = SubResource("AtlasTexture_xxxko")
 
-[node name="DelayLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines"]
+[node name="Sep" type="HBoxContainer" parent="Columns/Left/Bottom/Lines"]
+layout_mode = 2
+
+[node name="DelayLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines/Sep"]
 layout_mode = 2
 placeholder_text = "15"
 
@@ -241,9 +252,12 @@ texture_normal = SubResource("AtlasTexture_mb1ir")
 texture_pressed = SubResource("AtlasTexture_vxkup")
 texture_hover = SubResource("AtlasTexture_3ur5h")
 
-[node name="CenterButton" parent="Columns/Right/Top/Main" instance=ExtResource("4_3q2yo")]
+[node name="CenterButton" parent="Columns/Right/Top/Main" instance=ExtResource("5_comce")]
 layout_mode = 2
-tooltip_text = "change view"
+tooltip_ = "change view"
+tooltip_ger = "\"ändere Bildausschnitt"
+tex_on = SubResource("AtlasTexture_abqm7")
+tex_off = SubResource("AtlasTexture_adciy")
 
 [node name="SizeButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2
@@ -270,7 +284,7 @@ BACKGROUND_COLOR_SLIDER = true
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
 [connection signal="text_submitted" from="Columns/Left/Bottom/Lines/PointLineEdit" to="." method="_on_point_line_edit_text_submitted"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
-[connection signal="text_submitted" from="Columns/Left/Bottom/Lines/DelayLineEdit" to="." method="_on_delay_line_edit_text_submitted"]
+[connection signal="text_submitted" from="Columns/Left/Bottom/Lines/Sep/DelayLineEdit" to="." method="_on_delay_line_edit_text_submitted"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ShareButton" to="." method="_on_share_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]

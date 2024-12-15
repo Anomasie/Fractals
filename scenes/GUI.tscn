@@ -124,6 +124,7 @@ text = "Debug-Button
 "
 
 [node name="DebugLinkEdit" type="LineEdit" parent="."]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 

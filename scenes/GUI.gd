@@ -260,8 +260,9 @@ func reload_language():
 # debugging
 
 func _on_debug_button_pressed():
-	pass
+	print("on debug button pressed!")
 
 func _on_debug_edit_text_submitted(new_text):
+	print("text submitted!")
 	try_load_from_link(new_text)
-	print("yes!")
+	print("submission process ended!")

@@ -25,7 +25,7 @@ signal store_to_url
 @onready var DelaySlider = $Columns/Left/Bottom/Lines/DelaySlider
 @onready var DelayTexture1 = $Columns/Left/Bottom/Lines/DelayTexture1
 @onready var DelayTexture2 = $Columns/Left/Bottom/Lines/DelayTexture2
-@onready var DelayLineEdit = $Columns/Left/Bottom/Lines/DelayLineEdit
+@onready var DelayLineEdit = $Columns/Left/Bottom/Lines/Sep/DelayLineEdit
 
 @onready var ShareDialogue
 
@@ -56,6 +56,7 @@ func _ready():
 	PointTeller.max_value = PointSlider.max_value
 	PointTeller.value = 0
 	PointLineEdit.placeholder_text = str(limit)
+	CenterButton.set_value(false)
 	## other sliders
 	DelaySlider.value = Global.DEFAULT_DELAY
 	DelayLineEdit.placeholder_text = str(current_ifs.delay)
@@ -93,7 +94,7 @@ func _process(delta):
 			amount = min(frame_limit, limit-counter)
 		counter += amount
 		## paint them
-		paint(current_ifs.calculate_fractal( point.new(), amount), CenterButton.centered)
+		paint(current_ifs.calculate_fractal( point.new(), amount), CenterButton.value)
 		## update slider
 		PointTeller.value = point_slider_descaled(counter)
 
@@ -126,11 +127,11 @@ func resize_image(new_size):
 	image_size = new_size
 	open(current_ifs)
 
-func open(ifs, centered=CenterButton.centered):
+func open(ifs, centered=CenterButton.value):
 	new_ifs = ifs
 	new_ifs_centered = centered
 
-func open_new_ifs(centered=CenterButton.centered):
+func open_new_ifs(centered=CenterButton.value):
 	var ifs = new_ifs
 	current_ifs = ifs
 	current_ifs.background_color = ResultBackground.self_modulate
@@ -257,7 +258,7 @@ func _on_save_file_dialog_path_selected(path):
 # change centering picture
 
 func _on_center_button_pressed():
-	open(current_ifs, CenterButton.centered)
+	open(current_ifs, CenterButton.value)
 
 # more points!
 

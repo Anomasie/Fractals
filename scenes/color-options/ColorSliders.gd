@@ -22,10 +22,18 @@ signal finished
 @onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
 
 @onready var AddButton = $Dialogue/Content/Columns/Buttons/AddButton
-@onready var UniformColorButton = $Dialogue/Content/Columns/Buttons/UniformColorButton
+@onready var UniformColorButton = $Dialogue/Content/Columns/Buttons/UniformButton
 @onready var CloseButton = $CloseButton
 
-var saved_colors = [Color("#002350"), Color("#008198"), Color("#539f32"), Color("#d86614")]
+var saved_colors = [
+	Color("#faf3d4"),
+	Color("#e6c853"),
+	Color("#e0003f"),
+	Color("#007bde"),
+	Color("#282445"),
+	Color("#2a7336"),
+	Color("#3ccf53")
+	]
 var uniform_coloring = false
 
 var disabled = 0
@@ -170,10 +178,10 @@ func _on_close_button_pressed():
 
 func set_uniform_coloring(value) -> void:
 	uniform_coloring = value
-	UniformColorButton.set_uniform_colorong(value)
+	UniformColorButton.set_value(value)
 
-func _on_uniform_color_button_pressed() -> void:
-	uniform_coloring = UniformColorButton.uniform
+func _on_uniform_button_pressed() -> void:
+	uniform_coloring = UniformColorButton.value
 	color_changed.emit()
 
 # language & translation
