@@ -54,6 +54,7 @@ texture_hover = SubResource("AtlasTexture_quc2e")
 texture_disabled = SubResource("AtlasTexture_qoypn")
 
 [node name="Off" type="TextureButton" parent="."]
+visible = false
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_wybhy")
 texture_pressed = SubResource("AtlasTexture_r72iq")

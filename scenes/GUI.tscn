@@ -118,15 +118,16 @@ one_shot = true
 [node name="DebugButton" type="Button" parent="."]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Debug-Button
 "
 
-[node name="DebugLinkEdit" type="LineEdit" parent="."]
+[node name="DebugLineEdit" type="LineEdit" parent="."]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
+placeholder_text = "Debug Line Edit"
 
 [node name="TooltipSubstitute" parent="." instance=ExtResource("8_kl7tn")]
 layout_mode = 2
@@ -145,4 +146,4 @@ layout_mode = 2
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
-[connection signal="text_submitted" from="DebugLinkEdit" to="." method="_on_debug_edit_text_submitted"]
+[connection signal="text_submitted" from="DebugLineEdit" to="." method="_on_debug_edit_text_submitted"]

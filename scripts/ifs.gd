@@ -6,6 +6,8 @@ var systems = [] # array of contractions
 var background_color = Color.WHITE
 var delay = Global.DEFAULT_DELAY
 var uniform_coloring = false
+var reusing_last_point = false
+var centered_view = false
 
 # currently unused
 func apply_contraction(pos):
@@ -57,13 +59,13 @@ func random_walk(pos, length=1, distribution=[]):
 	else:
 		return pos
 
-func calculate_fractal(start=point.new(), points=2000):
+func calculate_fractal(start=point.new(), points=2000, this_delay=delay):
 	var result = []
 	# check if system is empty
 	if len(systems) > 0:
 		# delay
 		## to begin in the attractor
-		start = random_walk(start, delay)
+		start = random_walk(start, this_delay)
 		# real points
 		result.append(start)
 		var distribution = get_distribution()
@@ -117,6 +119,10 @@ func to_meta_data():
 	string += "|" + str(delay)
 	# color mixing
 	string += "|" + str(int(uniform_coloring))
+	# reusing_last_point
+	string += "|" + str(int(reusing_last_point))
+	# centered_view
+	string += "|" + str(int(centered_view))
 	# ifs data
 	for contraction in systems:
 		string += "|"
@@ -235,6 +241,14 @@ static func from_meta_data_version(meta_data, version):
 				ifs.uniform_coloring = (int(units[0]) == 1)
 				units.remove_at(0)
 				
+				# reusing_last_point
+				ifs.reusing_last_point = (int(units[0]) == 1)
+				units.remove_at(0)
+				
+				# centered_view
+				ifs.centered_view = (int(units[0]) == 1)
+				units.remove_at(0)
+				
 				# functions
 				var meta_ifs_systems = []
 				for i in len(units):
@@ -259,6 +273,8 @@ func to_dict():
 	dict["background color"] = background_color.to_html()
 	dict["delay"] = delay
 	dict["uniform coloring"] = int(uniform_coloring)
+	dict["reusing last point"] = int(reusing_last_point)
+	dict["centered view"] = int(centered_view)
 	dict["systems"] = []
 	for contraction in systems:
 		var matrix = round_all(contraction.to_matrix())
@@ -282,6 +298,10 @@ static func from_dict(dict):
 		ifs.delay = int(dict["delay"])
 	if dict.has("uniform coloring"):
 		ifs.uniform_coloring = (int(dict["uniform coloring"]) == 1)
+	if dict.has("reusing last point"):
+		ifs.reusing_last_point = (int(dict["reusing last point"]) == 1)
+	if dict.has("centered view"):
+		ifs.centered_view = (int(dict["centered view"]) == 1)
 	if dict.has("systems"):
 		for system in dict["systems"]:
 			var contraction = Contraction.new()

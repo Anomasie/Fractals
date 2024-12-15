@@ -17,7 +17,7 @@ signal pressed
 var value = true
 
 func _process(_delta):
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() and tex_on and tex_off:
 		set_value(bool(on))
 		set_textures()
 

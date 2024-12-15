@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bcoioblesr22e"]
+[gd_scene load_steps=35 format=3 uid="uid://bcoioblesr22e"]
 
 [ext_resource type="Script" path="res://scenes/results/ResultUI.gd" id="1_p14af"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="2_bc0yl"]
@@ -32,6 +32,14 @@ region = Rect2(0, 352, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxxko"]
 atlas = ExtResource("3_limvo")
 region = Rect2(32, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odk1e"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twkmr"]
+atlas = ExtResource("3_limvo")
+region = Rect2(0, 544, 32, 32)
 
 [sub_resource type="InputEventKey" id="InputEventKey_1kcjd"]
 device = -1
@@ -204,10 +212,18 @@ texture = SubResource("AtlasTexture_xxxko")
 
 [node name="Sep" type="HBoxContainer" parent="Columns/Left/Bottom/Lines"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="DelayLineEdit" type="LineEdit" parent="Columns/Left/Bottom/Lines/Sep"]
 layout_mode = 2
 placeholder_text = "15"
+
+[node name="ReusingLastPointButton" parent="Columns/Left/Bottom/Lines/Sep" instance=ExtResource("5_comce")]
+layout_mode = 2
+tooltip_ = "re-use the last calculated point for new calculations"
+tooltip_ger = "Wiederbenutzung oder Neustart des Chaosspiels in jedem Frame"
+tex_on = SubResource("AtlasTexture_odk1e")
+tex_off = SubResource("AtlasTexture_twkmr")
 
 [node name="Right" type="MarginContainer" parent="Columns"]
 layout_mode = 2
@@ -285,6 +301,7 @@ BACKGROUND_COLOR_SLIDER = true
 [connection signal="text_submitted" from="Columns/Left/Bottom/Lines/PointLineEdit" to="." method="_on_point_line_edit_text_submitted"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
 [connection signal="text_submitted" from="Columns/Left/Bottom/Lines/Sep/DelayLineEdit" to="." method="_on_delay_line_edit_text_submitted"]
+[connection signal="pressed" from="Columns/Left/Bottom/Lines/Sep/ReusingLastPointButton" to="." method="_on_reusing_last_point_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ColorButton" to="." method="_on_color_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/ShareButton" to="." method="_on_share_button_pressed"]
 [connection signal="pressed" from="Columns/Right/Top/Main/SaveButton" to="." method="_on_save_button_pressed"]

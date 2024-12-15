@@ -27,6 +27,8 @@ signal store_to_url
 @onready var DelayTexture2 = $Columns/Left/Bottom/Lines/DelayTexture2
 @onready var DelayLineEdit = $Columns/Left/Bottom/Lines/Sep/DelayLineEdit
 
+@onready var ReusingLastPointButton = $Columns/Left/Bottom/Lines/Sep/ReusingLastPointButton
+
 @onready var ShareDialogue
 
 var RealImage
@@ -46,6 +48,9 @@ var counter = 0
 
 var new_ifs
 var new_ifs_centered
+
+var first_frame = false
+var last_point = point.new()
 
 func _ready():
 	# set values
@@ -76,8 +81,7 @@ func _ready():
 
 func _process(delta):
 	if new_ifs:
-		open_new_ifs(new_ifs_centered)
-		new_ifs = null
+		open_new_ifs()
 	
 	if limit < 0 or counter < limit:
 		# decide how many points to be calculated in one frame
@@ -94,7 +98,18 @@ func _process(delta):
 			amount = min(frame_limit, limit-counter)
 		counter += amount
 		## paint them
-		paint(current_ifs.calculate_fractal( point.new(), amount), CenterButton.value)
+		if current_ifs.reusing_last_point:
+			var points
+			if first_frame: # delay
+				points = current_ifs.calculate_fractal( last_point, amount)
+			else: # no delay
+				points = current_ifs.calculate_fractal( last_point, amount, 0)
+			if amount > 0:
+				last_point = points[-1]
+			first_frame = false
+			paint(points)
+		else:
+			paint(current_ifs.calculate_fractal( point.new(), amount))
 		## update slider
 		PointTeller.value = point_slider_descaled(counter)
 
@@ -127,12 +142,19 @@ func resize_image(new_size):
 	image_size = new_size
 	open(current_ifs)
 
-func open(ifs, centered=CenterButton.value):
+func open(ifs, overwrite_result_ui=false):
+	first_frame = true
 	new_ifs = ifs
-	new_ifs_centered = centered
+	if overwrite_result_ui:
+		ReusingLastPointButton.set_value(new_ifs.reusing_last_point)
+		CenterButton.set_value(new_ifs.centered_view)
+	else:
+		new_ifs.reusing_last_point = ReusingLastPointButton.value
+		new_ifs.centered_view = CenterButton.value
 
-func open_new_ifs(centered=CenterButton.value):
+func open_new_ifs():
 	var ifs = new_ifs
+	new_ifs = null
 	current_ifs = ifs
 	current_ifs.background_color = ResultBackground.self_modulate
 	# create empty, white image
@@ -144,8 +166,8 @@ func open_new_ifs(centered=CenterButton.value):
 	Result.custom_minimum_size = current_loupe
 	Result.set_texture(ImageTexture.create_from_image(image))
 	# calculate min and max bounds in results
-	if centered:
-		var results = ifs.calculate_fractal()
+	if ifs.centered_view:
+		var results = ifs.calculate_fractal(point.new(), 2000, 1000) # ignore first delay
 		# get minimum and maximum in current results
 		var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
 		if len(results) > 0:
@@ -166,7 +188,7 @@ func open_new_ifs(centered=CenterButton.value):
 	# set counter
 	counter = 0
 
-func paint(results, centered):
+func paint(results, centered=current_ifs.centered_view):
 	# paint image
 	## centered view
 	if centered:
@@ -258,7 +280,9 @@ func _on_save_file_dialog_path_selected(path):
 # change centering picture
 
 func _on_center_button_pressed():
-	open(current_ifs, CenterButton.value)
+	current_ifs.centered_view = CenterButton.value
+	open(current_ifs)
+	fractal_changed.emit()
 
 # more points!
 
@@ -358,6 +382,13 @@ func _on_size_button_pressed():
 
 func _on_size_options_value_changed():
 	resize_image(SizeOptions.read_ui())
+
+# re-usage of last calculated point
+
+func _on_reusing_last_point_button_pressed() -> void:
+	current_ifs.reusing_last_point = ReusingLastPointButton.value
+	fractal_changed.emit()
+	open(current_ifs)
 
 # language & translation
 

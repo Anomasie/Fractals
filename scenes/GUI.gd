@@ -52,9 +52,10 @@ func _ready():
 	# tooltip_text
 	Global.tooltip_nodes.append_array([HelpButton, LanguageButton])
 
-func load_ifs(ifs):
+func load_ifs(ifs, overwriting_result_ui=true):
 	fractal_changed_disabled += 1
 	PlaygroundUI.set_ifs(ifs)
+	ResultUI.open(ifs, overwriting_result_ui)
 	ResultUI.load_color(ifs.background_color)
 	ResultUI.DelaySlider.value = ifs.delay
 	fractal_changed_disabled -= 1
@@ -98,7 +99,7 @@ func try_load_from_string(meta_data):
 		var meta_ifs = IFS.from_meta_data(meta_data)
 		# valid -> build
 		if meta_ifs is IFS:
-			load_ifs(meta_ifs)
+			load_ifs(meta_ifs, true)
 
 func _on_load_from_url_timer_timeout():
 	var js_window = JavaScriptBridge.get_interface("window")
@@ -229,7 +230,7 @@ func _on_playground_ui_open_txt_options():
 		load_ui_when_txt_options_open = false
 
 func _on_txt_options_changed(new_ifs):
-	load_ifs(new_ifs)
+	load_ifs(new_ifs, true)
 
 # language & translation
 
@@ -259,8 +260,12 @@ func reload_language():
 
 # debugging
 
+@onready var DebugLine = $DebugLineEdit
+
 func _on_debug_button_pressed():
 	print("on debug button pressed!")
+	print(ResultUI.current_ifs.reusing_last_point)
+	DebugLine.text = "web#"+ResultUI.current_ifs.to_meta_data()
 
 func _on_debug_edit_text_submitted(new_text):
 	print("text submitted!")
