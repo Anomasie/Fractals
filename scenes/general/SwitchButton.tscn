@@ -45,6 +45,7 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_860qb")
+reverse_textures = null
 
 [node name="On" type="TextureButton" parent="."]
 layout_mode = 2

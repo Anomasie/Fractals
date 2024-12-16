@@ -104,7 +104,7 @@ func _process(delta):
 				points = current_ifs.calculate_fractal( last_point, amount)
 			else: # no delay
 				points = current_ifs.calculate_fractal( last_point, amount, 0)
-			if amount > 0:
+			if len(points) > 0:
 				last_point = points[-1]
 			first_frame = false
 			paint(points)
@@ -146,6 +146,8 @@ func open(ifs, overwrite_result_ui=false):
 	first_frame = true
 	new_ifs = ifs
 	if overwrite_result_ui:
+		load_color(ifs.background_color)
+		DelaySlider.value = ifs.delay
 		ReusingLastPointButton.set_value(new_ifs.reusing_last_point)
 		CenterButton.set_value(new_ifs.centered_view)
 	else:

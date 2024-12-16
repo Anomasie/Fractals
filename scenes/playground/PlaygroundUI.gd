@@ -1,5 +1,6 @@
 extends MarginContainer
 
+signal fractal_changed
 signal open_txt_options
 
 @onready var Playground = $Playground
@@ -97,7 +98,6 @@ func set_ifs(ifs):
 	Playground.set_ifs(ifs, get_origin())
 	ColorSliders.set_uniform_coloring(ifs.uniform_coloring)
 	_on_presets_close_me()
-	PresetTimer.start()
 	
 	disabled -= 1
 
@@ -309,6 +309,7 @@ func _on_presets_close_me():
 
 func _on_presets_load_preset(ifs):
 	set_ifs(ifs)
+	PresetTimer.start()
 
 func _on_preset_timer_timeout():
 	_fractal_changed()
@@ -318,9 +319,8 @@ func _on_preset_timer_timeout():
 @onready var ResultUI
 
 func _fractal_changed():
-	if not disabled:
-		# show results
-		self.get_parent().get_owner().show_results()
+	if disabled == 0:
+		fractal_changed.emit()
 
 # language & translation
 

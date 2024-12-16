@@ -5,9 +5,13 @@ signal text_changed
 
 const DIGITS = 0.05
 
+var json = JSON.new()
+
 @onready var CodeEditor = $CodeEditor
 @onready var ReloadButton = $ReloadButton
 @onready var RoundButton = $RoundButton
+
+var disabled = 0
 
 func _ready():
 	Global.tooltip_nodes.append_array([ReloadButton, RoundButton])
@@ -17,7 +21,6 @@ func do_i_have_focus():
 
 func get_dict_from_text():
 	# read text -> json
-	var json = JSON.new()
 	var error = json.parse(CodeEditor.text)
 	var dict = {}
 	if error == OK:
@@ -29,14 +32,15 @@ func get_dict_from_text():
 	return dict
 
 func load_text(ifs):
-	# ifs -> dict
-	var dict = ifs.to_dict()
-	# dict -> json
-	var json = dict
-	# json -> text
-	var dict_string = JSON.stringify(json, "\t")
-	# set text
-	CodeEditor.text = dict_string
+	if disabled == 0:
+		# ifs -> dict
+		var dict = ifs.to_dict()
+		# dict -> json
+		var json = dict
+		# json -> text
+		var dict_string = JSON.stringify(json, "\t")
+		# set text
+		CodeEditor.text = dict_string
 
 func read_text():
 	var dict = get_dict_from_text()
@@ -70,6 +74,15 @@ func round_numbers():
 	text_changed.emit()
 
 # signals
+
+func _on_code_editor_text_changed() -> void:
+	if json.parse(CodeEditor.text) == OK:
+		disabled += 1
+		text_changed.emit()
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		disabled -= 1
 
 func _on_reload_button_pressed():
 	please_reload.emit()

@@ -1,7 +1,7 @@
 extends Control
 
 @onready var Content = $Lines/Content
-@onready var PlaygroundUI = $Lines/Content/PlaygroundUI
+@onready var PlaygroundUI = $Lines/Content/Editor/PlaygroundUI
 @onready var ResultUI = $Lines/Content/ResultUI
 @onready var ResizeTimer = $Lines/Content/ResizeTimer
 @onready var Title = $Lines/Title
@@ -14,7 +14,7 @@ extends Control
 @onready var LanguageButton = $UIButtons/LanguageButton
 @onready var HelpButton = $UIButtons/HelpButton
 @onready var HelpOptions = $HelpOptions
-@onready var TxtOptions = $TxtOptions
+@onready var TxtOptions = $Lines/Content/Editor/TxtOptions
 
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer
@@ -27,12 +27,11 @@ var fractal_changed_disabled = 0
 var load_ui_when_txt_options_open = true
 
 func _ready():
-	print(TxtOptions.size)
 	storing_url_disabled += 1 # wait until URLTimer is ready
 	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
 	_on_viewport_resize()
-	show_results()
+	_on_playground_ui_fractal_changed()
 	# set variables
 	PlaygroundUI.ResultUI = ResultUI
 	ResultUI.ShareDialogue = ShareDialogue
@@ -56,8 +55,6 @@ func load_ifs(ifs, overwriting_result_ui=true):
 	fractal_changed_disabled += 1
 	PlaygroundUI.set_ifs(ifs)
 	ResultUI.open(ifs, overwriting_result_ui)
-	ResultUI.load_color(ifs.background_color)
-	ResultUI.DelaySlider.value = ifs.delay
 	fractal_changed_disabled -= 1
 
 # url stuff
@@ -155,24 +152,37 @@ func _on_resize_timer_timeout():
 
 # result stuff
 
-func show_results():
+func get_ifs():
 	var ifs = PlaygroundUI.get_ifs()
 	# update ifs background
 	ifs.background_color = ResultUI.ResultBackground.self_modulate
 	ifs.delay = ResultUI.current_ifs.delay
-	# update result-ui and url
-	#store_to_url() # that's mostly spam for the browser history
-	ResultUI.open(ifs)
-	if TxtOptions.visible:
-		TxtOptions.load_ui(ifs)
-	else:
-		load_ui_when_txt_options_open = true
+	return ifs
+
+func _on_playground_ui_fractal_changed() -> void:
+	if fractal_changed_disabled == 0:
+#		print("playground ui changed")
+		# update result-ui and url
+		#store_to_url() # that's mostly spam for the browser history
+		var ifs = get_ifs()
+		ResultUI.open(ifs)
+		if TxtOptions.visible:
+			TxtOptions.load_ui(ifs)
+		else:
+			load_ui_when_txt_options_open = true
 
 func _on_result_ui_fractal_changed():
-	if TxtOptions.visible and fractal_changed_disabled == 0:
-		TxtOptions.load_ui(ResultUI.current_ifs)
-	else:
-		load_ui_when_txt_options_open = true
+	if fractal_changed_disabled == 0:
+#		print("result ui changed")
+		if TxtOptions.visible and fractal_changed_disabled == 0:
+			TxtOptions.load_ui(ResultUI.current_ifs)
+		else:
+			load_ui_when_txt_options_open = true
+
+func _on_txt_options_changed(new_ifs):
+	if fractal_changed_disabled == 0:
+#		print("txt ui changed")
+		load_ifs(new_ifs, true)
 
 # "warning" messages
 
@@ -215,18 +225,12 @@ func _on_help_button_pressed():
 # txt options
 
 func _on_playground_ui_open_txt_options():
-	var ifs = PlaygroundUI.get_ifs()
-	# update ifs background
-	ifs.background_color = ResultUI.ResultBackground.self_modulate
-	ifs.delay = ResultUI.current_ifs.delay
+	var ifs = get_ifs()
 	
 	TxtOptions.open(ifs)
 	if load_ui_when_txt_options_open:
 		TxtOptions.load_ui(ifs)
 		load_ui_when_txt_options_open = false
-
-func _on_txt_options_changed(new_ifs):
-	load_ifs(new_ifs, true)
 
 # language & translation
 

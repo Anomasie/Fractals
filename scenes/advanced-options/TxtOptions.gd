@@ -29,8 +29,8 @@ func _ready():
 		new_child.open_file.connect(_on_web_file_dialog_open_file)
 		self.add_child(new_child)
 		WebFileDialog = new_child
-	JsonEdit.visible = false
-	AllMatrixOptionsScroller.visible = true
+	JsonEdit.hide()
+	AllMatrixOptionsScroller.show()
 	# connect tooltips
 	Global.tooltip_nodes.append_array([CloseButton, DownloadButton, UploadButton])
 
@@ -44,8 +44,9 @@ func load_ui(new_ifs):
 func read_ui():
 	return AllMatrixOptions.read_ui()
 
-func open(_ifs, json_edit=JsonEdit.visible):
-	#load_ui(ifs)
+func open(ifs, json_edit=JsonEdit.visible):
+	load_ui(ifs)
+	reload_language(json_edit)
 	show()
 	JsonEdit.visible = json_edit
 	AllMatrixOptionsScroller.visible = not json_edit
@@ -60,19 +61,19 @@ func _on_all_matrix_options_changed(new_ifs):
 
 # python/txt stuff
 
-func _on_python_edit_text_changed():
+func _on_json_edit_text_changed():
 	var ifs = JsonEdit.read_text()
 	load_ui(ifs)
 	changed.emit(ifs)
 
-func _on_python_edit_please_reload():
+func _on_json_edit_please_reload():
 	JsonEdit.load_text(current_ifs)
 
 # saving & loading stuff
 
 func load_json_file(path):
 	JsonEdit.text = FileAccess.get_file_as_string(path)
-	_on_python_edit_text_changed()
+	_on_json_edit_text_changed()
 
 func save_json_file(path):
 	var file = FileAccess.open(path, FileAccess.WRITE)
@@ -107,24 +108,23 @@ func _on_my_file_dialog_path_selected(path):
 
 func _on_web_file_dialog_open_file(content):
 	JsonEdit.text = content
-	_on_python_edit_text_changed()
+	_on_json_edit_text_changed()
 
 # switch views
 
 func _on_switch_button_pressed() -> void:
-	AllMatrixOptionsScroller.visible = JsonEdit.visible
-	JsonEdit.visible = not JsonEdit.visible
-	reload_language()
+	var ifs = read_ui()
+	open(ifs, not JsonEdit.visible)
 
 # language & translation
 
-func reload_language():
+func reload_language(json_edit=JsonEdit.visible):
 	match Global.language:
 		"GER":
 			CloseButton.tooltip_text = "Text-Optionen schließen"
 			DownloadButton.tooltip_text = "JSON-Datei herunterladen"
 			UploadButton.tooltip_text = "JSON-Datei hochladen"
-			if JsonEdit.visible:
+			if json_edit:
 				SwitchButton.text = "Zu Matrixansicht wechseln"
 			else:
 				SwitchButton.text = "JSON-Daten anzeigen"
@@ -132,7 +132,7 @@ func reload_language():
 			CloseButton.tooltip_text = "close text options"
 			DownloadButton.tooltip_text = "download JSON-file"
 			UploadButton.tooltip_text = "upload JSON-file"
-			if JsonEdit.visible:
+			if json_edit:
 				SwitchButton.text = "switch to matrix view"
 			else:
 				SwitchButton.text = "show JSON data"

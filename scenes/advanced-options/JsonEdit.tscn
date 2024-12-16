@@ -54,7 +54,6 @@ caret_blink = true
 code_completion_enabled = true
 
 [node name="ReloadButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -70,5 +69,6 @@ texture_normal = SubResource("AtlasTexture_5yhre")
 texture_pressed = SubResource("AtlasTexture_d7xwy")
 texture_hover = SubResource("AtlasTexture_e71bh")
 
+[connection signal="text_changed" from="CodeEditor" to="." method="_on_code_editor_text_changed"]
 [connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]
 [connection signal="pressed" from="RoundButton" to="." method="_on_round_button_pressed"]

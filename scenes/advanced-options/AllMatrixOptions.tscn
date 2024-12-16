@@ -51,12 +51,12 @@ region = Rect2(0, 160, 32, 32)
 atlas = ExtResource("4_lyuha")
 region = Rect2(0, 192, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5vyfm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1deml"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uj11b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_35mnw"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 256, 32, 32)
@@ -130,13 +130,15 @@ tooltip_ = "change view"
 tooltip_ger = "\"ändere Bildausschnitt"
 tex_on = SubResource("AtlasTexture_pibtk")
 tex_off = SubResource("AtlasTexture_41li8")
+reverse_textures = true
 
 [node name="UniformButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
 layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_5vyfm")
-tex_off = SubResource("AtlasTexture_uj11b")
+tex_on = SubResource("AtlasTexture_1deml")
+tex_off = SubResource("AtlasTexture_35mnw")
+reverse_textures = true
 
 [node name="ReusingLastPointButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
 layout_mode = 2
@@ -144,6 +146,7 @@ tooltip_ = "re-use the last calculated point for new calculations"
 tooltip_ger = "Wiederbenutzung oder Neustart des Chaosspiels in jedem Frame"
 tex_on = SubResource("AtlasTexture_7p5gt")
 tex_off = SubResource("AtlasTexture_amdg7")
+reverse_textures = true
 
 [node name="MatrixContainer" type="HFlowContainer" parent="."]
 layout_mode = 2

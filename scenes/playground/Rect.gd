@@ -278,7 +278,7 @@ func update_to(contr, origin):
 	# color
 	color_rect(contr.color)
 	
-	changed.emit()
+	#changed.emit()
 
 # language & translation
 

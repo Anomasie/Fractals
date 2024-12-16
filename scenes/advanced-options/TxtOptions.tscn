@@ -58,7 +58,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 script = ExtResource("1_xlj4t")
 WebFileDialogScene = ExtResource("2_ogjqs")
 
@@ -147,8 +150,8 @@ visible = false
 ok_button_text = "Open"
 file_mode = 0
 
-[connection signal="please_reload" from="Main/Content/VBoxContainer/Content/JsonEdit" to="." method="_on_python_edit_please_reload"]
-[connection signal="text_changed" from="Main/Content/VBoxContainer/Content/JsonEdit" to="." method="_on_python_edit_text_changed"]
+[connection signal="please_reload" from="Main/Content/VBoxContainer/Content/JsonEdit" to="." method="_on_json_edit_please_reload"]
+[connection signal="text_changed" from="Main/Content/VBoxContainer/Content/JsonEdit" to="." method="_on_json_edit_text_changed"]
 [connection signal="changed" from="Main/Content/VBoxContainer/Content/Scroller/AllMatrixOptions" to="." method="_on_all_matrix_options_changed"]
 [connection signal="pressed" from="Main/Content/VBoxContainer/SwitchButton" to="." method="_on_switch_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

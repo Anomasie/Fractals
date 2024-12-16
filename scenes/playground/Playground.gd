@@ -25,8 +25,7 @@ func _input(event):
 				focus( self.get_child(0) )
 
 func _fractal_changed():
-	if not emit_fractal_changed_next_frame:
-		fractal_changed.emit()
+	emit_fractal_changed_next_frame = true
 
 func resize(old_origin, old_loupe, new_origin, _new_loupe):
 	for child in self.get_children():
@@ -36,7 +35,7 @@ func resize(old_origin, old_loupe, new_origin, _new_loupe):
 				new_origin
 			)
 
-func add(pos, origin, duplicating=false):
+func add(pos, origin, duplicating=false, emit_signal=true):
 	var Instance = Rect.instantiate()
 	Instance.name = "Rect"+str(counter)
 	counter += 1
@@ -53,22 +52,24 @@ func add(pos, origin, duplicating=false):
 	self.focus(Instance)
 	get_parent().focus(Instance)
 	
-	emit_fractal_changed_next_frame = true
+	if emit_signal:
+		emit_fractal_changed_next_frame = true
 	
 	if duplicating:
 		return Instance
 
-func close_all():
+func close_all(emit_signal=true):
 	for child in self.get_children():
-		close(child)
+		close(child, emit_signal)
 	get_parent().focus(null)
 	
 	current_rect_counter = 0 # just for savety
 
-func close(MyRect):
+func close(MyRect, emit_signal=true):
 	MyRect.queue_free()
 	get_parent().focus(null)
-	emit_fractal_changed_next_frame = true
+	if emit_signal:
+		emit_fractal_changed_next_frame = true
 	
 	current_rect_counter -= 1
 
@@ -95,10 +96,10 @@ func get_ifs(origin):
 
 func set_ifs(ifs, origin):
 	# remove all buttons
-	close_all()
+	close_all(false)
 	# add new buttons
 	for contraction in ifs.systems:
-		var Instance = add(origin, origin, true)
+		var Instance = add(origin, origin, true, false)
 		Instance.update_to( contraction, origin )
 
 # language & translation

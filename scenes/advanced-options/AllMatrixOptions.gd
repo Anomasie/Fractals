@@ -38,9 +38,9 @@ func update_ui(new_ifs):
 	# delay
 	DelayEdit.value = current_ifs.delay
 	# extra options
-	CenterButton.on = current_ifs.centered_view 
-	UniformButton.on = current_ifs.uniform_coloring
-	ReusingLastPointButton.on = current_ifs.reusing_last_point
+	CenterButton.set_value(current_ifs.centered_view) 
+	UniformButton.set_value(current_ifs.uniform_coloring)
+	ReusingLastPointButton.set_value(current_ifs.reusing_last_point)
 	# systems
 	## hide unused matrices
 	for i in len(MatrixContainer.get_children()):
