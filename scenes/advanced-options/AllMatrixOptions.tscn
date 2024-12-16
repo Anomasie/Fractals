@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://jcyu2afmvis8"]
+[gd_scene load_steps=21 format=3 uid="uid://jcyu2afmvis8"]
 
 [ext_resource type="Script" path="res://scenes/advanced-options/AllMatrixOptions.gd" id="1_igg3o"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="1_yyxan"]
 [ext_resource type="PackedScene" uid="uid://sfgrfcxf5a3v" path="res://scenes/advanced-options/TxtOptionsMatrix.tscn" id="2_1q7fv"]
+[ext_resource type="PackedScene" uid="uid://duebklrl317w2" path="res://scenes/general/SwitchButton.tscn" id="2_ejnc1"]
+[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="4_lyuha"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
@@ -41,10 +43,39 @@ region = Rect2(64, 128, 32, 32)
 atlas = ExtResource("1_yyxan")
 region = Rect2(32, 128, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pibtk"]
+atlas = ExtResource("4_lyuha")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41li8"]
+atlas = ExtResource("4_lyuha")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vyfm"]
+resource_local_to_scene = true
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj11b"]
+resource_local_to_scene = true
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p5gt"]
+atlas = ExtResource("4_lyuha")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amdg7"]
+atlas = ExtResource("4_lyuha")
+region = Rect2(0, 544, 32, 32)
+
 [node name="AllMatrixOptions" type="VBoxContainer"]
-offset_right = 689.0
-offset_bottom = 460.0
-size_flags_horizontal = 3
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_igg3o")
 
 [node name="General" type="GridContainer" parent="."]
@@ -92,6 +123,28 @@ texture_normal = SubResource("AtlasTexture_km5ul")
 texture_pressed = SubResource("AtlasTexture_7o0ha")
 texture_hover = SubResource("AtlasTexture_esjly")
 
+[node name="CenterButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_ = "change view"
+tooltip_ger = "\"ändere Bildausschnitt"
+tex_on = SubResource("AtlasTexture_pibtk")
+tex_off = SubResource("AtlasTexture_41li8")
+
+[node name="UniformButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
+layout_mode = 2
+tooltip_ = "change color algorithm"
+tooltip_ger = "ändere Farbgebung"
+tex_on = SubResource("AtlasTexture_5vyfm")
+tex_off = SubResource("AtlasTexture_uj11b")
+
+[node name="ReusingLastPointButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
+layout_mode = 2
+tooltip_ = "re-use the last calculated point for new calculations"
+tooltip_ger = "Wiederbenutzung oder Neustart des Chaosspiels in jedem Frame"
+tex_on = SubResource("AtlasTexture_7p5gt")
+tex_off = SubResource("AtlasTexture_amdg7")
+
 [node name="MatrixContainer" type="HFlowContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -112,3 +165,6 @@ layout_mode = 2
 [connection signal="value_changed" from="General/DelayEdit" to="." method="_on_delay_edit_value_changed"]
 [connection signal="pressed" from="PlaygroundButtons/AddButton" to="." method="_on_add_button_pressed"]
 [connection signal="pressed" from="PlaygroundButtons/CloseAllButton" to="." method="_on_close_all_button_pressed"]
+[connection signal="pressed" from="PlaygroundButtons/CenterButton" to="." method="_on_center_button_pressed"]
+[connection signal="pressed" from="PlaygroundButtons/UniformButton" to="." method="_on_uniform_button_pressed"]
+[connection signal="pressed" from="PlaygroundButtons/ReusingLastPointButton" to="." method="_on_reusing_last_point_button_pressed"]

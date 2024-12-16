@@ -1,9 +1,11 @@
-extends CodeEdit
+extends MarginContainer
 
 signal please_reload
+signal text_changed
 
 const DIGITS = 0.05
 
+@onready var CodeEditor = $CodeEditor
 @onready var ReloadButton = $ReloadButton
 @onready var RoundButton = $RoundButton
 
@@ -16,7 +18,7 @@ func do_i_have_focus():
 func get_dict_from_text():
 	# read text -> json
 	var json = JSON.new()
-	var error = json.parse(text)
+	var error = json.parse(CodeEditor.text)
 	var dict = {}
 	if error == OK:
 		dict = json.get_data()
@@ -34,7 +36,7 @@ func load_text(ifs):
 	# json -> text
 	var dict_string = JSON.stringify(json, "\t")
 	# set text
-	text = dict_string
+	CodeEditor.text = dict_string
 
 func read_text():
 	var dict = get_dict_from_text()
@@ -63,7 +65,7 @@ func round_numbers():
 					snapped(system["matrix"][3], DIGITS)
 				]
 	# set text
-	text = JSON.stringify(dict, "\t")
+	CodeEditor.text = JSON.stringify(dict, "\t")
 	# emit signal
 	text_changed.emit()
 

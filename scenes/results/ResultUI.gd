@@ -149,8 +149,8 @@ func open(ifs, overwrite_result_ui=false):
 		ReusingLastPointButton.set_value(new_ifs.reusing_last_point)
 		CenterButton.set_value(new_ifs.centered_view)
 	else:
-		new_ifs.reusing_last_point = ReusingLastPointButton.value
-		new_ifs.centered_view = CenterButton.value
+		new_ifs.reusing_last_point = ReusingLastPointButton.on
+		new_ifs.centered_view = CenterButton.on
 
 func open_new_ifs():
 	var ifs = new_ifs
@@ -280,7 +280,7 @@ func _on_save_file_dialog_path_selected(path):
 # change centering picture
 
 func _on_center_button_pressed():
-	current_ifs.centered_view = CenterButton.value
+	current_ifs.centered_view = CenterButton.on
 	open(current_ifs)
 	fractal_changed.emit()
 
@@ -386,7 +386,7 @@ func _on_size_options_value_changed():
 # re-usage of last calculated point
 
 func _on_reusing_last_point_button_pressed() -> void:
-	current_ifs.reusing_last_point = ReusingLastPointButton.value
+	current_ifs.reusing_last_point = ReusingLastPointButton.on
 	fractal_changed.emit()
 	open(current_ifs)
 

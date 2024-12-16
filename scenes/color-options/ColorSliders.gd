@@ -181,7 +181,7 @@ func set_uniform_coloring(value) -> void:
 	UniformColorButton.set_value(value)
 
 func _on_uniform_button_pressed() -> void:
-	uniform_coloring = UniformColorButton.value
+	uniform_coloring = UniformColorButton.on
 	color_changed.emit()
 
 # language & translation

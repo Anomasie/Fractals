@@ -27,13 +27,20 @@ region = Rect2(64, 480, 32, 32)
 atlas = ExtResource("2_w1fki")
 region = Rect2(32, 480, 32, 32)
 
-[node name="JsonEdit" type="CodeEdit"]
+[node name="JsonEdit" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_aapdo")
+
+[node name="CodeEditor" type="CodeEdit" parent="."]
+layout_mode = 2
 text = "{
 	\"background_color\": \"#ffffff\",
 	\"delay\": 20,
@@ -45,20 +52,10 @@ text = "{
 }"
 caret_blink = true
 code_completion_enabled = true
-script = ExtResource("1_aapdo")
 
 [node name="ReloadButton" type="TextureButton" parent="."]
 visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 texture_normal = SubResource("AtlasTexture_cskex")
@@ -66,17 +63,8 @@ texture_pressed = SubResource("AtlasTexture_pbx5t")
 texture_hover = SubResource("AtlasTexture_j6gsm")
 
 [node name="RoundButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 4
+layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = SubResource("AtlasTexture_5yhre")
 texture_pressed = SubResource("AtlasTexture_d7xwy")

@@ -14,8 +14,6 @@ signal pressed
 @export var tex_on : AtlasTexture
 @export var tex_off : AtlasTexture
 
-var value = true
-
 func _process(_delta):
 	if Engine.is_editor_hint() and tex_on and tex_off:
 		set_value(bool(on))
@@ -53,16 +51,16 @@ func set_texture_angles():
 func set_value(val) -> void:
 	On.visible = not val
 	Off.visible = val
-	value = val
+	on = val
 
 func _on_on_pressed() -> void:
-	value = true
+	on = true
 	pressed.emit()
 	On.hide()
 	Off.show()
 
 func _on_off_pressed() -> void:
-	value = false
+	on = false
 	pressed.emit()
 	Off.hide()
 	On.show()

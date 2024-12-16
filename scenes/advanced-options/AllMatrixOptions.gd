@@ -9,6 +9,9 @@ signal changed
 @onready var ColorLabel = $General/ColorLabel
 @onready var DelayEdit = $General/DelayEdit
 @onready var DelayLabel = $General/Delaylabel
+@onready var CenterButton = $PlaygroundButtons/CenterButton
+@onready var UniformButton = $PlaygroundButtons/UniformButton
+@onready var ReusingLastPointButton = $PlaygroundButtons/ReusingLastPointButton
 
 @onready var CloseAllButton = $PlaygroundButtons/CloseAllButton
 @onready var AddButton = $PlaygroundButtons/AddButton
@@ -34,6 +37,10 @@ func update_ui(new_ifs):
 	ColorEdit.placeholder_text = "#" + current_ifs.background_color.to_html()
 	# delay
 	DelayEdit.value = current_ifs.delay
+	# extra options
+	CenterButton.on = current_ifs.centered_view 
+	UniformButton.on = current_ifs.uniform_coloring
+	ReusingLastPointButton.on = current_ifs.reusing_last_point
 	# systems
 	## hide unused matrices
 	for i in len(MatrixContainer.get_children()):
@@ -61,6 +68,10 @@ func read_ui():
 		ifs.background_color = Color.from_string(ColorEdit.placeholder_text, Color.WHITE)
 	# delay
 	ifs.delay = int(DelayEdit.value)
+	# extra options
+	ifs.centered_view = CenterButton.on
+	ifs.uniform_coloring = UniformButton.on
+	ifs.reusing_last_point = ReusingLastPointButton.on
 	# systems
 	for child in MatrixContainer.get_children():
 		if child.visible:
@@ -111,6 +122,17 @@ func _on_color_edit_text_submitted(new_text):
 func _on_delay_edit_value_changed(_value):
 	if disabled == 0:
 		changed.emit(read_ui())
+
+# other buttons
+
+func _on_center_button_pressed() -> void:
+	changed.emit(read_ui())
+
+func _on_uniform_button_pressed() -> void:
+	changed.emit(read_ui())
+
+func _on_reusing_last_point_button_pressed() -> void:
+	changed.emit(read_ui())
 
 # language & translation
 

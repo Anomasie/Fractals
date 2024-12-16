@@ -87,12 +87,12 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("3_ihvhm")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x0p6r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vk6t"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8r282"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxas2"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 256, 32, 32)
@@ -389,8 +389,8 @@ texture_hover = SubResource("AtlasTexture_rkpn8")
 layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_x0p6r")
-tex_off = SubResource("AtlasTexture_8r282")
+tex_on = SubResource("AtlasTexture_0vk6t")
+tex_off = SubResource("AtlasTexture_rxas2")
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2

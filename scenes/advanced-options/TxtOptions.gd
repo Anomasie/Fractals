@@ -2,8 +2,11 @@ extends MarginContainer
 
 signal changed
 
-@onready var JsonEdit = $Main/Content/Lines/JsonEdit
-@onready var AllMatrixOptions = $Main/Content/Lines/Scroller/AllMatrixOptions
+@onready var JsonEdit = $Main/Content/VBoxContainer/Content/JsonEdit
+@onready var AllMatrixOptionsScroller = $Main/Content/VBoxContainer/Content/Scroller
+@onready var AllMatrixOptions = $Main/Content/VBoxContainer/Content/Scroller/AllMatrixOptions
+@onready var SwitchButton = $Main/Content/VBoxContainer/SwitchButton
+
 @onready var MyFileDialog = $MyFileDialog
 
 @onready var CloseButton = $CloseButton
@@ -26,6 +29,8 @@ func _ready():
 		new_child.open_file.connect(_on_web_file_dialog_open_file)
 		self.add_child(new_child)
 		WebFileDialog = new_child
+	JsonEdit.visible = false
+	AllMatrixOptionsScroller.visible = true
 	# connect tooltips
 	Global.tooltip_nodes.append_array([CloseButton, DownloadButton, UploadButton])
 
@@ -39,9 +44,11 @@ func load_ui(new_ifs):
 func read_ui():
 	return AllMatrixOptions.read_ui()
 
-func open(_ifs):
+func open(_ifs, json_edit=JsonEdit.visible):
 	#load_ui(ifs)
 	show()
+	JsonEdit.visible = json_edit
+	AllMatrixOptionsScroller.visible = not json_edit
 
 func _on_close_button_pressed():
 	hide()
@@ -102,6 +109,13 @@ func _on_web_file_dialog_open_file(content):
 	JsonEdit.text = content
 	_on_python_edit_text_changed()
 
+# switch views
+
+func _on_switch_button_pressed() -> void:
+	AllMatrixOptionsScroller.visible = JsonEdit.visible
+	JsonEdit.visible = not JsonEdit.visible
+	reload_language()
+
 # language & translation
 
 func reload_language():
@@ -110,10 +124,18 @@ func reload_language():
 			CloseButton.tooltip_text = "Text-Optionen schließen"
 			DownloadButton.tooltip_text = "JSON-Datei herunterladen"
 			UploadButton.tooltip_text = "JSON-Datei hochladen"
+			if JsonEdit.visible:
+				SwitchButton.text = "Zu Matrixansicht wechseln"
+			else:
+				SwitchButton.text = "JSON-Daten anzeigen"
 		_:
 			CloseButton.tooltip_text = "close text options"
 			DownloadButton.tooltip_text = "download JSON-file"
 			UploadButton.tooltip_text = "upload JSON-file"
+			if JsonEdit.visible:
+				SwitchButton.text = "switch to matrix view"
+			else:
+				SwitchButton.text = "show JSON data"
 	# pass on signal
 	AllMatrixOptions.reload_language()
 	JsonEdit.reload_language()

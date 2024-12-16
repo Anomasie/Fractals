@@ -27,6 +27,7 @@ var fractal_changed_disabled = 0
 var load_ui_when_txt_options_open = true
 
 func _ready():
+	print(TxtOptions.size)
 	storing_url_disabled += 1 # wait until URLTimer is ready
 	# connect signals
 	get_viewport().connect("size_changed", _on_viewport_resize)
@@ -42,7 +43,6 @@ func _ready():
 	TxtOptions.hide()
 	HelpOptions.hide()
 	ShareDialogue.hide()
-	
 	# language & translation
 	_on_language_button_pressed()
 	
@@ -146,10 +146,6 @@ func _on_viewport_resize():
 	HelpOptions.custom_minimum_size = Vector2i(
 		max( viewport_size.x/3*2, ShareDialogue.Margin.size.x),
 		max( viewport_size.y/3*2, ShareDialogue.Margin.size.y)
-	)
-	TxtOptions.custom_minimum_size = Vector2i(
-		max( viewport_size.x/4*3, ShareDialogue.Margin.size.x),
-		max( viewport_size.y/4*3, ShareDialogue.Margin.size.y)
 	)
 	# prevent resizing-bugs
 	ResizeTimer.start()

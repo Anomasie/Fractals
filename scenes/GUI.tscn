@@ -59,7 +59,6 @@ wait_time = 0.1
 one_shot = true
 
 [node name="TxtOptions" parent="." instance=ExtResource("4_bq5pq")]
-visible = false
 layout_mode = 2
 
 [node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]
