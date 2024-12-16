@@ -35,7 +35,7 @@ func resize(old_origin, old_loupe, new_origin, _new_loupe):
 				new_origin
 			)
 
-func add(pos, origin, duplicating=false, emit_signal=true):
+func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	var Instance = Rect.instantiate()
 	Instance.name = "Rect"+str(counter)
 	counter += 1
@@ -52,23 +52,23 @@ func add(pos, origin, duplicating=false, emit_signal=true):
 	self.focus(Instance)
 	get_parent().focus(Instance)
 	
-	if emit_signal:
+	if emit_fractal_changed:
 		emit_fractal_changed_next_frame = true
 	
 	if duplicating:
 		return Instance
 
-func close_all(emit_signal=true):
+func close_all(emit_fractal_changed=true):
 	for child in self.get_children():
-		close(child, emit_signal)
+		close(child, emit_fractal_changed)
 	get_parent().focus(null)
 	
 	current_rect_counter = 0 # just for savety
 
-func close(MyRect, emit_signal=true):
+func close(MyRect, emit_fractal_changed=true):
 	MyRect.queue_free()
 	get_parent().focus(null)
-	if emit_signal:
+	if emit_fractal_changed:
 		emit_fractal_changed_next_frame = true
 	
 	current_rect_counter -= 1

@@ -61,6 +61,7 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 
 [node name="TxtOptions" parent="Lines/Content/Editor" instance=ExtResource("4_bq5pq")]
+visible = false
 layout_mode = 2
 
 [node name="ResultUI" parent="Lines/Content" instance=ExtResource("2_wgaj6")]

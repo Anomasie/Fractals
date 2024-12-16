@@ -66,9 +66,7 @@ func _on_url_hash_change(_event):
 func store_to_url():
 	if storing_url_disabled == 0:
 		# get ifs
-		var ifs = PlaygroundUI.get_ifs()
-		ifs.background_color = ResultUI.ResultBackground.self_modulate
-		ifs.delay = ResultUI.current_ifs.delay
+		var ifs = get_ifs()
 		
 		loading_url_disabled += 1
 		
@@ -153,11 +151,7 @@ func _on_resize_timer_timeout():
 # result stuff
 
 func get_ifs():
-	var ifs = PlaygroundUI.get_ifs()
-	# update ifs background
-	ifs.background_color = ResultUI.ResultBackground.self_modulate
-	ifs.delay = ResultUI.current_ifs.delay
-	return ifs
+	return ResultUI.get_ifs(PlaygroundUI.get_ifs())
 
 func _on_playground_ui_fractal_changed() -> void:
 	if fractal_changed_disabled == 0:
@@ -174,8 +168,8 @@ func _on_playground_ui_fractal_changed() -> void:
 func _on_result_ui_fractal_changed():
 	if fractal_changed_disabled == 0:
 #		print("result ui changed")
-		if TxtOptions.visible and fractal_changed_disabled == 0:
-			TxtOptions.load_ui(ResultUI.current_ifs)
+		if TxtOptions.visible:
+			TxtOptions.load_ui(ResultUI.get_ifs())
 		else:
 			load_ui_when_txt_options_open = true
 
@@ -264,8 +258,7 @@ func reload_language():
 
 func _on_debug_button_pressed():
 	print("on debug button pressed!")
-	print(ResultUI.current_ifs.reusing_last_point)
-	DebugLine.text = "web#"+ResultUI.current_ifs.to_meta_data()
+	DebugLine.text = "web#"+ResultUI.get_ifs().to_meta_data()
 
 func _on_debug_edit_text_submitted(new_text):
 	print("text submitted!")

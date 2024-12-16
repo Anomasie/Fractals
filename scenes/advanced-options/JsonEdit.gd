@@ -36,9 +36,9 @@ func load_text(ifs):
 		# ifs -> dict
 		var dict = ifs.to_dict()
 		# dict -> json
-		var json = dict
+		var json_data = dict
 		# json -> text
-		var dict_string = JSON.stringify(json, "\t")
+		var dict_string = JSON.stringify(json_data, "\t")
 		# set text
 		CodeEditor.text = dict_string
 

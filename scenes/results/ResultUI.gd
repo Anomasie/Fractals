@@ -113,6 +113,12 @@ func _process(delta):
 		## update slider
 		PointTeller.value = point_slider_descaled(counter)
 
+func get_ifs(ifs = current_ifs):
+	ifs.delay = DelaySlider.value
+	ifs.centered_view = CenterButton.on
+	ifs.reusing_last_point = ReusingLastPointButton.on
+	return ifs
+
 const POINT_LIMIT_HALF_VALUE = 1000000
 
 func point_slider_scaled(x = float( PointSlider.value )):

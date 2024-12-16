@@ -20,6 +20,7 @@ width = 1
 
 [sub_resource type="Gradient" id="Gradient_qvcnl"]
 resource_local_to_scene = true
+colors = PackedColorArray(0, 0, 0, 1, 0.0078125, 0, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_e2yrv"]
 resource_local_to_scene = true
@@ -33,7 +34,7 @@ gradient = SubResource("Gradient_qvcnl")
 
 [sub_resource type="Gradient" id="Gradient_uk8i4"]
 resource_local_to_scene = true
-colors = PackedColorArray(1, 1, 1, 1, 0, 1, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0078125, 0, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1bh3c"]
 resource_local_to_scene = true
@@ -62,6 +63,16 @@ gradient = SubResource("Gradient_15o5r")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lbcc"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfpw0"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(0, 256, 32, 32)
+
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
 keycode = 65
@@ -86,16 +97,6 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkpn8"]
 atlas = ExtResource("3_ihvhm")
 region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0vk6t"]
-resource_local_to_scene = true
-atlas = ExtResource("3_ihvhm")
-region = Rect2(0, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rxas2"]
-resource_local_to_scene = true
-atlas = ExtResource("3_ihvhm")
-region = Rect2(0, 256, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75bkv"]
 atlas = ExtResource("4_eexud")
@@ -134,85 +135,108 @@ patch_margin_bottom = 2
 [node name="Content" type="MarginContainer" parent="Dialogue"]
 layout_mode = 2
 
-[node name="Columns" type="HBoxContainer" parent="Dialogue/Content"]
+[node name="Lines" type="VBoxContainer" parent="Dialogue/Content"]
+layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Dialogue/Content/Lines"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="Preview" type="TextureRect" parent="Dialogue/Content/Columns"]
-modulate = Color(0, 1, 0, 1)
-custom_minimum_size = Vector2(64, 0)
+[node name="Frame" type="TextureRect" parent="Dialogue/Content/Lines/Columns"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 tooltip_text = "preview of selected color"
 texture = SubResource("GradientTexture1D_xe8bl")
 
-[node name="Sliders" type="VBoxContainer" parent="Dialogue/Content/Columns"]
+[node name="MarginContainer" type="MarginContainer" parent="Dialogue/Content/Lines/Columns/Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Preview" type="TextureRect" parent="Dialogue/Content/Lines/Columns/Frame/MarginContainer"]
+modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+tooltip_text = "preview of selected color"
+texture = SubResource("GradientTexture1D_xe8bl")
+
+[node name="Sliders" type="VBoxContainer" parent="Dialogue/Content/Lines/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Value" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
+[node name="Value" type="MarginContainer" parent="Dialogue/Content/Lines/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Value"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Lines/Columns/Sliders/Value"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_e2yrv")
 
-[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Value"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Lines/Columns/Sliders/Value"]
 layout_mode = 2
 tooltip_text = "brightness"
 theme_override_styles/slider = SubResource("StyleBoxEmpty_kopvc")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_mvmrp")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atda5")
+value = 100.0
 
-[node name="Saturation" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
+[node name="Saturation" type="MarginContainer" parent="Dialogue/Content/Lines/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Saturation"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Lines/Columns/Sliders/Saturation"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_1bh3c")
 
-[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Saturation"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Lines/Columns/Sliders/Saturation"]
 layout_mode = 2
 tooltip_text = "saturation or intensity of the color"
 theme_override_styles/slider = SubResource("StyleBoxTexture_2ro3f")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_kyfgn")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1wk3s")
+value = 100.0
 
-[node name="Hue" type="MarginContainer" parent="Dialogue/Content/Columns/Sliders"]
+[node name="Hue" type="MarginContainer" parent="Dialogue/Content/Lines/Columns/Sliders"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Texture" type="TextureRect" parent="Dialogue/Content/Columns/Sliders/Hue"]
+[node name="Texture" type="TextureRect" parent="Dialogue/Content/Lines/Columns/Sliders/Hue"]
 layout_mode = 2
 texture = SubResource("GradientTexture1D_koc1a")
 
-[node name="Slider" type="HSlider" parent="Dialogue/Content/Columns/Sliders/Hue"]
+[node name="Slider" type="HSlider" parent="Dialogue/Content/Lines/Columns/Sliders/Hue"]
 layout_mode = 2
 tooltip_text = "hue (\"color tone\") of selected color"
 theme_override_styles/slider = SubResource("StyleBoxEmpty_namad")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_4t1bo")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_721e2")
 max_value = 256.0
-value = 50.0
+value = 171.0
 
-[node name="Presets" type="HBoxContainer" parent="Dialogue/Content/Columns/Sliders"]
+[node name="Presets" type="HBoxContainer" parent="Dialogue/Content/Lines/Columns/Sliders"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 
-[node name="Set1" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set1" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0.980392, 0.952941, 0.831373, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -221,7 +245,8 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set2" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set2" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0.901961, 0.784314, 0.32549, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -230,7 +255,8 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set3" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set3" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0.878431, 0, 0.247059, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -239,7 +265,8 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set4" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set4" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0, 0.482353, 0.870588, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -248,7 +275,8 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set5" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set5" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0.156863, 0.141176, 0.270588, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -257,7 +285,8 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Set6" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Set6" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
+modulate = Color(0.164706, 0.45098, 0.211765, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "preset color"
@@ -266,131 +295,135 @@ texture_pressed = SubResource("GradientTexture1D_xe8bl")
 texture_hover = SubResource("GradientTexture1D_xe8bl")
 stretch_mode = 0
 
-[node name="Hashtag" type="Label" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Hashtag" type="Label" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "#"
 vertical_alignment = 1
 
-[node name="Hash" type="LineEdit" parent="Dialogue/Content/Columns/Sliders/Presets"]
+[node name="Hash" type="LineEdit" parent="Dialogue/Content/Lines/Columns/Sliders/Presets"]
 custom_minimum_size = Vector2(94, 28)
 layout_mode = 2
 size_flags_stretch_ratio = 4.0
 tooltip_text = "enter html-color-code here"
-placeholder_text = "000000"
+placeholder_text = "0000ff"
 max_length = 6
 caret_blink = true
 
-[node name="UserPresets" type="HBoxContainer" parent="Dialogue/Content/Columns/Sliders"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 4
-
-[node name="UserPresetsLabel" type="Label" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-text = "Presets:"
-
-[node name="Set1" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set2" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set3" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set4" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set5" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set6" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set7" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Set8" type="TextureButton" parent="Dialogue/Content/Columns/Sliders/UserPresets"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "colors you saved
-(max. 8)"
-texture_normal = SubResource("GradientTexture1D_xe8bl")
-texture_pressed = SubResource("GradientTexture1D_xe8bl")
-texture_hover = SubResource("GradientTexture1D_xe8bl")
-stretch_mode = 0
-
-[node name="Buttons" type="VBoxContainer" parent="Dialogue/Content/Columns"]
+[node name="Buttons" type="VBoxContainer" parent="Dialogue/Content/Lines/Columns"]
 layout_mode = 2
 
-[node name="AddButton" type="TextureButton" parent="Dialogue/Content/Columns/Buttons"]
+[node name="UniformButton" parent="Dialogue/Content/Lines/Columns/Buttons" instance=ExtResource("4_2fov5")]
+layout_mode = 2
+tooltip_ = "change color algorithm"
+tooltip_ger = "ändere Farbgebung"
+tex_on = SubResource("AtlasTexture_3lbcc")
+tex_off = SubResource("AtlasTexture_cfpw0")
+
+[node name="LastLine" type="HBoxContainer" parent="Dialogue/Content/Lines"]
+layout_mode = 2
+
+[node name="AddButton" type="TextureButton" parent="Dialogue/Content/Lines/LastLine"]
 visibility_layer = 2
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
+size_flags_horizontal = 8
+size_flags_vertical = 8
 tooltip_text = "add current color to presets"
 shortcut = SubResource("Shortcut_e31gr")
 texture_normal = SubResource("AtlasTexture_pcoqw")
 texture_pressed = SubResource("AtlasTexture_gcil7")
 texture_hover = SubResource("AtlasTexture_rkpn8")
 
-[node name="UniformButton" parent="Dialogue/Content/Columns/Buttons" instance=ExtResource("4_2fov5")]
+[node name="UserPresets" type="HBoxContainer" parent="Dialogue/Content/Lines/LastLine"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-tooltip_ = "change color algorithm"
-tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_0vk6t")
-tex_off = SubResource("AtlasTexture_rxas2")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="UserPresetsLabel" type="Label" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+text = "Presets:"
+
+[node name="Set1" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set2" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set3" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set4" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set5" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set6" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set7" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
+
+[node name="Set8" type="TextureButton" parent="Dialogue/Content/Lines/LastLine/UserPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "colors you saved
+(max. 8)"
+texture_normal = SubResource("GradientTexture1D_xe8bl")
+texture_pressed = SubResource("GradientTexture1D_xe8bl")
+texture_hover = SubResource("GradientTexture1D_xe8bl")
+stretch_mode = 0
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 2
@@ -401,11 +434,11 @@ texture_normal = SubResource("AtlasTexture_75bkv")
 texture_pressed = SubResource("AtlasTexture_8kltj")
 texture_hover = SubResource("AtlasTexture_lrmm1")
 
-[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="value_changed" from="Dialogue/Content/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
-[connection signal="focus_exited" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
-[connection signal="text_submitted" from="Dialogue/Content/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
-[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/AddButton" to="." method="_on_add_button_pressed"]
-[connection signal="pressed" from="Dialogue/Content/Columns/Buttons/UniformButton" to="." method="_on_uniform_button_pressed"]
+[connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="focus_exited" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
+[connection signal="text_submitted" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
+[connection signal="pressed" from="Dialogue/Content/Lines/Columns/Buttons/UniformButton" to="." method="_on_uniform_button_pressed"]
+[connection signal="pressed" from="Dialogue/Content/Lines/LastLine/AddButton" to="." method="_on_add_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

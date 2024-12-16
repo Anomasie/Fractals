@@ -224,7 +224,6 @@ tooltip_ = "re-use the last calculated point for new calculations"
 tooltip_ger = "Wiederbenutzung oder Neustart des Chaosspiels in jedem Frame"
 tex_on = SubResource("AtlasTexture_odk1e")
 tex_off = SubResource("AtlasTexture_twkmr")
-reverse_textures = null
 
 [node name="Right" type="MarginContainer" parent="Columns"]
 layout_mode = 2
@@ -275,7 +274,6 @@ tooltip_ = "change view"
 tooltip_ger = "\"ändere Bildausschnitt"
 tex_on = SubResource("AtlasTexture_abqm7")
 tex_off = SubResource("AtlasTexture_adciy")
-reverse_textures = null
 
 [node name="SizeButton" type="TextureButton" parent="Columns/Right/Top/Main"]
 layout_mode = 2

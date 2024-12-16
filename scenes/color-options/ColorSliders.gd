@@ -1,3 +1,4 @@
+@tool
 extends MarginContainer
 
 signal color_changed
@@ -5,24 +6,24 @@ signal finished
 
 @export var BACKGROUND_COLOR_SLIDER = false
 
-@onready var Preview = $Dialogue/Content/Columns/Preview
+@onready var Preview = $Dialogue/Content/Lines/Columns/Frame/MarginContainer/Preview
 
-@onready var HueTexture = $Dialogue/Content/Columns/Sliders/Hue/Texture
-@onready var HueSlider = $Dialogue/Content/Columns/Sliders/Hue/Slider
-@onready var SatTexture = $Dialogue/Content/Columns/Sliders/Saturation/Texture
-@onready var SatSlider = $Dialogue/Content/Columns/Sliders/Saturation/Slider
-@onready var ValueTexture = $Dialogue/Content/Columns/Sliders/Value/Texture
-@onready var ValueSlider = $Dialogue/Content/Columns/Sliders/Value/Slider
+@onready var HueTexture = $Dialogue/Content/Lines/Columns/Sliders/Hue/Texture
+@onready var HueSlider = $Dialogue/Content/Lines/Columns/Sliders/Hue/Slider
+@onready var SatTexture = $Dialogue/Content/Lines/Columns/Sliders/Saturation/Texture
+@onready var SatSlider = $Dialogue/Content/Lines/Columns/Sliders/Saturation/Slider
+@onready var ValueTexture = $Dialogue/Content/Lines/Columns/Sliders/Value/Texture
+@onready var ValueSlider = $Dialogue/Content/Lines/Columns/Sliders/Value/Slider
 
-@onready var Presets = $Dialogue/Content/Columns/Sliders/Presets.get_children()
-@onready var UserPresetNode = $Dialogue/Content/Columns/Sliders/UserPresets
-@onready var UserPresetsLabel = $Dialogue/Content/Columns/Sliders/UserPresets/UserPresetsLabel
-@onready var UserPresets = $Dialogue/Content/Columns/Sliders/UserPresets.get_children()
+@onready var Presets = $Dialogue/Content/Lines/Columns/Sliders/Presets.get_children()
+@onready var UserPresetNode = $Dialogue/Content/Lines/LastLine/UserPresets
+@onready var UserPresetsLabel = $Dialogue/Content/Lines/LastLine/UserPresets/UserPresetsLabel
+@onready var UserPresets = $Dialogue/Content/Lines/LastLine/UserPresets.get_children()
 
-@onready var Hash = $Dialogue/Content/Columns/Sliders/Presets/Hash
+@onready var Hash = $Dialogue/Content/Lines/Columns/Sliders/Presets/Hash
 
-@onready var AddButton = $Dialogue/Content/Columns/Buttons/AddButton
-@onready var UniformColorButton = $Dialogue/Content/Columns/Buttons/UniformButton
+@onready var AddButton = $Dialogue/Content/Lines/LastLine/AddButton
+@onready var UniformColorButton = $Dialogue/Content/Lines/Columns/Buttons/UniformButton
 @onready var CloseButton = $CloseButton
 
 var saved_colors = [
@@ -49,14 +50,16 @@ func _ready():
 			UserPresets[i].pressed.connect(_on_user_preset_pressed.bind(i))
 	# connect with global
 	## preset colors
-	Global.user_saved_colors_changed.connect(load_user_preset_colors)
-	## tooltips
-	Global.tooltip_nodes.append_array([
-		Preview, HueSlider, ValueSlider, SatSlider,
-		Hash, AddButton, CloseButton
-	] + Presets + UserPresets)
+	if not Engine.is_editor_hint():
+		Global.user_saved_colors_changed.connect(load_user_preset_colors)
+		## tooltips
+		Global.tooltip_nodes.append_array([
+			Preview, HueSlider, ValueSlider, SatSlider,
+			Hash, AddButton, CloseButton
+		] + Presets + UserPresets)
 	# open something
 	open(Color.BLUE)
+	hide()
 	
 	UniformColorButton.visible = not self.BACKGROUND_COLOR_SLIDER
 
@@ -66,7 +69,8 @@ func open(color):
 	# load ui
 	set_color(color)
 	load_preset_colors()
-	load_user_preset_colors()
+	if not Engine.is_editor_hint():
+		load_user_preset_colors()
 	show()
 
 func close():
@@ -83,10 +87,9 @@ func load_user_preset_colors():
 	for i in len(UserPresets):
 		if i < len(Global.user_saved_colors):
 			UserPresets[i].modulate = Global.user_saved_colors[i]
-			UserPresets[i].show()
 		else:
-			UserPresets[i].hide()
-	UserPresetNode.visible = (len(Global.user_saved_colors) > 0)
+			UserPresets[i].modulate = Color.WHITE
+#	UserPresetNode.visible = (len(Global.user_saved_colors) > 0)
 
 func set_color(color = get_color()):
 	disabled += 1
