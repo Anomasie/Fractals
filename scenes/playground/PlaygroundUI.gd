@@ -32,7 +32,6 @@ signal open_txt_options
 @onready var ColorButton = $Left/Main/ColorButton
 @onready var ColorSliders = $ColorSliders
 
-var disabled = 0
 var rot = randi_range(0,360-1)
 
 var old_loupe = Global.LOUPE
@@ -72,15 +71,11 @@ func resize():
 	#resize_playground()
 
 func resize_playground():
-	disabled += 1
-	
 	if typeof(old_origin) == TYPE_NIL:
 		old_origin = get_origin()
 	Playground.resize(old_origin, old_loupe, get_origin(), Global.LOUPE)
 	old_loupe = Global.LOUPE
 	old_origin = get_origin()
-	
-	disabled -= 1
 
 func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
@@ -91,15 +86,11 @@ func get_ifs():
 	return ifs
 
 func set_ifs(ifs):
-	disabled += 1
-	
 	if len(ifs.systems) > 0:
 		CloseAllButton.disabled = false
 	Playground.set_ifs(ifs, get_origin())
 	ColorSliders.set_uniform_coloring(ifs.uniform_coloring)
 	_on_presets_close_me()
-	
-	disabled -= 1
 
 # hide and show
 
@@ -151,20 +142,14 @@ func focus(Rect = CurrentRect):
 ## general options
 
 func _on_add_pressed():
-	disabled += 1
-	
 	Playground.add(Vector2(0.4,0.35) + Vector2(0.25,0).rotated(rot), get_origin())
 	rot += PI / 4
 	if rot >= 2 * PI:
 		rot -= 2 * PI
 	_on_presets_close_me()
 	CloseAllButton.show()
-	
-	disabled -= 1
 
 func _on_close_all_pressed():
-	disabled += 1
-	
 	Playground.close_all()
 	CurrentRect = null
 	# buttons
@@ -176,14 +161,10 @@ func _on_close_all_pressed():
 	PresetsButton.show()
 	# reload fractal
 	PresetTimer.start()
-	
-	disabled -= 1
 
 ## remove button
 
 func _on_remove_button_pressed():
-	disabled += 1
-	
 	# hide advanced options
 	set_focused_rect_options_disabled(true) # no focus anymore
 	RotatOptions.hide()
@@ -192,9 +173,6 @@ func _on_remove_button_pressed():
 	# close rect
 	await Playground.close(CurrentRect)
 	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
-	
-	disabled -= 1
-	_fractal_changed()
 
 ## colors
 
@@ -250,26 +228,18 @@ func _on_advanced_button_pressed():
 	Presets.hide()
 
 func _on_rotation_button_pressed():
-	disabled += 1
-	
 	if RotatOptions.visible:
 		_on_advanced_options_close_me()
 	else:
 		matrix_options = false
 		open_advanced_options()
-	
-	disabled -= 1
 
 func _on_matrix_button_pressed():
-	disabled += 1
-	
 	if MatrixOptions.visible:
 		_on_advanced_options_close_me()
 	else:
 		matrix_options = true
 		open_advanced_options()
-	
-	disabled -= 1
 
 func _on_txt_button_pressed():
 	# close all other options
@@ -335,8 +305,7 @@ func _on_preset_timer_timeout():
 @onready var ResultUI
 
 func _fractal_changed():
-	if disabled == 0:
-		fractal_changed.emit()
+	fractal_changed.emit()
 
 # language & translation
 
