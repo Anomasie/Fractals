@@ -22,7 +22,6 @@ var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_ha
 
 var loading_url_disabled = 0
 var storing_url_disabled = 0
-var fractal_changed_disabled = 0
 
 var load_ui_when_txt_options_open = true
 
@@ -52,10 +51,8 @@ func _ready():
 	Global.tooltip_nodes.append_array([HelpButton, LanguageButton])
 
 func load_ifs(ifs, overwriting_result_ui=true):
-	fractal_changed_disabled += 1
 	PlaygroundUI.set_ifs(ifs)
 	ResultUI.open(ifs, overwriting_result_ui)
-	fractal_changed_disabled -= 1
 
 # url stuff
 
@@ -154,29 +151,26 @@ func get_ifs():
 	return ResultUI.get_ifs(PlaygroundUI.get_ifs())
 
 func _on_playground_ui_fractal_changed() -> void:
-	if fractal_changed_disabled == 0:
-#		print("playground ui changed")
-		# update result-ui and url
-		#store_to_url() # that's mostly spam for the browser history
-		var ifs = get_ifs()
-		ResultUI.open(ifs)
-		if TxtOptions.visible:
-			TxtOptions.load_ui(ifs)
-		else:
-			load_ui_when_txt_options_open = true
+#	print("playground ui changed")
+	# update result-ui and url
+	#store_to_url() # that's mostly spam for the browser history
+	var ifs = get_ifs()
+	ResultUI.open(ifs)
+	if TxtOptions.visible:
+		TxtOptions.load_ui(ifs)
+	else:
+		load_ui_when_txt_options_open = true
 
 func _on_result_ui_fractal_changed():
-	if fractal_changed_disabled == 0:
-#		print("result ui changed")
-		if TxtOptions.visible:
-			TxtOptions.load_ui(ResultUI.get_ifs())
-		else:
-			load_ui_when_txt_options_open = true
+#	print("result ui changed")
+	if TxtOptions.visible:
+		TxtOptions.load_ui(ResultUI.get_ifs())
+	else:
+		load_ui_when_txt_options_open = true
 
 func _on_txt_options_changed(new_ifs):
-	if fractal_changed_disabled == 0:
-#		print("txt ui changed")
-		load_ifs(new_ifs, true)
+#	print("txt ui changed")
+	load_ifs(new_ifs, true)
 
 # "warning" messages
 
