@@ -72,17 +72,17 @@ func _on_json_edit_please_reload():
 # saving & loading stuff
 
 func load_json_file(path):
-	JsonEdit.text = FileAccess.get_file_as_string(path)
+	JsonEdit.set_text(FileAccess.get_file_as_string(path))
 	_on_json_edit_text_changed()
 
 func save_json_file(path):
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	file.store_string(JsonEdit.text)
+	file.store_string(JsonEdit.get_text())
 
 func _on_download_button_pressed():
 	if OS.has_feature("web"):
 		var filename = "fractal.json"
-		var buf = JsonEdit.text.to_utf8_buffer()
+		var buf = JsonEdit.get_text().to_utf8_buffer()
 		JavaScriptBridge.download_buffer(buf, filename)
 	else:
 		saving = true
@@ -107,7 +107,7 @@ func _on_my_file_dialog_path_selected(path):
 	MyFileDialog.close()
 
 func _on_web_file_dialog_open_file(content):
-	JsonEdit.text = content
+	JsonEdit.set_text(content)
 	_on_json_edit_text_changed()
 
 # switch views

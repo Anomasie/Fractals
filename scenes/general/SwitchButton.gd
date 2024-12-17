@@ -14,7 +14,7 @@ signal pressed
 @export var tex_on : AtlasTexture
 @export var tex_off : AtlasTexture
 
-@export var reverse_textures = false
+@export var reverse_textures = true
 
 func _process(_delta):
 	if Engine.is_editor_hint() and tex_on and tex_off:

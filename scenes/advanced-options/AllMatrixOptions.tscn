@@ -51,12 +51,12 @@ region = Rect2(0, 160, 32, 32)
 atlas = ExtResource("4_lyuha")
 region = Rect2(0, 192, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ir4cq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_urc2h"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ebpwq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k84n"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 256, 32, 32)
@@ -136,8 +136,8 @@ reverse_textures = true
 layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_ir4cq")
-tex_off = SubResource("AtlasTexture_ebpwq")
+tex_on = SubResource("AtlasTexture_urc2h")
+tex_off = SubResource("AtlasTexture_7k84n")
 reverse_textures = true
 
 [node name="ReusingLastPointButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]

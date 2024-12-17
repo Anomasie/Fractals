@@ -199,6 +199,9 @@ func _on_remove_button_pressed():
 ## colors
 
 func _on_color_button_pressed():
+	# hide all other options
+	_on_advanced_options_close_me()
+	# open color options
 	colorsliders_open = not colorsliders_open
 	if colorsliders_open:
 		ColorSliders.open(CurrentRect.get_color())
@@ -223,6 +226,9 @@ func _on_duplicate_button_pressed():
 var matrix_options = false
 
 func open_advanced_options():
+	# hide all other options
+	_on_color_sliders_finished()
+	# hide button
 	AdvButOpt.hide()
 	# visibility
 	rotatoptions_open = not matrix_options
@@ -246,20 +252,30 @@ func _on_advanced_button_pressed():
 func _on_rotation_button_pressed():
 	disabled += 1
 	
-	matrix_options = false
-	open_advanced_options()
+	if RotatOptions.visible:
+		_on_advanced_options_close_me()
+	else:
+		matrix_options = false
+		open_advanced_options()
 	
 	disabled -= 1
 
 func _on_matrix_button_pressed():
 	disabled += 1
 	
-	matrix_options = true
-	open_advanced_options()
+	if MatrixOptions.visible:
+		_on_advanced_options_close_me()
+	else:
+		matrix_options = true
+		open_advanced_options()
 	
 	disabled -= 1
 
 func _on_txt_button_pressed():
+	# close all other options
+	_on_color_sliders_finished()
+	_on_advanced_options_close_me()
+	# open txt options
 	open_txt_options.emit()
 	AdvButOpt.hide()
 

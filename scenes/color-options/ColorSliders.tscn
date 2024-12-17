@@ -63,12 +63,12 @@ gradient = SubResource("Gradient_15o5r")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3lbcc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w248k"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cfpw0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_batq6"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 256, 32, 32)
@@ -317,8 +317,9 @@ layout_mode = 2
 layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_3lbcc")
-tex_off = SubResource("AtlasTexture_cfpw0")
+on = true
+tex_on = SubResource("AtlasTexture_w248k")
+tex_off = SubResource("AtlasTexture_batq6")
 
 [node name="LastLine" type="HBoxContainer" parent="Dialogue/Content/Lines"]
 layout_mode = 2

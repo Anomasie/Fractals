@@ -31,6 +31,12 @@ func get_dict_from_text():
 		print("Error in PythonEdit, read_text: JSON Parse Error: ", json.get_error_message(), " in text at line ", json.get_error_line())
 	return dict
 
+func set_text(string):
+	CodeEditor.text = string
+
+func get_text():
+	return CodeEditor.text
+
 func load_text(ifs):
 	if disabled == 0:
 		# ifs -> dict
