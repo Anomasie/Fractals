@@ -101,7 +101,9 @@ func _process(delta):
 		if current_ifs.reusing_last_point:
 			var points
 			if first_frame: # delay
-				points = current_ifs.calculate_fractal( last_point, amount)
+				var first_point = point.new()
+				first_point.color = current_ifs.background_color
+				points = current_ifs.calculate_fractal( first_point, amount)
 			else: # no delay
 				points = current_ifs.calculate_fractal( last_point, amount, 0)
 			if len(points) > 0:
@@ -109,7 +111,9 @@ func _process(delta):
 			first_frame = false
 			paint(points)
 		else:
-			paint(current_ifs.calculate_fractal( point.new(), amount))
+			var first_point = point.new()
+			first_point.color = current_ifs.background_color
+			paint(current_ifs.calculate_fractal( first_point, amount))
 		## update slider
 		PointTeller.value = point_slider_descaled(counter)
 

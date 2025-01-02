@@ -43,6 +43,16 @@ region = Rect2(64, 128, 32, 32)
 atlas = ExtResource("1_yyxan")
 region = Rect2(32, 128, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nch6l"]
+resource_local_to_scene = true
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2hpj"]
+resource_local_to_scene = true
+atlas = ExtResource("1_yyxan")
+region = Rect2(0, 256, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_pibtk"]
 atlas = ExtResource("4_lyuha")
 region = Rect2(0, 160, 32, 32)
@@ -50,16 +60,6 @@ region = Rect2(0, 160, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_41li8"]
 atlas = ExtResource("4_lyuha")
 region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_urc2h"]
-resource_local_to_scene = true
-atlas = ExtResource("1_yyxan")
-region = Rect2(0, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7k84n"]
-resource_local_to_scene = true
-atlas = ExtResource("1_yyxan")
-region = Rect2(0, 256, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7p5gt"]
 atlas = ExtResource("4_lyuha")
@@ -117,27 +117,28 @@ texture_hover = SubResource("AtlasTexture_6y63d")
 [node name="CloseAllButton" type="TextureButton" parent="PlaygroundButtons"]
 visibility_layer = 2
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 tooltip_text = "delete all rectangles"
 texture_normal = SubResource("AtlasTexture_km5ul")
 texture_pressed = SubResource("AtlasTexture_7o0ha")
 texture_hover = SubResource("AtlasTexture_esjly")
 
+[node name="UniformButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
+layout_mode = 2
+size_flags_horizontal = 8
+tooltip_ = "change color algorithm"
+tooltip_ger = "ändere Farbgebung"
+tex_on = SubResource("AtlasTexture_nch6l")
+tex_off = SubResource("AtlasTexture_p2hpj")
+reverse_textures = true
+
 [node name="CenterButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 tooltip_ = "change view"
 tooltip_ger = "\"ändere Bildausschnitt"
 tex_on = SubResource("AtlasTexture_pibtk")
 tex_off = SubResource("AtlasTexture_41li8")
-reverse_textures = true
-
-[node name="UniformButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
-layout_mode = 2
-tooltip_ = "change color algorithm"
-tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_urc2h")
-tex_off = SubResource("AtlasTexture_7k84n")
 reverse_textures = true
 
 [node name="ReusingLastPointButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]
@@ -168,6 +169,6 @@ layout_mode = 2
 [connection signal="value_changed" from="General/DelayEdit" to="." method="_on_delay_edit_value_changed"]
 [connection signal="pressed" from="PlaygroundButtons/AddButton" to="." method="_on_add_button_pressed"]
 [connection signal="pressed" from="PlaygroundButtons/CloseAllButton" to="." method="_on_close_all_button_pressed"]
-[connection signal="pressed" from="PlaygroundButtons/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="pressed" from="PlaygroundButtons/UniformButton" to="." method="_on_uniform_button_pressed"]
+[connection signal="pressed" from="PlaygroundButtons/CenterButton" to="." method="_on_center_button_pressed"]
 [connection signal="pressed" from="PlaygroundButtons/ReusingLastPointButton" to="." method="_on_reusing_last_point_button_pressed"]

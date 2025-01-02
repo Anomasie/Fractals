@@ -225,6 +225,7 @@ func open_advanced_options():
 
 func _on_advanced_button_pressed():
 	AdvButOpt.visible = not AdvButOpt.visible
+	PresetsButton.show()
 	Presets.hide()
 
 func _on_rotation_button_pressed():
