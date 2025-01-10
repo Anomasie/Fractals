@@ -161,6 +161,14 @@ func _on_resize_timer_timeout():
 func get_ifs():
 	return ResultUI.get_ifs(PlaygroundUI.get_ifs())
 
+func _on_playground_ui_break_contraction(index=-1) -> void:
+	var current_ifs = get_ifs()
+	self.load_ifs(current_ifs.break_contraction(index))
+
+func _on_playground_ui_break_all() -> void:
+	var current_ifs = get_ifs()
+	self.load_ifs(current_ifs.break_ifs())
+
 func _on_playground_ui_fractal_changed() -> void:
 #	print("playground ui changed")
 	# update result-ui and url

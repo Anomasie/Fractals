@@ -3,6 +3,8 @@ extends MarginContainer
 signal fractal_changed_vastly
 signal fractal_changed
 signal open_txt_options
+signal break_contraction
+signal break_all
 
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
@@ -101,7 +103,7 @@ func set_focused_rect_options_disabled(disable = true):
 	for button in [ColorButton, RemoveButton, RotationButton, MatrixButton]:
 		button.disabled = disable
 	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
-	OtherOptions.set_disabled(disable, Playground.current_rect_counter==0)
+	OtherOptions.set_disabled(disable, Playground.current_rect_counter)
 
 # focus
 
@@ -224,14 +226,12 @@ func _on_other_options_mirror_x() -> void:
 	fractal_changed_vastly.emit()
 
 func _on_other_options_break_focused() -> void:
-	
+	break_contraction.emit()
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 func _on_other_options_break_all() -> void:
-	
-	fractal_changed.emit()
-	fractal_changed_vastly.emit()
+	break_all.emit()
 
 ## advanced options
 
@@ -380,6 +380,7 @@ func reload_language():
 			PresetsButton.tooltip_text = "choose fractal from a preset"
 	# pass on signal
 	Playground.reload_language()
+	OtherOptions.reload_language()
 	Presets.reload_language()
 	MatrixOptions.reload_language()
 	RotatOptions.reload_language()

@@ -19,15 +19,17 @@ signal break_all
 
 func _ready() -> void:
 	Content.hide()
+	Global.tooltip_nodes.append_array([
+		OpenButton, DuplicateButton, XMirrorButton, YMirrorButton, BreakButton, BreakAllButton])
 
-func set_disabled(nothing_focused=false, ifs_empty=false) -> void:
+func set_disabled(nothing_focused=false, ifs_size=1) -> void:
 	if Content.visible:
-		OpenButton.disabled = ifs_empty
+		OpenButton.disabled = ifs_size==0
 	DuplicateButton.disabled = nothing_focused
 	YMirrorButton.disabled = nothing_focused
 	XMirrorButton.disabled = nothing_focused
 	BreakButton.disabled = nothing_focused
-	BreakAllButton.disabled = ifs_empty
+	BreakAllButton.disabled = ifs_size > 10 or ifs_size == 0
 
 func close():
 	OpenButton.button_pressed = false
@@ -52,3 +54,20 @@ func _on_break_button_pressed() -> void:
 
 func _on_break_all_button_pressed() -> void:
 	break_all.emit()
+
+func reload_language():
+	match Global.language:
+		"GER":
+			OpenButton.tooltip_text = "öffne weitere Optionen"
+			DuplicateButton.tooltip_text = "dupliziere ausgewähltes Rechteck"
+			YMirrorButton.tooltip_text = "spiegele ausgewähltes Rechteck an der vertikalen Achse"
+			XMirrorButton.tooltip_text = "spiegele ausgewähltes Rechteck an der horizontalen Achse"
+			BreakButton.tooltip_text = "zerteile dieses Rechteck in die Bilder unter den anderen Funktionen"
+			BreakAllButton.tooltip_text = "wende jede Funktion auf jedes Rechteck einmal an"
+		_:
+			OpenButton.tooltip_text = "open other options"
+			DuplicateButton.tooltip_text = "duplicate selected rectangle"
+			YMirrorButton.tooltip_text = "mirror selected rectangle vertically"
+			XMirrorButton.tooltip_text = "mirror selected rectangle horizontally"
+			BreakButton.tooltip_text = "split selected rectangle into images under all functions"
+			BreakAllButton.tooltip_text = "split all rectangles into images under all functions"

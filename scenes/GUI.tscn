@@ -236,6 +236,8 @@ texture = SubResource("GradientTexture1D_6jlwg")
 [node name="TooltipSubstitute" parent="." instance=ExtResource("8_kl7tn")]
 layout_mode = 2
 
+[connection signal="break_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_all"]
+[connection signal="break_contraction" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_contraction"]
 [connection signal="fractal_changed" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed_vastly"]
 [connection signal="open_txt_options" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]

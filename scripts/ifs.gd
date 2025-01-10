@@ -9,6 +9,39 @@ var uniform_coloring = false
 var reusing_last_point = false
 var centered_view = false
 
+# break fractal into parts
+
+func break_contraction(index=0) -> IFS:
+	# parse input
+	if index == -1: # break last one
+		index = len(self.systems)-1
+	# break things
+	var ifs = IFS.new()
+	ifs.background_color = self.background_color
+	ifs.delay = self.delay
+	ifs.uniform_coloring = self.uniform_coloring
+	ifs.reusing_last_point = self.reusing_last_point
+	ifs.centered_view = self.centered_view
+	for i in len(self.systems):
+		if i == index:
+			var new_systems = self.systems[i].apply(self.systems)
+			ifs.systems.append_array(new_systems)
+		else:
+			ifs.systems.append(self.systems[i])
+	return ifs
+
+func break_ifs() -> IFS:
+	var ifs = IFS.new()
+	ifs.background_color = self.background_color
+	ifs.delay = self.delay
+	ifs.uniform_coloring = self.uniform_coloring
+	ifs.reusing_last_point = self.reusing_last_point
+	ifs.centered_view = self.centered_view
+	for system in self.systems:
+		var new_systems = system.apply(self.systems)
+		ifs.systems.append_array(new_systems)
+	return ifs
+
 # calculate fractal
 
 func random_walk(pos, length=1, distribution=[]):

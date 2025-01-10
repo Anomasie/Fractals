@@ -7,12 +7,23 @@ var mirrored = false
 var color = Color.BLACK
 
 func apply(p):
-	if mirrored:
-		p.x *= -1 # mirror
-	p = Vector2(p.x * contract.x, p.y * contract.y) # scale
-	p = p.rotated(-rotation) # rotate
-	p += translation # translate
-	return p
+	if p is Vector2:
+		if mirrored:
+			p.x *= -1 # mirror
+		p = Vector2(p.x * contract.x, p.y * contract.y) # scale
+		p = p.rotated(-rotation) # rotate
+		p += translation # translate
+		return p
+	elif p is Contraction: # return self ° p
+		var result = from_matrix(Math.matrix_mult(self.to_matrix(), p.to_matrix()))
+		result.translation = self.apply(p.translation)
+		result.color = mix(p.color)
+		return result
+	elif p is Array:
+		var systems = []
+		for system in p:
+			systems.append(self.apply(system))
+		return systems
 
 func mix(c):
 	c.r = linear(c.r, color.r)
