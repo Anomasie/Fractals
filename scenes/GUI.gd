@@ -29,6 +29,7 @@ var storing_url_disabled = 0
 var load_ui_when_txt_options_open = true
 
 var current_ifs_idx = 0
+const MAX_LEN_LAST_IFS = 100
 var last_ifs = []
 
 func _ready():
@@ -183,6 +184,7 @@ func _on_result_ui_fractal_changed():
 
 func _on_result_ui_fractal_changed_vastly() -> void:
 	save_as_last_ifs(get_ifs())
+	store_to_url()
 
 func _on_txt_options_changed(new_ifs):
 #	print("txt ui changed")
@@ -245,8 +247,8 @@ func save_as_last_ifs(ifs):
 		current_ifs_idx = 0
 	
 	last_ifs.append(ifs)
-	if len(last_ifs) < 100:
-		last_ifs = last_ifs.slice(len(last_ifs)-100, len(last_ifs))
+	if len(last_ifs) > MAX_LEN_LAST_IFS:
+		last_ifs = last_ifs.slice(len(last_ifs)-MAX_LEN_LAST_IFS, len(last_ifs))
 	UndoButton.disabled = len(last_ifs) <= 1
 	RedoButton.disabled = true
 
@@ -269,7 +271,7 @@ func _on_undo_button_pressed() -> void:
 
 func _on_redo_button_pressed() -> void:
 	if 1 <= current_ifs_idx and current_ifs_idx < len(last_ifs):
-		print(current_ifs_idx, " von ", len(last_ifs))
+		#print(current_ifs_idx, " von ", len(last_ifs))
 		current_ifs_idx -= 1
 		load_ifs(last_ifs[len(last_ifs)-current_ifs_idx-1])
 		
