@@ -24,7 +24,8 @@ signal open_txt_options
 @onready var AddButton = $Left/Main/AddButton
 @onready var CloseAllButton = $Left/Main/CloseAllButton
 @onready var RemoveButton = $Left/Main/RemoveButton
-@onready var DuplicateButton = $Left/Main/DuplicateButton
+#@onready var DuplicateButton = $Left/Main/DuplicateButton
+@onready var OtherOptions = $Left/Main/OtherOptions
 # presets
 @onready var PresetsButton = $Right/Bottom/Main/PresetsButton
 @onready var Presets = $Presets
@@ -63,7 +64,7 @@ func _ready():
 	
 	# tooltips
 	Global.tooltip_nodes.append_array([
-		AddButton, DuplicateButton, ColorButton,
+		AddButton, ColorButton,
 		RemoveButton, CloseAllButton,
 		AdvancedButton, RotationButton, MatrixButton, TxtButton,
 		PresetsButton])
@@ -97,9 +98,10 @@ func set_ifs(ifs):
 # hide and show
 
 func set_focused_rect_options_disabled(disable = true):
-	for button in [DuplicateButton, ColorButton, RemoveButton, RotationButton, MatrixButton]:
+	for button in [ColorButton, RemoveButton, RotationButton, MatrixButton]:
 		button.disabled = disable
 	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
+	OtherOptions.set_disabled(disable, Playground.current_rect_counter==0)
 
 # focus
 
@@ -202,9 +204,33 @@ func _on_color_sliders_finished():
 
 ## duplicate button
 
-func _on_duplicate_button_pressed():
+#func _on_duplicate_button_pressed():
+func _on_other_options_duplicate() -> void:
 	Playground.duplicate_rect(CurrentRect, get_origin())
 	
+	fractal_changed_vastly.emit()
+
+## other options
+
+func _on_other_options_mirror_y() -> void:
+	CurrentRect.mirror()
+	fractal_changed.emit()
+	fractal_changed_vastly.emit()
+
+func _on_other_options_mirror_x() -> void:
+	CurrentRect.mirror()
+	CurrentRect.turn_rect(CurrentRect.rotation + PI, true)
+	fractal_changed.emit()
+	fractal_changed_vastly.emit()
+
+func _on_other_options_break_focused() -> void:
+	
+	fractal_changed.emit()
+	fractal_changed_vastly.emit()
+
+func _on_other_options_break_all() -> void:
+	
+	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 ## advanced options
@@ -333,7 +359,7 @@ func reload_language():
 			CloseAllButton.tooltip_text = "lösche alle Rechtecke"
 			RemoveButton.tooltip_text = "lösche ausgewähltes Rechteck"
 			ColorButton.tooltip_text = "ändere Farbe des ausgewählten Rechtecks"
-			DuplicateButton.tooltip_text = "dupliziere ausgewähltes Rechteck"
+#			DuplicateButton.tooltip_text = "dupliziere ausgewähltes Rechteck"
 			AdvancedButton.tooltip_text = "fortgeschrittene Einstellungen"
 			RotationButton.tooltip_text = "Rechteck bearbeiten"
 			MatrixButton.tooltip_text = "Matrix bearbeiten"
@@ -345,7 +371,7 @@ func reload_language():
 			CloseAllButton.tooltip_text = "delete all rectangles"
 			RemoveButton.tooltip_text = "delete selected rectangle"
 			ColorButton.tooltip_text = "change color of selected rectangle"
-			DuplicateButton.tooltip_text = "duplicate selected rectangle"
+#			DuplicateButton.tooltip_text = "duplicate selected rectangle"
 			AdvancedButton.tooltip_text = "advanced options"
 			RotationButton.tooltip_text = "edit rectangle"
 			MatrixButton.tooltip_text = "edit matrix"

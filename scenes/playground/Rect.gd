@@ -186,7 +186,10 @@ func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 	if current_anchor.y < 0:
 		self.position -= Vector2(0, (self.size - old_size).y).rotated(self.rotation)
 
-func turn_rect(turn):
+func turn_rect(turn, new_origin = false):
+	if new_origin:
+		rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
+	
 	self.rotation = turn
 	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	self.set_global_position(rect_origin - current_rect_origin)
