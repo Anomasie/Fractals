@@ -9,22 +9,7 @@ var uniform_coloring = false
 var reusing_last_point = false
 var centered_view = false
 
-# currently unused
-func apply_contraction(pos):
-	if len(systems) > 0:
-		var distribution = get_distribution()
-		var random = randf_range(0, distribution[-1])
-		for i in len(distribution):
-			if random <= distribution[i]:
-				var result = point.new()
-				result.position = systems[ i ].apply(pos.position)
-				if uniform_coloring:
-					result.color = systems[i]
-				else:
-					result.color = systems[ i ].mix(pos.color)
-				return [result, i]
-	else:
-		return
+# calculate fractal
 
 func random_walk(pos, length=1, distribution=[]):
 	if length > 0:
@@ -75,23 +60,6 @@ func calculate_fractal(start=point.new(), points=2000, this_delay=delay):
 				1,
 				distribution
 			) )
-	return result
-
-# where will the corners of the unit square be after steps_left steps?
-func calculate_fractal_corners( corners = [Vector2(0,0), Vector2(1,0), Vector2(0,1), Vector2(1,1)], steps_left = 4 ):
-	var result = []
-	if steps_left > 0:
-		for system in systems:
-			for p in corners:
-				p = system.apply(p)
-			result += calculate_fractal_corners(
-				corners,
-				steps_left - 1
-			)
-	else:
-		for system in systems:
-			for p in corners:
-				result.append(system.apply(p))
 	return result
 
 func get_distribution():
