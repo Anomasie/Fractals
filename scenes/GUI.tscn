@@ -226,6 +226,7 @@ size_flags_vertical = 0
 placeholder_text = "Debug Line Edit"
 
 [node name="DebugTexture" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8

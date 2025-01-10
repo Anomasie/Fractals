@@ -52,6 +52,7 @@ func _ready():
 	
 	# hide and show
 	AdvButOpt.hide()
+	AdvancedButton.button_pressed = false
 	set_focused_rect_options_disabled(true)
 	ColorSliders.close()
 	RotatOptions.hide()
@@ -215,6 +216,7 @@ func open_advanced_options():
 	_on_color_sliders_finished()
 	# hide button
 	AdvButOpt.hide()
+	AdvancedButton.button_pressed = false
 	# visibility
 	rotatoptions_open = not matrix_options
 	matrixoptions_open = matrix_options
@@ -232,6 +234,7 @@ func open_advanced_options():
 
 func _on_advanced_button_pressed():
 	AdvButOpt.visible = not AdvButOpt.visible
+	AdvancedButton.button_pressed = AdvButOpt.visible
 	PresetsButton.show()
 	Presets.hide()
 
@@ -256,6 +259,7 @@ func _on_txt_button_pressed():
 	# open txt options
 	open_txt_options.emit()
 	AdvButOpt.hide()
+	AdvancedButton.button_pressed = false
 
 func _on_advanced_options_close_me():
 	rotatoptions_open = false

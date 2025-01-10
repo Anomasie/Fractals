@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=76 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
@@ -129,6 +129,86 @@ region = Rect2(32, 128, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mxlht"]
 atlas = ExtResource("4_fd4oq")
 region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0egjn"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2npwc"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpqep"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s803"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usgn7"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atqcs"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw23w"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4060"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(96, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg1jl"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v54b"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_favmn"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk1lk"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(96, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5ask"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qabpu"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2eqv"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vohx"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(96, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecwbr"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(0, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou5e6"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(64, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtn1a"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(32, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alwfn"]
+atlas = ExtResource("4_fd4oq")
+region = Rect2(96, 448, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
 atlas = ExtResource("4_fd4oq")
@@ -268,6 +348,62 @@ texture_pressed = SubResource("AtlasTexture_1xys4")
 texture_hover = SubResource("AtlasTexture_6mc7g")
 texture_disabled = SubResource("AtlasTexture_mxlht")
 
+[node name="OtherOptions" type="HBoxContainer" parent="Left/Main"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OtherOptionsButton" type="TextureButton" parent="Left/Main/OtherOptions"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "open advanced options"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_0egjn")
+texture_pressed = SubResource("AtlasTexture_2npwc")
+texture_hover = SubResource("AtlasTexture_vpqep")
+texture_disabled = SubResource("AtlasTexture_2s803")
+
+[node name="OtherOptions" type="VBoxContainer" parent="Left/Main/OtherOptions"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="YMirrorButton" type="TextureButton" parent="Left/Main/OtherOptions/OtherOptions"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_usgn7")
+texture_pressed = SubResource("AtlasTexture_atqcs")
+texture_hover = SubResource("AtlasTexture_yw23w")
+texture_disabled = SubResource("AtlasTexture_e4060")
+
+[node name="XMirrorButton" type="TextureButton" parent="Left/Main/OtherOptions/OtherOptions"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_jg1jl")
+texture_pressed = SubResource("AtlasTexture_8v54b")
+texture_hover = SubResource("AtlasTexture_favmn")
+texture_disabled = SubResource("AtlasTexture_xk1lk")
+
+[node name="BreakButton" type="TextureButton" parent="Left/Main/OtherOptions/OtherOptions"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_y5ask")
+texture_pressed = SubResource("AtlasTexture_qabpu")
+texture_hover = SubResource("AtlasTexture_m2eqv")
+texture_disabled = SubResource("AtlasTexture_1vohx")
+
+[node name="BreakAllButton" type="TextureButton" parent="Left/Main/OtherOptions/OtherOptions"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "open advanced options"
+texture_normal = SubResource("AtlasTexture_ecwbr")
+texture_pressed = SubResource("AtlasTexture_ou5e6")
+texture_hover = SubResource("AtlasTexture_vtn1a")
+texture_disabled = SubResource("AtlasTexture_alwfn")
+
 [node name="AdvancedOptions" type="HBoxContainer" parent="Left/Main"]
 layout_mode = 2
 mouse_filter = 2
@@ -276,6 +412,7 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 0
 tooltip_text = "open advanced options"
+toggle_mode = true
 texture_normal = SubResource("AtlasTexture_rqsg6")
 texture_pressed = SubResource("AtlasTexture_u0188")
 texture_hover = SubResource("AtlasTexture_tf6n6")

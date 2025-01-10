@@ -55,7 +55,7 @@ func _ready():
 	URLTimer.start()
 	
 	# tooltip_text
-	Global.tooltip_nodes.append_array([HelpButton, LanguageButton])
+	Global.tooltip_nodes.append_array([HelpButton, LanguageButton, UndoButton, RedoButton])
 	
 	UndoButton.disabled = true
 	RedoButton.disabled = true
@@ -301,9 +301,13 @@ func reload_language():
 		"GER":
 			Title.text = "Erstelle dein eigenes Fraktal!"
 			HelpButton.tooltip_text = "Informationen"
+			UndoButton.tooltip_text = "Rückgängig machen"
+			RedoButton.tooltip_text = "Zurück zu Stand vor Rückgängigkeit"
 		_:
 			Title.text = "Make your own fractal!"
 			HelpButton.tooltip_text = "information"
+			UndoButton.tooltip_text = "undo"
+			RedoButton.tooltip_text = "redo"
 	# pass on signal
 	for node in [PlaygroundUI, ResultUI, ShareDialogue, HelpOptions, TxtOptions]:
 		node.reload_language()
