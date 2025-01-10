@@ -128,8 +128,7 @@ ACHTUNG: Bilder in der Galerie sind öffentlich und frei benutzbar für jede*n.
 - Unter \"Fortgeschrittene Einstellungen (links) -> System bearbeiten (unten)\" gibt es die Möglichkeit, das \
 gesamte IFS als JSON-Datei zu speichern (ganz unten). Wenn du es wieder laden möchtest, kannst du unter derselben \
 Einstellung die gespeicherte JSON-Datei wieder hochladen und so das IFS laden.
-- Wenn du das Programm im Web benutzt, kannst du den Link speichern. WICHTIG: Davor musst du den Link erneuert werden. \
-Das geht zum Beispiel, indem du auf \"Bild lokal speichern\" klickst (unabhängig davon, ob du es danach speicherst oder nicht).
+- Wenn du das Programm im Web benutzt, kannst du den Link speichern.
 
 Warum ändern sich, wenn ich in der Matrix-Ansicht eine Zahl ändere, auch andere Einträge der Matrix?
 -> Das liegt daran, dass die hier verwendeten Matrizen die Einheitsvektoren auf zueinander senkrechte Vektoren abbilden \
@@ -146,8 +145,7 @@ How can I save a fractal to open it later again in the editor?
 NOTE: Images in the gallery are public and free to use for everyone.
 - Under \"advanced settings -> edit system\", there is an option to download the IFS as a JSON file. \
 You can save your fractal locally this way and load it using the same JSON file and the upload-button there.
-- If you are using the web version, you can save the link. NOTE: Before that, you have to reload the link. \
-The easiest way to do that is to click on \"save image locally\" (independent on whether you actually save the image or not).
+- If you are using the web version, you can save the link.
 
 In matrix view, why do some entries change if I change unrelated matrix entries?
 -> This is due to the matrix having to map the unit vectors onto orthogonal vectors. (Which is why we can use \

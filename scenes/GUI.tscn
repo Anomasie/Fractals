@@ -1,13 +1,59 @@
-[gd_scene load_steps=12 format=3 uid="uid://uat15tg6ijgh"]
+[gd_scene load_steps=26 format=3 uid="uid://uat15tg6ijgh"]
 
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
 [ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/playground/PlaygroundUI.tscn" id="1_kg3c1"]
 [ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/results/ResultUI.tscn" id="2_wgaj6"]
 [ext_resource type="PackedScene" uid="uid://biuetoakcmrk0" path="res://scenes/advanced-options/TxtOptions.tscn" id="4_bq5pq"]
 [ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/results/ShareDialogue.tscn" id="4_kymfo"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="5_1xmng"]
 [ext_resource type="PackedScene" uid="uid://ltwl751ep3gp" path="res://scenes/help/HelpOptions.tscn" id="5_ewkqs"]
 [ext_resource type="Texture2D" uid="uid://q482hh141kmp" path="res://assets/gui/main_gui_buttons.png" id="5_snlkm"]
 [ext_resource type="PackedScene" uid="uid://6djx0t3248n1" path="res://scenes/tooltips/TooltipSubstitute.tscn" id="8_kl7tn"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_06eut"]
+device = -1
+keycode = 43
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_afdqp"]
+events = [SubResource("InputEventKey_6slxs"), SubResource("InputEventKey_06eut")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38wfi"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(0, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lcjw"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(64, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dytmb"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(32, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr5ca"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(96, 288, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5x2v"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv1er"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(64, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6yga"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(32, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okdxx"]
+atlas = ExtResource("5_1xmng")
+region = Rect2(96, 320, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i014u"]
 atlas = ExtResource("5_snlkm")
@@ -20,6 +66,14 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8m6c"]
 atlas = ExtResource("5_snlkm")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="Gradient" id="Gradient_ngkfi"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6jlwg"]
+gradient = SubResource("Gradient_ngkfi")
+width = 32
 
 [node name="GUI" type="MarginContainer"]
 anchors_preset = 15
@@ -59,6 +113,39 @@ theme_override_constants/margin_bottom = 0
 
 [node name="PlaygroundUI" parent="Lines/Content/Editor" instance=ExtResource("1_kg3c1")]
 layout_mode = 2
+
+[node name="CornerButtons" type="MarginContainer" parent="Lines/Content/Editor"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="UndoRedoButtons" type="MarginContainer" parent="Lines/Content/Editor/CornerButtons"]
+layout_mode = 2
+
+[node name="Sep" type="HBoxContainer" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons"]
+layout_mode = 2
+
+[node name="UndoButton" type="TextureButton" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_afdqp")
+texture_normal = SubResource("AtlasTexture_38wfi")
+texture_pressed = SubResource("AtlasTexture_2lcjw")
+texture_hover = SubResource("AtlasTexture_dytmb")
+texture_disabled = SubResource("AtlasTexture_rr5ca")
+
+[node name="RedoButton" type="TextureButton" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_afdqp")
+texture_normal = SubResource("AtlasTexture_f5x2v")
+texture_pressed = SubResource("AtlasTexture_iv1er")
+texture_hover = SubResource("AtlasTexture_o6yga")
+texture_disabled = SubResource("AtlasTexture_okdxx")
 
 [node name="TxtOptions" parent="Lines/Content/Editor" instance=ExtResource("4_bq5pq")]
 visible = false
@@ -138,13 +225,24 @@ layout_mode = 2
 size_flags_vertical = 0
 placeholder_text = "Debug Line Edit"
 
+[node name="DebugTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = SubResource("GradientTexture1D_6jlwg")
+
 [node name="TooltipSubstitute" parent="." instance=ExtResource("8_kl7tn")]
 layout_mode = 2
 
 [connection signal="fractal_changed" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed"]
+[connection signal="fractal_changed_vastly" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed_vastly"]
 [connection signal="open_txt_options" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
+[connection signal="pressed" from="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/UndoButton" to="." method="_on_undo_button_pressed"]
+[connection signal="pressed" from="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/RedoButton" to="." method="_on_redo_button_pressed"]
 [connection signal="changed" from="Lines/Content/Editor/TxtOptions" to="." method="_on_txt_options_changed"]
 [connection signal="fractal_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_fractal_changed"]
+[connection signal="fractal_changed_vastly" from="Lines/Content/ResultUI" to="." method="_on_result_ui_fractal_changed_vastly"]
 [connection signal="store_to_url" from="Lines/Content/ResultUI" to="." method="_on_result_ui_store_to_url"]
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]

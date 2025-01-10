@@ -1,6 +1,7 @@
 extends MarginContainer
 
 signal fractal_changed
+signal fractal_changed_vastly
 signal store_to_url
 
 @onready var Result = $Columns/Left/Center/Result
@@ -295,6 +296,7 @@ func _on_center_button_pressed():
 	current_ifs.centered_view = CenterButton.on
 	open(current_ifs)
 	fractal_changed.emit()
+	fractal_changed_vastly.emit()
 
 # more points!
 
@@ -317,6 +319,7 @@ func _on_point_slider_drag_started():
 func _on_point_slider_drag_ended(_value_changed):
 	dragging_point_slider = false
 	_on_point_slider_value_changed()
+	fractal_changed_vastly.emit()
 
 # more clarity!
 
@@ -328,12 +331,15 @@ func _on_delay_slider_value_changed(value):
 	
 	reload_language()
 
+func _on_delay_slider_drag_ended(_value_changed: bool) -> void:
+	fractal_changed_vastly.emit()
+
 ## enter exact digits for points and delay
 
 func _on_point_line_edit_text_submitted(new_text: String) -> void:
 	if new_text == "":
 		_on_point_slider_value_changed()
-		return
+		fractal_changed_vastly.emit()
 	
 	var value
 	if new_text in [-1, "infty", "infinity", "infinite", "inf", "unendlich"]:
@@ -350,7 +356,7 @@ func _on_point_line_edit_text_submitted(new_text: String) -> void:
 func _on_delay_line_edit_text_submitted(new_text: String) -> void:
 	if new_text == "":
 		_on_delay_slider_value_changed(DelaySlider.value)
-		return
+		fractal_changed_vastly.emit()
 	
 	var value = int(new_text)
 	DelaySlider.value = value
@@ -400,6 +406,7 @@ func _on_size_options_value_changed():
 func _on_reusing_last_point_button_pressed() -> void:
 	current_ifs.reusing_last_point = ReusingLastPointButton.on
 	fractal_changed.emit()
+	fractal_changed_vastly.emit()
 	open(current_ifs)
 
 # language & translation
@@ -459,3 +466,7 @@ func reload_language():
 	CenterButton.reload_language()
 	SizeOptions.reload_language()
 	ColorSliders.reload_language()
+
+
+func _on_color_sliders_color_changed_vastly() -> void:
+	fractal_changed_vastly.emit()

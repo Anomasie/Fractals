@@ -1,5 +1,6 @@
 extends MarginContainer
 
+signal fractal_changed_vastly
 signal fractal_changed
 signal open_txt_options
 
@@ -148,6 +149,8 @@ func _on_add_pressed():
 		rot -= 2 * PI
 	_on_presets_close_me()
 	CloseAllButton.show()
+	
+	fractal_changed_vastly.emit()
 
 func _on_close_all_pressed():
 	Playground.close_all()
@@ -173,6 +176,8 @@ func _on_remove_button_pressed():
 	# close rect
 	await Playground.close(CurrentRect)
 	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
+	
+	fractal_changed_vastly.emit()
 
 ## colors
 
@@ -198,6 +203,8 @@ func _on_color_sliders_finished():
 
 func _on_duplicate_button_pressed():
 	Playground.duplicate_rect(CurrentRect, get_origin())
+	
+	fractal_changed_vastly.emit()
 
 ## advanced options
 
@@ -257,6 +264,8 @@ func _on_advanced_options_close_me():
 	MatrixOptions.hide()
 	PresetsButton.show()
 
+## changed values
+
 func _on_advanced_options_value_changed():
 	# editing the rect using the rect-ui will update advanced-uptions-ui
 	# however, this change should not be driven back to rect-ui
@@ -269,6 +278,8 @@ func _on_advanced_options_value_changed():
 			new_contraction = RotatOptions.read_ui()
 		new_contraction.color = CurrentRect.get_color()
 		CurrentRect.update_to(new_contraction, get_origin())
+	
+		fractal_changed_vastly.emit()
 
 func _on_advanced_options_switch():
 	matrix_options = true
@@ -300,6 +311,7 @@ func _on_presets_load_preset(ifs):
 
 func _on_preset_timer_timeout():
 	_fractal_changed()
+	fractal_changed_vastly.emit()
 
 # RESULTS
 
@@ -342,3 +354,10 @@ func reload_language():
 	MatrixOptions.reload_language()
 	RotatOptions.reload_language()
 	ColorSliders.reload_language()
+
+
+func _on_playground_fractal_changed_vastly() -> void:
+	fractal_changed_vastly.emit()
+
+func _on_color_sliders_color_changed_vastly() -> void:
+	fractal_changed_vastly.emit()

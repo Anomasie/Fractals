@@ -16,6 +16,9 @@ extends Control
 @onready var HelpOptions = $HelpOptions
 @onready var TxtOptions = $Lines/Content/Editor/TxtOptions
 
+@onready var UndoButton = $Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/UndoButton
+@onready var RedoButton = $Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/RedoButton
+
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer
 var js_callback_on_url_hash_change = JavaScriptBridge.create_callback(_on_url_hash_change)
@@ -24,6 +27,9 @@ var loading_url_disabled = 0
 var storing_url_disabled = 0
 
 var load_ui_when_txt_options_open = true
+
+var current_ifs_idx = 0
+var last_ifs = []
 
 func _ready():
 	storing_url_disabled += 1 # wait until URLTimer is ready
@@ -49,6 +55,10 @@ func _ready():
 	
 	# tooltip_text
 	Global.tooltip_nodes.append_array([HelpButton, LanguageButton])
+	
+	UndoButton.disabled = true
+	RedoButton.disabled = true
+	save_as_last_ifs(IFS.new())
 
 func load_ifs(ifs, overwriting_result_ui=true):
 	PlaygroundUI.set_ifs(ifs)
@@ -161,6 +171,9 @@ func _on_playground_ui_fractal_changed() -> void:
 	else:
 		load_ui_when_txt_options_open = true
 
+func _on_playground_ui_fractal_changed_vastly() -> void:
+	save_as_last_ifs(get_ifs())
+
 func _on_result_ui_fractal_changed():
 #	print("result ui changed")
 	if TxtOptions.visible:
@@ -168,9 +181,13 @@ func _on_result_ui_fractal_changed():
 	else:
 		load_ui_when_txt_options_open = true
 
+func _on_result_ui_fractal_changed_vastly() -> void:
+	save_as_last_ifs(get_ifs())
+
 func _on_txt_options_changed(new_ifs):
 #	print("txt ui changed")
 	load_ifs(new_ifs, true)
+	swap_debug_texture()
 
 # "warning" messages
 
@@ -220,6 +237,49 @@ func _on_playground_ui_open_txt_options():
 		TxtOptions.load_ui(ifs)
 		load_ui_when_txt_options_open = false
 
+# undo and redo buttons
+
+func save_as_last_ifs(ifs):
+	if current_ifs_idx != 0:
+		reset_last_ifs_to(current_ifs_idx)
+		current_ifs_idx = 0
+	
+	last_ifs.append(ifs)
+	if len(last_ifs) < 100:
+		last_ifs = last_ifs.slice(len(last_ifs)-100, len(last_ifs))
+	UndoButton.disabled = len(last_ifs) <= 1
+	RedoButton.disabled = true
+
+func reset_last_ifs_to(index):
+	if len(last_ifs) >= index:
+		#print("reset to ", index)
+		last_ifs = last_ifs.slice(0, len(last_ifs)-index)
+	else:
+		print("ERROR in GUI.reset_last_ifs_to: trying to reset to ifs number ", index, ", but there are only ", len(last_ifs), " ifs saved yet.")
+
+func _on_undo_button_pressed() -> void:
+	#print(current_ifs_idx, " von ", len(last_ifs))
+	if len(last_ifs) > current_ifs_idx+1:
+		current_ifs_idx += 1
+		load_ifs(last_ifs[len(last_ifs)-current_ifs_idx-1])
+		UndoButton.disabled = len(last_ifs) <= current_ifs_idx+1
+		RedoButton.disabled = false
+	else:
+		print("ERROR in GUI._on_undo_button_pressed: Trying to load ifs number ", current_ifs_idx+1, ", but there are ", len(last_ifs), " ifs saved.")
+
+func _on_redo_button_pressed() -> void:
+	if 1 <= current_ifs_idx and current_ifs_idx < len(last_ifs):
+		print(current_ifs_idx, " von ", len(last_ifs))
+		current_ifs_idx -= 1
+		load_ifs(last_ifs[len(last_ifs)-current_ifs_idx-1])
+		
+		UndoButton.disabled = len(last_ifs) <= current_ifs_idx+1
+		RedoButton.disabled = current_ifs_idx == 0
+	elif len(last_ifs) == 0:
+		print("ERROR in GUI._on_redo_button_pressed: No ifs saved yet.")
+	else:
+		print("ERROR in GUI._on_redo_button_pressed: There is nothing to redo.")
+
 # language & translation
 
 func _on_language_button_pressed():
@@ -258,3 +318,12 @@ func _on_debug_edit_text_submitted(new_text):
 	print("text submitted!")
 	try_load_from_link(new_text)
 	print("submission process ended!")
+
+@onready var DebugTexture = $DebugTexture
+
+func swap_debug_texture():
+	match DebugTexture.modulate:
+		Color.WHITE: DebugTexture.modulate = Color.RED
+		Color.RED: DebugTexture.modulate = Color.BLUE
+		Color.BLUE: DebugTexture.modulate = Color.BLACK
+		_: DebugTexture.modulate = Color.WHITE

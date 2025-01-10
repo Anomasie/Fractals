@@ -9,6 +9,7 @@ var mouse_in = false
 
 signal focus_me
 signal changed
+signal changed_vastly
 
 # buttons
 @onready var MoveButton = $Content/TextureContainer/MoveButton
@@ -33,6 +34,8 @@ var editing_width = false
 var editing_height = false
 var editing_turn = false
 
+var edited_position = false
+
 var anchor = Vector2i(1,1)
 var rect_origin
 
@@ -55,6 +58,7 @@ func _input(event):
 			focus_me.emit()
 			changed.emit()
 		if editing_position:
+			edited_position = true
 			self.set_global_position(event.position - rect_origin)
 		elif editing_turn:
 			turn_rect((event.position - rect_origin).angle() + PI / 2)
@@ -64,7 +68,11 @@ func _input(event):
 			if editing_height:
 				resize_rect(Rect.custom_minimum_size.x, (event.position - rect_origin).dot( (anchor.y * Vector2(0, 1) ).rotated(self.rotation) ), anchor)
 	if self.visible and event is InputEventMouseButton and not event.pressed:
+		if editing_position or editing_width or editing_height or editing_turn:
+			if not editing_position or editing_position and edited_position:
+				changed_vastly.emit()
 			editing_position = false
+			edited_position = false
 			editing_width = false
 			editing_height = false
 			editing_turn = false
@@ -153,6 +161,7 @@ func _on_turn_button_pressed():
 func _on_mirror_button_pressed():
 	mirror()
 	changed.emit()
+	changed_vastly.emit()
 	focus_me.emit()
 
 # "important" functions

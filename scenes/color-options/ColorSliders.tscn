@@ -63,12 +63,12 @@ gradient = SubResource("Gradient_15o5r")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w248k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_th5ae"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_batq6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_obp3u"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 256, 32, 32)
@@ -318,8 +318,8 @@ layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
 on = true
-tex_on = SubResource("AtlasTexture_w248k")
-tex_off = SubResource("AtlasTexture_batq6")
+tex_on = SubResource("AtlasTexture_th5ae")
+tex_off = SubResource("AtlasTexture_obp3u")
 
 [node name="LastLine" type="HBoxContainer" parent="Dialogue/Content/Lines"]
 layout_mode = 2
@@ -435,8 +435,11 @@ texture_normal = SubResource("AtlasTexture_75bkv")
 texture_pressed = SubResource("AtlasTexture_8kltj")
 texture_hover = SubResource("AtlasTexture_lrmm1")
 
+[connection signal="drag_ended" from="Dialogue/Content/Lines/Columns/Sliders/Value/Slider" to="." method="_on_slider_drag_ended"]
 [connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Value/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="drag_ended" from="Dialogue/Content/Lines/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_drag_ended"]
 [connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Saturation/Slider" to="." method="_on_slider_value_changed"]
+[connection signal="drag_ended" from="Dialogue/Content/Lines/Columns/Sliders/Hue/Slider" to="." method="_on_slider_drag_ended"]
 [connection signal="value_changed" from="Dialogue/Content/Lines/Columns/Sliders/Hue/Slider" to="." method="_on_slider_value_changed"]
 [connection signal="focus_exited" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
 [connection signal="text_submitted" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]

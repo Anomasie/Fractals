@@ -2,6 +2,7 @@
 extends MarginContainer
 
 signal color_changed
+signal color_changed_vastly
 signal finished
 
 @export var BACKGROUND_COLOR_SLIDER = false
@@ -138,16 +139,21 @@ func _on_slider_value_changed(_value):
 	if disabled == 0:
 		color_changed.emit()
 
+func _on_slider_drag_ended(_value_changed: bool) -> void:
+	color_changed_vastly.emit()
+
 func _on_preset_pressed(i):
 	set_color(Presets[i].modulate)
 	if disabled == 0:
 		color_changed.emit()
+		color_changed_vastly.emit()
 
 func _on_user_preset_pressed(i):
 	if UserPresets[i].visible:
 		set_color(UserPresets[i].modulate)
 		if disabled == 0:
 			color_changed.emit()
+			color_changed_vastly.emit()
 
 func _on_add_button_pressed():
 	Global.user_saved_colors.push_front(get_color())
@@ -186,6 +192,7 @@ func set_uniform_coloring(value) -> void:
 func _on_uniform_button_pressed() -> void:
 	uniform_coloring = UniformColorButton.on
 	color_changed.emit()
+	color_changed_vastly.emit()
 
 # language & translation
 

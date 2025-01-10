@@ -301,6 +301,7 @@ BACKGROUND_COLOR_SLIDER = true
 [connection signal="drag_started" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_drag_started"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/PointSlider" to="." method="_on_point_slider_value_changed"]
 [connection signal="text_submitted" from="Columns/Left/Bottom/Lines/PointLineEdit" to="." method="_on_point_line_edit_text_submitted"]
+[connection signal="drag_ended" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_drag_ended"]
 [connection signal="value_changed" from="Columns/Left/Bottom/Lines/DelaySlider" to="." method="_on_delay_slider_value_changed"]
 [connection signal="text_submitted" from="Columns/Left/Bottom/Lines/Sep/DelayLineEdit" to="." method="_on_delay_line_edit_text_submitted"]
 [connection signal="pressed" from="Columns/Left/Bottom/Lines/Sep/ReusingLastPointButton" to="." method="_on_reusing_last_point_button_pressed"]
@@ -312,4 +313,5 @@ BACKGROUND_COLOR_SLIDER = true
 [connection signal="path_selected" from="Columns/Right/Top/SaveFileDialog" to="." method="_on_save_file_dialog_path_selected"]
 [connection signal="value_changed" from="SizeOptions" to="." method="_on_size_options_value_changed"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
+[connection signal="color_changed_vastly" from="ColorSliders" to="." method="_on_color_sliders_color_changed_vastly"]
 [connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]

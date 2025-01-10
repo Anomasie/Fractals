@@ -385,6 +385,7 @@ layout_mode = 2
 wait_time = 0.1
 one_shot = true
 
+[connection signal="fractal_changed_vastly" from="Playground" to="." method="_on_playground_fractal_changed_vastly"]
 [connection signal="pressed" from="Left/Main/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Left/Main/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Left/Main/ColorButton" to="." method="_on_color_button_pressed"]
@@ -398,6 +399,7 @@ one_shot = true
 [connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
+[connection signal="color_changed_vastly" from="ColorSliders" to="." method="_on_color_sliders_color_changed_vastly"]
 [connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]
 [connection signal="close_me" from="RotatOptions" to="." method="_on_advanced_options_close_me"]
 [connection signal="switch" from="RotatOptions" to="." method="_on_advanced_options_switch"]
