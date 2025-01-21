@@ -227,6 +227,18 @@ func _on_share_dialogue_no_connection_to_server(response):
 		_: WarningLabel.text = "Failed to connect to " + Global.GALLERY_ADRESS + ". Response: " + str(response)
 	WarningTimer.start()
 
+func _on_result_ui_dont_upload_already_uploaded_fractal() -> void:
+	match Global.language:
+		"GER": WarningLabel.text = "Bitte lade kein Fraktal zweimal hoch."
+		_: WarningLabel.text = "Please don't upload the same fractal twice."
+	WarningTimer.start()
+
+func _on_result_ui_dont_upload_empty_fractal() -> void:
+	match Global.language:
+		"GER": WarningLabel.text = "Bitte lade kein leeres Bild hoch."
+		_: WarningLabel.text = "Please don't upload empty images."
+	WarningTimer.start()
+
 ## close current message
 
 func _on_warning_timer_timeout():

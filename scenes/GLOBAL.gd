@@ -21,6 +21,8 @@ var user_saved_colors = []
 
 var tooltip_nodes = []
 
+var uploaded_links = []
+
 func _ready():
 	await get_tree().process_frame
 	var done_nodes = []
@@ -41,3 +43,9 @@ func _give_tooltip(node):
 
 func _hide_tooltip():
 	hide_tooltip.emit()
+
+func already_uploaded(link):
+	return link in uploaded_links
+
+func add_uploaded_link(link):
+	uploaded_links.append(link)

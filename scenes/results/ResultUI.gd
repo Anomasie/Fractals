@@ -3,6 +3,8 @@ extends MarginContainer
 signal fractal_changed
 signal fractal_changed_vastly
 signal store_to_url
+signal dont_upload_empty_fractal
+signal dont_upload_already_uploaded_fractal
 
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
@@ -266,7 +268,13 @@ func get_image():
 
 func _on_share_button_pressed():
 	store_to_url.emit()
-	ShareDialogue.open(get_image(), current_ifs)
+	# check if fractal is valid:
+	if len(current_ifs.systems) > 0 and not Global.already_uploaded(current_ifs.to_meta_data()):
+		ShareDialogue.open(get_image(), current_ifs)
+	elif len(current_ifs.systems) == 0:
+		dont_upload_empty_fractal.emit()
+	else:
+		dont_upload_already_uploaded_fractal.emit()
 
 # save image locally
 

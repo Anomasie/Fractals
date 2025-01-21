@@ -58,6 +58,8 @@ func _on_close_button_pressed():
 	hide()
 
 func _on_gallery_contact_sent_successfully():
+	# add link to used ones
+	Global.add_uploaded_link(current_meta)
 	sent_successfully.emit()
 
 func _on_gallery_contact_sent_unsuccessfully(response_code):
