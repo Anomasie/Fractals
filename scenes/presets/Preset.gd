@@ -1,9 +1,11 @@
+@tool
 extends MarginContainer
 
 signal pressed
 
 func _ready():
-	Global.add_to_tooltip_nodes([$Button])
+	if not Engine.is_editor_hint():
+		Global.add_to_tooltip_nodes([$Button])
 
 func load_preset(preset):
 	$Texture.texture = load(preset["texture"])

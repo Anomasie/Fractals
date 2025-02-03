@@ -52,7 +52,7 @@ patch_margin_bottom = 2
 [node name="Content" type="MarginContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="Presets" type="HFlowContainer" parent="Margin/Content"]
+[node name="Presets" type="HBoxContainer" parent="Margin/Content"]
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1

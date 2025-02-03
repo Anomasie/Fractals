@@ -1,3 +1,4 @@
+@tool
 extends MarginContainer
 
 signal close_me
@@ -33,7 +34,8 @@ var PRESETS = {
 func _ready():
 	load_presets()
 	# tooltips
-	Global.tooltip_nodes.append(CloseButton)
+	if not Engine.is_editor_hint():
+		Global.tooltip_nodes.append(CloseButton)
 
 func load_presets():
 	# delete presets
@@ -45,8 +47,9 @@ func load_presets():
 		var Instance = Preset.instantiate()
 		Instance.name = preset
 		# add tooltips
-		if PRESETS[preset].has(Global.language):
-			Instance.tooltip_text = PRESETS[preset][Global.language]
+		if not Engine.is_editor_hint():
+			if PRESETS[preset].has(Global.language):
+				Instance.tooltip_text = PRESETS[preset][Global.language]
 		# connect & add node
 		Instance.pressed.connect(_on_preset_pressed.bind(preset))
 		Presets.add_child(Instance)

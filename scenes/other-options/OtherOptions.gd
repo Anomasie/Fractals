@@ -19,8 +19,9 @@ signal break_all
 
 func _ready() -> void:
 	Content.hide()
-	Global.tooltip_nodes.append_array([
-		OpenButton, DuplicateButton, XMirrorButton, YMirrorButton, BreakButton, BreakAllButton])
+	if not Engine.is_editor_hint():
+		Global.tooltip_nodes.append_array([
+			OpenButton, DuplicateButton, XMirrorButton, YMirrorButton, BreakButton, BreakAllButton])
 
 func set_disabled(nothing_focused=false, ifs_size=1) -> void:
 	if Content.visible:
