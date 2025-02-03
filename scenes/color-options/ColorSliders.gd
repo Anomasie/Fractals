@@ -60,7 +60,7 @@ func _ready():
 			Hash, AddButton, CloseButton
 		] + Presets + UserPresets)
 	# open something
-	open(Color.BLUE)
+	open(Color.WHITE)
 	
 	UniformColorButton.visible = not self.BACKGROUND_COLOR_SLIDER
 

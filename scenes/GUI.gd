@@ -277,6 +277,7 @@ func _on_playground_ui_open_txt_options():
 # undo and redo buttons
 
 func save_as_last_ifs(ifs):
+	print("save ifs now")
 	if current_ifs_idx != 0:
 		reset_last_ifs_to(current_ifs_idx)
 		current_ifs_idx = 0
