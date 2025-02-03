@@ -55,6 +55,8 @@ var new_ifs_centered
 var first_frame = false
 var last_point = point.new()
 
+var loading_ifs = false
+
 func _ready():
 	# set values
 	## PointTeller (ActualValueSlider)
@@ -159,10 +161,12 @@ func open(ifs, overwrite_result_ui=false):
 	first_frame = true
 	new_ifs = ifs
 	if overwrite_result_ui:
+		loading_ifs = true
 		load_color(ifs.background_color)
 		DelaySlider.value = ifs.delay
 		ReusingLastPointButton.set_value(new_ifs.reusing_last_point)
 		CenterButton.set_value(new_ifs.centered_view)
+		loading_ifs = false
 	else:
 		new_ifs.reusing_last_point = ReusingLastPointButton.on
 		new_ifs.centered_view = CenterButton.on
@@ -332,12 +336,12 @@ func _on_point_slider_drag_ended(_value_changed):
 # more clarity!
 
 func _on_delay_slider_value_changed(value):
-	fractal_changed.emit()
-	current_ifs.delay = value
-	DelayLineEdit.placeholder_text = str(current_ifs.delay)
-	open(current_ifs)
-	
-	reload_language()
+	if not loading_ifs and value != current_ifs.delay:
+		fractal_changed.emit()
+		current_ifs.delay = value
+		DelayLineEdit.placeholder_text = str(current_ifs.delay)
+		open(current_ifs)
+		reload_language()
 
 func _on_delay_slider_drag_ended(_value_changed: bool) -> void:
 	fractal_changed_vastly.emit()

@@ -62,6 +62,7 @@ func _ready():
 	save_as_last_ifs(IFS.new())
 
 func load_ifs(ifs, overwriting_result_ui=true):
+	#print("GUI: ", overwriting_result_ui)
 	PlaygroundUI.set_ifs(ifs)
 	ResultUI.open(ifs, overwriting_result_ui)
 
@@ -341,9 +342,9 @@ func _on_debug_button_pressed():
 	DebugLine.text = "web#"+ResultUI.get_ifs().to_meta_data()
 
 func _on_debug_edit_text_submitted(new_text):
-	print("text submitted!")
+	print("text on debug edit submitted!")
 	try_load_from_link(new_text)
-	print("submission process ended!")
+	print("text on debug edit submission process ended!")
 
 @onready var DebugTexture = $DebugTexture
 
