@@ -57,6 +57,9 @@ var last_point = point.new()
 
 var loading_ifs = false
 
+const MINIMUM_POINTS_FOR_ULOAD = 10
+var drawn_point_counter = 0
+
 func _ready():
 	# set values
 	## PointTeller (ActualValueSlider)
@@ -158,6 +161,7 @@ func resize_image(new_size):
 	open(current_ifs)
 
 func open(ifs, overwrite_result_ui=false):
+	drawn_point_counter = 0
 	first_frame = true
 	new_ifs = ifs
 	if overwrite_result_ui:
@@ -224,6 +228,11 @@ func paint(results, centered=current_ifs.centered_view):
 			)
 			if real_position.x >= 0 and real_position.x < RealImage.get_width():
 				if real_position.y >= 0 and real_position.y < RealImage.get_height():
+					if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
+						if not Math.are_equal_approx(
+							entry.color, RealImage.get_pixel(real_position.x, real_position.y)
+						) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
+							drawn_point_counter += 1
 					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
 	## normal view: not centered
 	else:
@@ -234,6 +243,12 @@ func paint(results, centered=current_ifs.centered_view):
 			)
 			if real_position.x >= 0 and real_position.x < image_size.x:
 				if real_position.y >= 0 and real_position.y < image_size.y:
+					if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
+						if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
+							if not Math.are_equal_approx(
+								entry.color, RealImage.get_pixel(real_position.x, real_position.y)
+							) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
+								drawn_point_counter += 1
 					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
 	var image = RealImage.duplicate()
 	Result.custom_minimum_size = current_loupe
@@ -273,12 +288,14 @@ func get_image():
 func _on_share_button_pressed():
 	store_to_url.emit()
 	# check if fractal is valid:
-	if len(current_ifs.systems) > 0 and not Global.already_uploaded(current_ifs.to_meta_data()):
-		ShareDialogue.open(get_image(), current_ifs)
+	if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
+		dont_upload_empty_fractal.emit()
 	elif len(current_ifs.systems) == 0:
 		dont_upload_empty_fractal.emit()
-	else:
+	elif Global.already_uploaded(current_ifs.to_meta_data()):
 		dont_upload_already_uploaded_fractal.emit()
+	else:
+		ShareDialogue.open(get_image(), current_ifs)
 
 # save image locally
 
