@@ -240,6 +240,20 @@ func _on_result_ui_dont_upload_empty_fractal() -> void:
 		_: WarningLabel.text = "Please don't upload empty images."
 	WarningTimer.start()
 
+## result ui suggestions
+
+func _on_result_ui_suggest_changing_background_color() -> void:
+	match Global.language:
+		"GER": WarningLabel.text = "Wusstest du, dass du auch die Hintergrundfarbe\nändern kannst? (farbiger Knopf rechts)"
+		_: WarningLabel.text = "Did you know that you can change the background color?\n(colored button on the right)"
+	WarningTimer.start()
+
+func _on_result_ui_suggest_centered_view() -> void:
+	match Global.language:
+		"GER": WarningLabel.text = "Wusstest du, dass du das Bild auch zentrieren kannst?\nSo sind mehr Punkte zu sehen.\n(vorletzter Knopf rechts)"
+		_: WarningLabel.text = "Did you know that you can center the image?\nSometimes, more can be seen this way.\n(second last button on the right)"
+	WarningTimer.start()
+
 ## close current message
 
 func _on_warning_timer_timeout():

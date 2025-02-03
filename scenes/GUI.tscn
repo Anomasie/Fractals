@@ -195,6 +195,7 @@ theme_override_constants/margin_top = 32
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_constants/outline_size = 16
 text = "Your fractal has been successfully sent to the gallery."
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -243,6 +244,8 @@ layout_mode = 2
 [connection signal="fractal_changed" from="Lines/Content/ResultUI" to="." method="_on_result_ui_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Lines/Content/ResultUI" to="." method="_on_result_ui_fractal_changed_vastly"]
 [connection signal="store_to_url" from="Lines/Content/ResultUI" to="." method="_on_result_ui_store_to_url"]
+[connection signal="suggest_centered_view" from="Lines/Content/ResultUI" to="." method="_on_result_ui_suggest_centered_view"]
+[connection signal="suggest_changing_background_color" from="Lines/Content/ResultUI" to="." method="_on_result_ui_suggest_changing_background_color"]
 [connection signal="timeout" from="Lines/Content/ResizeTimer" to="." method="_on_resize_timer_timeout"]
 [connection signal="no_connection_to_server" from="ShareDialogue" to="." method="_on_share_dialogue_no_connection_to_server"]
 [connection signal="sent_away" from="ShareDialogue" to="." method="_on_share_dialogue_sent_away"]

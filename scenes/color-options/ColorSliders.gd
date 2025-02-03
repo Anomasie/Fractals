@@ -72,7 +72,7 @@ func open(color):
 	load_preset_colors()
 	if not Engine.is_editor_hint():
 		load_user_preset_colors()
-	show()
+		show()
 
 func close():
 	hide()

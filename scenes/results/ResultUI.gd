@@ -5,6 +5,8 @@ signal fractal_changed_vastly
 signal store_to_url
 signal dont_upload_empty_fractal
 signal dont_upload_already_uploaded_fractal
+signal suggest_changing_background_color
+signal suggest_centered_view
 
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
@@ -58,7 +60,10 @@ var last_point = point.new()
 var loading_ifs = false
 
 const MINIMUM_POINTS_FOR_ULOAD = 10
+const MAXIMUM_POINT_COUNTER = 1000
 var drawn_point_counter = 0
+
+const MINIMUM_RECT_SIZE = 0.1
 
 func _ready():
 	# set values
@@ -190,7 +195,12 @@ func open_new_ifs():
 	Result.set_texture(ImageTexture.create_from_image(image))
 	# calculate min and max bounds in results
 	if ifs.centered_view:
-		var results = ifs.calculate_fractal(point.new(), 2000, 1000) # ignore first delay
+		var results = []
+		if len(current_ifs.systems) > 1:
+			results = ifs.calculate_fractal(point.new(), 2000, 1000) # ignore first delay
+		else:
+			for _i in 50:
+				results += ifs.calculate_fractal(point.new(), 10+ifs.delay, ifs.delay) # ignore first delay
 		# get minimum and maximum in current results
 		var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
 		if len(results) > 0:
@@ -228,7 +238,7 @@ func paint(results, centered=current_ifs.centered_view):
 			)
 			if real_position.x >= 0 and real_position.x < RealImage.get_width():
 				if real_position.y >= 0 and real_position.y < RealImage.get_height():
-					if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
+					if drawn_point_counter < MAXIMUM_POINT_COUNTER:
 						if not Math.are_equal_approx(
 							entry.color, RealImage.get_pixel(real_position.x, real_position.y)
 						) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
@@ -243,12 +253,11 @@ func paint(results, centered=current_ifs.centered_view):
 			)
 			if real_position.x >= 0 and real_position.x < image_size.x:
 				if real_position.y >= 0 and real_position.y < image_size.y:
-					if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
-						if drawn_point_counter < MINIMUM_POINTS_FOR_ULOAD:
-							if not Math.are_equal_approx(
-								entry.color, RealImage.get_pixel(real_position.x, real_position.y)
-							) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
-								drawn_point_counter += 1
+					if drawn_point_counter < MAXIMUM_POINT_COUNTER:
+						if not Math.are_equal_approx(
+							entry.color, RealImage.get_pixel(real_position.x, real_position.y)
+						) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
+							drawn_point_counter += 1
 					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
 	var image = RealImage.duplicate()
 	Result.custom_minimum_size = current_loupe
@@ -295,6 +304,10 @@ func _on_share_button_pressed():
 	elif Global.already_uploaded(current_ifs.to_meta_data()):
 		dont_upload_already_uploaded_fractal.emit()
 	else:
+		if drawn_point_counter < MAXIMUM_POINT_COUNTER:
+			suggest_centered_view.emit()
+		elif Math.are_equal_approx(current_ifs.background_color, Color.WHITE):
+			suggest_changing_background_color.emit()
 		ShareDialogue.open(get_image(), current_ifs)
 
 # save image locally

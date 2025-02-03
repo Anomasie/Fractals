@@ -341,6 +341,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="ColorSliders" parent="." instance=ExtResource("8_aj8ad")]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
