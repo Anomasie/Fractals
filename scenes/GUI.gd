@@ -12,12 +12,12 @@ extends Control
 @onready var WarningTimer = $WarningContainer/WarningTimer
 
 @onready var LanguageButton = $UIButtons/LanguageButton
-@onready var HelpButton = $UIButtons/HelpButton
+@onready var HelpButton = $UIButtons/CornerButtons/HelpButton
 @onready var HelpOptions = $HelpOptions
 @onready var TxtOptions = $Lines/Content/Editor/TxtOptions
 
-@onready var UndoButton = $Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/UndoButton
-@onready var RedoButton = $Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/RedoButton
+@onready var UndoButton = $UIButtons/CornerButtons/UndoButton
+@onready var RedoButton = $UIButtons/CornerButtons/RedoButton
 
 # for loading urls
 @onready var URLTimer = $LoadFromURLTimer

@@ -10,6 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://q482hh141kmp" path="res://assets/gui/main_gui_buttons.png" id="5_snlkm"]
 [ext_resource type="PackedScene" uid="uid://6djx0t3248n1" path="res://scenes/tooltips/TooltipSubstitute.tscn" id="8_kl7tn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i014u"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fmbf"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8m6c"]
+atlas = ExtResource("5_snlkm")
+region = Rect2(32, 0, 32, 32)
+
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
 keycode = 65
@@ -54,18 +66,6 @@ region = Rect2(32, 320, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_okdxx"]
 atlas = ExtResource("5_1xmng")
 region = Rect2(96, 320, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i014u"]
-atlas = ExtResource("5_snlkm")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1fmbf"]
-atlas = ExtResource("5_snlkm")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8m6c"]
-atlas = ExtResource("5_snlkm")
-region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="Gradient" id="Gradient_ngkfi"]
 offsets = PackedFloat32Array(1)
@@ -113,39 +113,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="PlaygroundUI" parent="Lines/Content/Editor" instance=ExtResource("1_kg3c1")]
 layout_mode = 2
-
-[node name="CornerButtons" type="MarginContainer" parent="Lines/Content/Editor"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="UndoRedoButtons" type="MarginContainer" parent="Lines/Content/Editor/CornerButtons"]
-layout_mode = 2
-
-[node name="Sep" type="HBoxContainer" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons"]
-layout_mode = 2
-
-[node name="UndoButton" type="TextureButton" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep"]
-visibility_layer = 2
-layout_mode = 2
-size_flags_horizontal = 0
-tooltip_text = "add new rectangle"
-shortcut = SubResource("Shortcut_afdqp")
-texture_normal = SubResource("AtlasTexture_38wfi")
-texture_pressed = SubResource("AtlasTexture_2lcjw")
-texture_hover = SubResource("AtlasTexture_dytmb")
-texture_disabled = SubResource("AtlasTexture_rr5ca")
-
-[node name="RedoButton" type="TextureButton" parent="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep"]
-visibility_layer = 2
-layout_mode = 2
-size_flags_horizontal = 0
-tooltip_text = "add new rectangle"
-shortcut = SubResource("Shortcut_afdqp")
-texture_normal = SubResource("AtlasTexture_f5x2v")
-texture_pressed = SubResource("AtlasTexture_iv1er")
-texture_hover = SubResource("AtlasTexture_o6yga")
-texture_disabled = SubResource("AtlasTexture_okdxx")
+mouse_filter = 2
 
 [node name="TxtOptions" parent="Lines/Content/Editor" instance=ExtResource("4_bq5pq")]
 visible = false
@@ -176,19 +144,47 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="LanguageButton" type="Button" parent="UIButtons"]
+[node name="CornerButtons" type="HBoxContainer" parent="UIButtons"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "EN"
+mouse_filter = 2
 
-[node name="HelpButton" type="TextureButton" parent="UIButtons"]
+[node name="HelpButton" type="TextureButton" parent="UIButtons/CornerButtons"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture_normal = SubResource("AtlasTexture_i014u")
 texture_pressed = SubResource("AtlasTexture_1fmbf")
 texture_hover = SubResource("AtlasTexture_r8m6c")
+
+[node name="UndoButton" type="TextureButton" parent="UIButtons/CornerButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_afdqp")
+texture_normal = SubResource("AtlasTexture_38wfi")
+texture_pressed = SubResource("AtlasTexture_2lcjw")
+texture_hover = SubResource("AtlasTexture_dytmb")
+texture_disabled = SubResource("AtlasTexture_rr5ca")
+
+[node name="RedoButton" type="TextureButton" parent="UIButtons/CornerButtons"]
+visibility_layer = 2
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "add new rectangle"
+shortcut = SubResource("Shortcut_afdqp")
+texture_normal = SubResource("AtlasTexture_f5x2v")
+texture_pressed = SubResource("AtlasTexture_iv1er")
+texture_hover = SubResource("AtlasTexture_o6yga")
+texture_disabled = SubResource("AtlasTexture_okdxx")
+
+[node name="LanguageButton" type="Button" parent="UIButtons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "EN"
 
 [node name="WarningContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -241,8 +237,6 @@ layout_mode = 2
 [connection signal="fractal_changed" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed_vastly"]
 [connection signal="open_txt_options" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
-[connection signal="pressed" from="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/UndoButton" to="." method="_on_undo_button_pressed"]
-[connection signal="pressed" from="Lines/Content/Editor/CornerButtons/UndoRedoButtons/Sep/RedoButton" to="." method="_on_redo_button_pressed"]
 [connection signal="changed" from="Lines/Content/Editor/TxtOptions" to="." method="_on_txt_options_changed"]
 [connection signal="dont_upload_already_uploaded_fractal" from="Lines/Content/ResultUI" to="." method="_on_result_ui_dont_upload_already_uploaded_fractal"]
 [connection signal="dont_upload_empty_fractal" from="Lines/Content/ResultUI" to="." method="_on_result_ui_dont_upload_empty_fractal"]
@@ -254,8 +248,10 @@ layout_mode = 2
 [connection signal="sent_away" from="ShareDialogue" to="." method="_on_share_dialogue_sent_away"]
 [connection signal="sent_successfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_successfully"]
 [connection signal="sent_unsuccessfully" from="ShareDialogue" to="." method="_on_share_dialogue_sent_unsuccessfully"]
+[connection signal="pressed" from="UIButtons/CornerButtons/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="UIButtons/CornerButtons/UndoButton" to="." method="_on_undo_button_pressed"]
+[connection signal="pressed" from="UIButtons/CornerButtons/RedoButton" to="." method="_on_redo_button_pressed"]
 [connection signal="pressed" from="UIButtons/LanguageButton" to="." method="_on_language_button_pressed"]
-[connection signal="pressed" from="UIButtons/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="timeout" from="WarningContainer/WarningTimer" to="." method="_on_warning_timer_timeout"]
 [connection signal="timeout" from="LoadFromURLTimer" to="." method="_on_load_from_url_timer_timeout"]
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
