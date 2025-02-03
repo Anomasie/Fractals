@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://mtu0mxcjwc41"]
+[gd_scene load_steps=39 format=3 uid="uid://mtu0mxcjwc41"]
 
 [ext_resource type="Script" path="res://scenes/color-options/ColorSliders.gd" id="1_ryk5y"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="2_ifvt5"]
@@ -63,15 +63,35 @@ gradient = SubResource("Gradient_15o5r")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_th5ae"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijyya"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_obp3u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_08y8p"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuu3x"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ot51"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(64, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmc8l"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(32, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vpi4"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ihvhm")
+region = Rect2(94, 480, 32, 32)
 
 [sub_resource type="InputEventKey" id="InputEventKey_6slxs"]
 device = -1
@@ -318,8 +338,16 @@ layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
 on = true
-tex_on = SubResource("AtlasTexture_th5ae")
-tex_off = SubResource("AtlasTexture_obp3u")
+tex_on = SubResource("AtlasTexture_ijyya")
+tex_off = SubResource("AtlasTexture_08y8p")
+
+[node name="RandomButton" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Buttons"]
+layout_mode = 2
+size_flags_vertical = 10
+texture_normal = SubResource("AtlasTexture_wuu3x")
+texture_pressed = SubResource("AtlasTexture_1ot51")
+texture_hover = SubResource("AtlasTexture_qmc8l")
+texture_disabled = SubResource("AtlasTexture_8vpi4")
 
 [node name="LastLine" type="HBoxContainer" parent="Dialogue/Content/Lines"]
 layout_mode = 2
@@ -444,5 +472,6 @@ texture_hover = SubResource("AtlasTexture_lrmm1")
 [connection signal="focus_exited" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_focus_exited"]
 [connection signal="text_submitted" from="Dialogue/Content/Lines/Columns/Sliders/Presets/Hash" to="." method="_on_hash_text_submitted"]
 [connection signal="pressed" from="Dialogue/Content/Lines/Columns/Buttons/UniformButton" to="." method="_on_uniform_button_pressed"]
+[connection signal="pressed" from="Dialogue/Content/Lines/Columns/Buttons/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="pressed" from="Dialogue/Content/Lines/LastLine/AddButton" to="." method="_on_add_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -25,6 +25,7 @@ signal finished
 
 @onready var AddButton = $Dialogue/Content/Lines/LastLine/AddButton
 @onready var UniformColorButton = $Dialogue/Content/Lines/Columns/Buttons/UniformButton
+@onready var RandomColorButton = $Dialogue/Content/Lines/Columns/Buttons/RandomButton
 @onready var CloseButton = $CloseButton
 
 var saved_colors = [
@@ -60,7 +61,6 @@ func _ready():
 		] + Presets + UserPresets)
 	# open something
 	open(Color.BLUE)
-	hide()
 	
 	UniformColorButton.visible = not self.BACKGROUND_COLOR_SLIDER
 
@@ -194,6 +194,12 @@ func _on_uniform_button_pressed() -> void:
 	color_changed.emit()
 	color_changed_vastly.emit()
 
+# random color
+
+func _on_random_button_pressed() -> void:
+	open(Color.from_hsv(randf(), randf(), randf()))
+	color_changed.emit()
+
 # language & translation
 
 func reload_language():
@@ -209,6 +215,7 @@ func reload_language():
 			UserPresetsLabel.text = "Gespeichert:"
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "gespeicherte Farbe\n(max. 8)"
+			RandomColorButton.tooltip_text = "wähle eine zufällige Farbe"
 			AddButton.tooltip_text = "speichere aktuelle Farbe"
 			CloseButton.tooltip_text = "Farbansicht schließen"
 		_:
@@ -222,5 +229,6 @@ func reload_language():
 			UserPresetsLabel.text = "Saved:"
 			for user_preset in UserPresets:
 				user_preset.tooltip_text = "colors you saved\n(max. 8)"
+			RandomColorButton.tooltip_text = "choose random color"
 			AddButton.tooltip_text = "save current color"
 			CloseButton.tooltip_text = "close color settings"
