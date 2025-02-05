@@ -20,7 +20,6 @@ width = 1
 
 [sub_resource type="Gradient" id="Gradient_qvcnl"]
 resource_local_to_scene = true
-colors = PackedColorArray(0, 0, 0, 1, 0.0078125, 0, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_e2yrv"]
 resource_local_to_scene = true
@@ -63,12 +62,12 @@ gradient = SubResource("Gradient_15o5r")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_721e2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v8lq5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvkwf"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kcqvd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0jdd"]
 resource_local_to_scene = true
 atlas = ExtResource("3_ihvhm")
 region = Rect2(0, 256, 32, 32)
@@ -181,7 +180,6 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="Preview" type="TextureRect" parent="Dialogue/Content/Lines/Columns/Frame/MarginContainer"]
-modulate = Color(0, 0, 1, 1)
 layout_mode = 2
 tooltip_text = "preview of selected color"
 texture = SubResource("GradientTexture1D_xe8bl")
@@ -227,7 +225,6 @@ tooltip_text = "saturation or intensity of the color"
 theme_override_styles/slider = SubResource("StyleBoxTexture_2ro3f")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_kyfgn")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1wk3s")
-value = 100.0
 
 [node name="Hue" type="MarginContainer" parent="Dialogue/Content/Lines/Columns/Sliders"]
 layout_mode = 2
@@ -326,7 +323,7 @@ custom_minimum_size = Vector2(94, 28)
 layout_mode = 2
 size_flags_stretch_ratio = 4.0
 tooltip_text = "enter html-color-code here"
-placeholder_text = "0000ff"
+placeholder_text = "ffffff"
 max_length = 6
 caret_blink = true
 
@@ -338,8 +335,8 @@ layout_mode = 2
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
 on = true
-tex_on = SubResource("AtlasTexture_v8lq5")
-tex_off = SubResource("AtlasTexture_kcqvd")
+tex_on = SubResource("AtlasTexture_wvkwf")
+tex_off = SubResource("AtlasTexture_x0jdd")
 
 [node name="RandomButton" type="TextureButton" parent="Dialogue/Content/Lines/Columns/Buttons"]
 layout_mode = 2

@@ -1,7 +1,8 @@
 extends Node
 # script for global variables
 
-signal user_saved_colors_changed
+@warning_ignore("unused_signal")
+signal user_saved_colors_changed # handled in ColorSilders
 signal give_tooltip
 signal hide_tooltip
 

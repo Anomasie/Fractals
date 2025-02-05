@@ -62,7 +62,6 @@ func _ready():
 	save_as_last_ifs(IFS.new())
 
 func load_ifs(ifs, overwriting_result_ui=true):
-	#print("GUI: ", overwriting_result_ui)
 	PlaygroundUI.set_ifs(ifs)
 	ResultUI.open(ifs, overwriting_result_ui)
 
@@ -171,7 +170,6 @@ func _on_playground_ui_break_all() -> void:
 	self.load_ifs(current_ifs.break_ifs())
 
 func _on_playground_ui_fractal_changed() -> void:
-#	print("playground ui changed")
 	# update result-ui and url
 	#store_to_url() # that's mostly spam for the browser history
 	var ifs = get_ifs()
@@ -185,7 +183,6 @@ func _on_playground_ui_fractal_changed_vastly() -> void:
 	save_as_last_ifs(get_ifs())
 
 func _on_result_ui_fractal_changed():
-#	print("result ui changed")
 	if TxtOptions.visible:
 		TxtOptions.load_ui(ResultUI.get_ifs())
 	else:
@@ -196,7 +193,6 @@ func _on_result_ui_fractal_changed_vastly() -> void:
 	store_to_url()
 
 func _on_txt_options_changed(new_ifs):
-#	print("txt ui changed")
 	load_ifs(new_ifs, true)
 	swap_debug_texture()
 
@@ -277,7 +273,6 @@ func _on_playground_ui_open_txt_options():
 # undo and redo buttons
 
 func save_as_last_ifs(ifs):
-	print("save ifs now")
 	if current_ifs_idx != 0:
 		reset_last_ifs_to(current_ifs_idx)
 		current_ifs_idx = 0
@@ -290,29 +285,26 @@ func save_as_last_ifs(ifs):
 
 func reset_last_ifs_to(index):
 	if len(last_ifs) >= index:
-		#print("reset to ", index)
 		last_ifs = last_ifs.slice(0, len(last_ifs)-index)
 	else:
 		print("ERROR in GUI.reset_last_ifs_to: trying to reset to ifs number ", index, ", but there are only ", len(last_ifs), " ifs saved yet.")
 
 func _on_undo_button_pressed() -> void:
-	#print(current_ifs_idx, " von ", len(last_ifs))
 	if len(last_ifs) > current_ifs_idx+1:
 		current_ifs_idx += 1
 		load_ifs(last_ifs[len(last_ifs)-current_ifs_idx-1])
-		UndoButton.disabled = len(last_ifs) <= current_ifs_idx+1
+		UndoButton.disabled = (len(last_ifs) <= current_ifs_idx+1)
 		RedoButton.disabled = false
 	else:
 		print("ERROR in GUI._on_undo_button_pressed: Trying to load ifs number ", current_ifs_idx+1, ", but there are ", len(last_ifs), " ifs saved.")
 
 func _on_redo_button_pressed() -> void:
 	if 1 <= current_ifs_idx and current_ifs_idx < len(last_ifs):
-		#print(current_ifs_idx, " von ", len(last_ifs))
 		current_ifs_idx -= 1
 		load_ifs(last_ifs[len(last_ifs)-current_ifs_idx-1])
 		
-		UndoButton.disabled = len(last_ifs) <= current_ifs_idx+1
-		RedoButton.disabled = current_ifs_idx == 0
+		UndoButton.disabled = (len(last_ifs) <= current_ifs_idx+1)
+		RedoButton.disabled = (current_ifs_idx == 0)
 	elif len(last_ifs) == 0:
 		print("ERROR in GUI._on_redo_button_pressed: No ifs saved yet.")
 	else:
@@ -354,7 +346,6 @@ func reload_language():
 
 func _on_debug_button_pressed():
 	print("on debug button pressed!")
-	DebugLine.text = "web#"+ResultUI.get_ifs().to_meta_data()
 
 func _on_debug_edit_text_submitted(new_text):
 	print("text on debug edit submitted!")
@@ -369,3 +360,9 @@ func swap_debug_texture():
 		Color.RED: DebugTexture.modulate = Color.BLUE
 		Color.BLUE: DebugTexture.modulate = Color.BLACK
 		_: DebugTexture.modulate = Color.WHITE
+
+func debug():
+	print("debug!")
+
+func _on_result_ui_debug() -> void:
+	debug()

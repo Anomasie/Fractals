@@ -8,6 +8,9 @@ signal dont_upload_already_uploaded_fractal
 signal suggest_changing_background_color
 signal suggest_centered_view
 
+@warning_ignore("unused_signal")
+signal debug
+
 @onready var Result = $Columns/Left/Center/Result
 @onready var ResultBackground = $Columns/Left/Center/ResultBackground
 
@@ -53,6 +56,7 @@ var counter = 0
 
 var new_ifs
 var new_ifs_centered
+var new_ifs_overwrite_ui
 
 var first_frame = false
 var last_point = point.new()
@@ -166,18 +170,13 @@ func resize_image(new_size):
 	image_size = new_size
 	open(current_ifs)
 
-func open(ifs, overwrite_result_ui=false):
+func open(ifs, overwrite_ui=false):
 	drawn_point_counter = 0
 	first_frame = true
 	new_ifs = ifs
-	if overwrite_result_ui:
-		loading_ifs = true
-		load_color(ifs.background_color)
-		DelaySlider.value = ifs.delay
-		ReusingLastPointButton.set_value(new_ifs.reusing_last_point)
-		CenterButton.set_value(new_ifs.centered_view)
-		loading_ifs = false
-	else:
+	new_ifs_overwrite_ui = overwrite_ui
+	
+	if not overwrite_ui:
 		new_ifs.reusing_last_point = ReusingLastPointButton.on
 		new_ifs.centered_view = CenterButton.on
 
@@ -185,7 +184,20 @@ func open_new_ifs():
 	var ifs = new_ifs
 	new_ifs = null
 	current_ifs = ifs
-	current_ifs.background_color = ResultBackground.self_modulate
+	
+	# overwrite ui?
+	if new_ifs_overwrite_ui:
+		loading_ifs = true
+		DelaySlider.value = current_ifs.delay
+		ReusingLastPointButton.set_value(current_ifs.reusing_last_point)
+		CenterButton.set_value(current_ifs.centered_view)
+		load_color(current_ifs.background_color)
+		loading_ifs = false
+		new_ifs_overwrite_ui = false
+	else:
+		# background color
+		current_ifs.background_color = ResultBackground.self_modulate
+	
 	# create empty, white image
 	var image = Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBA8)
 	image.fill(Color.TRANSPARENT) # white
