@@ -57,7 +57,9 @@ func _ready():
 		## tooltips
 		Global.tooltip_nodes.append_array([
 			Preview, HueSlider, ValueSlider, SatSlider,
-			Hash, AddButton, CloseButton
+			Hash, AddButton, CloseButton,
+			UniformColorButton,
+			RandomColorButton
 		] + Presets + UserPresets)
 	# open something
 	open(Color.WHITE)
@@ -214,7 +216,7 @@ func reload_language():
 			Hash.tooltip_text = "HTML-Farbcode"
 			UserPresetsLabel.text = "Gespeichert:"
 			for user_preset in UserPresets:
-				user_preset.tooltip_text = "gespeicherte Farbe\n(max. 8)"
+				user_preset.tooltip_text = "gespeicherte Farbe (max. 8)"
 			RandomColorButton.tooltip_text = "wähle eine zufällige Farbe"
 			AddButton.tooltip_text = "speichere aktuelle Farbe"
 			CloseButton.tooltip_text = "Farbansicht schließen"
@@ -228,7 +230,8 @@ func reload_language():
 			Hash.tooltip_text = "enter html-color-code here"
 			UserPresetsLabel.text = "Saved:"
 			for user_preset in UserPresets:
-				user_preset.tooltip_text = "colors you saved\n(max. 8)"
+				user_preset.tooltip_text = "colors you saved (max. 8)"
 			RandomColorButton.tooltip_text = "choose random color"
 			AddButton.tooltip_text = "save current color"
 			CloseButton.tooltip_text = "close color settings"
+	UniformColorButton.reload_language()

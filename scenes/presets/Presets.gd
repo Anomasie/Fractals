@@ -36,7 +36,9 @@ func _ready():
 	load_presets()
 	# tooltips
 	if not Engine.is_editor_hint():
-		Global.tooltip_nodes.append(CloseButton)
+		Global.tooltip_nodes.append_array([
+			CloseButton, RandomButton
+		])
 
 func load_presets():
 	# delete presets

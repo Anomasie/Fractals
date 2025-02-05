@@ -29,3 +29,4 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "tooltip_text"
 vertical_alignment = 2
+autowrap_mode = 2

@@ -475,16 +475,16 @@ func reload_language():
 			Result.tooltip_text = "aktuelles Fraktal"
 			# Sliders
 			## Point slider
-			PointTexture1.tooltip_text = "0 Punkte"
+			PointTexture1.tooltip_text = "zeichne 0 Punkte"
 			if limit >= 0:
-				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: " + str(limit)
+				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: " + str(limit) + " Punkte."
 			else:
 				PointSlider.tooltip_text = "ändere maximale Anzahl der Punkte. Aktuell: unendlich"
 			PointTexture2.tooltip_text = "berechne Punkte ohne Limit"
 			PointLineEdit.tooltip_text = "aktuelle Anzahl zu berechnender Punkte"
 			## Delay slider
 			DelayTexture1.tooltip_text = "zeichne alle Punkte"
-			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden. Aktuell: " + str(DelaySlider.value)
+			DelaySlider.tooltip_text = "Anzahl der Punkte, die vor dem Zeichnen berechnet werden. Aktuell: " + str(DelaySlider.value) + " Punkte."
 			DelayTexture2.tooltip_text = "Verzögerung von 100 Punkten"
 			DelayLineEdit.tooltip_text = "aktuelle Verzögerung"
 			# buttons
@@ -499,16 +499,16 @@ func reload_language():
 			Result.tooltip_text = "current fractal"
 			# Sliders
 			## Point slider
-			PointTexture1.tooltip_text = "0 points"
+			PointTexture1.tooltip_text = "draw 0 points"
 			if limit >= 0:
-				PointSlider.tooltip_text = "change point limit. Current value: " + str(limit)
+				PointSlider.tooltip_text = "change point limit. Current value: " + str(limit) + " points."
 			else:
 				PointSlider.tooltip_text = "change point limit. Current value: infinity"
 			PointTexture2.tooltip_text = "do not stop calculating points"
 			PointLineEdit.tooltip_text = "current point limit"
 			## Delay slider
 			DelayTexture1.tooltip_text = "draw all points"
-			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\". Current value: " + str(DelaySlider.value)
+			DelaySlider.tooltip_text = "change amount of points which will be calculated before drawing to avoid \"stray points\". Current value: " + str(DelaySlider.value) + " points."
 			DelayTexture2.tooltip_text = "delay of 100 points"
 			DelayLineEdit.tooltip_text = "current delay"
 			# buttons
@@ -523,6 +523,7 @@ func reload_language():
 	CenterButton.reload_language()
 	SizeOptions.reload_language()
 	ColorSliders.reload_language()
+	ReusingLastPointButton.reload_language()
 
 
 func _on_color_sliders_color_changed_vastly() -> void:
