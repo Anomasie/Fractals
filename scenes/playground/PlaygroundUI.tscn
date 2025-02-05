@@ -1,10 +1,9 @@
-[gd_scene load_steps=51 format=3 uid="uid://q88x6y11n1jm"]
+[gd_scene load_steps=34 format=3 uid="uid://q88x6y11n1jm"]
 
 [ext_resource type="Script" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="PackedScene" uid="uid://c8n70cda0ljy7" path="res://scenes/other-options/OtherOptions.tscn" id="4_co8v3"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
-[ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="4_m6gkt"]
 [ext_resource type="PackedScene" uid="uid://cnh2ciowfjn42" path="res://scenes/playground/Playground.tscn" id="4_xpdbu"]
 [ext_resource type="PackedScene" uid="uid://ci4h23rvdej3t" path="res://scenes/advanced-options/AdvancedOptions.tscn" id="4_yd3uv"]
 [ext_resource type="PackedScene" uid="uid://co7ekdte8fr1f" path="res://scenes/presets/Presets.tscn" id="5_jja2r"]
@@ -107,70 +106,6 @@ region = Rect2(32, 128, 32, 32)
 atlas = ExtResource("4_fd4oq")
 region = Rect2(96, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqsg6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0188"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf6n6"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(32, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a2jo7"]
-atlas = ExtResource("4_fd4oq")
-region = Rect2(96, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ip26f"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(0, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mhldk"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(64, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jolpy"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(32, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yit2f"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(96, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gikmk"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(0, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1s"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(64, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nybl5"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(32, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nlpua"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(96, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nlg3p"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(0, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lcrot"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(64, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fc3st"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(32, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7dxt"]
-atlas = ExtResource("4_m6gkt")
-region = Rect2(96, 416, 32, 32)
-
 [node name="PlaygroundUI" type="MarginContainer"]
 layout_direction = 2
 anchors_preset = 15
@@ -238,50 +173,6 @@ texture_disabled = SubResource("AtlasTexture_mxlht")
 [node name="OtherOptions" parent="Left/Main" instance=ExtResource("4_co8v3")]
 layout_mode = 2
 
-[node name="AdvancedOptions" type="HBoxContainer" parent="Left/Main"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="AdvancedButton" type="TextureButton" parent="Left/Main/AdvancedOptions"]
-layout_mode = 2
-size_flags_vertical = 0
-tooltip_text = "open advanced options"
-toggle_mode = true
-texture_normal = SubResource("AtlasTexture_rqsg6")
-texture_pressed = SubResource("AtlasTexture_u0188")
-texture_hover = SubResource("AtlasTexture_tf6n6")
-texture_disabled = SubResource("AtlasTexture_a2jo7")
-
-[node name="AdvButOpt" type="VBoxContainer" parent="Left/Main/AdvancedOptions"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="RotationButton" type="TextureButton" parent="Left/Main/AdvancedOptions/AdvButOpt"]
-layout_mode = 2
-tooltip_text = "switch to geometric view"
-texture_normal = SubResource("AtlasTexture_ip26f")
-texture_pressed = SubResource("AtlasTexture_mhldk")
-texture_hover = SubResource("AtlasTexture_jolpy")
-texture_disabled = SubResource("AtlasTexture_yit2f")
-
-[node name="MatrixButton" type="TextureButton" parent="Left/Main/AdvancedOptions/AdvButOpt"]
-layout_mode = 2
-size_flags_horizontal = 11
-tooltip_text = "swtich to matrix view"
-texture_normal = SubResource("AtlasTexture_gikmk")
-texture_pressed = SubResource("AtlasTexture_y4r1s")
-texture_hover = SubResource("AtlasTexture_nybl5")
-texture_disabled = SubResource("AtlasTexture_nlpua")
-
-[node name="TxtButton" type="TextureButton" parent="Left/Main/AdvancedOptions/AdvButOpt"]
-layout_mode = 2
-size_flags_horizontal = 11
-tooltip_text = "swtich to matrix view"
-texture_normal = SubResource("AtlasTexture_nlg3p")
-texture_pressed = SubResource("AtlasTexture_lcrot")
-texture_hover = SubResource("AtlasTexture_fc3st")
-texture_disabled = SubResource("AtlasTexture_k7dxt")
-
 [node name="Right" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -345,7 +236,7 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="RotatOptions" parent="." instance=ExtResource("4_yd3uv")]
+[node name="GeometricOptions" parent="." instance=ExtResource("4_yd3uv")]
 visible = false
 layout_mode = 2
 
@@ -367,19 +258,19 @@ one_shot = true
 [connection signal="duplicate" from="Left/Main/OtherOptions" to="." method="_on_other_options_duplicate"]
 [connection signal="mirror_x" from="Left/Main/OtherOptions" to="." method="_on_other_options_mirror_x"]
 [connection signal="mirror_y" from="Left/Main/OtherOptions" to="." method="_on_other_options_mirror_y"]
-[connection signal="pressed" from="Left/Main/AdvancedOptions/AdvancedButton" to="." method="_on_advanced_button_pressed"]
-[connection signal="pressed" from="Left/Main/AdvancedOptions/AdvButOpt/RotationButton" to="." method="_on_rotation_button_pressed"]
-[connection signal="pressed" from="Left/Main/AdvancedOptions/AdvButOpt/MatrixButton" to="." method="_on_matrix_button_pressed"]
-[connection signal="pressed" from="Left/Main/AdvancedOptions/AdvButOpt/TxtButton" to="." method="_on_txt_button_pressed"]
+[connection signal="open_geometric_options" from="Left/Main/OtherOptions" to="." method="_on_other_options_open_geometric_options"]
+[connection signal="open_matrix_options" from="Left/Main/OtherOptions" to="." method="_on_other_options_open_matrix_options"]
+[connection signal="open_txt_options" from="Left/Main/OtherOptions" to="." method="_on_other_options_open_txt_options"]
+[connection signal="opened" from="Left/Main/OtherOptions" to="." method="_on_other_options_opened"]
 [connection signal="pressed" from="Right/Bottom/Main/PresetsButton" to="." method="_on_presets_button_pressed"]
 [connection signal="close_me" from="Presets" to="." method="_on_presets_close_me"]
 [connection signal="load_preset" from="Presets" to="." method="_on_presets_load_preset"]
 [connection signal="color_changed" from="ColorSliders" to="." method="_on_color_sliders_color_changed"]
 [connection signal="color_changed_vastly" from="ColorSliders" to="." method="_on_color_sliders_color_changed_vastly"]
 [connection signal="finished" from="ColorSliders" to="." method="_on_color_sliders_finished"]
-[connection signal="close_me" from="RotatOptions" to="." method="_on_advanced_options_close_me"]
-[connection signal="switch" from="RotatOptions" to="." method="_on_advanced_options_switch"]
-[connection signal="value_changed" from="RotatOptions" to="." method="_on_advanced_options_value_changed"]
+[connection signal="close_me" from="GeometricOptions" to="." method="_on_advanced_options_close_me"]
+[connection signal="switch" from="GeometricOptions" to="." method="_on_advanced_options_switch"]
+[connection signal="value_changed" from="GeometricOptions" to="." method="_on_advanced_options_value_changed"]
 [connection signal="close_me" from="MatrixOptions" to="." method="_on_matrix_options_close_me"]
 [connection signal="switch" from="MatrixOptions" to="." method="_on_matrix_options_switch"]
 [connection signal="value_changed" from="MatrixOptions" to="." method="_on_matrix_options_value_changed"]

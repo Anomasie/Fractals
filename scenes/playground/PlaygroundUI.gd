@@ -12,15 +12,7 @@ signal break_all
 @onready var BlueTexture = $Right/Center/Center/BlueTexture
 
 # advanced options
-## buttons
-@onready var AdvancedOptions = $Left/Main/AdvancedOptions # VBoxContainer
-@onready var AdvancedButton = $Left/Main/AdvancedOptions/AdvancedButton
-@onready var AdvButOpt = $Left/Main/AdvancedOptions/AdvButOpt
-@onready var RotationButton = $Left/Main/AdvancedOptions/AdvButOpt/RotationButton
-@onready var MatrixButton = $Left/Main/AdvancedOptions/AdvButOpt/MatrixButton
-@onready var TxtButton = $Left/Main/AdvancedOptions/AdvButOpt/TxtButton
-## options
-@onready var RotatOptions = $RotatOptions
+@onready var GeomOptions = $GeometricOptions
 @onready var MatrixOptions = $MatrixOptions
 # rect buttons
 @onready var AddButton = $Left/Main/AddButton
@@ -49,16 +41,11 @@ func _ready():
 	# connect
 	Playground.fractal_changed.connect(_fractal_changed)
 	
-	# set minimal size
-	## Advanced Options
-	AdvancedOptions.custom_minimum_size = AdvancedOptions.size
-	
 	# hide and show
-	AdvButOpt.hide()
-	AdvancedButton.button_pressed = false
 	set_focused_rect_options_disabled(true)
+	OtherOptions.close()
 	ColorSliders.close()
-	RotatOptions.hide()
+	GeomOptions.hide()
 	MatrixOptions.hide()
 	PresetsButton.hide()
 	Presets.show()
@@ -68,7 +55,6 @@ func _ready():
 	Global.tooltip_nodes.append_array([
 		AddButton, ColorButton,
 		RemoveButton, CloseAllButton,
-		AdvancedButton, RotationButton, MatrixButton, TxtButton,
 		PresetsButton])
 
 func resize():
@@ -100,8 +86,7 @@ func set_ifs(ifs):
 # hide and show
 
 func set_focused_rect_options_disabled(disable = true):
-	for button in [ColorButton, RemoveButton, RotationButton, MatrixButton]:
-		button.disabled = disable
+	ColorButton.disabled = disable
 	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
 	OtherOptions.set_disabled(disable, Playground.current_rect_counter)
 
@@ -118,7 +103,7 @@ func focus(Rect = CurrentRect):
 	if typeof(CurrentRect) == TYPE_NIL:
 		# and hide advanced option-button
 		set_focused_rect_options_disabled(true)
-		RotatOptions.hide()
+		GeomOptions.hide()
 		MatrixOptions.hide()
 		ColorSliders.hide()
 	# if you are focusing something:
@@ -126,13 +111,13 @@ func focus(Rect = CurrentRect):
 		## update AdvancedOptions
 		if rotatoptions_open:
 			set_focused_rect_options_disabled(false)
-			RotatOptions.show()
+			GeomOptions.show()
 			MatrixOptions.hide()
-			RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+			GeomOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 		elif matrixoptions_open:
 			set_focused_rect_options_disabled(false)
 			MatrixOptions.show()
-			RotatOptions.hide()
+			GeomOptions.hide()
 			MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 		else:
 			set_focused_rect_options_disabled(false)
@@ -163,7 +148,7 @@ func _on_close_all_pressed():
 	# buttons
 	CloseAllButton.disabled = true
 	ColorSliders.close()
-	RotatOptions.hide()
+	GeomOptions.hide()
 	MatrixOptions.hide()
 	Presets.hide()
 	PresetsButton.show()
@@ -175,7 +160,7 @@ func _on_close_all_pressed():
 func _on_remove_button_pressed():
 	# hide advanced options
 	set_focused_rect_options_disabled(true) # no focus anymore
-	RotatOptions.hide()
+	GeomOptions.hide()
 	MatrixOptions.hide()
 	ColorSliders.hide()
 	# close rect
@@ -240,57 +225,53 @@ var matrix_options = false
 func open_advanced_options():
 	# hide all other options
 	_on_color_sliders_finished()
-	# hide button
-	AdvButOpt.hide()
-	AdvancedButton.button_pressed = false
 	# visibility
 	rotatoptions_open = not matrix_options
 	matrixoptions_open = matrix_options
 	# load data
+	OtherOptions.set_advanced_options_pressed(rotatoptions_open, matrixoptions_open)
 	if rotatoptions_open:
-		RotatOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
-		RotatOptions.show()
+		GeomOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		GeomOptions.show()
 		MatrixOptions.hide()
 	elif matrixoptions_open:
 		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
 		MatrixOptions.show()
-		RotatOptions.hide()
+		GeomOptions.hide()
 	# hide presets, because why not?
 #	PresetsButton.hide()
 
-func _on_advanced_button_pressed():
-	AdvButOpt.visible = not AdvButOpt.visible
-	AdvancedButton.button_pressed = AdvButOpt.visible
+func _on_other_options_opened() -> void:
 	PresetsButton.show()
 	Presets.hide()
 
-func _on_rotation_button_pressed():
-	if RotatOptions.visible:
+func _on_other_options_open_geometric_options() -> void:
+	if GeomOptions.visible:
 		_on_advanced_options_close_me()
 	else:
 		matrix_options = false
 		open_advanced_options()
 
-func _on_matrix_button_pressed():
+func _on_other_options_open_matrix_options() -> void:
 	if MatrixOptions.visible:
 		_on_advanced_options_close_me()
 	else:
 		matrix_options = true
 		open_advanced_options()
 
-func _on_txt_button_pressed():
+func _on_other_options_open_txt_options() -> void:
 	# close all other options
 	_on_color_sliders_finished()
 	_on_advanced_options_close_me()
 	# open txt options
 	open_txt_options.emit()
-	AdvButOpt.hide()
-	AdvancedButton.button_pressed = false
+	OtherOptions.close()
 
 func _on_advanced_options_close_me():
 	rotatoptions_open = false
-	RotatOptions.hide()
+	GeomOptions.hide()
 	matrixoptions_open = false
+	OtherOptions.set_advanced_options_pressed(rotatoptions_open, matrixoptions_open)
 	MatrixOptions.hide()
 	PresetsButton.show()
 
@@ -305,7 +286,7 @@ func _on_advanced_options_value_changed():
 		if matrix_options:
 			new_contraction = MatrixOptions.read_ui()
 		else:
-			new_contraction = RotatOptions.read_ui()
+			new_contraction = GeomOptions.read_ui()
 		new_contraction.color = CurrentRect.get_color()
 		CurrentRect.update_to(new_contraction, get_origin())
 	
@@ -360,10 +341,6 @@ func reload_language():
 			RemoveButton.tooltip_text = "lösche ausgewähltes Rechteck"
 			ColorButton.tooltip_text = "ändere Farbe des ausgewählten Rechtecks"
 #			DuplicateButton.tooltip_text = "dupliziere ausgewähltes Rechteck"
-			AdvancedButton.tooltip_text = "fortgeschrittene Einstellungen"
-			RotationButton.tooltip_text = "Rechteck bearbeiten"
-			MatrixButton.tooltip_text = "Matrix bearbeiten"
-			TxtButton.tooltip_text = "System bearbeiten"
 			PresetsButton.text = "Vorlagen"
 			PresetsButton.tooltip_text = "wähle ein Fraktal aus einer Vorlage"
 		_:
@@ -372,10 +349,6 @@ func reload_language():
 			RemoveButton.tooltip_text = "delete selected rectangle"
 			ColorButton.tooltip_text = "change color of selected rectangle"
 #			DuplicateButton.tooltip_text = "duplicate selected rectangle"
-			AdvancedButton.tooltip_text = "advanced options"
-			RotationButton.tooltip_text = "edit rectangle"
-			MatrixButton.tooltip_text = "edit matrix"
-			TxtButton.tooltip_text = "edit system"
 			PresetsButton.text = "Presets"
 			PresetsButton.tooltip_text = "choose fractal from a preset"
 	# pass on signal
@@ -383,9 +356,8 @@ func reload_language():
 	OtherOptions.reload_language()
 	Presets.reload_language()
 	MatrixOptions.reload_language()
-	RotatOptions.reload_language()
+	GeomOptions.reload_language()
 	ColorSliders.reload_language()
-
 
 func _on_playground_fractal_changed_vastly() -> void:
 	fractal_changed_vastly.emit()

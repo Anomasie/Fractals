@@ -209,6 +209,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="DebugButton" type="Button" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -222,6 +223,7 @@ size_flags_vertical = 0
 placeholder_text = "Debug Line Edit"
 
 [node name="DebugTexture" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8
