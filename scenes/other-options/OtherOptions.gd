@@ -47,7 +47,7 @@ func set_disabled(nothing_focused=false, ifs_size=1) -> void:
 		OpenButton.disabled = (ifs_size==0)
 	for button in [
 		DuplicateButton, YMirrorButton, XMirrorButton,
-		BreakAllButton,
+		BreakButton,
 		GeomOptButton,
 		MatrixOptButton
 		]:
