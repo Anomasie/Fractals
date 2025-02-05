@@ -154,7 +154,7 @@ func _on_viewport_resize():
 	ResizeTimer.start()
 
 func _on_resize_timer_timeout():
-	PlaygroundUI.resize_playground()
+	PlaygroundUI.resize_playground(ResultUI.current_ifs)
 
 # result stuff
 

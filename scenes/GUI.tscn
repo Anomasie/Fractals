@@ -123,7 +123,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ResizeTimer" type="Timer" parent="Lines/Content"]
-wait_time = 0.1
+wait_time = 0.05
 one_shot = true
 
 [node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]

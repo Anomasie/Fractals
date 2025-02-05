@@ -30,9 +30,6 @@ signal break_all
 
 var rot = randi_range(0,360-1)
 
-var old_loupe = Global.LOUPE
-var old_origin
-
 var rotatoptions_open = false
 var matrixoptions_open = false
 var colorsliders_open = false
@@ -59,14 +56,9 @@ func _ready():
 
 func resize():
 	BlueTexture.custom_minimum_size = Global.LOUPE
-	#resize_playground()
 
-func resize_playground():
-	if typeof(old_origin) == TYPE_NIL:
-		old_origin = get_origin()
-	Playground.resize(old_origin, old_loupe, get_origin(), Global.LOUPE)
-	old_loupe = Global.LOUPE
-	old_origin = get_origin()
+func resize_playground(ifs):
+	Playground.set_ifs(ifs, get_origin())
 
 func get_origin():
 	return BlueTexture.get_global_position() + Vector2(0, BlueTexture.size.y)
