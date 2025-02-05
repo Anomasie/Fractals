@@ -170,11 +170,13 @@ func resize_image(new_size):
 	image_size = new_size
 	open(current_ifs)
 
-func open(ifs, overwrite_ui=false):
+func open(ifs, overwrite_ui=false, overwrite_centered=false):
 	drawn_point_counter = 0
 	first_frame = true
 	new_ifs = ifs
 	new_ifs_overwrite_ui = overwrite_ui
+	if overwrite_ui and not overwrite_centered:
+		new_ifs.centered_view = CenterButton.on
 	
 	if not overwrite_ui:
 		new_ifs.reusing_last_point = ReusingLastPointButton.on

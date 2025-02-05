@@ -1,5 +1,7 @@
 extends MarginContainer
 
+signal load_ifs
+
 signal fractal_changed_vastly
 signal fractal_changed
 signal open_txt_options
@@ -309,8 +311,7 @@ func _on_presets_close_me():
 	PresetsButton.show()
 
 func _on_presets_load_preset(ifs):
-	set_ifs(ifs)
-	PresetTimer.start()
+	load_ifs.emit(ifs, true, false)
 
 func _on_preset_timer_timeout():
 	_fractal_changed()

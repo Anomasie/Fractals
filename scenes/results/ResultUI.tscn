@@ -222,6 +222,7 @@ placeholder_text = "15"
 layout_mode = 2
 tooltip_ = "re-use the last calculated point for new calculations"
 tooltip_ger = "Wiederbenutzung oder Neustart des Chaosspiels in jedem Frame"
+on = true
 tex_on = SubResource("AtlasTexture_odk1e")
 tex_off = SubResource("AtlasTexture_twkmr")
 reverse_textures = true

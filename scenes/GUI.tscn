@@ -237,6 +237,7 @@ layout_mode = 2
 [connection signal="break_contraction" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_contraction"]
 [connection signal="fractal_changed" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed_vastly"]
+[connection signal="load_ifs" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_load_ifs"]
 [connection signal="open_txt_options" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_open_txt_options"]
 [connection signal="changed" from="Lines/Content/Editor/TxtOptions" to="." method="_on_txt_options_changed"]
 [connection signal="debug" from="Lines/Content/ResultUI" to="." method="_on_result_ui_debug"]

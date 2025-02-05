@@ -6,6 +6,17 @@ var rotation = 0
 var mirrored = false
 var color = Color.BLACK
 
+static func random_contraction(smaller=false):
+	var contraction = Contraction.new()
+	contraction.translation = Vector2( randf()/2+0.25, randf()/2+0.25 )
+	contraction.contract = Vector2( randf(), randf() )
+	if smaller:
+		contraction.contract /= 2
+	contraction.rotation = randf() * 2 * PI
+	contraction.mirrored = (randf() <= 0.5)
+	contraction.color = Color.from_hsv(randf(), randf(), randf())
+	return contraction
+
 func apply(p):
 	if p is Vector2:
 		if mirrored:

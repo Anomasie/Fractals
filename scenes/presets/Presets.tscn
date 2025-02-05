@@ -1,12 +1,33 @@
-[gd_scene load_steps=8 format=3 uid="uid://co7ekdte8fr1f"]
+[gd_scene load_steps=13 format=3 uid="uid://co7ekdte8fr1f"]
 
 [ext_resource type="Script" path="res://scenes/presets/Presets.gd" id="1_k08fq"]
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_s5qvd"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_ehsui"]
+[ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="3_ggus7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxuct"]
 atlas = ExtResource("1_s5qvd")
 region = Rect2(18, 2, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijdpc"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ggus7")
+region = Rect2(0, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cbn5"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ggus7")
+region = Rect2(64, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4uej"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ggus7")
+region = Rect2(32, 480, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x25pq"]
+resource_local_to_scene = true
+atlas = ExtResource("3_ggus7")
+region = Rect2(94, 480, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1seyx"]
 atlas = ExtResource("2_ehsui")
@@ -52,10 +73,21 @@ patch_margin_bottom = 2
 [node name="Content" type="MarginContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="Presets" type="HBoxContainer" parent="Margin/Content"]
+[node name="Sep" type="HBoxContainer" parent="Margin/Content"]
+layout_mode = 2
+
+[node name="Presets" type="HBoxContainer" parent="Margin/Content/Sep"]
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
+
+[node name="RandomButton" type="TextureButton" parent="Margin/Content/Sep"]
+layout_mode = 2
+size_flags_vertical = 10
+texture_normal = SubResource("AtlasTexture_ijdpc")
+texture_pressed = SubResource("AtlasTexture_6cbn5")
+texture_hover = SubResource("AtlasTexture_b4uej")
+texture_disabled = SubResource("AtlasTexture_x25pq")
 
 [node name="Top" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -87,4 +119,5 @@ texture_normal = SubResource("AtlasTexture_1seyx")
 texture_pressed = SubResource("AtlasTexture_jous6")
 texture_hover = SubResource("AtlasTexture_uuxho")
 
+[connection signal="pressed" from="Margin/Content/Sep/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

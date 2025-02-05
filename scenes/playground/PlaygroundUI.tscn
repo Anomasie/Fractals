@@ -199,6 +199,8 @@ patch_margin_bottom = 14
 
 [node name="Center" type="MarginContainer" parent="Right/Center"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3

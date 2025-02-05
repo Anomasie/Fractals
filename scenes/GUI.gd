@@ -61,9 +61,9 @@ func _ready():
 	RedoButton.disabled = true
 	save_as_last_ifs(IFS.new())
 
-func load_ifs(ifs, overwriting_result_ui=true):
+func load_ifs(ifs, overwriting_result_ui=true, overwrite_centered=false):
 	PlaygroundUI.set_ifs(ifs)
-	ResultUI.open(ifs, overwriting_result_ui)
+	ResultUI.open(ifs, overwriting_result_ui, overwrite_centered)
 
 # url stuff
 
@@ -168,6 +168,9 @@ func _on_playground_ui_break_contraction(index=-1) -> void:
 func _on_playground_ui_break_all() -> void:
 	var current_ifs = get_ifs()
 	self.load_ifs(current_ifs.break_ifs())
+
+func _on_playground_ui_load_ifs(ifs, overwrite_result_ui=false, overwrite_centered=false) -> void:
+	self.load_ifs(ifs, overwrite_result_ui, overwrite_centered)
 
 func _on_playground_ui_fractal_changed() -> void:
 	# update result-ui and url

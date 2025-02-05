@@ -9,6 +9,26 @@ var uniform_coloring = false
 var reusing_last_point = false
 var centered_view = false
 
+# random ifs
+
+static func random_ifs(centered = (randf() <= 0.5), len_systems = randi() % 5 + randi() % 5 + 1):
+	var ifs = IFS.new()
+	# systems
+	for _i in len_systems:
+		ifs.systems.append(Contraction.random_contraction(
+			randf() * len_systems / 10 >= 0.8 # the more contractions we get, the smaller they are
+		))
+	# rest
+	ifs.background_color = Color.from_hsv(randf(), randf(), randf())
+	if len(ifs.systems) == 1:
+		ifs.delay = randi()%10
+	else:
+		ifs.delay = randi()%101
+	ifs.uniform_coloring = (randf() <= 0.5)
+	ifs.reusing_last_point = (randf() <= 0.5)
+	ifs.centered_view = centered
+	return ifs
+
 # break fractal into parts
 
 func break_contraction(index=0) -> IFS:
