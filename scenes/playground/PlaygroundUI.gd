@@ -33,7 +33,7 @@ signal center_all
 
 var rot = randi_range(0,360-1)
 
-var rotatoptions_open = false
+var geomoptions_open = false
 var matrixoptions_open = false
 var colorsliders_open = false
 
@@ -73,6 +73,12 @@ func get_ifs():
 	ifs.uniform_coloring = ColorSliders.uniform_coloring
 	return ifs
 
+func get_current_contractions(origin = get_origin()):
+	var current_contractions = []
+	for rect in CurrentRects:
+		current_contractions.append(rect.get_contraction( origin ))
+	return current_contractions
+
 func set_ifs(ifs):
 	if len(ifs.systems) > 0:
 		CloseAllButton.disabled = false
@@ -106,16 +112,14 @@ func focus(Rects = CurrentRects):
 		MatrixOptions.hide()
 		ColorSliders.hide()
 	# if you are focusing something:
-	elif len(CurrentRects) == 1:
+	else:
 		## update AdvancedOptions
-		if rotatoptions_open:
-			GeomOptions.show()
-			MatrixOptions.hide()
-			GeomOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
+		GeomOptions.visible = geomoptions_open
+		MatrixOptions.visible = matrixoptions_open
+		if geomoptions_open:
+			GeomOptions.load_ui(get_current_contractions())
 		elif matrixoptions_open:
-			MatrixOptions.show()
-			GeomOptions.hide()
-			MatrixOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
+			MatrixOptions.load_ui(get_current_contractions())
 		else:
 			PresetsButton.show()
 		# coloring
@@ -267,18 +271,16 @@ func open_advanced_options():
 	# hide all other options
 	_on_color_sliders_finished()
 	# visibility
-	rotatoptions_open = not matrix_options
+	geomoptions_open = not matrix_options
 	matrixoptions_open = matrix_options
 	# load data
-	OtherOptions.set_advanced_options_pressed(rotatoptions_open, matrixoptions_open)
-	if rotatoptions_open:
-		GeomOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
-		GeomOptions.show()
-		MatrixOptions.hide()
+	OtherOptions.set_advanced_options_pressed(geomoptions_open, matrixoptions_open)
+	GeomOptions.visible = geomoptions_open
+	MatrixOptions.visible = matrixoptions_open
+	if geomoptions_open:
+		GeomOptions.load_ui(get_current_contractions())
 	elif matrixoptions_open:
-		MatrixOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
-		MatrixOptions.show()
-		GeomOptions.hide()
+		MatrixOptions.load_ui(get_current_contractions())
 	# hide presets, because why not?
 #	PresetsButton.hide()
 
@@ -309,10 +311,10 @@ func _on_other_options_open_txt_options() -> void:
 	OtherOptions.close()
 
 func _on_advanced_options_close_me():
-	rotatoptions_open = false
+	geomoptions_open = false
 	GeomOptions.hide()
 	matrixoptions_open = false
-	OtherOptions.set_advanced_options_pressed(rotatoptions_open, matrixoptions_open)
+	OtherOptions.set_advanced_options_pressed(geomoptions_open, matrixoptions_open)
 	MatrixOptions.hide()
 	PresetsButton.show()
 
@@ -346,6 +348,48 @@ func _on_matrix_options_value_changed():
 func _on_matrix_options_switch():
 	matrix_options = false
 	open_advanced_options()
+
+### values changed on geometric options
+
+func _on_geometric_options_c_x_changed(value) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var contr = rect.get_contraction(origin)
+		contr.contract.x = value
+		rect.update_to(contr, origin)
+
+func _on_geometric_options_c_y_changed(value) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var contr = rect.get_contraction(origin)
+		contr.contract.y = value
+		rect.update_to(contr, origin)
+
+func _on_geometric_options_mirror_changed() -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		rect.mirror()
+
+func _on_geometric_options_rot_changed(value) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var contr = rect.get_contraction(origin)
+		contr.rotation = value
+		rect.update_to(contr, origin)
+
+func _on_geometric_options_t_x_changed(value) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var contr = rect.get_contraction(origin)
+		contr.translation.x = value
+		rect.update_to(contr, origin)
+
+func _on_geometric_options_t_y_changed(value) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var contr = rect.get_contraction(origin)
+		contr.translation.y = value
+		rect.update_to(contr, origin)
 
 ## presets
 
