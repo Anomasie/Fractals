@@ -172,7 +172,13 @@ func _on_playground_ui_break_all() -> void:
 	self.load_ifs(current_ifs.break_ifs())
 
 func _on_playground_ui_center_all() -> void:
-	self.load_ifs(ResultUI.current_stretch_inverse.apply_to_preserve_image(get_ifs()) )
+	self.load_ifs(
+		IFS.center_with_preserving_image(
+			ResultUI.current_stretch_inverse.apply_to_preserve_image(
+				get_ifs()
+			)
+		)
+	)
 
 ## ifs loading
 

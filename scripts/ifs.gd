@@ -64,6 +64,11 @@ func break_ifs() -> IFS:
 		ifs.systems.append_array(new_systems)
 	return ifs
 
+static func center_with_preserving_image(ifs) -> IFS:
+	for i in len(ifs.systems):
+		ifs.systems[i].center_with_preserving_image()
+	return ifs
+
 # calculate fractal
 
 func random_walk(pos, length=1, distribution=[]):

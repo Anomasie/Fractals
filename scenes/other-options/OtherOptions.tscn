@@ -228,6 +228,7 @@ script = ExtResource("1_8i7xv")
 open = true
 
 [node name="Front" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 mouse_filter = 2
 
@@ -356,6 +357,7 @@ texture_hover = SubResource("AtlasTexture_vtn1a")
 texture_disabled = SubResource("AtlasTexture_alwfn")
 
 [node name="CenterAllButton" type="TextureButton" parent="Content/EditButtons"]
+visible = false
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_me1gf")
 texture_pressed = SubResource("AtlasTexture_s34mc")

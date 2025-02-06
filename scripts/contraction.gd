@@ -45,6 +45,9 @@ func apply_to_preserve_image(ifs):
 		ifs.systems[i].translation = self.apply(ifs.systems[i].translation) - self.translation
 	return ifs
 
+func center_with_preserving_image():
+	pass
+
 func mix(c):
 	c.r = linear(c.r, color.r)
 	c.g = linear(c.g, color.g)

@@ -215,6 +215,7 @@ func _on_other_options_break_all() -> void:
 ### rotating
 func _on_other_options_rotate_45() -> void:
 	CurrentRect.turn_rect(CurrentRect.rotation - PI/4, true)
+	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 ### centering
@@ -225,12 +226,14 @@ func _on_other_options_center_x() -> void:
 	var current_contraction = CurrentRect.get_contraction(get_origin())
 	current_contraction.translation.y += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).y
 	CurrentRect.update_to(current_contraction, get_origin())
+	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 func _on_other_options_center_y() -> void:
 	var current_contraction = CurrentRect.get_contraction(get_origin())
 	current_contraction.translation.x += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).x
 	CurrentRect.update_to(current_contraction, get_origin())
+	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 ### advanced options
