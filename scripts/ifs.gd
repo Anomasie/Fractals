@@ -29,7 +29,9 @@ static func random_ifs(centered = (randf() <= 0.5), len_systems = randi() % 5 + 
 	ifs.centered_view = centered
 	return ifs
 
-# break fractal into parts
+# functions changing an ifs
+
+## break fractal into parts
 
 func break_contraction(index=0) -> IFS:
 	# parse input

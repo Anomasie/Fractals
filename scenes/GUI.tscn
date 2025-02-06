@@ -209,7 +209,6 @@ wait_time = 0.3
 one_shot = true
 
 [node name="DebugButton" type="Button" parent="."]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -235,6 +234,7 @@ layout_mode = 2
 
 [connection signal="break_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_all"]
 [connection signal="break_contraction" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_contraction"]
+[connection signal="center_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_center_all"]
 [connection signal="fractal_changed" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_fractal_changed_vastly"]
 [connection signal="load_ifs" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_load_ifs"]

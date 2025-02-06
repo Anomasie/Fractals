@@ -161,6 +161,8 @@ func _on_resize_timer_timeout():
 func get_ifs():
 	return ResultUI.get_ifs(PlaygroundUI.get_ifs())
 
+# playground UI
+
 func _on_playground_ui_break_contraction(index=-1) -> void:
 	var current_ifs = get_ifs()
 	self.load_ifs(current_ifs.break_contraction(index))
@@ -169,8 +171,15 @@ func _on_playground_ui_break_all() -> void:
 	var current_ifs = get_ifs()
 	self.load_ifs(current_ifs.break_ifs())
 
+func _on_playground_ui_center_all() -> void:
+	self.load_ifs(ResultUI.get_center_contraction().apply_on_translations(get_ifs()) )
+
+## ifs loading
+
 func _on_playground_ui_load_ifs(ifs, overwrite_result_ui=false, overwrite_centered=false) -> void:
 	self.load_ifs(ifs, overwrite_result_ui, overwrite_centered)
+
+## ifs changing
 
 func _on_playground_ui_fractal_changed() -> void:
 	# update result-ui and url
@@ -349,6 +358,12 @@ func reload_language():
 
 func _on_debug_button_pressed():
 	print("on debug button pressed!")
+	var random_point = point.new()
+	print("point: ", random_point.position)
+	print(
+		"-> ",
+		ResultUI.current_center_mapping.apply(ResultUI.current_center_inverse.apply(random_point.position))
+	)
 
 func _on_debug_edit_text_submitted(new_text):
 	print("text on debug edit submitted!")

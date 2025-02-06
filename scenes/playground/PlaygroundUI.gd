@@ -7,6 +7,7 @@ signal fractal_changed
 signal open_txt_options
 signal break_contraction
 signal break_all
+signal center_all
 
 @onready var Playground = $Playground
 # There is no reason to call this a blue texture, as it isn't blue anymore.
@@ -183,16 +184,14 @@ func _on_color_sliders_finished():
 	colorsliders_open = false
 	ColorSliders.close()
 
-## duplicate button
-
-#func _on_duplicate_button_pressed():
-func _on_other_options_duplicate() -> void:
-	Playground.duplicate_rect(CurrentRect, get_origin())
-	
-	fractal_changed_vastly.emit()
-
 ## other options
 
+### duplicating
+func _on_other_options_duplicate() -> void:
+	Playground.duplicate_rect(CurrentRect, get_origin())
+	fractal_changed_vastly.emit()
+
+### mirroring
 func _on_other_options_mirror_y() -> void:
 	CurrentRect.mirror()
 	fractal_changed.emit()
@@ -204,6 +203,7 @@ func _on_other_options_mirror_x() -> void:
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
+### breaking
 func _on_other_options_break_focused() -> void:
 	break_contraction.emit()
 	fractal_changed.emit()
@@ -212,7 +212,28 @@ func _on_other_options_break_focused() -> void:
 func _on_other_options_break_all() -> void:
 	break_all.emit()
 
-## advanced options
+### rotating
+func _on_other_options_rotate_45() -> void:
+	CurrentRect.turn_rect(CurrentRect.rotation - PI/4, true)
+	fractal_changed_vastly.emit()
+
+### centering
+func _on_other_options_center_all() -> void:
+	center_all.emit()
+
+func _on_other_options_center_x() -> void:
+	var current_contraction = CurrentRect.get_contraction(get_origin())
+	current_contraction.translation.y += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).y
+	CurrentRect.update_to(current_contraction, get_origin())
+	fractal_changed_vastly.emit()
+
+func _on_other_options_center_y() -> void:
+	var current_contraction = CurrentRect.get_contraction(get_origin())
+	current_contraction.translation.x += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).x
+	CurrentRect.update_to(current_contraction, get_origin())
+	fractal_changed_vastly.emit()
+
+### advanced options
 
 var matrix_options = false
 

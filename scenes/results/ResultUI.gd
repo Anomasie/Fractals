@@ -44,9 +44,9 @@ var image_size = current_loupe
 
 var current_ifs = IFS.new()
 var current_loupe = Global.LOUPE
-var current_origin = Vector2.ZERO
-var current_size = 1
-var file_counter = 0
+
+var current_stretch_mapping = Contraction.new()
+var current_stretch_inverse = Contraction.new()
 
 var limit = 0
 var frame_limit = 1000 # to manage frame performance
@@ -68,6 +68,9 @@ const MAXIMUM_POINT_COUNTER = 1000
 var drawn_point_counter = 0
 
 const MINIMUM_RECT_SIZE = 0.1
+
+
+var file_counter = 0
 
 func _ready():
 	# set values
@@ -134,12 +137,39 @@ func _process(delta):
 		## update slider
 		PointTeller.value = point_slider_descaled(counter)
 
-func get_ifs(ifs = current_ifs):
+func get_ifs(ifs = current_ifs) -> IFS:
 	ifs.delay = DelaySlider.value
 	ifs.centered_view = CenterButton.on
 	ifs.reusing_last_point = ReusingLastPointButton.on
 	ifs.background_color = ColorSliders.get_color()
 	return ifs
+
+func update_stretch_mapping() -> void:
+	var results = []
+	if len(current_ifs.systems) > 1:
+		results = current_ifs.calculate_fractal(point.new(), 2000, 1000) # ignore first delay
+	else:
+		for _i in 50:
+			results += current_ifs.calculate_fractal(point.new(), 10+current_ifs.delay, current_ifs.delay) # ignore first delay
+	# get minimum and maximum in current results
+	var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
+	if len(results) > 0:
+		rect = Rect2(results[0].position, Vector2i(0,0))
+	for entry in results:
+		rect = rect.expand(entry.position)
+	# set current_origin and current_size
+	## get length
+	var length = max(rect.size.x, rect.size.y)
+	if length == 0: length = 1
+	# set origin
+	## shift origin such that boundaries are left and right
+	## shift origin such that fractal is centered
+	current_stretch_mapping.translation = rect.position - Vector2(1,1) * length / 10 / 2 - length/2 * Vector2(1,1) + rect.size / 2
+	current_stretch_mapping.contract = (length * 1.1) * Vector2(1,1)
+
+func update_stretch_inverse() -> void:
+	update_stretch_mapping()
+	current_stretch_inverse = current_stretch_mapping.get_inverse()
 
 const POINT_LIMIT_HALF_VALUE = 1000000
 
@@ -208,31 +238,8 @@ func open_new_ifs():
 	# scale image for Results:
 	Result.custom_minimum_size = current_loupe
 	Result.set_texture(ImageTexture.create_from_image(image))
-	# calculate min and max bounds in results
-	if ifs.centered_view:
-		var results = []
-		if len(current_ifs.systems) > 1:
-			results = ifs.calculate_fractal(point.new(), 2000, 1000) # ignore first delay
-		else:
-			for _i in 50:
-				results += ifs.calculate_fractal(point.new(), 10+ifs.delay, ifs.delay) # ignore first delay
-		# get minimum and maximum in current results
-		var rect = Rect2(Vector2i(0,0), Vector2i(0,0))
-		if len(results) > 0:
-			rect = Rect2(results[0].position, Vector2i(0,0))
-		for entry in results:
-			rect = rect.expand(entry.position)
-		# set current_origin and current_size
-		## get length
-		var length = max(rect.size.x, rect.size.y)
-		# set origin
-		## shift origin such that boundaries are left and right
-		## shift origin such that fractal is centered
-		current_origin = rect.position - Vector2(1,1) * length / 10 / 2 - Vector2(
-			length - rect.size.x,
-			length - rect.size.y
-		) / 2
-		current_size = length * 1.1
+	# reload center mapping
+	update_stretch_inverse()
 	# set counter
 	counter = 0
 
@@ -243,37 +250,34 @@ func paint(results, centered=current_ifs.centered_view):
 		# loupe
 		# paint
 		for entry in results:
-			@warning_ignore("narrowing_conversion")
-			var real_position = Vector2i(
-				# doesn't work anymore :(
-				#remap(entry.position.x, current_origin.x, current_size, 0, image_size.x),
-				#remap(entry.position.y, current_origin.y, current_size, 0, image_size.y)
-				(entry.position.x - current_origin.x) / current_size * image_size.x,
-				(entry.position.y - current_origin.y) / current_size * image_size.y
+			var real_position = current_stretch_inverse.apply(entry.position)
+			var pixel_position = Vector2i(
+				real_position.x * image_size.x,
+				real_position.y * image_size.y
 			)
-			if real_position.x >= 0 and real_position.x < RealImage.get_width():
-				if real_position.y >= 0 and real_position.y < RealImage.get_height():
+			if pixel_position.x >= 0 and pixel_position.x < RealImage.get_width():
+				if pixel_position.y >= 0 and pixel_position.y < RealImage.get_height():
 					if drawn_point_counter < MAXIMUM_POINT_COUNTER:
 						if not Math.are_equal_approx(
-							entry.color, RealImage.get_pixel(real_position.x, real_position.y)
+							entry.color, RealImage.get_pixel(pixel_position.x, pixel_position.y)
 						) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
 							drawn_point_counter += 1
-					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
+					RealImage.set_pixel(pixel_position.x, pixel_position.y, entry.color)
 	## normal view: not centered
 	else:
 		for entry in results:
-			var real_position = Vector2i(
+			var pixel_position = Vector2i(
 				entry.position.x * image_size.x,
 				entry.position.y * image_size.y
 			)
-			if real_position.x >= 0 and real_position.x < image_size.x:
-				if real_position.y >= 0 and real_position.y < image_size.y:
+			if pixel_position.x >= 0 and pixel_position.x < image_size.x:
+				if pixel_position.y >= 0 and pixel_position.y < image_size.y:
 					if drawn_point_counter < MAXIMUM_POINT_COUNTER:
 						if not Math.are_equal_approx(
-							entry.color, RealImage.get_pixel(real_position.x, real_position.y)
+							entry.color, RealImage.get_pixel(pixel_position.x, pixel_position.y)
 						) and not Math.are_equal_approx(entry.color, current_ifs.background_color):
 							drawn_point_counter += 1
-					RealImage.set_pixel(real_position.x, real_position.y, entry.color)
+					RealImage.set_pixel(pixel_position.x, pixel_position.y, entry.color)
 	var image = RealImage.duplicate()
 	Result.custom_minimum_size = current_loupe
 	if image_size.x > current_loupe.x and image_size.y > current_loupe.y:

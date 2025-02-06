@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c8n70cda0ljy7"]
+[gd_scene load_steps=58 format=3 uid="uid://c8n70cda0ljy7"]
 
 [ext_resource type="Script" path="res://scenes/other-options/OtherOptions.gd" id="1_8i7xv"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="1_n7sbx"]
@@ -19,94 +19,6 @@ region = Rect2(32, 160, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s803"]
 atlas = ExtResource("1_n7sbx")
 region = Rect2(96, 160, 32, 32)
-
-[sub_resource type="InputEventKey" id="InputEventKey_440vp"]
-device = -1
-keycode = 68
-unicode = 100
-
-[sub_resource type="Shortcut" id="Shortcut_drk7d"]
-events = [SubResource("InputEventKey_440vp")]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4awj0"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8eo0"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kincd"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l33yx"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_usgn7"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(0, 352, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_atqcs"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(64, 352, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yw23w"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(32, 352, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4060"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(96, 352, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jg1jl"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(0, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8v54b"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(64, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_favmn"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(32, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xk1lk"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(96, 384, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y5ask"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(0, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qabpu"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(64, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m2eqv"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(32, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1vohx"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(96, 416, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ecwbr"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(0, 448, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ou5e6"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(64, 448, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vtn1a"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(32, 448, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_alwfn"]
-atlas = ExtResource("1_n7sbx")
-region = Rect2(96, 448, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qy8cw"]
 atlas = ExtResource("3_646ek")
@@ -156,6 +68,158 @@ region = Rect2(32, 416, 32, 32)
 atlas = ExtResource("3_646ek")
 region = Rect2(96, 416, 32, 32)
 
+[sub_resource type="InputEventKey" id="InputEventKey_440vp"]
+device = -1
+keycode = 68
+unicode = 100
+
+[sub_resource type="Shortcut" id="Shortcut_drk7d"]
+events = [SubResource("InputEventKey_440vp")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4awj0"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8eo0"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kincd"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l33yx"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scn4t"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 608, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp8ls"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 608, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msbwh"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 608, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjkjl"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 608, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usgn7"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atqcs"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw23w"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4060"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg1jl"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v54b"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_favmn"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk1lk"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa6jv"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yn0q"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_048yp"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfp2t"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 512, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3unn0"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oetyr"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_026yw"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xme2g"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5ask"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qabpu"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2eqv"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vohx"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 416, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecwbr"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou5e6"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtn1a"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alwfn"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 448, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_me1gf"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(0, 576, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s34mc"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(64, 576, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3wqg"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(32, 576, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o43bk"]
+atlas = ExtResource("1_n7sbx")
+region = Rect2(96, 576, 32, 32)
+
 [node name="OtherOptions" type="HBoxContainer"]
 offset_right = 80.0
 offset_bottom = 128.0
@@ -163,15 +227,54 @@ mouse_filter = 2
 script = ExtResource("1_8i7xv")
 open = true
 
-[node name="OpenButton" type="TextureButton" parent="."]
+[node name="Front" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OpenButton" type="TextureButton" parent="Front"]
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 3
 tooltip_text = "open advanced options"
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_0egjn")
 texture_pressed = SubResource("AtlasTexture_2npwc")
 texture_hover = SubResource("AtlasTexture_vpqep")
 texture_disabled = SubResource("AtlasTexture_2s803")
+
+[node name="AdvOptions" type="VBoxContainer" parent="Front"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="GeomOptButton" type="TextureButton" parent="Front/AdvOptions"]
+layout_mode = 2
+tooltip_text = "switch to geometric view"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_qy8cw")
+texture_pressed = SubResource("AtlasTexture_gs20n")
+texture_hover = SubResource("AtlasTexture_c08ln")
+texture_disabled = SubResource("AtlasTexture_5b0km")
+
+[node name="MatrixOptButton" type="TextureButton" parent="Front/AdvOptions"]
+layout_mode = 2
+size_flags_horizontal = 11
+tooltip_text = "swtich to matrix view"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_ep121")
+texture_pressed = SubResource("AtlasTexture_3lvd5")
+texture_hover = SubResource("AtlasTexture_8t6wr")
+texture_disabled = SubResource("AtlasTexture_qhcgh")
+
+[node name="TxtOptButton" type="TextureButton" parent="Front/AdvOptions"]
+layout_mode = 2
+size_flags_horizontal = 11
+tooltip_text = "swtich to matrix view"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_0dwke")
+texture_pressed = SubResource("AtlasTexture_kla60")
+texture_hover = SubResource("AtlasTexture_jpxn8")
+texture_disabled = SubResource("AtlasTexture_nby0p")
 
 [node name="Content" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -183,6 +286,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
+columns = 2
 
 [node name="DuplicateButton" type="TextureButton" parent="Content/EditButtons"]
 layout_mode = 2
@@ -193,6 +297,13 @@ texture_normal = SubResource("AtlasTexture_4awj0")
 texture_pressed = SubResource("AtlasTexture_k8eo0")
 texture_hover = SubResource("AtlasTexture_kincd")
 texture_disabled = SubResource("AtlasTexture_l33yx")
+
+[node name="Rotate45Button" type="TextureButton" parent="Content/EditButtons"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_scn4t")
+texture_pressed = SubResource("AtlasTexture_lp8ls")
+texture_hover = SubResource("AtlasTexture_msbwh")
+texture_disabled = SubResource("AtlasTexture_tjkjl")
 
 [node name="YMirrorButton" type="TextureButton" parent="Content/EditButtons"]
 layout_mode = 2
@@ -212,6 +323,20 @@ texture_pressed = SubResource("AtlasTexture_8v54b")
 texture_hover = SubResource("AtlasTexture_favmn")
 texture_disabled = SubResource("AtlasTexture_xk1lk")
 
+[node name="YCenterButton" type="TextureButton" parent="Content/EditButtons"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_fa6jv")
+texture_pressed = SubResource("AtlasTexture_3yn0q")
+texture_hover = SubResource("AtlasTexture_048yp")
+texture_disabled = SubResource("AtlasTexture_rfp2t")
+
+[node name="XCenterButton" type="TextureButton" parent="Content/EditButtons"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_3unn0")
+texture_pressed = SubResource("AtlasTexture_oetyr")
+texture_hover = SubResource("AtlasTexture_026yw")
+texture_disabled = SubResource("AtlasTexture_xme2g")
+
 [node name="BreakButton" type="TextureButton" parent="Content/EditButtons"]
 layout_mode = 2
 size_flags_vertical = 0
@@ -230,46 +355,24 @@ texture_pressed = SubResource("AtlasTexture_ou5e6")
 texture_hover = SubResource("AtlasTexture_vtn1a")
 texture_disabled = SubResource("AtlasTexture_alwfn")
 
-[node name="AdvOptions" type="VBoxContainer" parent="Content"]
+[node name="CenterAllButton" type="TextureButton" parent="Content/EditButtons"]
+visible = false
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
+texture_normal = SubResource("AtlasTexture_me1gf")
+texture_pressed = SubResource("AtlasTexture_s34mc")
+texture_hover = SubResource("AtlasTexture_m3wqg")
+texture_disabled = SubResource("AtlasTexture_o43bk")
 
-[node name="GeomOptButton" type="TextureButton" parent="Content/AdvOptions"]
-layout_mode = 2
-tooltip_text = "switch to geometric view"
-toggle_mode = true
-texture_normal = SubResource("AtlasTexture_qy8cw")
-texture_pressed = SubResource("AtlasTexture_gs20n")
-texture_hover = SubResource("AtlasTexture_c08ln")
-texture_disabled = SubResource("AtlasTexture_5b0km")
-
-[node name="MatrixOptButton" type="TextureButton" parent="Content/AdvOptions"]
-layout_mode = 2
-size_flags_horizontal = 11
-tooltip_text = "swtich to matrix view"
-toggle_mode = true
-texture_normal = SubResource("AtlasTexture_ep121")
-texture_pressed = SubResource("AtlasTexture_3lvd5")
-texture_hover = SubResource("AtlasTexture_8t6wr")
-texture_disabled = SubResource("AtlasTexture_qhcgh")
-
-[node name="TxtOptButton" type="TextureButton" parent="Content/AdvOptions"]
-layout_mode = 2
-size_flags_horizontal = 11
-tooltip_text = "swtich to matrix view"
-toggle_mode = true
-texture_normal = SubResource("AtlasTexture_0dwke")
-texture_pressed = SubResource("AtlasTexture_kla60")
-texture_hover = SubResource("AtlasTexture_jpxn8")
-texture_disabled = SubResource("AtlasTexture_nby0p")
-
-[connection signal="pressed" from="OpenButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="Front/OpenButton" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="Front/AdvOptions/GeomOptButton" to="." method="_on_geom_opt_button_pressed"]
+[connection signal="pressed" from="Front/AdvOptions/MatrixOptButton" to="." method="_on_matrix_opt_button_pressed"]
+[connection signal="pressed" from="Front/AdvOptions/TxtOptButton" to="." method="_on_txt_opt_button_pressed"]
 [connection signal="pressed" from="Content/EditButtons/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="Content/EditButtons/Rotate45Button" to="." method="_on_rotate_45_button_pressed"]
 [connection signal="pressed" from="Content/EditButtons/YMirrorButton" to="." method="_on_y_mirror_button_pressed"]
 [connection signal="pressed" from="Content/EditButtons/XMirrorButton" to="." method="_on_x_mirror_button_pressed"]
+[connection signal="pressed" from="Content/EditButtons/YCenterButton" to="." method="_on_y_center_button_pressed"]
+[connection signal="pressed" from="Content/EditButtons/XCenterButton" to="." method="_on_x_center_button_pressed"]
 [connection signal="pressed" from="Content/EditButtons/BreakButton" to="." method="_on_break_button_pressed"]
 [connection signal="pressed" from="Content/EditButtons/BreakAllButton" to="." method="_on_break_all_button_pressed"]
-[connection signal="pressed" from="Content/AdvOptions/GeomOptButton" to="." method="_on_geom_opt_button_pressed"]
-[connection signal="pressed" from="Content/AdvOptions/MatrixOptButton" to="." method="_on_matrix_opt_button_pressed"]
-[connection signal="pressed" from="Content/AdvOptions/TxtOptButton" to="." method="_on_txt_opt_button_pressed"]
+[connection signal="pressed" from="Content/EditButtons/CenterAllButton" to="." method="_on_center_all_button_pressed"]

@@ -25,6 +25,10 @@ func apply(p):
 		p = p.rotated(-rotation) # rotate
 		p += translation # translate
 		return p
+	if p is point:
+		p.position = self.apply(p.position)
+		p.color = self.mix(p.color)
+		return p
 	elif p is Contraction: # return self ° p
 		var result = from_matrix(Math.matrix_mult(self.to_matrix(), p.to_matrix()))
 		result.translation = self.apply(p.translation)
@@ -36,6 +40,11 @@ func apply(p):
 			systems.append(self.apply(system))
 		return systems
 
+func apply_on_translations(ifs):
+	for i in len(ifs.systems):
+		ifs.systems[i].translation = self.apply(ifs.systems[i].translation)
+	return ifs
+
 func mix(c):
 	c.r = linear(c.r, color.r)
 	c.g = linear(c.g, color.g)
@@ -44,6 +53,16 @@ func mix(c):
 
 func linear(a, b, lambda=0.5):
 	return lambda * a + (1 - lambda) * b
+
+# get inverse
+
+func get_inverse():
+	var inverse = Contraction.new()
+	inverse.mirrored = self.mirrored
+	inverse.contract = Vector2(1.0 / self.contract.x, 1.0 / self.contract.y)
+	inverse.rotation = - self.rotation
+	inverse.translation = -inverse.apply( self.translation )
+	return inverse
 
 # matrix
 
