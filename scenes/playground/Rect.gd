@@ -8,8 +8,11 @@ var mouse_in = false
 # editing
 
 signal focus_me
+signal defocus_others
 signal changed
 signal changed_vastly
+
+signal start_editing_position
 
 # buttons
 @onready var MoveButton = $Content/TextureContainer/MoveButton
@@ -55,7 +58,8 @@ func _ready():
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
 		if editing_position or editing_turn or editing_width or editing_height:
-			focus_me.emit()
+			if not editing_position:
+				focus_me.emit()
 			changed.emit()
 		if editing_position:
 			edited_position = true
@@ -216,9 +220,15 @@ func update_to(contr, origin):
 # signals
 
 func _on_move_button_pressed():
+	start_editing_position.emit()
+
+func _on_move_button_button_up() -> void:
+	if not TurnButton.visible:
+		focus_me.emit()
+
+func set_editing_position():
 	editing_position = true
 	rect_origin = get_viewport().get_mouse_position() - self.get_global_position()
-	focus_me.emit()
 
 # stupid width buttons
 

@@ -227,6 +227,7 @@ texture_hover = SubResource("AtlasTexture_3bimh")
 texture_disabled = SubResource("AtlasTexture_7hu2w")
 
 [connection signal="button_down" from="Content/TextureContainer/MoveButton" to="." method="_on_move_button_pressed"]
+[connection signal="button_up" from="Content/TextureContainer/MoveButton" to="." method="_on_move_button_button_up"]
 [connection signal="button_down" from="Content/WidthButtonRight" to="." method="_on_width_button_right_pressed"]
 [connection signal="button_down" from="Content/WidthButtonLeft" to="." method="_on_width_button_left_pressed"]
 [connection signal="button_down" from="Content/HeightButtonDown" to="." method="_on_height_button_down_pressed"]

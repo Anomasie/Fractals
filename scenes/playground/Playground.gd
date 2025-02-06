@@ -6,6 +6,8 @@ signal fractal_changed_vastly
 signal focus_this
 signal defocus
 
+signal start_editing_position
+
 var Rect = load("res://scenes/playground/Rect.tscn")
 
 var rect_counter = 0
@@ -53,6 +55,8 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	rect_counter += 1
 	
 	Instance.focus_me.connect(focus_only.bind(Instance))
+	Instance.defocus_others.connect(focus_only.bind(Instance))
+	Instance.start_editing_position.connect(_on_rect_start_editing_position)
 	Instance.changed.connect(_fractal_changed)
 	Instance.changed_vastly.connect(_fractal_changed_vastly)
 	self.add_child(Instance)
@@ -91,6 +95,8 @@ func duplicate_rect(MyRect, origin):
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
 
+# focus
+
 func focus(MyRects):
 	for child in self.get_children():
 		if child is ResizableRect:
@@ -103,6 +109,11 @@ func focus_only(MyRect):
 			child.set_focus(false)
 	MyRect.set_focus(true)
 	focus_this.emit(MyRect)
+
+func _on_rect_start_editing_position():
+	start_editing_position.emit()
+
+# get & set
 
 func get_ifs(origin):
 	var ifs = IFS.new()
