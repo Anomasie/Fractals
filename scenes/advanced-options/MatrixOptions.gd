@@ -1,8 +1,11 @@
 extends MarginContainer
 
-signal value_changed
 signal close_me
 signal switch
+
+signal t_x_changed
+signal t_y_changed
+signal matrix_changed
 
 @onready var TranslationX = $Content/Options/Columns/Main/TranslationBox/TranslationX
 @onready var TranslationY = $Content/Options/Columns/Main/TranslationBox/TranslationY
@@ -15,46 +18,12 @@ var disabled = 0
 
 func _ready():
 	for i in len(MatrixEntries):
-		MatrixEntries[i].value_changed.connect(_matrix_value_changed.bind(i))
-	TranslationX.value_changed.connect(_translation_value_changed)
-	TranslationY.value_changed.connect(_translation_value_changed)
+		MatrixEntries[i].text_submitted.connect(_matrix_value_changed.bind(i))
 	# tooltips
 	Global.tooltip_nodes.append_array([
 		TranslationX, TranslationY,
 		CloseButton, RotationButton
 	]+ MatrixEntries)
-
-func _matrix_value_changed(_new_value, index):
-	if disabled == 0:
-		disabled += 1
-		
-		# set to nearest possible matrix
-		var matrix = []
-		for i in len(MatrixEntries):
-			matrix.append(MatrixEntries[i].value)
-		matrix = Contraction.nearest_allowed_matrix(matrix, index)
-		load_matrix(matrix)
-		# changed
-		value_changed.emit()
-		# release focus
-		## doesn't work as for now :(
-		for button in MatrixEntries:
-			button.release_focus()
-		TranslationX.release_focus()
-		TranslationY.release_focus()
-		
-		disabled -= 1
-
-func _translation_value_changed(_new_value):
-	if disabled == 0:
-		# changed
-		value_changed.emit()
-		# release focus
-		## doesn't work as for now :(
-		for button in MatrixEntries:
-			button.release_focus()
-		TranslationX.release_focus()
-		TranslationY.release_focus()
 
 func load_matrix(array):
 	if typeof(array) != TYPE_ARRAY or len(array) != 4:
@@ -62,34 +31,127 @@ func load_matrix(array):
 		return
 	# set values
 	for i in len(array):
-		MatrixEntries[i].value = array[i]
+		MatrixEntries[i].placeholder_text = str(array[i])
 
-func load_ui(contraction):
+func compare_and_set(node, values):
+	if values.max() - values.min() < 0.0001:
+		node.placeholder_text = str(values[0])
+	else:
+		node.placeholder_text = ""
+
+func compare_and_set_matrix(matrices):
+	for i in len(MatrixEntries): # 4 times
+		var list = []
+		for entry in matrices:
+			list.append(entry[i])
+		if list.max() - list.min() < 0.0001:
+			MatrixEntries[i].placeholder_text = str(list[0])
+		else:
+			MatrixEntries[i].placeholder_text = ""
+
+func load_ui_of_list(contractions):
+	disabled += 1
+	# set values
+	var list_x = []
+	var list_y = []
+	var list = []
+	for entry in contractions:
+		list_x.append(entry.translation.x)
+		list_y.append(entry.translation.y)
+		list.append(entry.to_matrix())
+	compare_and_set(TranslationX, list_x)
+	compare_and_set(TranslationY, list_y)
+	compare_and_set_matrix(list)
+	# disable
+	disabled -= 1
+
+func load_ui_of_one(contraction):
 	# do not emit value_changed
 	disabled += 1
 	# matrix
 	var matrix = contraction.to_matrix()
 	for i in len(matrix):
-		MatrixEntries[i].value = matrix[i]
+		MatrixEntries[i].text = str(matrix[i])
 	# translation
-	TranslationX.value = contraction.translation.x
-	TranslationY.value = contraction.translation.y
+	TranslationX.text = str(contraction.translation.x)
+	TranslationY.text = str(contraction.translation.y)
 	# enable value_changed
 	disabled -= 1
 
-func read_ui():
-	var contraction = Contraction.from_matrix([
-		MatrixEntries[0].value, MatrixEntries[1].value,
-		MatrixEntries[2].value, MatrixEntries[3].value
-	])
-	contraction.translation = Vector2(TranslationX.value, TranslationY.value)
-	return contraction
+func load_ui(object):
+	if len(object) == 0:
+		load_ui_of_one(object[0])
+	else:
+		load_ui_of_list(object)
 
 func _on_close_button_pressed():
 	close_me.emit()
 
 func _on_rotation_button_pressed():
 	switch.emit()
+
+# values changed
+
+func text_to_translation_value(text):
+	var value = float(text)
+	if value < -1:
+		value = -1
+	elif value > 2:
+		value = 2
+	return value
+
+func _on_translation_x_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_translation_value(new_text)
+		TranslationX.placeholder_text = str(value)
+		TranslationX.text = ""
+		t_x_changed.emit(value)
+	TranslationX.release_focus()
+
+func _on_translation_y_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_translation_value(new_text)
+		TranslationY.placeholder_text = str(value)
+		TranslationY.text = ""
+		t_y_changed.emit(value)
+	TranslationY.release_focus()
+
+func text_to_matrix_value(text):
+	var value = float(text)
+	if value < -1:
+		value = -1
+	elif value > 1:
+		value = 1
+	return value
+
+func _matrix_value_changed(new_value, index):
+	if new_value and disabled == 0:
+		disabled += 1
+		
+		var matrix = []
+		for i in len(MatrixEntries):
+			if MatrixEntries[i].text:
+				matrix.append(float(MatrixEntries[i].text))
+			else:
+				matrix.append(float(MatrixEntries[i].placeholder_text))
+		matrix = Contraction.nearest_allowed_matrix(matrix, index)
+		print("new matrix: ", matrix)
+#		# set to nearest possible matrix
+#		var matrix = []
+#		for i in len(MatrixEntries):
+#			matrix.append(text_to_matrix_value(MatrixEntries[i].text))
+#			MatrixEntries[i].text = ""
+#		matrix = Contraction.nearest_allowed_matrix(matrix, index)
+		load_matrix(matrix)
+		# changed
+		matrix_changed.emit(matrix)
+		# release focus
+		for i in len(MatrixEntries):
+			MatrixEntries[i].placeholder_text = str(matrix[i])
+			MatrixEntries[i].text = ""
+			MatrixEntries[i].release_focus()
+		
+		disabled -= 1
 
 # language & translation
 

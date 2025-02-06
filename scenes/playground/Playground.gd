@@ -7,6 +7,7 @@ signal focus_this
 signal defocus
 
 signal start_editing_position
+signal edited_position
 
 var Rect = load("res://scenes/playground/Rect.tscn")
 
@@ -14,6 +15,8 @@ var rect_counter = 0
 var counter = 0
 
 var emit_fractal_changed_next_frame = false
+
+var editing_position = false
 
 @onready var TxTOptions # to disable scrolling if they are visible
 
@@ -29,6 +32,10 @@ func _input(event):
 				focus_only( self.get_child(0) )
 			elif event.is_action_pressed("scroll_down"):
 				focus_only( self.get_child(0) )
+	if editing_position and event is InputEventMouseMotion:
+		edited_position.emit()
+	if event is InputEventMouseButton and not event.pressed:
+		editing_position = false
 
 func _fractal_changed():
 	emit_fractal_changed_next_frame = true
@@ -112,6 +119,7 @@ func focus_only(MyRect):
 
 func _on_rect_start_editing_position():
 	start_editing_position.emit()
+	editing_position = true
 
 # get & set
 

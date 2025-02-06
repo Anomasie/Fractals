@@ -90,23 +90,17 @@ size_flags_vertical = 4
 texture = SubResource("AtlasTexture_mm2rf")
 stretch_mode = 2
 
-[node name="TranslationX" type="SpinBox" parent="Content/Options/Columns/Main/TranslationBox"]
+[node name="TranslationX" type="LineEdit" parent="Content/Options/Columns/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter translation in x-axis"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
-[node name="TranslationY" type="SpinBox" parent="Content/Options/Columns/Main/TranslationBox"]
+[node name="TranslationY" type="LineEdit" parent="Content/Options/Columns/Main/TranslationBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "enter translation in y-axis"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
 [node name="MatrixBox" type="HBoxContainer" parent="Content/Options/Columns/Main"]
 layout_mode = 2
@@ -122,45 +116,33 @@ layout_mode = 2
 theme_override_constants/h_separation = 16
 columns = 2
 
-[node name="Matrix11" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
+[node name="Matrix11" type="LineEdit" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
-[node name="Matrix12" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
+[node name="Matrix12" type="LineEdit" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
-[node name="Matrix21" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
+[node name="Matrix21" type="LineEdit" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
-[node name="Matrix33" type="SpinBox" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
+[node name="Matrix33" type="LineEdit" parent="Content/Options/Columns/Main/MatrixBox/Matrix"]
 custom_minimum_size = Vector2(96, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "transformation matrix"
-min_value = -1.0
-max_value = 2.0
-step = 0.001
-page = 0.1
+max_length = 5
 
 [node name="ElseBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -181,5 +163,7 @@ texture_normal = SubResource("AtlasTexture_qcpij")
 texture_pressed = SubResource("AtlasTexture_y6pvj")
 texture_hover = SubResource("AtlasTexture_r3ss7")
 
+[connection signal="text_submitted" from="Content/Options/Columns/Main/TranslationBox/TranslationX" to="." method="_on_translation_x_text_submitted"]
+[connection signal="text_submitted" from="Content/Options/Columns/Main/TranslationBox/TranslationY" to="." method="_on_translation_y_text_submitted"]
 [connection signal="pressed" from="ElseBox/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="ElseBox/RotationButton" to="." method="_on_rotation_button_pressed"]

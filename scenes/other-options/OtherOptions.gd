@@ -50,7 +50,7 @@ signal open_txt_options
 @export var open = false
 
 func _ready() -> void:
-	Front.custom_minimum_size.y = int( (len(EditButtons.get_children()) + 1) / EditButtons.columns ) * 32
+	Front.custom_minimum_size.y = int( (len(EditButtons.get_children())) / EditButtons.columns ) * 32
 	if not Engine.is_editor_hint():
 		Global.tooltip_nodes.append_array([
 			OpenButton, DuplicateButton, XMirrorButton, YMirrorButton, BreakButton, BreakAllButton,

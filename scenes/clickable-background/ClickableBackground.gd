@@ -1,5 +1,6 @@
 extends Button
 
+signal start_marking
 signal marked_this
 
 @onready var Marker = $Marker
@@ -36,6 +37,7 @@ func _on_button_down() -> void:
 	Marker.position = origin
 	Marker.size = Vector2i.ZERO
 	Marker.show()
+	start_marking.emit()
 
 func _on_button_up() -> void:
 	marking = false

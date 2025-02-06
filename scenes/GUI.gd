@@ -159,6 +159,9 @@ func get_ifs():
 
 # clickable background
 
+func _on_clickable_background_start_marking() -> void:
+	PlaygroundUI.focus([])
+
 func _on_clickable_background_marked_this(rect) -> void:
 	PlaygroundUI.focus_region(rect)
 

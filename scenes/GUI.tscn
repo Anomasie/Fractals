@@ -245,6 +245,7 @@ texture = SubResource("GradientTexture1D_6jlwg")
 layout_mode = 2
 
 [connection signal="marked_this" from="ClickableBackground" to="." method="_on_clickable_background_marked_this"]
+[connection signal="start_marking" from="ClickableBackground" to="." method="_on_clickable_background_start_marking"]
 [connection signal="break_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_all"]
 [connection signal="break_contraction" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_contraction"]
 [connection signal="center_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_center_all"]

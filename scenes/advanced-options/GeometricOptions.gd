@@ -37,35 +37,6 @@ func _on_mirror_pressed():
 	if not disabled:
 		mirror_changed.emit()
 
-func load_ui_of_one(contraction):
-	# do not emit value_changed
-	disabled = true
-	# contraction(s)
-	ContractX.placeholder_text = str(contraction.contract.x)
-	ContractY.placeholder_text = str(contraction.contract.y)
-	# translation
-	TranslationX.placeholder_text = str(contraction.translation.x)
-	TranslationY.placeholder_text = str(contraction.translation.y)
-	# rotation
-	## godot rotation: 2pi-scaled
-	### and clock-wise!?!
-	## user-friendly rotation: 360°-scaled
-	### and counter-clock-wise
-	if contraction.rotation == 0: # otherwise, weird rounding errors occur
-		Rotation.placeholder_text = "0"
-	else:
-		var rot_value = 360 - contraction.rotation / (2 * PI) * 360
-		while rot_value < 0 - 0.5 or rot_value >= 359 + 0.5:
-			if rot_value < 0 - 0.5:
-				rot_value += 360
-			else:
-				rot_value -= 360
-		Rotation.placeholder_text = str(rot_value)
-	# mirroring
-	Mirror.flip_h = contraction.mirrored
-	# enable value_changed
-	disabled = false
-
 func compare_and_set(node, values):
 	if values.max() - values.min() < 0.0001:
 		node.placeholder_text = str(values[0])
@@ -113,6 +84,35 @@ func load_ui_of_list(contractions):
 	# enable value_changed
 	disabled = false
 
+func load_ui_of_one(contraction):
+	# do not emit value_changed
+	disabled = true
+	# contraction(s)
+	ContractX.placeholder_text = str(contraction.contract.x)
+	ContractY.placeholder_text = str(contraction.contract.y)
+	# translation
+	TranslationX.placeholder_text = str(contraction.translation.x)
+	TranslationY.placeholder_text = str(contraction.translation.y)
+	# rotation
+	## godot rotation: 2pi-scaled
+	### and clock-wise!?!
+	## user-friendly rotation: 360°-scaled
+	### and counter-clock-wise
+	if contraction.rotation == 0: # otherwise, weird rounding errors occur
+		Rotation.placeholder_text = "0"
+	else:
+		var rot_value = 360 - contraction.rotation / (2 * PI) * 360
+		while rot_value < 0 - 0.5 or rot_value >= 359 + 0.5:
+			if rot_value < 0 - 0.5:
+				rot_value += 360
+			else:
+				rot_value -= 360
+		Rotation.placeholder_text = str(rot_value)
+	# mirroring
+	Mirror.flip_h = contraction.mirrored
+	# enable value_changed
+	disabled = false
+
 func load_ui(contractions):
 	if len(contractions) == 1:
 		load_ui_of_one(contractions[0])
@@ -124,6 +124,64 @@ func _on_close_button_pressed():
 
 func _on_matrix_button_pressed():
 	switch.emit()
+
+# values changed
+
+func _on_rotation_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = int(new_text)
+		Rotation.placeholder_text = str(value)
+		Rotation.text = ""
+		rot_changed.emit(- value / 180.0 * PI)
+	Rotation.release_focus()
+
+func text_to_translation_value(text):
+	var value = float(text)
+	if value < -1:
+		value = -1
+	elif value > 2:
+		value = 2
+	return value
+
+func _on_translation_x_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_translation_value(new_text)
+		TranslationX.placeholder_text = str(value)
+		TranslationX.text = ""
+		t_x_changed.emit(value)
+	TranslationX.release_focus()
+
+func _on_translation_y_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_translation_value(new_text)
+		TranslationY.placeholder_text = str(value)
+		TranslationY.text = ""
+		t_y_changed.emit(value)
+	TranslationY.release_focus()
+
+func text_to_contraction_value(text):
+	var value = float(text)
+	if value < 0:
+		value = 0
+	elif value > 1:
+		value = 1
+	return value
+
+func _on_contraction_x_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_contraction_value(new_text)
+		ContractX.placeholder_text = str(value)
+		ContractX.text = ""
+		c_x_changed.emit(value)
+	ContractX.release_focus()
+
+func _on_contraction_y_text_submitted(new_text: String) -> void:
+	if new_text:
+		var value = text_to_contraction_value(new_text)
+		ContractY.placeholder_text = str(value)
+		ContractY.text = ""
+		c_y_changed.emit(value)
+	ContractY.release_focus()
 
 # language & translation
 
@@ -151,55 +209,3 @@ func reload_language():
 			# buttons
 			CloseButton.tooltip_text = "close advanced options"
 			MatrixButton.tooltip_text = "swtich to matrix view"
-
-
-func _on_rotation_text_submitted(new_text: String) -> void:
-	var value = int(new_text)
-	Rotation.placeholder_text = str(value)
-	Rotation.text = ""
-	Rotation.release_focus()
-	rot_changed.emit(- value / 180.0 * PI)
-
-func text_to_translation_value(text):
-	var value = float(text)
-	if value < -1:
-		value = -1
-	elif value > 2:
-		value = 2
-	return value
-
-func _on_translation_x_text_submitted(new_text: String) -> void:
-	var value = text_to_translation_value(new_text)
-	TranslationX.placeholder_text = str(value)
-	TranslationX.text = ""
-	TranslationX.release_focus()
-	t_x_changed.emit(value)
-
-func _on_translation_y_text_submitted(new_text: String) -> void:
-	var value = text_to_translation_value(new_text)
-	TranslationY.placeholder_text = str(value)
-	TranslationY.text = ""
-	TranslationY.release_focus()
-	t_y_changed.emit(value)
-
-func text_to_contraction_value(text):
-	var value = float(text)
-	if value < 0:
-		value = 0
-	elif value > 1:
-		value = 1
-	return value
-
-func _on_contraction_x_text_submitted(new_text: String) -> void:
-	var value = text_to_contraction_value(new_text)
-	ContractX.placeholder_text = str(value)
-	ContractX.text = ""
-	ContractX.release_focus()
-	c_x_changed.emit(value)
-
-func _on_contraction_y_text_submitted(new_text: String) -> void:
-	var value = text_to_contraction_value(new_text)
-	ContractY.placeholder_text = str(value)
-	ContractY.text = ""
-	ContractY.release_focus()
-	c_y_changed.emit(value)

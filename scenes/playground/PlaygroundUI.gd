@@ -143,6 +143,12 @@ func _on_playground_start_editing_position() -> void:
 	for rect in CurrentRects:
 		rect.set_editing_position()
 
+func _on_playground_edited_position() -> void:
+	if geomoptions_open:
+		GeomOptions.load_ui(get_current_contractions())
+	elif matrixoptions_open:
+		MatrixOptions.load_ui(get_current_contractions())
+
 # left
 
 ## general options
@@ -335,6 +341,7 @@ func _on_matrix_options_switch():
 	open_advanced_options()
 
 ### values changed on geometric options
+#### geometric options
 
 func _on_geometric_options_c_x_changed(value) -> void:
 	var origin = get_origin()
@@ -362,19 +369,43 @@ func _on_geometric_options_rot_changed(value) -> void:
 		contr.rotation = value
 		rect.update_to(contr, origin)
 
-func _on_geometric_options_t_x_changed(value) -> void:
+func change_t_x(value) -> void:
 	var origin = get_origin()
 	for rect in CurrentRects:
 		var contr = rect.get_contraction(origin)
 		contr.translation.x = value
 		rect.update_to(contr, origin)
 
-func _on_geometric_options_t_y_changed(value) -> void:
+func change_t_y(value) -> void:
 	var origin = get_origin()
 	for rect in CurrentRects:
 		var contr = rect.get_contraction(origin)
 		contr.translation.y = value
 		rect.update_to(contr, origin)
+
+func _on_geometric_options_t_x_changed(value) -> void:
+	change_t_x(value)
+
+func _on_geometric_options_t_y_changed(value) -> void:
+	change_t_y(value)
+
+#### matrix options
+
+func _on_matrix_options_matrix_changed(matrix) -> void:
+	var origin = get_origin()
+	for rect in CurrentRects:
+		var original_contr = rect.get_contraction(origin)
+		var matrix_contr = Contraction.from_matrix(matrix)
+		matrix_contr.translation = original_contr.translation
+		matrix_contr.color = original_contr.color
+		rect.update_to(matrix_contr, origin)
+
+func _on_matrix_options_t_x_changed(value) -> void:
+	change_t_x(value)
+
+func _on_matrix_options_t_y_changed(value) -> void:
+	change_t_y(value)
+
 
 ## presets
 

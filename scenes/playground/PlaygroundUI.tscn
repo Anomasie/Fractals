@@ -256,6 +256,7 @@ wait_time = 0.1
 one_shot = true
 
 [connection signal="defocus" from="Playground" to="." method="_on_playground_defocus"]
+[connection signal="edited_position" from="Playground" to="." method="_on_playground_edited_position"]
 [connection signal="focus_this" from="Playground" to="." method="_on_playground_focus_this"]
 [connection signal="fractal_changed_vastly" from="Playground" to="." method="_on_playground_fractal_changed_vastly"]
 [connection signal="start_editing_position" from="Playground" to="." method="_on_playground_start_editing_position"]
@@ -291,6 +292,8 @@ one_shot = true
 [connection signal="t_x_changed" from="GeometricOptions" to="." method="_on_geometric_options_t_x_changed"]
 [connection signal="t_y_changed" from="GeometricOptions" to="." method="_on_geometric_options_t_y_changed"]
 [connection signal="close_me" from="MatrixOptions" to="." method="_on_matrix_options_close_me"]
+[connection signal="matrix_changed" from="MatrixOptions" to="." method="_on_matrix_options_matrix_changed"]
 [connection signal="switch" from="MatrixOptions" to="." method="_on_matrix_options_switch"]
-[connection signal="value_changed" from="MatrixOptions" to="." method="_on_matrix_options_value_changed"]
+[connection signal="t_x_changed" from="MatrixOptions" to="." method="_on_matrix_options_t_x_changed"]
+[connection signal="t_y_changed" from="MatrixOptions" to="." method="_on_matrix_options_t_y_changed"]
 [connection signal="timeout" from="PresetTimer" to="." method="_on_preset_timer_timeout"]
