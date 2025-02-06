@@ -356,7 +356,6 @@ texture_hover = SubResource("AtlasTexture_vtn1a")
 texture_disabled = SubResource("AtlasTexture_alwfn")
 
 [node name="CenterAllButton" type="TextureButton" parent="Content/EditButtons"]
-visible = false
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_me1gf")
 texture_pressed = SubResource("AtlasTexture_s34mc")

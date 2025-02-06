@@ -172,7 +172,7 @@ func _on_playground_ui_break_all() -> void:
 	self.load_ifs(current_ifs.break_ifs())
 
 func _on_playground_ui_center_all() -> void:
-	self.load_ifs(ResultUI.get_center_contraction().apply_on_translations(get_ifs()) )
+	self.load_ifs(ResultUI.current_stretch_inverse.apply_to_preserve_image(get_ifs()) )
 
 ## ifs loading
 
@@ -358,12 +358,6 @@ func reload_language():
 
 func _on_debug_button_pressed():
 	print("on debug button pressed!")
-	var random_point = point.new()
-	print("point: ", random_point.position)
-	print(
-		"-> ",
-		ResultUI.current_center_mapping.apply(ResultUI.current_center_inverse.apply(random_point.position))
-	)
 
 func _on_debug_edit_text_submitted(new_text):
 	print("text on debug edit submitted!")

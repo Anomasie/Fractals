@@ -66,13 +66,19 @@ func set_disabled(nothing_focused=false, ifs_size=1) -> void:
 	if not Content.visible:
 		OpenButton.disabled = (ifs_size==0)
 	for button in [
-		DuplicateButton, YMirrorButton, XMirrorButton,
+		DuplicateButton,
+		Rotate45Button,
+		YMirrorButton, XMirrorButton,
 		BreakButton,
-		GeomOptButton,
-		MatrixOptButton
-		]:
+		XCenterButton, YCenterButton,
+		GeomOptButton, MatrixOptButton,
+	]:
 		button.disabled = nothing_focused
-	BreakAllButton.disabled = ifs_size > 10 or ifs_size == 0
+	for button in [
+		BreakAllButton,
+		CenterAllButton
+	]:
+		button.disabled = (ifs_size > 10 or ifs_size == 0)
 
 func close():
 	OpenButton.button_pressed = false

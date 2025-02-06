@@ -40,9 +40,9 @@ func apply(p):
 			systems.append(self.apply(system))
 		return systems
 
-func apply_on_translations(ifs):
+func apply_to_preserve_image(ifs):
 	for i in len(ifs.systems):
-		ifs.systems[i].translation = self.apply(ifs.systems[i].translation)
+		ifs.systems[i].translation = self.apply(ifs.systems[i].translation) - self.translation
 	return ifs
 
 func mix(c):
