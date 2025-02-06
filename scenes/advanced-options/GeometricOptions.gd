@@ -119,21 +119,6 @@ func load_ui(contractions):
 	else:
 		load_ui_of_list(contractions)
 
-func read_ui():
-	var contraction = Contraction.new()
-	# contraction
-	contraction.contract = Vector2(float(ContractX.placeholder_text), float(ContractY.placeholder_text))
-	# rotation
-	contraction.rotation = 2 * PI - float(Rotation.placeholder_text) / 360 * 2 * PI
-	# translation
-	## godot translation: anchor top-left
-	## user-friendly translation: anchor bottom-left
-	contraction.translation = Vector2(float(TranslationX.placeholder_text), float(TranslationY.placeholder_text))
-	# mirroring
-	contraction.mirrored = Mirror.flip_h
-	# color will be added by PlaygroundUI
-	return contraction
-
 func _on_close_button_pressed():
 	close_me.emit()
 

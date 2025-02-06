@@ -188,7 +188,7 @@ func _on_remove_button_pressed():
 
 func _on_color_button_pressed():
 	# hide all other options
-	_on_advanced_options_close_me()
+	close_advanced_options()
 	# open color options
 	colorsliders_open = not colorsliders_open
 	if colorsliders_open:
@@ -290,14 +290,14 @@ func _on_other_options_opened() -> void:
 
 func _on_other_options_open_geometric_options() -> void:
 	if GeomOptions.visible:
-		_on_advanced_options_close_me()
+		close_advanced_options()
 	else:
 		matrix_options = false
 		open_advanced_options()
 
 func _on_other_options_open_matrix_options() -> void:
 	if MatrixOptions.visible:
-		_on_advanced_options_close_me()
+		close_advanced_options()
 	else:
 		matrix_options = true
 		open_advanced_options()
@@ -305,12 +305,12 @@ func _on_other_options_open_matrix_options() -> void:
 func _on_other_options_open_txt_options() -> void:
 	# close all other options
 	_on_color_sliders_finished()
-	_on_advanced_options_close_me()
+	close_advanced_options()
 	# open txt options
 	open_txt_options.emit()
 	OtherOptions.close()
 
-func _on_advanced_options_close_me():
+func close_advanced_options():
 	geomoptions_open = false
 	GeomOptions.hide()
 	matrixoptions_open = false
@@ -318,32 +318,17 @@ func _on_advanced_options_close_me():
 	MatrixOptions.hide()
 	PresetsButton.show()
 
-## changed values
-
-func _on_advanced_options_value_changed():
-	# editing the rect using the rect-ui will update advanced-uptions-ui
-	# however, this change should not be driven back to rect-ui
-	# which would provide no further information but make the animation chunky
-	if not CurrentRects[0].editing_position and not CurrentRects[0].editing_width and not CurrentRects[0].editing_height and not CurrentRects[0].editing_turn:
-		var new_contraction
-		if matrix_options:
-			new_contraction = MatrixOptions.read_ui()
-		else:
-			new_contraction = GeomOptions.read_ui()
-		new_contraction.color = CurrentRects[0].get_color()
-		CurrentRects[0].update_to(new_contraction, get_origin())
-	
-		fractal_changed_vastly.emit()
-
-func _on_advanced_options_switch():
-	matrix_options = true
-	open_advanced_options()
+func _on_geometric_options_close_me():
+	close_advanced_options()
 
 func _on_matrix_options_close_me():
-	_on_advanced_options_close_me()
+	close_advanced_options()
 
-func _on_matrix_options_value_changed():
-	_on_advanced_options_value_changed()
+## changed values
+
+func _on_geometric_options_switch() -> void:
+	matrix_options = true
+	open_advanced_options()
 
 func _on_matrix_options_switch():
 	matrix_options = false
