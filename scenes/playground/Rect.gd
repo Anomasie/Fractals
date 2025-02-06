@@ -79,6 +79,142 @@ func _input(event):
 			for button in [WidthButtonR, WidthButtonL, HeightButtonD, DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU, TurnButton]:
 				button.disabled = false
 
+# "important" functions
+
+func mirror():
+	Maske.flip_h = not Maske.flip_h
+
+func resize_rect(width, height, current_anchor=Vector2i(1,1)):
+	var old_size = self.size
+	# prevent rect from being negative sized
+	# or too big (i.e. not a contraction)
+	width = max(min(width, Global.LOUPE.x-1), 0)
+	height = max(min(height, Global.LOUPE.y-1), 0)
+	# change size
+	Rect.custom_minimum_size.x = width
+	self.size.x = width
+	Rect.custom_minimum_size.y = height
+	self.size.y = height
+	# change position
+	if current_anchor.x < 0:
+		self.position -= Vector2((self.size - old_size).x, 0).rotated(self.rotation)
+	if current_anchor.y < 0:
+		self.position -= Vector2(0, (self.size - old_size).y).rotated(self.rotation)
+
+func turn_rect(turn, new_origin = false):
+	if new_origin:
+		rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
+	
+	self.rotation = turn
+	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
+	self.set_global_position(rect_origin - current_rect_origin)
+
+## colors
+
+func color_rect(color):
+	Rect.self_modulate = color
+	if color.get_luminance() < 0.5:
+		Maske.self_modulate = Color.WHITE
+	else:
+		Maske.self_modulate = Color.BLACK
+
+# get functions
+
+func get_color():
+	return Rect.self_modulate
+
+func get_contraction(origin, loupe = Global.LOUPE):
+	var contraction = Contraction.new()
+	
+	var translation = Vector2.ZERO
+	if (TextureContainer.position + Rect.position).length() == 0:
+		translation = Vector2(
+			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / loupe.x,
+			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / loupe.y
+		)
+	else:
+		translation = Vector2(
+			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / loupe.x,
+			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / loupe.y
+		)
+	
+	# contract
+	contraction.contract = Vector2(
+		self.Rect.size.x / loupe.x,
+		self.Rect.size.y / loupe.y
+	)
+	
+	# rotation
+	contraction.rotation = self.rotation
+	
+	# mirror
+	contraction.mirrored = Maske.flip_h
+	
+	# current translation: position of top-left-edge
+	## wanted translation: position of bottom-left-edge
+	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
+	contraction.translation.y *= -1
+	# if mirrored: change anchor to bottom-right point
+	if contraction.mirrored:
+		contraction.translation += Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
+	
+	# color
+	contraction.color = self.Rect.self_modulate
+	return contraction
+
+func get_region():
+	var rect = Rect2(
+		DiagButtonLD.get_global_position(),
+		Vector2.ZERO)
+	for button in [DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU]:
+		rect.expand(button.get_global_position())
+	return rect
+
+# set functions
+
+func set_focus(enabled=true):
+	for child in Content.get_children():
+		if child != TextureContainer:
+			child.visible = enabled
+	TurnButton.visible = enabled
+
+func update_to(contr, origin):
+	var translation = Vector2.ZERO
+	if contr.mirrored:
+		translation = contr.apply(Vector2(1,0))
+	else:
+		translation = contr.translation
+	# translation
+	var scaled_position = Vector2(
+		translation.x * Global.LOUPE.x,
+		-translation.y * Global.LOUPE.y
+	)
+	var real_position
+	# not loaded
+	if (TextureContainer.position + Rect.position).length() == 0:
+		real_position = scaled_position + origin - (Vector2(8,8) + Vector2(0,32)).rotated(contr.rotation)
+	# positions loaded
+	else:
+		real_position = scaled_position + origin - (TextureContainer.position + Rect.position).rotated(contr.rotation)
+	# contraction
+	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
+	# rotation
+	self.rotation = contr.rotation
+	# current position: just scaled
+	## origin: bottom-left-edge
+	## but we want the origin to be the top-left-edge
+	self.set_global_position(real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation))
+	# mirror
+	Maske.flip_h = contr.mirrored
+	#if contr.mirrored:
+		#self.position -= Vector2(size.x, 0).rotated(self.rotation)
+	# color
+	color_rect(contr.color)
+	
+	#changed.emit()
+
+# signals
+
 func _on_move_button_pressed():
 	editing_position = true
 	rect_origin = get_viewport().get_mouse_position() - self.get_global_position()
@@ -163,134 +299,6 @@ func _on_mirror_button_pressed():
 	changed.emit()
 	changed_vastly.emit()
 	focus_me.emit()
-
-# "important" functions
-
-func mirror():
-	Maske.flip_h = not Maske.flip_h
-
-func resize_rect(width, height, current_anchor=Vector2i(1,1)):
-	var old_size = self.size
-	# prevent rect from being negative sized
-	# or too big (i.e. not a contraction)
-	width = max(min(width, Global.LOUPE.x-1), 0)
-	height = max(min(height, Global.LOUPE.y-1), 0)
-	# change size
-	Rect.custom_minimum_size.x = width
-	self.size.x = width
-	Rect.custom_minimum_size.y = height
-	self.size.y = height
-	# change position
-	if current_anchor.x < 0:
-		self.position -= Vector2((self.size - old_size).x, 0).rotated(self.rotation)
-	if current_anchor.y < 0:
-		self.position -= Vector2(0, (self.size - old_size).y).rotated(self.rotation)
-
-func turn_rect(turn, new_origin = false):
-	if new_origin:
-		rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
-	
-	self.rotation = turn
-	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
-	self.set_global_position(rect_origin - current_rect_origin)
-
-## focus
-
-func set_focus(enabled):
-	for child in Content.get_children():
-		if child != TextureContainer:
-			child.visible = enabled
-	TurnButton.visible = enabled
-
-## colors
-
-func get_color():
-	return Rect.self_modulate
-
-func color_rect(color):
-	Rect.self_modulate = color
-	if color.get_luminance() < 0.5:
-		Maske.self_modulate = Color.WHITE
-	else:
-		Maske.self_modulate = Color.BLACK
-
-# load contraction
-
-func get_contraction(origin, loupe = Global.LOUPE):
-	var contraction = Contraction.new()
-	
-	var translation = Vector2.ZERO
-	if (TextureContainer.position + Rect.position).length() == 0:
-		translation = Vector2(
-			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / loupe.x,
-			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / loupe.y
-		)
-	else:
-		translation = Vector2(
-			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / loupe.x,
-			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / loupe.y
-		)
-	
-	# contract
-	contraction.contract = Vector2(
-		self.Rect.size.x / loupe.x,
-		self.Rect.size.y / loupe.y
-	)
-	
-	# rotation
-	contraction.rotation = self.rotation
-	
-	# mirror
-	contraction.mirrored = Maske.flip_h
-	
-	# current translation: position of top-left-edge
-	## wanted translation: position of bottom-left-edge
-	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
-	contraction.translation.y *= -1
-	# if mirrored: change anchor to bottom-right point
-	if contraction.mirrored:
-		contraction.translation += Vector2(contraction.contract.x, 0).rotated(-contraction.rotation)
-	
-	# color
-	contraction.color = self.Rect.self_modulate
-	return contraction
-
-# advanced options
-
-func update_to(contr, origin):
-	var translation = Vector2.ZERO
-	if contr.mirrored:
-		translation = contr.apply(Vector2(1,0))
-	else:
-		translation = contr.translation
-	# translation
-	var scaled_position = Vector2(
-		translation.x * Global.LOUPE.x,
-		-translation.y * Global.LOUPE.y
-	)
-	var real_position
-	# not loaded
-	if (TextureContainer.position + Rect.position).length() == 0:
-		real_position = scaled_position + origin - (Vector2(8,8) + Vector2(0,32)).rotated(contr.rotation)
-	# positions loaded
-	else:
-		real_position = scaled_position + origin - (TextureContainer.position + Rect.position).rotated(contr.rotation)
-	# contraction
-	resize_rect(contr.contract.x * Global.LOUPE.x, contr.contract.y * Global.LOUPE.y)
-	# rotation
-	self.rotation = contr.rotation
-	# current position: just scaled
-	## origin: bottom-left-edge
-	## but we want the origin to be the top-left-edge
-	self.set_global_position(real_position + Vector2(0, -Rect.custom_minimum_size.y).rotated(self.rotation))
-	# mirror
-	Maske.flip_h = contr.mirrored
-	#if contr.mirrored:
-		#self.position -= Vector2(size.x, 0).rotated(self.rotation)
-	# color
-	color_rect(contr.color)
-	
-	#changed.emit()
 
 # language & translation
 

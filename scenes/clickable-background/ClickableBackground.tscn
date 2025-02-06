@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba6kmtj7auhqs"]
+
+[ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_8hvv0"]
+[ext_resource type="Script" path="res://scenes/clickable-background/ClickableBackground.gd" id="1_nx1lu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yh55"]
+atlas = ExtResource("1_8hvv0")
+region = Rect2(0, 16, 4, 4)
+
+[node name="ClickableBackground" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nx1lu")
+
+[node name="Marker" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 109.0
+texture = SubResource("AtlasTexture_3yh55")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]

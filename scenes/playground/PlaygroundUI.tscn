@@ -114,6 +114,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("1_ioibl")
 
 [node name="Playground" parent="." instance=ExtResource("4_xpdbu")]
@@ -217,9 +218,11 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="Main" type="HBoxContainer" parent="Right/Bottom"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 32
 
 [node name="PresetsButton" type="Button" parent="Right/Bottom/Main"]
@@ -241,15 +244,19 @@ size_flags_vertical = 8
 [node name="GeometricOptions" parent="." instance=ExtResource("4_yd3uv")]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MatrixOptions" parent="." instance=ExtResource("5_nxfo1")]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 
 [node name="PresetTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
+[connection signal="defocus" from="Playground" to="." method="_on_playground_defocus"]
+[connection signal="focus_this" from="Playground" to="." method="_on_playground_focus_this"]
 [connection signal="fractal_changed_vastly" from="Playground" to="." method="_on_playground_fractal_changed_vastly"]
 [connection signal="pressed" from="Left/Main/AddButton" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Left/Main/ColorButton" to="." method="_on_color_button_pressed"]

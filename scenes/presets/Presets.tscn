@@ -53,6 +53,7 @@ offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -61,6 +62,7 @@ script = ExtResource("1_k08fq")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Background" type="NinePatchRect" parent="Margin"]
 layout_mode = 2
@@ -72,6 +74,7 @@ patch_margin_bottom = 2
 
 [node name="Content" type="MarginContainer" parent="Margin"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Sep" type="HBoxContainer" parent="Margin/Content"]
 layout_mode = 2
@@ -93,6 +96,7 @@ texture_disabled = SubResource("AtlasTexture_x25pq")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+mouse_filter = 2
 theme_override_constants/margin_top = 0
 
 [node name="Background" type="NinePatchRect" parent="Top"]
@@ -105,6 +109,7 @@ patch_margin_bottom = 2
 
 [node name="Content" type="MarginContainer" parent="Top"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="PresetLabel" type="Label" parent="Top/Content"]
 layout_mode = 2

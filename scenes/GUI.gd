@@ -4,7 +4,7 @@ extends Control
 @onready var PlaygroundUI = $Lines/Content/Editor/PlaygroundUI
 @onready var ResultUI = $Lines/Content/ResultUI
 @onready var ResizeTimer = $Lines/Content/ResizeTimer
-@onready var Title = $Lines/Title
+@onready var Title = $Lines/MarginContainer/Title
 # share your fractal with the gallery on Global.GALLERY_ADRESS
 @onready var ShareDialogue = $ShareDialogue
 # for messages
@@ -146,10 +146,6 @@ func _on_viewport_resize():
 	# resize everything
 	PlaygroundUI.resize()
 	ResultUI.resize()
-	HelpOptions.custom_minimum_size = Vector2i(
-		max( viewport_size.x/3*2, ShareDialogue.Margin.size.x),
-		max( viewport_size.y/3*2, ShareDialogue.Margin.size.y)
-	)
 	# prevent resizing-bugs
 	ResizeTimer.start()
 
@@ -160,6 +156,11 @@ func _on_resize_timer_timeout():
 
 func get_ifs():
 	return ResultUI.get_ifs(PlaygroundUI.get_ifs())
+
+# clickable background
+
+func _on_clickable_background_marked_this(rect) -> void:
+	PlaygroundUI.focus_region(rect)
 
 # playground UI
 

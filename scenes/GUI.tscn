@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://uat15tg6ijgh"]
+[gd_scene load_steps=27 format=3 uid="uid://uat15tg6ijgh"]
 
 [ext_resource type="Script" path="res://scenes/GUI.gd" id="1_fcrs7"]
 [ext_resource type="PackedScene" uid="uid://q88x6y11n1jm" path="res://scenes/playground/PlaygroundUI.tscn" id="1_kg3c1"]
+[ext_resource type="PackedScene" uid="uid://ba6kmtj7auhqs" path="res://scenes/clickable-background/ClickableBackground.tscn" id="2_uiiim"]
 [ext_resource type="PackedScene" uid="uid://bcoioblesr22e" path="res://scenes/results/ResultUI.tscn" id="2_wgaj6"]
 [ext_resource type="PackedScene" uid="uid://biuetoakcmrk0" path="res://scenes/advanced-options/TxtOptions.tscn" id="4_bq5pq"]
 [ext_resource type="PackedScene" uid="uid://dyags246afmgm" path="res://scenes/results/ShareDialogue.tscn" id="4_kymfo"]
@@ -81,15 +82,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 script = ExtResource("1_fcrs7")
 
-[node name="Lines" type="VBoxContainer" parent="."]
+[node name="ClickableBackground" parent="." instance=ExtResource("2_uiiim")]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Lines"]
+[node name="Lines" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Lines"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Lines/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Make your own fractal!"
@@ -98,6 +109,7 @@ horizontal_alignment = 1
 [node name="Content" type="GridContainer" parent="Lines"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
@@ -106,6 +118,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -113,7 +126,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="PlaygroundUI" parent="Lines/Content/Editor" instance=ExtResource("1_kg3c1")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="TxtOptions" parent="Lines/Content/Editor" instance=ExtResource("4_bq5pq")]
 visible = false
@@ -126,15 +138,10 @@ layout_mode = 2
 wait_time = 0.05
 one_shot = true
 
-[node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
 [node name="ShareDialogue" parent="." instance=ExtResource("4_kymfo")]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 
 [node name="UIButtons" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -186,10 +193,14 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "EN"
 
+[node name="HelpOptions" parent="." instance=ExtResource("5_ewkqs")]
+visible = false
+layout_mode = 2
+
 [node name="WarningContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_top = 48
 
 [node name="WarningLabel" type="Label" parent="WarningContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -233,6 +244,7 @@ texture = SubResource("GradientTexture1D_6jlwg")
 [node name="TooltipSubstitute" parent="." instance=ExtResource("8_kl7tn")]
 layout_mode = 2
 
+[connection signal="marked_this" from="ClickableBackground" to="." method="_on_clickable_background_marked_this"]
 [connection signal="break_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_all"]
 [connection signal="break_contraction" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_break_contraction"]
 [connection signal="center_all" from="Lines/Content/Editor/PlaygroundUI" to="." method="_on_playground_ui_center_all"]

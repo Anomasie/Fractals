@@ -37,12 +37,14 @@ var rotatoptions_open = false
 var matrixoptions_open = false
 var colorsliders_open = false
 
+var CurrentRects = []
+
 func _ready():
 	# connect
 	Playground.fractal_changed.connect(_fractal_changed)
 	
 	# hide and show
-	set_focused_rect_options_disabled(true)
+	set_focused_rect_options_disabled(0)
 	OtherOptions.close()
 	ColorSliders.close()
 	GeomOptions.hide()
@@ -80,48 +82,58 @@ func set_ifs(ifs):
 
 # hide and show
 
-func set_focused_rect_options_disabled(disable = true):
-	ColorButton.disabled = disable
-	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
-	OtherOptions.set_disabled(disable, Playground.current_rect_counter)
+func set_focused_rect_options_disabled(length):
+	ColorButton.disabled = (length == 0)
+	RemoveButton.disabled = (length == 0)
+	CloseAllButton.disabled = (Playground.rect_counter == 0)
+	OtherOptions.set_disabled(length == 0, Playground.rect_counter)
 
 # focus
 
-signal focus_ready
-
-var CurrentRect = null
-
-func focus(Rect = CurrentRect):
-	CurrentRect = Rect
+func focus(Rects = CurrentRects):
+	if typeof(Rects) != TYPE_ARRAY:
+		print("ERROR in PlaygroundUI: try to load ", Rects, " (type: ", typeof(Rects), ") as Rects.")
+		return
+	
+	CurrentRects = Rects
 	# if nothing in focus:
 	## close advanced options
-	if typeof(CurrentRect) == TYPE_NIL:
+	set_focused_rect_options_disabled(len(CurrentRects))
+	Playground.focus(CurrentRects)
+	if len(CurrentRects) == 0:
 		# and hide advanced option-button
-		set_focused_rect_options_disabled(true)
 		GeomOptions.hide()
 		MatrixOptions.hide()
 		ColorSliders.hide()
 	# if you are focusing something:
-	else:
+	elif len(CurrentRects) == 1:
 		## update AdvancedOptions
 		if rotatoptions_open:
-			set_focused_rect_options_disabled(false)
 			GeomOptions.show()
 			MatrixOptions.hide()
-			GeomOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+			GeomOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
 		elif matrixoptions_open:
-			set_focused_rect_options_disabled(false)
 			MatrixOptions.show()
 			GeomOptions.hide()
-			MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+			MatrixOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
 		else:
-			set_focused_rect_options_disabled(false)
 			PresetsButton.show()
 		# coloring
 		if colorsliders_open:
 			# load new color
-			ColorSliders.open( Rect.get_color() )
-	focus_ready.emit()
+			ColorSliders.open( CurrentRects[0].get_color() )
+
+func focus_region(rect):
+	focus(Playground.get_rects_in_region(rect))
+
+func _on_playground_defocus() -> void:
+	focus([])
+
+func _on_playground_focus_this(object) -> void:
+	if typeof(object) == TYPE_ARRAY:
+		focus(object)
+	else:
+		focus([object])
 
 # left
 
@@ -139,7 +151,7 @@ func _on_add_pressed():
 
 func _on_close_all_pressed():
 	Playground.close_all()
-	CurrentRect = null
+	CurrentRects = []
 	# buttons
 	CloseAllButton.disabled = true
 	ColorSliders.close()
@@ -154,13 +166,13 @@ func _on_close_all_pressed():
 
 func _on_remove_button_pressed():
 	# hide advanced options
-	set_focused_rect_options_disabled(true) # no focus anymore
+	set_focused_rect_options_disabled(0) # no focus anymore
 	GeomOptions.hide()
 	MatrixOptions.hide()
 	ColorSliders.hide()
 	# close rect
-	await Playground.close(CurrentRect)
-	CloseAllButton.disabled = (Playground.current_rect_counter == 0)
+	await Playground.close(CurrentRects)
+	CloseAllButton.disabled = (Playground.rect_counter == 0)
 	
 	fractal_changed_vastly.emit()
 
@@ -172,12 +184,13 @@ func _on_color_button_pressed():
 	# open color options
 	colorsliders_open = not colorsliders_open
 	if colorsliders_open:
-		ColorSliders.open(CurrentRect.get_color())
+		ColorSliders.open(CurrentRects[0].get_color())
 	else:
 		ColorSliders._on_close_button_pressed()
 
 func _on_color_sliders_color_changed():
-	CurrentRect.color_rect(ColorSliders.get_color())
+	for rect in CurrentRects:
+		rect.color_rect(ColorSliders.get_color())
 	_fractal_changed()
 
 func _on_color_sliders_finished():
@@ -188,18 +201,21 @@ func _on_color_sliders_finished():
 
 ### duplicating
 func _on_other_options_duplicate() -> void:
-	Playground.duplicate_rect(CurrentRect, get_origin())
+	for rect in CurrentRects:
+		Playground.duplicate_rect(rect, get_origin())
 	fractal_changed_vastly.emit()
 
 ### mirroring
 func _on_other_options_mirror_y() -> void:
-	CurrentRect.mirror()
+	for rect in CurrentRects:
+		rect.mirror()
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 func _on_other_options_mirror_x() -> void:
-	CurrentRect.mirror()
-	CurrentRect.turn_rect(CurrentRect.rotation + PI, true)
+	for rect in CurrentRects:
+		rect.mirror()
+		rect.turn_rect(rect.rotation + PI, true)
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
@@ -214,7 +230,8 @@ func _on_other_options_break_all() -> void:
 
 ### rotating
 func _on_other_options_rotate_45() -> void:
-	CurrentRect.turn_rect(CurrentRect.rotation - PI/4, true)
+	for rect in CurrentRects:
+		rect.turn_rect(rect.rotation - PI/4, true)
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
@@ -223,16 +240,18 @@ func _on_other_options_center_all() -> void:
 	center_all.emit()
 
 func _on_other_options_center_x() -> void:
-	var current_contraction = CurrentRect.get_contraction(get_origin())
-	current_contraction.translation.y += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).y
-	CurrentRect.update_to(current_contraction, get_origin())
+	for rect in CurrentRects:
+		var current_contraction = rect.get_contraction(get_origin())
+		current_contraction.translation.y += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).y
+		rect.update_to(current_contraction, get_origin())
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
 func _on_other_options_center_y() -> void:
-	var current_contraction = CurrentRect.get_contraction(get_origin())
-	current_contraction.translation.x += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).x
-	CurrentRect.update_to(current_contraction, get_origin())
+	for rect in CurrentRects:
+		var current_contraction = rect.get_contraction(get_origin())
+		current_contraction.translation.x += 0.5 - current_contraction.apply(Vector2(0.5,0.5)).x
+		rect.update_to(current_contraction, get_origin())
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
@@ -249,11 +268,11 @@ func open_advanced_options():
 	# load data
 	OtherOptions.set_advanced_options_pressed(rotatoptions_open, matrixoptions_open)
 	if rotatoptions_open:
-		GeomOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		GeomOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
 		GeomOptions.show()
 		MatrixOptions.hide()
 	elif matrixoptions_open:
-		MatrixOptions.load_ui(CurrentRect.get_contraction( get_origin() ))
+		MatrixOptions.load_ui(CurrentRects[0].get_contraction( get_origin() ))
 		MatrixOptions.show()
 		GeomOptions.hide()
 	# hide presets, because why not?
@@ -299,14 +318,14 @@ func _on_advanced_options_value_changed():
 	# editing the rect using the rect-ui will update advanced-uptions-ui
 	# however, this change should not be driven back to rect-ui
 	# which would provide no further information but make the animation chunky
-	if not CurrentRect.editing_position and not CurrentRect.editing_width and not CurrentRect.editing_height and not CurrentRect.editing_turn:
+	if not CurrentRects[0].editing_position and not CurrentRects[0].editing_width and not CurrentRects[0].editing_height and not CurrentRects[0].editing_turn:
 		var new_contraction
 		if matrix_options:
 			new_contraction = MatrixOptions.read_ui()
 		else:
 			new_contraction = GeomOptions.read_ui()
-		new_contraction.color = CurrentRect.get_color()
-		CurrentRect.update_to(new_contraction, get_origin())
+		new_contraction.color = CurrentRects[0].get_color()
+		CurrentRects[0].update_to(new_contraction, get_origin())
 	
 		fractal_changed_vastly.emit()
 

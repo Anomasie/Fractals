@@ -3,9 +3,12 @@ extends Node
 signal fractal_changed
 signal fractal_changed_vastly
 
+signal focus_this
+signal defocus
+
 var Rect = load("res://scenes/playground/Rect.tscn")
 
-var current_rect_counter = 0
+var rect_counter = 0
 var counter = 0
 
 var emit_fractal_changed_next_frame = false
@@ -18,12 +21,12 @@ func _process(_delta):
 		emit_fractal_changed_next_frame = false
 
 func _input(event):
-	if current_rect_counter > 0:
+	if rect_counter > 0:
 		if not TxTOptions.visible:
 			if event.is_action_pressed("scroll_up"):
-				focus( self.get_child(0) )
+				focus_only( self.get_child(0) )
 			elif event.is_action_pressed("scroll_down"):
-				focus( self.get_child(0) )
+				focus_only( self.get_child(0) )
 
 func _fractal_changed():
 	emit_fractal_changed_next_frame = true
@@ -47,15 +50,15 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	var contr = Contraction.new()
 	contr.translation = pos
 	contr.contract = Vector2(0.25,0.25)
-	current_rect_counter += 1
+	rect_counter += 1
 	
-	Instance.focus_me.connect(focus.bind(Instance))
+	Instance.focus_me.connect(focus_only.bind(Instance))
 	Instance.changed.connect(_fractal_changed)
 	Instance.changed_vastly.connect(_fractal_changed_vastly)
 	self.add_child(Instance)
 	Instance.update_to(contr, origin)
-	self.focus(Instance)
-	get_parent().focus(Instance)
+	self.focus_only(Instance)
+	focus_this.emit(Instance)
 	
 	if emit_fractal_changed:
 		emit_fractal_changed_next_frame = true
@@ -65,18 +68,22 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 
 func close_all(emit_fractal_changed=true):
 	for child in self.get_children():
-		close(child, emit_fractal_changed)
-	get_parent().focus(null)
+		if child is ResizableRect:
+			close(child, emit_fractal_changed)
+	defocus.emit()
 	
-	current_rect_counter = 0 # just for savety
+	rect_counter = 0 # just for savety
 
 func close(MyRect, emit_fractal_changed=true):
-	MyRect.queue_free()
-	get_parent().focus(null)
-	if emit_fractal_changed:
-		emit_fractal_changed_next_frame = true
-	
-	current_rect_counter -= 1
+	if typeof(MyRect) == TYPE_ARRAY:
+		for child in MyRect:
+			close(child)
+	else:
+		MyRect.queue_free()
+		defocus.emit()
+		if emit_fractal_changed:
+			emit_fractal_changed_next_frame = true
+		rect_counter -= 1
 
 func duplicate_rect(MyRect, origin):
 	# add some child
@@ -84,19 +91,26 @@ func duplicate_rect(MyRect, origin):
 	# update child's values to wanted ones
 	Instance.update_to(MyRect.get_contraction(origin), origin + Vector2(8,8))
 
-func focus(MyRect):
+func focus(MyRects):
+	for child in self.get_children():
+		if child is ResizableRect:
+			child.set_focus( child in MyRects )
+
+func focus_only(MyRect):
 	self.move_child(MyRect, -1)
 	for child in self.get_children():
-		child.set_focus(false)
+		if child is ResizableRect:
+			child.set_focus(false)
 	MyRect.set_focus(true)
-	get_parent().focus(MyRect)
+	focus_this.emit(MyRect)
 
 func get_ifs(origin):
 	var ifs = IFS.new()
 	# get contractions of ifs
 	for child in self.get_children():
-		var contraction = child.get_contraction(origin)
-		ifs.systems.append(contraction)
+		if child is ResizableRect:
+			var contraction = child.get_contraction(origin)
+			ifs.systems.append(contraction)
 	return ifs
 
 func set_ifs(ifs, origin):
@@ -107,8 +121,17 @@ func set_ifs(ifs, origin):
 		var Instance = add(origin, origin, true, false)
 		Instance.update_to( contraction, origin )
 
+func get_rects_in_region(rect):
+	var list = []
+	for child in self.get_children():
+		if child is ResizableRect:
+			if rect.encloses(child.get_region()):
+				list.append(child)
+	return list
+
 # language & translation
 
 func reload_language():
 	for child in self.get_children():
-		child.reload_language()
+		if child is ResizableRect:
+			child.reload_language()

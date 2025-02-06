@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0ur5vf2sgf2s"]
+[gd_scene load_steps=23 format=3 uid="uid://c0ur5vf2sgf2s"]
 
 [ext_resource type="Script" path="res://scenes/playground/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
-[ext_resource type="Texture2D" uid="uid://qsebfi3447th" path="res://assets/blue.png" id="2_gir0y"]
 [ext_resource type="Texture2D" uid="uid://dmlv7l6lwogmw" path="res://assets/maske.png" id="4_u4mid"]
 [ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/rect_buttons.png" id="5_hmmwh"]
 
@@ -106,8 +105,9 @@ theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
 [node name="Outline" type="TextureRect" parent="Content/OutlineContainer"]
+self_modulate = Color(0, 0.72549, 0.72549, 1)
 layout_mode = 2
-texture = ExtResource("2_gir0y")
+texture = ExtResource("2_72flb")
 
 [node name="TextureContainer" type="MarginContainer" parent="Content"]
 layout_mode = 2

@@ -1,3 +1,4 @@
+@tool
 extends MarginContainer
 
 const EXPLANATIONS = {
@@ -270,13 +271,14 @@ func _ready():
 		button.pressed.connect(_on_info_button_pressed.bind(i))
 		# set language
 		if EXPLANATIONS[EXPLANATIONS.keys()[i]].has(Global.language):
-			button.text =EXPLANATIONS[EXPLANATIONS.keys()[i]][Global.language]
+			button.text = EXPLANATIONS[EXPLANATIONS.keys()[i]][Global.language]
 		else:
 			button.text = "???"
 			print("ERROR in HelpOptions, _ready: no name found for button " + button.name)
 		# add button
 		Informations.add_child(button)
 	set_focus()
+	load_text()
 	# tooltips
 	Global.tooltip_nodes.append_array([CloseButton] + Informations.get_children())
 
