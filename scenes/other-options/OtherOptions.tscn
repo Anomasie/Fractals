@@ -228,7 +228,7 @@ script = ExtResource("1_8i7xv")
 open = true
 
 [node name="Front" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
@@ -245,11 +245,13 @@ texture_disabled = SubResource("AtlasTexture_2s803")
 
 [node name="AdvOptions" type="VBoxContainer" parent="Front"]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="GeomOptButton" type="TextureButton" parent="Front/AdvOptions"]
 layout_mode = 2
+size_flags_vertical = 10
 tooltip_text = "switch to geometric view"
 toggle_mode = true
 texture_normal = SubResource("AtlasTexture_qy8cw")

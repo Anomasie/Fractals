@@ -80,6 +80,7 @@ region = Rect2(64, 0, 32, 32)
 [node name="Rect" type="MarginContainer"]
 offset_right = 48.0
 offset_bottom = 80.0
+rotation = 0.951204
 mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0

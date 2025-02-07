@@ -124,39 +124,42 @@ func color_rect(color):
 
 # get functions
 
+func get_corner(upper=true, left=true, origin=Vector2.ZERO) -> Vector2:
+	var offset = Vector2.ZERO
+	if (TextureContainer.position + Rect.position).length() == 0:
+		offset = Vector2(8,8) + Vector2(0,32)
+	else:
+		offset = TextureContainer.position + Rect.position
+	
+	if not upper:
+		offset += Vector2(0, self.Rect.size.y)
+	if not left:
+		offset += Vector2(self.Rect.size.x, 0)
+	
+	return self.get_global_position() - origin + (offset).rotated(self.rotation)
+
 func get_color():
 	return Rect.self_modulate
 
 func get_contraction(origin, loupe = Global.LOUPE):
 	var contraction = Contraction.new()
-	
-	var translation = Vector2.ZERO
-	if (TextureContainer.position + Rect.position).length() == 0:
-		translation = Vector2(
-			(self.get_global_position().x - origin.x + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).x) / loupe.x,
-			(self.get_global_position().y - origin.y + (Vector2(8,8) + Vector2(0,32)).rotated(self.rotation).y) / loupe.y
-		)
-	else:
-		translation = Vector2(
-			(self.get_global_position().x - origin.x + (TextureContainer.position + Rect.position).rotated(self.rotation).x) / loupe.x,
-			(self.get_global_position().y - origin.y + (TextureContainer.position + Rect.position).rotated(self.rotation).y) / loupe.y
-		)
+	var translation = get_corner(false, true, origin)
+	translation.x /= loupe.x
+	translation.y /= loupe.y
 	
 	# contract
 	contraction.contract = Vector2(
 		self.Rect.size.x / loupe.x,
 		self.Rect.size.y / loupe.y
 	)
-	
 	# rotation
 	contraction.rotation = self.rotation
-	
 	# mirror
 	contraction.mirrored = Maske.flip_h
 	
 	# current translation: position of top-left-edge
 	## wanted translation: position of bottom-left-edge
-	contraction.translation = translation + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
+	contraction.translation = translation# + Vector2(0, contraction.contract.y).rotated(contraction.rotation)
 	contraction.translation.y *= -1
 	# if mirrored: change anchor to bottom-right point
 	if contraction.mirrored:
@@ -166,13 +169,16 @@ func get_contraction(origin, loupe = Global.LOUPE):
 	contraction.color = self.Rect.self_modulate
 	return contraction
 
-func get_region():
-	var rect = Rect2(
-		DiagButtonLD.get_global_position(),
-		Vector2.ZERO)
-	for button in [DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU]:
-		rect.expand(button.get_global_position())
-	return rect
+func get_region() -> Rect2:
+	return Rect2(
+		get_corner(true, true),
+		Vector2.ZERO).expand(
+			get_corner(true, false)
+		).expand(
+			get_corner(false, true)
+		).expand(
+			get_corner(false, false)
+	)
 
 # set functions
 

@@ -349,6 +349,7 @@ func _on_geometric_options_c_x_changed(value) -> void:
 		var contr = rect.get_contraction(origin)
 		contr.contract.x = value
 		rect.update_to(contr, origin)
+	fractal_changed_vastly.emit()
 
 func _on_geometric_options_c_y_changed(value) -> void:
 	var origin = get_origin()
@@ -356,11 +357,13 @@ func _on_geometric_options_c_y_changed(value) -> void:
 		var contr = rect.get_contraction(origin)
 		contr.contract.y = value
 		rect.update_to(contr, origin)
+	fractal_changed_vastly.emit()
 
 func _on_geometric_options_mirror_changed() -> void:
 	var origin = get_origin()
 	for rect in CurrentRects:
 		rect.mirror()
+	fractal_changed_vastly.emit()
 
 func _on_geometric_options_rot_changed(value) -> void:
 	var origin = get_origin()
@@ -368,6 +371,7 @@ func _on_geometric_options_rot_changed(value) -> void:
 		var contr = rect.get_contraction(origin)
 		contr.rotation = value
 		rect.update_to(contr, origin)
+	fractal_changed_vastly.emit()
 
 func change_t_x(value) -> void:
 	var origin = get_origin()
@@ -375,6 +379,7 @@ func change_t_x(value) -> void:
 		var contr = rect.get_contraction(origin)
 		contr.translation.x = value
 		rect.update_to(contr, origin)
+	fractal_changed_vastly.emit()
 
 func change_t_y(value) -> void:
 	var origin = get_origin()
@@ -382,6 +387,7 @@ func change_t_y(value) -> void:
 		var contr = rect.get_contraction(origin)
 		contr.translation.y = value
 		rect.update_to(contr, origin)
+	fractal_changed_vastly.emit()
 
 func _on_geometric_options_t_x_changed(value) -> void:
 	change_t_x(value)
@@ -399,6 +405,7 @@ func _on_matrix_options_matrix_changed(matrix) -> void:
 		matrix_contr.translation = original_contr.translation
 		matrix_contr.color = original_contr.color
 		rect.update_to(matrix_contr, origin)
+	fractal_changed_vastly.emit()
 
 func _on_matrix_options_t_x_changed(value) -> void:
 	change_t_x(value)

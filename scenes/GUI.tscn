@@ -227,6 +227,11 @@ size_flags_vertical = 8
 text = "Debug-Button
 "
 
+[node name="DebugLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
 [node name="DebugLineEdit" type="LineEdit" parent="."]
 visible = false
 layout_mode = 2
