@@ -215,8 +215,7 @@ func _on_result_ui_fractal_changed_vastly() -> void:
 	store_to_url()
 
 func _on_txt_options_changed(new_ifs):
-	load_ifs(new_ifs, true)
-	swap_debug_texture()
+	load_ifs(new_ifs, true, true)
 
 # "warning" messages
 

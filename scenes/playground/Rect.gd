@@ -8,7 +8,8 @@ var mouse_in = false
 # editing
 
 signal focus_me
-signal defocus_others
+@warning_ignore("unused_signal")
+signal defocus_others # is connected by others
 signal changed
 signal changed_vastly
 

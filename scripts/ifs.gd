@@ -161,6 +161,9 @@ func to_meta_data():
 		string += contraction.color.to_html(false)
 	return string
 
+static func from_link(link):
+	return IFS.from_meta_data(link.get_slice("#", 1))
+
 static func from_meta_data(meta_data):
 	if meta_data:
 		# get version

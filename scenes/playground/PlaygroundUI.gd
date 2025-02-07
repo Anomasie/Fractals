@@ -360,7 +360,6 @@ func _on_geometric_options_c_y_changed(value) -> void:
 	fractal_changed_vastly.emit()
 
 func _on_geometric_options_mirror_changed() -> void:
-	var origin = get_origin()
 	for rect in CurrentRects:
 		rect.mirror()
 	fractal_changed_vastly.emit()

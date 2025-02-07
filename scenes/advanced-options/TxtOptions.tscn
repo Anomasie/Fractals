@@ -79,6 +79,7 @@ patch_margin_bottom = 2
 
 [node name="Content" type="MarginContainer" parent="Main"]
 layout_mode = 2
+theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/Content"]
 layout_mode = 2
@@ -121,12 +122,21 @@ texture_normal = SubResource("AtlasTexture_5jh44")
 texture_pressed = SubResource("AtlasTexture_plfr8")
 texture_hover = SubResource("AtlasTexture_x88r6")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 0
 
-[node name="DownloadButton" type="TextureButton" parent="HBoxContainer"]
+[node name="Sep" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="DownloadButton" type="TextureButton" parent="Margin/Sep"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -135,7 +145,7 @@ texture_normal = SubResource("AtlasTexture_ishvf")
 texture_pressed = SubResource("AtlasTexture_q732p")
 texture_hover = SubResource("AtlasTexture_np1ex")
 
-[node name="UploadButton" type="TextureButton" parent="HBoxContainer"]
+[node name="UploadButton" type="TextureButton" parent="Margin/Sep"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -143,6 +153,11 @@ tooltip_text = "reset and close"
 texture_normal = SubResource("AtlasTexture_ht3vv")
 texture_pressed = SubResource("AtlasTexture_lsu3u")
 texture_hover = SubResource("AtlasTexture_3ovtd")
+
+[node name="LinkEdit" type="LineEdit" parent="Margin/Sep"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "enter link here"
 
 [node name="MyFileDialog" parent="." instance=ExtResource("8_gbooe")]
 title = "Open a File"
@@ -155,6 +170,7 @@ file_mode = 0
 [connection signal="changed" from="Main/Content/VBoxContainer/Content/Scroller/AllMatrixOptions" to="." method="_on_all_matrix_options_changed"]
 [connection signal="pressed" from="Main/Content/VBoxContainer/SwitchButton" to="." method="_on_switch_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/DownloadButton" to="." method="_on_download_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/UploadButton" to="." method="_on_upload_button_pressed"]
+[connection signal="pressed" from="Margin/Sep/DownloadButton" to="." method="_on_download_button_pressed"]
+[connection signal="pressed" from="Margin/Sep/UploadButton" to="." method="_on_upload_button_pressed"]
+[connection signal="text_submitted" from="Margin/Sep/LinkEdit" to="." method="_on_link_edit_text_submitted"]
 [connection signal="path_selected" from="MyFileDialog" to="." method="_on_my_file_dialog_path_selected"]

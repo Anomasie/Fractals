@@ -11,8 +11,9 @@ signal changed
 
 @onready var CloseButton = $CloseButton
 
-@onready var UploadButton = $HBoxContainer/UploadButton
-@onready var DownloadButton = $HBoxContainer/DownloadButton
+@onready var UploadButton = $Margin/Sep/UploadButton
+@onready var DownloadButton = $Margin/Sep/DownloadButton
+@onready var LinkEdit = $Margin/Sep/LinkEdit
 
 @export var WebFileDialogScene : PackedScene
 @onready var WebFileDialog : Node
@@ -109,6 +110,18 @@ func _on_my_file_dialog_path_selected(path):
 func _on_web_file_dialog_open_file(content):
 	JsonEdit.set_text(content)
 	_on_json_edit_text_changed()
+
+# link
+
+func _on_link_edit_text_submitted(new_text: String) -> void:
+	# try load from link
+	var ifs = IFS.from_link(new_text)
+	if ifs is IFS:
+		changed.emit(ifs)
+		open(ifs)
+	# release
+	LinkEdit.text = ""
+	LinkEdit.release_focus()
 
 # switch views
 

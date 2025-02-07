@@ -433,6 +433,8 @@ func load_color(color):
 	current_ifs.background_color = color
 	if ColorSliders.visible:
 		ColorSliders.open(color)
+	else:
+		ColorSliders.set_color(color)
 
 func _on_color_button_pressed():
 	if ColorSliders.visible:
