@@ -1,5 +1,7 @@
 class_name Math
 
+#const VECTOR_EPSILON = 0.00001
+
 static func matrix_mult(A, B):
 	return [
 		A[0]*B[0] + A[1]*B[2],

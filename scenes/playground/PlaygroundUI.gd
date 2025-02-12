@@ -143,6 +143,10 @@ func _on_playground_start_editing_position() -> void:
 	for rect in CurrentRects:
 		rect.set_editing_position()
 
+func _on_playground_start_editing_rotation(origin, origin_rotation) -> void:
+	for rect in CurrentRects:
+		rect.set_editing_rotation(origin, origin_rotation)
+
 func _on_playground_edited_position() -> void:
 	if geomoptions_open:
 		GeomOptions.load_ui(get_current_contractions())
@@ -229,7 +233,7 @@ func _on_other_options_mirror_y() -> void:
 func _on_other_options_mirror_x() -> void:
 	for rect in CurrentRects:
 		rect.mirror()
-		rect.turn_rect(rect.rotation + PI, true)
+		rect.rotate_rect(rect.rotation + PI, true)
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 
@@ -245,7 +249,7 @@ func _on_other_options_break_all() -> void:
 ### rotating
 func _on_other_options_rotate_45() -> void:
 	for rect in CurrentRects:
-		rect.turn_rect(rect.rotation - PI/4, true)
+		rect.rotate_rect(rect.rotation - PI/4, true)
 	fractal_changed.emit()
 	fractal_changed_vastly.emit()
 

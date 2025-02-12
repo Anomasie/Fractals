@@ -14,6 +14,7 @@ signal changed
 signal changed_vastly
 
 signal start_editing_position
+signal start_editing_rotation
 
 # buttons
 @onready var MoveButton = $Content/TextureContainer/MoveButton
@@ -36,12 +37,14 @@ signal start_editing_position
 var editing_position = false
 var editing_width = false
 var editing_height = false
-var editing_turn = false
+var editing_rotation = false
 
 var edited_position = false
 
 var anchor = Vector2i(1,1)
 var rect_origin
+var center_origin
+var rotation_offset = 0
 
 var disabled = 0
 
@@ -58,29 +61,29 @@ func _ready():
 
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
-		if editing_position or editing_turn or editing_width or editing_height:
-			if not editing_position:
+		if editing_position or editing_rotation or editing_width or editing_height:
+			if not editing_position and not editing_rotation:
 				focus_me.emit()
 			changed.emit()
 		if editing_position:
 			edited_position = true
 			self.set_global_position(event.position - rect_origin)
-		elif editing_turn:
-			turn_rect((event.position - rect_origin).angle() + PI / 2)
+		elif editing_rotation:
+			rotate_rect((event.position - center_origin).angle() + PI / 2 + rotation_offset)
 		else:
 			if editing_width:
 				resize_rect((event.position - rect_origin).dot( (anchor.x * Vector2(1, 0)).rotated(self.rotation) ), Rect.custom_minimum_size.y, anchor)
 			if editing_height:
 				resize_rect(Rect.custom_minimum_size.x, (event.position - rect_origin).dot( (anchor.y * Vector2(0, 1) ).rotated(self.rotation) ), anchor)
 	if self.visible and event is InputEventMouseButton and not event.pressed:
-		if editing_position or editing_width or editing_height or editing_turn:
+		if editing_position or editing_width or editing_height or editing_rotation:
 			if not editing_position or editing_position and edited_position:
 				changed_vastly.emit()
 			editing_position = false
 			edited_position = false
 			editing_width = false
 			editing_height = false
-			editing_turn = false
+			editing_rotation = false
 			for button in [WidthButtonR, WidthButtonL, HeightButtonD, DiagButtonLD, DiagButtonLU, DiagButtonRD, DiagButtonRU, TurnButton]:
 				button.disabled = false
 
@@ -106,10 +109,13 @@ func resize_rect(width, height, current_anchor=Vector2i(1,1)):
 	if current_anchor.y < 0:
 		self.position -= Vector2(0, (self.size - old_size).y).rotated(self.rotation)
 
-func turn_rect(turn, new_origin = false):
+func rotate_rect(turn, new_origin = false):
 	if new_origin or not rect_origin:
-		rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
-	
+		if new_origin is Vector2:
+			rect_origin = new_origin
+		else:
+			rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
+	# rotate!
 	self.rotation = turn
 	var current_rect_origin = (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 	self.set_global_position(rect_origin - current_rect_origin)
@@ -124,6 +130,9 @@ func color_rect(color):
 		Maske.self_modulate = Color.BLACK
 
 # get functions
+
+func get_center() -> Vector2:
+	return self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
 
 func get_corner(upper=true, left=true, origin=Vector2.ZERO) -> Vector2:
 	var offset = Vector2.ZERO
@@ -313,10 +322,16 @@ func _on_diag_button_lu_pressed():
 # turning
 
 func _on_turn_button_pressed():
-	editing_turn = true
-	TurnButton.disabled = true
-	rect_origin = self.get_global_position() + (TextureContainer.position + TextureContainer.size/2).rotated(self.rotation)
-	focus_me.emit()
+	start_editing_rotation.emit(get_center(), self.rotation)
+
+func set_editing_rotation(origin, origin_rotation, value=true):
+	editing_rotation = value
+	TurnButton.disabled = value
+	if value:
+		rect_origin = get_center()
+		center_origin = origin
+		# get rotation offset (in case that it is not the emitting rectangle:
+		rotation_offset = self.rotation - origin_rotation
 
 func _on_mirror_button_pressed():
 	mirror()
