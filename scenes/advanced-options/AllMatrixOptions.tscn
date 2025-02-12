@@ -43,12 +43,12 @@ region = Rect2(64, 128, 32, 32)
 atlas = ExtResource("1_yyxan")
 region = Rect2(32, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7jbk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hgc0"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vjr1y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_krbei"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 256, 32, 32)
@@ -128,8 +128,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_d7jbk")
-tex_off = SubResource("AtlasTexture_vjr1y")
+tex_on = SubResource("AtlasTexture_5hgc0")
+tex_off = SubResource("AtlasTexture_krbei")
 reverse_textures = true
 
 [node name="CenterButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]

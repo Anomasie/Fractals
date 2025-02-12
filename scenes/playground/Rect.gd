@@ -9,7 +9,7 @@ var mouse_in = false
 
 signal focus_me
 @warning_ignore("unused_signal")
-signal defocus_others # is connected by others
+signal defocus_others # is connected by Playground
 signal changed
 signal changed_vastly
 
@@ -189,6 +189,9 @@ func set_focus(enabled=true):
 			child.visible = enabled
 	TurnButton.visible = enabled
 
+func is_focused() -> bool:
+	return TurnButton.visible
+
 func update_to(contr, origin):
 	var translation = Vector2.ZERO
 	if contr.mirrored:
@@ -226,11 +229,15 @@ func update_to(contr, origin):
 
 # signals
 
-func _on_move_button_pressed():
-	start_editing_position.emit()
+func _on_move_button_button_down():
+	if is_focused():
+		start_editing_position.emit()
+	else:
+		focus_me.emit()
+		set_editing_position()
 
 func _on_move_button_button_up() -> void:
-	if not TurnButton.visible:
+	if has_focus():
 		focus_me.emit()
 
 func set_editing_position():
