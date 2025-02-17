@@ -151,6 +151,12 @@ func _on_playground_resize_focused(width, height, anchor) -> void:
 	for rect in CurrentRects:
 		rect.resize_rect(width, height, anchor)
 
+func _on_playground_mirror_focused():
+	for rect in CurrentRects:
+		rect.mirror()
+	fractal_changed.emit()
+	fractal_changed_vastly.emit()
+
 func _on_playground_edited_position() -> void:
 	if geomoptions_open:
 		GeomOptions.load_ui(get_current_contractions())

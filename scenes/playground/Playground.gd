@@ -9,6 +9,7 @@ signal defocus
 signal start_editing_position
 signal start_editing_rotation
 signal resize_focused
+signal mirror_focused
 
 signal edited_position
 
@@ -71,6 +72,7 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	Instance.start_editing_position.connect(_on_rect_start_editing_position)
 	Instance.start_editing_rotation.connect(_on_rect_start_editing_rotation)
 	Instance.resize_focused.connect(_on_rect_resize_focused)
+	Instance.mirror_focused.connect(_on_rect_mirror_focused)
 	Instance.changed.connect(_fractal_changed)
 	Instance.changed_vastly.connect(_fractal_changed_vastly)
 	self.add_child(Instance)
@@ -134,6 +136,9 @@ func _on_rect_start_editing_rotation(origin, origin_rotation):
 
 func _on_rect_resize_focused(width, height, anchor):
 	resize_focused.emit(width, height, anchor)
+
+func _on_rect_mirror_focused():
+	mirror_focused.emit()
 
 # get & set
 

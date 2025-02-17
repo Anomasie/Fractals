@@ -16,6 +16,7 @@ signal changed_vastly
 signal start_editing_position
 signal start_editing_rotation
 signal resize_focused
+signal mirror_focused
 
 # buttons
 @onready var MoveButton = $Content/TextureContainer/MoveButton
@@ -325,10 +326,7 @@ func set_editing_rotation(origin, origin_rotation, value=true):
 		rotation_offset = self.rotation - origin_rotation
 
 func _on_mirror_button_pressed():
-	mirror()
-	changed.emit()
-	changed_vastly.emit()
-	focus_me.emit()
+	mirror_focused.emit()
 
 # language & translation
 

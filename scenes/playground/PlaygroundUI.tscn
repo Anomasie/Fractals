@@ -259,6 +259,7 @@ one_shot = true
 [connection signal="edited_position" from="Playground" to="." method="_on_playground_edited_position"]
 [connection signal="focus_this" from="Playground" to="." method="_on_playground_focus_this"]
 [connection signal="fractal_changed_vastly" from="Playground" to="." method="_on_playground_fractal_changed_vastly"]
+[connection signal="mirror_focused" from="Playground" to="." method="_on_playground_mirror_focused"]
 [connection signal="resize_focused" from="Playground" to="." method="_on_playground_resize_focused"]
 [connection signal="start_editing_position" from="Playground" to="." method="_on_playground_start_editing_position"]
 [connection signal="start_editing_rotation" from="Playground" to="." method="_on_playground_start_editing_rotation"]
