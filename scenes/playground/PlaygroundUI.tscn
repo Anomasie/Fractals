@@ -255,6 +255,7 @@ mouse_filter = 2
 wait_time = 0.1
 one_shot = true
 
+[connection signal="change_focus_of_this" from="Playground" to="." method="_on_playground_change_focus_of_this"]
 [connection signal="defocus" from="Playground" to="." method="_on_playground_defocus"]
 [connection signal="edited_position" from="Playground" to="." method="_on_playground_edited_position"]
 [connection signal="focus_this" from="Playground" to="." method="_on_playground_focus_this"]

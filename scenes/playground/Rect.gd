@@ -12,6 +12,7 @@ signal focus_me
 signal defocus_others # is connected by Playground
 signal changed
 signal changed_vastly
+signal change_focus
 
 signal start_editing_position
 signal start_editing_rotation
@@ -247,15 +248,19 @@ func update_to(contr, origin):
 # signals
 
 func _on_move_button_button_down():
+	if Input.is_action_pressed("focus"):
+		change_focus.emit()
 	if is_focused():
 		start_editing_position.emit()
 	else:
-		focus_me.emit()
-		set_editing_position()
+		if not Input.is_action_pressed("focus"):
+			focus_me.emit()
+			set_editing_position()
 
 func _on_move_button_button_up() -> void:
 	if has_focus():
-		focus_me.emit()
+		if not Input.is_action_pressed("focus"):
+			focus_me.emit()
 
 func set_editing_position():
 	editing_position = true

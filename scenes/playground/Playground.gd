@@ -4,6 +4,7 @@ signal fractal_changed
 signal fractal_changed_vastly
 
 signal focus_this
+signal change_focus_of_this
 signal defocus
 
 signal start_editing_position
@@ -73,6 +74,8 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	Instance.start_editing_rotation.connect(_on_rect_start_editing_rotation)
 	Instance.resize_focused.connect(_on_rect_resize_focused)
 	Instance.mirror_focused.connect(_on_rect_mirror_focused)
+	Instance.change_focus.connect(_on_rect_change_focus.bind(Instance))
+	
 	Instance.changed.connect(_fractal_changed)
 	Instance.changed_vastly.connect(_fractal_changed_vastly)
 	self.add_child(Instance)
@@ -125,6 +128,9 @@ func focus_only(MyRect):
 			child.set_focus(false)
 	MyRect.set_focus(true)
 	focus_this.emit(MyRect)
+
+func _on_rect_change_focus(node):
+	change_focus_of_this.emit(node)
 
 func _on_rect_start_editing_position():
 	start_editing_position.emit()

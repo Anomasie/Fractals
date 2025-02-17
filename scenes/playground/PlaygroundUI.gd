@@ -139,6 +139,13 @@ func _on_playground_focus_this(object) -> void:
 	else:
 		focus([object])
 
+func _on_playground_change_focus_of_this(rect) -> void:
+	if rect in CurrentRects:
+		CurrentRects.erase(rect)
+	else:
+		CurrentRects.append(rect)
+	focus()
+
 func _on_playground_start_editing_position() -> void:
 	for rect in CurrentRects:
 		rect.set_editing_position()
