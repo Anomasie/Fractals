@@ -163,7 +163,11 @@ func get_rects_in_region(rect):
 	var list = []
 	for child in self.get_children():
 		if child is ResizableRect:
-			if rect.encloses(child.get_region()):
+			var innen = false
+			for corner in child.get_corners():
+				innen = innen or rect.has_point(corner)
+			if innen:
+			#if rect.encloses(child.get_region()):
 				list.append(child)
 	return list
 

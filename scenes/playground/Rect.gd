@@ -148,6 +148,14 @@ func get_corner(upper=true, left=true, origin=Vector2.ZERO) -> Vector2:
 	
 	return self.get_global_position() - origin + (offset).rotated(self.rotation)
 
+func get_corners() -> Array:
+	return [
+		get_corner(true, true),
+		get_corner(true, false),
+		get_corner(false, true),
+		get_corner(false, false)
+	]
+
 func get_color():
 	return Rect.self_modulate
 
