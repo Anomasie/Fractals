@@ -15,6 +15,7 @@ signal changed_vastly
 
 signal start_editing_position
 signal start_editing_rotation
+signal resize_focused
 
 # buttons
 @onready var MoveButton = $Content/TextureContainer/MoveButton
@@ -62,8 +63,6 @@ func _ready():
 func _input(event):
 	if self.visible and event is InputEventMouseMotion:
 		if editing_position or editing_rotation or editing_width or editing_height:
-			if not editing_position and not editing_rotation:
-				focus_me.emit()
 			changed.emit()
 		if editing_position:
 			edited_position = true
@@ -72,9 +71,9 @@ func _input(event):
 			rotate_rect((event.position - center_origin).angle() + PI / 2 + rotation_offset)
 		else:
 			if editing_width:
-				resize_rect((event.position - rect_origin).dot( (anchor.x * Vector2(1, 0)).rotated(self.rotation) ), Rect.custom_minimum_size.y, anchor)
+				resize_focused.emit((event.position - rect_origin).dot( (anchor.x * Vector2(1, 0)).rotated(self.rotation) ), Rect.custom_minimum_size.y, anchor)
 			if editing_height:
-				resize_rect(Rect.custom_minimum_size.x, (event.position - rect_origin).dot( (anchor.y * Vector2(0, 1) ).rotated(self.rotation) ), anchor)
+				resize_focused.emit(Rect.custom_minimum_size.x, (event.position - rect_origin).dot( (anchor.y * Vector2(0, 1) ).rotated(self.rotation) ), anchor)
 	if self.visible and event is InputEventMouseButton and not event.pressed:
 		if editing_position or editing_width or editing_height or editing_rotation:
 			if not editing_position or editing_position and edited_position:
@@ -260,28 +259,24 @@ func _on_width_button_left_pressed():
 	WidthButtonL.disabled = true
 	anchor.x = -1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
-	focus_me.emit()
 
 func _on_width_button_right_pressed():
 	editing_width = true
 	WidthButtonR.disabled = true
 	anchor.x = 1
 	rect_origin = Rect.get_global_position()
-	focus_me.emit()
 
 # this function is useless, because I removed the button, but I like to keeep it anyway
 func _on_height_button_up_pressed():
 	editing_height = true
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y)
-	focus_me.emit()
 
 func _on_height_button_down_pressed():
 	editing_height = true
 	HeightButtonD.disabled = true
 	anchor.y = 1
 	rect_origin = Rect.get_global_position()
-	focus_me.emit()
 
 func _on_diag_button_rd_pressed():
 	editing_width = true
@@ -290,7 +285,6 @@ func _on_diag_button_rd_pressed():
 	anchor.x = 1
 	anchor.y = 1
 	rect_origin = Rect.get_global_position()
-	focus_me.emit()
 
 func _on_diag_button_ld_pressed():
 	editing_width = true
@@ -299,7 +293,6 @@ func _on_diag_button_ld_pressed():
 	anchor.x = -1
 	anchor.y = 1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, 0).rotated(self.rotation)
-	focus_me.emit()
 
 func _on_diag_button_ru_pressed():
 	editing_width = true
@@ -308,7 +301,6 @@ func _on_diag_button_ru_pressed():
 	anchor.x = 1
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(0, Rect.size.y).rotated(self.rotation)
-	focus_me.emit()
 
 func _on_diag_button_lu_pressed():
 	editing_width = true
@@ -317,7 +309,6 @@ func _on_diag_button_lu_pressed():
 	anchor.x = -1
 	anchor.y = -1
 	rect_origin = Rect.get_global_position() + Vector2(Rect.size.x, Rect.size.y).rotated(self.rotation)
-	focus_me.emit()
 
 # turning
 

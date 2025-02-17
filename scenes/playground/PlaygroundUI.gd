@@ -147,6 +147,10 @@ func _on_playground_start_editing_rotation(origin, origin_rotation) -> void:
 	for rect in CurrentRects:
 		rect.set_editing_rotation(origin, origin_rotation)
 
+func _on_playground_resize_focused(width, height, anchor) -> void:
+	for rect in CurrentRects:
+		rect.resize_rect(width, height, anchor)
+
 func _on_playground_edited_position() -> void:
 	if geomoptions_open:
 		GeomOptions.load_ui(get_current_contractions())
@@ -429,6 +433,7 @@ func _on_presets_close_me():
 
 func _on_presets_load_preset(ifs):
 	load_ifs.emit(ifs, true, false)
+	PresetTimer.start()
 
 func _on_preset_timer_timeout():
 	_fractal_changed()

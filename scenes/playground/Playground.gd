@@ -8,6 +8,7 @@ signal defocus
 
 signal start_editing_position
 signal start_editing_rotation
+signal resize_focused
 
 signal edited_position
 
@@ -20,6 +21,7 @@ var emit_fractal_changed_next_frame = false
 
 var editing_position = false
 var editing_rotation = false
+var editing_width = false
 
 @onready var TxTOptions # to disable scrolling if they are visible
 
@@ -68,6 +70,7 @@ func add(pos, origin, duplicating=false, emit_fractal_changed=true):
 	Instance.defocus_others.connect(focus_only.bind(Instance))
 	Instance.start_editing_position.connect(_on_rect_start_editing_position)
 	Instance.start_editing_rotation.connect(_on_rect_start_editing_rotation)
+	Instance.resize_focused.connect(_on_rect_resize_focused)
 	Instance.changed.connect(_fractal_changed)
 	Instance.changed_vastly.connect(_fractal_changed_vastly)
 	self.add_child(Instance)
@@ -128,6 +131,9 @@ func _on_rect_start_editing_position():
 func _on_rect_start_editing_rotation(origin, origin_rotation):
 	start_editing_rotation.emit(origin, origin_rotation)
 	editing_rotation = true
+
+func _on_rect_resize_focused(width, height, anchor):
+	resize_focused.emit(width, height, anchor)
 
 # get & set
 
