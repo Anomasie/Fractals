@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/playground/Rect.gd" id="1_xqf1l"]
 [ext_resource type="Texture2D" uid="uid://gk7udv2vih6r" path="res://assets/white.png" id="2_72flb"]
-[ext_resource type="Texture2D" uid="uid://dmlv7l6lwogmw" path="res://assets/maske.png" id="4_u4mid"]
+[ext_resource type="Texture2D" uid="uid://hw0hrvhtmapn" path="res://assets/arrow.png" id="3_5ya2b"]
 [ext_resource type="Texture2D" uid="uid://ooj8ue67bf7j" path="res://assets/gui/rect_buttons.png" id="5_hmmwh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iy0ws"]
@@ -78,8 +78,8 @@ atlas = ExtResource("5_hmmwh")
 region = Rect2(64, 0, 32, 32)
 
 [node name="Rect" type="MarginContainer"]
-offset_right = 48.0
-offset_bottom = 80.0
+offset_right = 128.0
+offset_bottom = 153.0
 mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
@@ -125,7 +125,8 @@ texture = ExtResource("2_72flb")
 
 [node name="Maske" type="TextureRect" parent="Content/TextureContainer"]
 layout_mode = 2
-texture = ExtResource("4_u4mid")
+texture = ExtResource("3_5ya2b")
+expand_mode = 1
 
 [node name="MoveButton" type="Button" parent="Content/TextureContainer"]
 layout_mode = 2
