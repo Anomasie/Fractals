@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://q88x6y11n1jm"]
 
-[ext_resource type="Script" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
+[ext_resource type="Script" uid="uid://dry8q4kmtreyb" path="res://scenes/playground/PlaygroundUI.gd" id="1_ioibl"]
 [ext_resource type="Texture2D" uid="uid://bg82qawkt7a6b" path="res://assets/gui/center_background.png" id="2_sdntq"]
 [ext_resource type="PackedScene" uid="uid://c8n70cda0ljy7" path="res://scenes/other-options/OtherOptions.tscn" id="4_co8v3"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="4_fd4oq"]
@@ -257,8 +257,8 @@ one_shot = true
 
 [connection signal="change_focus_of_this" from="Playground" to="." method="_on_playground_change_focus_of_this"]
 [connection signal="defocus" from="Playground" to="." method="_on_playground_defocus"]
-[connection signal="edited_position" from="Playground" to="." method="_on_playground_edited_position"]
 [connection signal="focus_this" from="Playground" to="." method="_on_playground_focus_this"]
+[connection signal="fractal_changed" from="Playground" to="." method="_on_playground_fractal_changed"]
 [connection signal="fractal_changed_vastly" from="Playground" to="." method="_on_playground_fractal_changed_vastly"]
 [connection signal="mirror_focused" from="Playground" to="." method="_on_playground_mirror_focused"]
 [connection signal="resize_focused" from="Playground" to="." method="_on_playground_resize_focused"]

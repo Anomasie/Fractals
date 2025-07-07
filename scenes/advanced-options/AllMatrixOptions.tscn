@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://jcyu2afmvis8"]
 
-[ext_resource type="Script" path="res://scenes/advanced-options/AllMatrixOptions.gd" id="1_igg3o"]
+[ext_resource type="Script" uid="uid://u8t3jmo18vcf" path="res://scenes/advanced-options/AllMatrixOptions.gd" id="1_igg3o"]
 [ext_resource type="Texture2D" uid="uid://c0ikmcsba2msv" path="res://assets/gui/playground_buttons.png" id="1_yyxan"]
 [ext_resource type="PackedScene" uid="uid://sfgrfcxf5a3v" path="res://scenes/advanced-options/TxtOptionsMatrix.tscn" id="2_1q7fv"]
 [ext_resource type="PackedScene" uid="uid://duebklrl317w2" path="res://scenes/general/SwitchButton.tscn" id="2_ejnc1"]
@@ -43,12 +43,12 @@ region = Rect2(64, 128, 32, 32)
 atlas = ExtResource("1_yyxan")
 region = Rect2(32, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qly85"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_plrrf"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0tkst"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ash3i"]
 resource_local_to_scene = true
 atlas = ExtResource("1_yyxan")
 region = Rect2(0, 256, 32, 32)
@@ -128,8 +128,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 tooltip_ = "change color algorithm"
 tooltip_ger = "ändere Farbgebung"
-tex_on = SubResource("AtlasTexture_qly85")
-tex_off = SubResource("AtlasTexture_0tkst")
+tex_on = SubResource("AtlasTexture_plrrf")
+tex_off = SubResource("AtlasTexture_ash3i")
 reverse_textures = true
 
 [node name="CenterButton" parent="PlaygroundButtons" instance=ExtResource("2_ejnc1")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6djx0t3248n1"]
 
-[ext_resource type="Script" path="res://scenes/tooltips/TooltipSubstitute.gd" id="1_s3pgo"]
+[ext_resource type="Script" uid="uid://vv4ytciw7e15" path="res://scenes/tooltips/TooltipSubstitute.gd" id="1_s3pgo"]
 
 [node name="TooltipSubstitute" type="MarginContainer"]
 anchors_preset = 12

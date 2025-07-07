@@ -12,8 +12,6 @@ signal start_editing_rotation
 signal resize_focused
 signal mirror_focused
 
-signal edited_position
-
 var Rect = load("res://scenes/playground/Rect.tscn")
 
 var rect_counter = 0
@@ -39,8 +37,6 @@ func _input(event):
 				focus_only( self.get_child(0) )
 			elif event.is_action_pressed("scroll_down"):
 				focus_only( self.get_child(0) )
-	if editing_position and event is InputEventMouseMotion:
-		edited_position.emit()
 	if event is InputEventMouseButton and not event.pressed:
 		editing_position = false
 

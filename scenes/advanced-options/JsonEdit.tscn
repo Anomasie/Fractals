@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://xk64ex5gvy0l"]
 
-[ext_resource type="Script" path="res://scenes/advanced-options/JsonEdit.gd" id="1_aapdo"]
+[ext_resource type="Script" uid="uid://dg3v1olb1rekq" path="res://scenes/advanced-options/JsonEdit.gd" id="1_aapdo"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="2_w1fki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cskex"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://eeubmpoydn2u"]
 
-[ext_resource type="Script" path="res://scenes/file-contact/MyFileDialog.gd" id="1_ghbhd"]
+[ext_resource type="Script" uid="uid://cosaehl6hklmp" path="res://scenes/file-contact/MyFileDialog.gd" id="1_ghbhd"]
 
 [node name="MyFileDialog" type="FileDialog"]
 position = Vector2i(128, 128)

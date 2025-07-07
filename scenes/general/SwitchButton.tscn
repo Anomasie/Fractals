@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://duebklrl317w2"]
 
-[ext_resource type="Script" path="res://scenes/general/SwitchButton.gd" id="1_860qb"]
+[ext_resource type="Script" uid="uid://cnmbsl5yywsba" path="res://scenes/general/SwitchButton.gd" id="1_860qb"]
 [ext_resource type="Texture2D" uid="uid://i6nt6wwqdq7s" path="res://assets/gui/result_buttons.png" id="1_pcfi0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjmbi"]

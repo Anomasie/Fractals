@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ltwl751ep3gp"]
 
 [ext_resource type="Texture2D" uid="uid://vceyw8jntod2" path="res://assets/gui/panels.png" id="1_qah6b"]
-[ext_resource type="Script" path="res://scenes/help/HelpOptions.gd" id="1_wuxvr"]
+[ext_resource type="Script" uid="uid://d10guxflve023" path="res://scenes/help/HelpOptions.gd" id="1_wuxvr"]
 [ext_resource type="PackedScene" uid="uid://yu4vk6tx0qn5" path="res://scenes/help/HelpOptionsButton.tscn" id="2_hlyym"]
 [ext_resource type="Texture2D" uid="uid://ci2mpewrmv3rv" path="res://assets/gui/close_button.png" id="2_nmpk1"]
 
